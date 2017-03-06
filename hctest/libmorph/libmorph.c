@@ -207,6 +207,17 @@ void getFullDescription (VerbFormC *vf, char *buffer, int len)
     snprintf(buffer, len, "%s %s %s %s %s", persons[vf->person], numbers[vf->number], tenses[vf->tense], voices[vf->voice], moods[vf->mood]);
 }
 
+void getAbbrevDescription2 (VerbFormD *vf, char *buffer, int len)
+{
+    VerbFormC vfc;
+    vfc.person = vf->person;
+    vfc.number = vf->number;
+    vfc.tense = vf->tense;
+    vfc.voice = vf->voice;
+    vfc.mood = vf->mood;
+    getAbbrevDescription (&vfc, buffer, len);
+}
+
 void getAbbrevDescription (VerbFormC *vf, char *buffer, int len)
 {
     snprintf(buffer, len, "%s %s %s %s %s", personsabbrev[vf->person], numbersabbrev[vf->number], tensesabbrev[vf->tense], voicesabbrev[vf->voice], moodsabbrev[vf->mood]);

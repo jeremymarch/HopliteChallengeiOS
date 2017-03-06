@@ -248,6 +248,7 @@ int getForm2(VerbFormD *vf, char *utf8OutputBuffer, int bufferLen, bool includeA
 
 void getFullDescription (VerbFormC *vf, char *buffer, int len);
 void getAbbrevDescription (VerbFormC *vf, char *buffer, int len);
+void getAbbrevDescription2 (VerbFormD *vf, char *buffer, int len);
 
 void getPrincipalParts(Verb *v, char *buffer, int len);
 

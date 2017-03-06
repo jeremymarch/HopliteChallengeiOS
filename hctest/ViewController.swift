@@ -39,6 +39,8 @@ class ViewController: UIViewController {
     
     let animateDuration:TimeInterval = 0.6
     
+    var askOrAnswer:Bool = true
+    
     let vs:VerbSequence = VerbSequence()
     
     
@@ -254,6 +256,35 @@ class ViewController: UIViewController {
         timerLabel.countDown = true
         timerLabel.startTimer()
         NotificationCenter.default.addObserver(self, selector: #selector(handleTimeOut), name: NSNotification.Name(rawValue: "HCTimeOut"), object: nil)
+        
+        start()
+    }
+    
+    func start()
+    {
+        vs.reset()
+    }
+    
+    func askForForm()
+    {
+        vs.getNext()
+        label1.text = vs.givenForm?.getForm()
+        stemLabel.text = vs.requestedForm?.getDescription()
+        
+        label2.isHidden = true
+        label2.text = vs.requestedForm?.getForm()
+    }
+    
+    func showAnswer()
+    {
+        if a == true
+        {
+            textView.text = label2.text
+        }
+        else
+        {
+            label2.isHidden = false;
+        }
     }
     
     func handleTimeOut()
@@ -273,22 +304,33 @@ class ViewController: UIViewController {
     func press(button: UIButton) {
         vs.getNext()
         label1.text = vs.requestedForm?.getForm()
-    
-        textView.text = "hello"
         
-        if a == true
+        if askOrAnswer == true
         {
-            animatetextViewUp()
+            askForForm()
         }
         else
         {
-            animateLabelUp()
+            showAnswer()
+            if a == true
+            {
+                animatetextViewUp()
+            }
+            else
+            {
+                animateLabelUp()
+            }
+            a = !a
         }
-        a = !a
+        askOrAnswer = !askOrAnswer
     }
     
     func animateLabelUp()
     {
+        label1.text = ""
+        stemLabel.text = ""
+        textView.text = ""
+        
         label2Top?.isActive = false
         label2Top = label2.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0)
         label2Top?.isActive = true
@@ -323,6 +365,9 @@ class ViewController: UIViewController {
     
     func animatetextViewUp()
     {
+        label1.text = ""
+        stemLabel.text = ""
+        
         self.textViewTop?.isActive = false
         self.textViewTop = self.textView.topAnchor.constraint(equalTo: self.headerView.bottomAnchor, constant: 0.0)
         self.textViewTop?.isActive = true

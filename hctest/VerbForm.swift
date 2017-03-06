@@ -59,4 +59,27 @@ class VerbForm {
             return ""
         }
     }
+    
+    func getDescription() -> String
+    {
+        let bufferSize:Int = 500
+        var buffer2 = [Int8](repeating: 0, count: bufferSize)
+        
+        var vf = VerbFormD()
+        vf.person = UInt8(self.person)
+        vf.number = UInt8(self.number)
+        vf.tense = UInt8(self.tense)
+        vf.voice = UInt8(self.voice)
+        vf.mood = UInt8(self.mood)
+        vf.verbid = UInt32(self.verbid)
+        
+        getAbbrevDescription2(&vf, &buffer2, Int32(bufferSize))
+        //let data = Data(bytes:buffer2, count:bufferSize)
+        //let s = String(data: data, encoding: String.Encoding.utf8)
+        let s = String(cString: buffer2)
+        
+        //NSLog("len: \(s.characters.count)")
+        
+        return s
+    }
 }
