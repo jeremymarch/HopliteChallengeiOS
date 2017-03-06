@@ -13,6 +13,17 @@
 		3F3443AB1E6BB17700FFAD04 /* hctest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443A91E6BB17700FFAD04 /* hctest.xcdatamodeld */; };
 		3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443AC1E6BB17700FFAD04 /* Assets.xcassets */; };
 		3F3443B01E6BB17700FFAD04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443AE1E6BB17700FFAD04 /* LaunchScreen.storyboard */; };
+		3F3443BA1E6BB27A00FFAD04 /* libmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443B91E6BB27A00FFAD04 /* libmorph.c */; };
+		3F3443C01E6BB2A100FFAD04 /* ending.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443BC1E6BB2A100FFAD04 /* ending.c */; };
+		3F3443C11E6BB2A100FFAD04 /* augment.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443BF1E6BB2A100FFAD04 /* augment.c */; };
+		3F3443C41E6BB2B000FFAD04 /* accent.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443C21E6BB2B000FFAD04 /* accent.c */; };
+		3F3443C71E6BB2BF00FFAD04 /* utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443C51E6BB2BF00FFAD04 /* utilities.c */; };
+		3F3443C91E6BB2CD00FFAD04 /* GreekForms.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443C81E6BB2CD00FFAD04 /* GreekForms.c */; };
+		3F3443CB1E6BB2D700FFAD04 /* VerbSequence.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CA1E6BB2D700FFAD04 /* VerbSequence.c */; };
+		3F3443CE1E6BB33400FFAD04 /* VerbForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */; };
+		3F3443D31E6BB41D00FFAD04 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CF1E6BB41D00FFAD04 /* sqlite3.c */; };
+		3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */; };
+		3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443D61E6C814200FFAD04 /* newathu5.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +35,27 @@
 		3F3443AC1E6BB17700FFAD04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F3443AF1E6BB17700FFAD04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F3443B11E6BB17700FFAD04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F3443B81E6BB27900FFAD04 /* hctest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "hctest-Bridging-Header.h"; sourceTree = "<group>"; };
+		3F3443B91E6BB27A00FFAD04 /* libmorph.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = libmorph.c; path = libmorph/libmorph.c; sourceTree = "<group>"; };
+		3F3443BB1E6BB2A100FFAD04 /* ending.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ending.h; path = libmorph/ending.h; sourceTree = "<group>"; };
+		3F3443BC1E6BB2A100FFAD04 /* ending.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ending.c; path = libmorph/ending.c; sourceTree = "<group>"; };
+		3F3443BD1E6BB2A100FFAD04 /* libmorph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = libmorph.h; path = libmorph/libmorph.h; sourceTree = "<group>"; };
+		3F3443BE1E6BB2A100FFAD04 /* augment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = augment.h; path = libmorph/augment.h; sourceTree = "<group>"; };
+		3F3443BF1E6BB2A100FFAD04 /* augment.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = augment.c; path = libmorph/augment.c; sourceTree = "<group>"; };
+		3F3443C21E6BB2B000FFAD04 /* accent.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = accent.c; path = libmorph/accent.c; sourceTree = "<group>"; };
+		3F3443C31E6BB2B000FFAD04 /* accent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = accent.h; path = libmorph/accent.h; sourceTree = "<group>"; };
+		3F3443C51E6BB2BF00FFAD04 /* utilities.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = utilities.c; path = libmorph/utilities.c; sourceTree = "<group>"; };
+		3F3443C61E6BB2BF00FFAD04 /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utilities.h; path = libmorph/utilities.h; sourceTree = "<group>"; };
+		3F3443C81E6BB2CD00FFAD04 /* GreekForms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = GreekForms.c; path = libmorph/GreekForms.c; sourceTree = "<group>"; };
+		3F3443CA1E6BB2D700FFAD04 /* VerbSequence.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = VerbSequence.c; path = libmorph/VerbSequence.c; sourceTree = "<group>"; };
+		3F3443CC1E6BB2E600FFAD04 /* VerbSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VerbSequence.h; path = libmorph/VerbSequence.h; sourceTree = "<group>"; };
+		3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerbForm.swift; sourceTree = "<group>"; };
+		3F3443CF1E6BB41D00FFAD04 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sqlite3.c; path = libmorph/sqlite3.c; sourceTree = "<group>"; };
+		3F3443D01E6BB41D00FFAD04 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sqlite3.h; path = libmorph/sqlite3.h; sourceTree = "<group>"; };
+		3F3443D11E6BB41D00FFAD04 /* GreekForms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreekForms.h; path = libmorph/GreekForms.h; sourceTree = "<group>"; };
+		3F3443D21E6BB41D00FFAD04 /* GreekUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreekUnicode.h; path = libmorph/GreekUnicode.h; sourceTree = "<group>"; };
+		3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerbSequence.swift; sourceTree = "<group>"; };
+		3F3443D61E6C814200FFAD04 /* newathu5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newathu5.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +88,8 @@
 		3F3443A11E6BB17700FFAD04 /* hctest */ = {
 			isa = PBXGroup;
 			children = (
+				3F3443D61E6C814200FFAD04 /* newathu5.ttf */,
+				3F3443B71E6BB25C00FFAD04 /* libmorph */,
 				3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */,
 				3F3443A41E6BB17700FFAD04 /* ViewController.swift */,
 				3F3443A61E6BB17700FFAD04 /* Main.storyboard */,
@@ -63,8 +97,35 @@
 				3F3443AE1E6BB17700FFAD04 /* LaunchScreen.storyboard */,
 				3F3443B11E6BB17700FFAD04 /* Info.plist */,
 				3F3443A91E6BB17700FFAD04 /* hctest.xcdatamodeld */,
+				3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */,
+				3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */,
 			);
 			path = hctest;
+			sourceTree = "<group>";
+		};
+		3F3443B71E6BB25C00FFAD04 /* libmorph */ = {
+			isa = PBXGroup;
+			children = (
+				3F3443CF1E6BB41D00FFAD04 /* sqlite3.c */,
+				3F3443D01E6BB41D00FFAD04 /* sqlite3.h */,
+				3F3443D11E6BB41D00FFAD04 /* GreekForms.h */,
+				3F3443D21E6BB41D00FFAD04 /* GreekUnicode.h */,
+				3F3443CC1E6BB2E600FFAD04 /* VerbSequence.h */,
+				3F3443CA1E6BB2D700FFAD04 /* VerbSequence.c */,
+				3F3443C81E6BB2CD00FFAD04 /* GreekForms.c */,
+				3F3443C51E6BB2BF00FFAD04 /* utilities.c */,
+				3F3443C61E6BB2BF00FFAD04 /* utilities.h */,
+				3F3443C21E6BB2B000FFAD04 /* accent.c */,
+				3F3443C31E6BB2B000FFAD04 /* accent.h */,
+				3F3443BB1E6BB2A100FFAD04 /* ending.h */,
+				3F3443BC1E6BB2A100FFAD04 /* ending.c */,
+				3F3443BD1E6BB2A100FFAD04 /* libmorph.h */,
+				3F3443BE1E6BB2A100FFAD04 /* augment.h */,
+				3F3443BF1E6BB2A100FFAD04 /* augment.c */,
+				3F3443B91E6BB27A00FFAD04 /* libmorph.c */,
+				3F3443B81E6BB27900FFAD04 /* hctest-Bridging-Header.h */,
+			);
+			name = libmorph;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -100,6 +161,7 @@
 					3F34439E1E6BB17700FFAD04 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = EFHC4XFZ38;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -128,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F3443B01E6BB17700FFAD04 /* LaunchScreen.storyboard in Resources */,
+				3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */,
 				3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */,
 				3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */,
 			);
@@ -140,9 +203,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F3443C71E6BB2BF00FFAD04 /* utilities.c in Sources */,
+				3F3443BA1E6BB27A00FFAD04 /* libmorph.c in Sources */,
+				3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */,
+				3F3443C11E6BB2A100FFAD04 /* augment.c in Sources */,
 				3F3443A51E6BB17700FFAD04 /* ViewController.swift in Sources */,
 				3F3443A31E6BB17700FFAD04 /* AppDelegate.swift in Sources */,
+				3F3443C41E6BB2B000FFAD04 /* accent.c in Sources */,
+				3F3443C91E6BB2CD00FFAD04 /* GreekForms.c in Sources */,
+				3F3443D31E6BB41D00FFAD04 /* sqlite3.c in Sources */,
 				3F3443AB1E6BB17700FFAD04 /* hctest.xcdatamodeld in Sources */,
+				3F3443CE1E6BB33400FFAD04 /* VerbForm.swift in Sources */,
+				3F3443C01E6BB2A100FFAD04 /* ending.c in Sources */,
+				3F3443CB1E6BB2D700FFAD04 /* VerbSequence.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,11 +338,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = hctest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hctest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -278,11 +354,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = hctest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hctest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
