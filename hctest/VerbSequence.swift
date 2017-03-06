@@ -13,10 +13,11 @@ class VerbSequence {
     var requestedForm:VerbForm?
     var options:VerbSeqOptions?
     var seq:Int = 1
+    var score:Int = 0
     
     init() {
-        self.givenForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 1)
-        self.requestedForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 1)
+        self.givenForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 0)
+        self.requestedForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 0)
         self.reset()
         
         options = VerbSeqOptions()
@@ -68,6 +69,39 @@ class VerbSequence {
     func reset()
     {
         resetVerbSeq()
+    }
+    
+    func checkVerb(givenForm1:String, enteredForm1:String, mfPressed:Bool, time:String) -> Bool
+    {
+        var ascore:Int32 = Int32(self.score)
+        var givenLen = 0
+        let givenForm = stringToUtf16(s: givenForm1, len: &givenLen)
+        let buffer = UnsafeMutablePointer<UInt16>(mutating: givenForm)
+        
+        var enteredLen = 0
+        let enteredForm = stringToUtf16(s: enteredForm1, len: &enteredLen)
+        let buffer2 = UnsafeMutablePointer<UInt16>(mutating: enteredForm)
+        
+        let timeS = UnsafeMutablePointer<Int8>(mutating: time)
+        
+        print(givenForm)
+        print(enteredForm)
+        
+        let a = compareFormsCheckMFRecordResult(buffer2, Int32(enteredLen), buffer, Int32(givenLen), mfPressed, timeS, &ascore)
+        
+        return a
+    }
+    
+    func stringToUtf16(s:String, len: inout Int) -> [UInt16]
+    {
+        len = 0
+        var buffer = [UInt16]()
+        for l in s.utf16
+        {
+            buffer.append(l)
+            len += 1
+        }
+        return buffer
     }
 }
 

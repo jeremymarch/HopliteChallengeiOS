@@ -38,9 +38,10 @@ class ViewController: UIViewController, UITextViewDelegate  {
     let hcorange:UIColor = UIColor(colorLiteralRed: 1.0, green: 0.2196, blue: 0.0, alpha: 1.0)
     let testColors:Bool = false
     
-    let animateDuration:TimeInterval = 0.6
+    let animateDuration:TimeInterval = 0.4
     
     var askOrAnswer:Bool = true
+    var mfPressed:Bool = false
     
     let vs:VerbSequence = VerbSequence()
     
@@ -54,13 +55,22 @@ class ViewController: UIViewController, UITextViewDelegate  {
         
         textView.delegate = self
         
+        //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
+        if #available(iOS 9.0, *)
+        {
+            let item : UITextInputAssistantItem = textView.inputAssistantItem
+            item.leadingBarButtonGroups = []
+            item.trailingBarButtonGroups = []
+        }
+        
         if UIDevice.current.userInterfaceIdiom == .pad
         {
             timeFontSize = 24.0;
             fontSize = 30.0;
             greekFontSize = 40.0;
         }
-        else if UIDevice.current.userInterfaceIdiom == .phone {
+        else //if UIDevice.current.userInterfaceIdiom == .phone
+        {
             switch UIScreen.main.nativeBounds.height
             {
             case 480:       //iPhone Classic
@@ -161,6 +171,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
         mfLabel.layer.borderWidth = 2.0
         mfLabel.layer.borderColor = hcorange.cgColor
         mfLabel.layer.cornerRadius = 4.0
+        mfLabel.isHidden = true
         
         let life1i = UIImage(named:"Life4X.png")
         headerView.addSubview(life1)
@@ -252,12 +263,8 @@ class ViewController: UIViewController, UITextViewDelegate  {
         kb?.appExt = false
         textView.inputView = kb?.view
         
-        //vs.getNext()
-        //label1.text = vs.requestedForm?.getForm()
-        
         continueButton.addTarget(self, action: #selector(continuePressed(button:)), for: .touchUpInside)
         
-        //printVerbs()
         timerLabel.countDownTime = 30
         timerLabel.countDown = true
         timerLabel.startTimer()
@@ -286,7 +293,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
         label2Top?.isActive = true
         view.bringSubview(toFront: self.label2)
         
-        UIView.animate(withDuration: animateDuration, animations: {
+        UIView.animate(withDuration: animateDuration, delay: 0.0, options: [.curveEaseInOut], animations: {
             self.view.layoutIfNeeded()
             
         }, completion: {
@@ -310,7 +317,6 @@ class ViewController: UIViewController, UITextViewDelegate  {
             self.label2Top = self.label1Top
             self.label1Top = tempCon!
             self.askForForm()
-            
         })
     }
     
@@ -325,7 +331,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
         
         view.bringSubview(toFront: self.textView)
         
-        UIView.animate(withDuration: animateDuration, animations: {
+        UIView.animate(withDuration: animateDuration, delay: 0.0, options: [.curveEaseInOut], animations: {
             self.view.layoutIfNeeded()
             
         }, completion: {
@@ -414,6 +420,12 @@ class ViewController: UIViewController, UITextViewDelegate  {
             // Return FALSE so that the final '\n' character doesn't get added
             return false;
         }
+        else if text == "."
+        {
+            mfKeyPressed()
+            // Return FALSE so that the final '\n' character doesn't get added
+            return false;
+        }
         
         // For any other character return TRUE so that the text gets added to the view
         return true
@@ -439,11 +451,26 @@ class ViewController: UIViewController, UITextViewDelegate  {
     
     func enterKeyPressed()
     {
+        timerLabel.stopTimer()
+        checkAnswer()
+    }
+    
+    func checkAnswer()
+    {
         textView.isEditable = false
         textView.isSelectable = false
         textView.resignFirstResponder()
-        timerLabel.stopTimer()
-        showAnswer()
+        if vs.checkVerb(givenForm1: (vs.requestedForm?.getForm())!, enteredForm1: textView.text, mfPressed: false, time: "234") == true
+        {
+            NSLog("yes!")
+            
+        }
+        else
+        {
+            textView.textColor = UIColor.gray
+            showAnswer()
+            NSLog("no!")
+        }
     }
     
     func continuePressed(button: UIButton) {
@@ -455,11 +482,10 @@ class ViewController: UIViewController, UITextViewDelegate  {
             label2.text = ""
             textView.text = ""
             askForForm()
-            
         }
         else
         {
-            if a == true
+            if label2.isHidden == true
             {
                 animatetextViewUp()
             }
@@ -467,10 +493,28 @@ class ViewController: UIViewController, UITextViewDelegate  {
             {
                 animateLabelUp()
             }
-            a = !a
         }
     }
     
+    func mfKeyPressed()
+    {
+        if mfPressed == false
+        {
+            mfPressed = true
+            mfLabel.isHidden = false
+            if vs.requestedForm?.getForm().contains(",") == false
+            {
+                timerLabel.stopTimer()
+                checkAnswer()
+            }
+            else
+            {
+                //1.5 x the time
+                let halfTime = timerLabel.countDownTime / 2
+                timerLabel.startTime += halfTime
+            }
+        }
+    }
     
     func start()
     {
@@ -482,34 +526,30 @@ class ViewController: UIViewController, UITextViewDelegate  {
     {
         vs.getNext()
         label1.text = vs.givenForm?.getForm()
+        label1.isHidden = false
         //stemLabel.text = vs.requestedForm?.getDescription()
         stemLabel.attributedText = attributedDescription(orig: (vs.givenForm?.getDescription())!, new: (vs.requestedForm?.getDescription())!)
         label2.isHidden = true
         label2.text = vs.requestedForm?.getForm()
         textView.isEditable = true
         textView.isSelectable = true
+        textView.textColor = UIColor.black
         textView.becomeFirstResponder()
+        mfPressed = false
+        mfLabel.isHidden = true
         timerLabel.startTimer()
     }
     
     func showAnswer()
     {
-        if a == true
-        {
-            textView.text = label2.text
-        }
-        else
-        {
-            label2.isHidden = false;
-        }
+        label2.isHidden = false
     }
     
     func handleTimeOut()
     {
         NSLog("time out")
-        textView.resignFirstResponder()
-        textView.isEditable = false
-        textView.isSelectable = false
+        
+        checkAnswer()
     }
     
 

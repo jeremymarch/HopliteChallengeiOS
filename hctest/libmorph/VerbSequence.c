@@ -332,13 +332,13 @@ void resetVerbSeq()
 int nextVerbSeq2(int *seq, VerbFormD *vf1, VerbFormD *vf2)
 {
     VerbSeqOptions vso;
-    vso.degreesToChange = 1;
+    vso.degreesToChange = 2;
     vso.isHCGame = false;
-    vso.numUnits = 2;
+    vso.numUnits = 1;
     vso.repsPerVerb = 4;
     vso.practiceVerbID = -1;
-    vso.units[0] = 3;// = {1,2, 3, 4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 };
-    vso.units[1] = 4;
+    vso.units[0] = 1;// = {1,2, 3, 4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 };
+    //vso.units[1] = 7;
     VerbFormC vfc1;
     VerbFormC vfc2;
     
