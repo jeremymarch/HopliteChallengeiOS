@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextViewDelegate  {
+    var kb:KeyboardViewController? = nil
     var label1 = UILabel()
     var label2 = UILabel()
     let stemLabel = UILabel()
@@ -50,6 +51,8 @@ class ViewController: UIViewController {
         
         //let m = VerbForm(person:0, number:0, tense:0, voice:0, mood:0, verb:4)
         //NSLog("here: \(m.getForm())")
+        
+        textView.delegate = self
         
         if UIDevice.current.userInterfaceIdiom == .pad
         {
@@ -245,51 +248,22 @@ class ViewController: UIViewController {
         continueButton.titleLabel?.textColor = UIColor.white
         continueButton.titleLabel?.font = continueFont
         
+        kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
+        kb?.appExt = false
+        textView.inputView = kb?.view
         
-        vs.getNext()
-        label1.text = vs.requestedForm?.getForm()
+        //vs.getNext()
+        //label1.text = vs.requestedForm?.getForm()
         
-        continueButton.addTarget(self, action: #selector(press(button:)), for: .touchUpInside)
+        continueButton.addTarget(self, action: #selector(continuePressed(button:)), for: .touchUpInside)
         
         //printVerbs()
-        timerLabel.countDownTime = 10
+        timerLabel.countDownTime = 30
         timerLabel.countDown = true
         timerLabel.startTimer()
         NotificationCenter.default.addObserver(self, selector: #selector(handleTimeOut), name: NSNotification.Name(rawValue: "HCTimeOut"), object: nil)
         
         start()
-    }
-    
-    func start()
-    {
-        vs.reset()
-    }
-    
-    func askForForm()
-    {
-        vs.getNext()
-        label1.text = vs.givenForm?.getForm()
-        stemLabel.text = vs.requestedForm?.getDescription()
-        
-        label2.isHidden = true
-        label2.text = vs.requestedForm?.getForm()
-    }
-    
-    func showAnswer()
-    {
-        if a == true
-        {
-            textView.text = label2.text
-        }
-        else
-        {
-            label2.isHidden = false;
-        }
-    }
-    
-    func handleTimeOut()
-    {
-        NSLog("time out")
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -299,30 +273,6 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    func press(button: UIButton) {
-        vs.getNext()
-        label1.text = vs.requestedForm?.getForm()
-        
-        if askOrAnswer == true
-        {
-            askForForm()
-        }
-        else
-        {
-            showAnswer()
-            if a == true
-            {
-                animatetextViewUp()
-            }
-            else
-            {
-                animateLabelUp()
-            }
-            a = !a
-        }
-        askOrAnswer = !askOrAnswer
     }
     
     func animateLabelUp()
@@ -359,6 +309,7 @@ class ViewController: UIViewController {
             tempCon = self.label2Top
             self.label2Top = self.label1Top
             self.label1Top = tempCon!
+            self.askForForm()
             
         })
     }
@@ -386,6 +337,7 @@ class ViewController: UIViewController {
             self.textViewTop?.isActive = false
             self.textViewTop = self.textView.topAnchor.constraint(equalTo: self.stemLabel.bottomAnchor, constant: 0.0)
             self.textViewTop?.isActive = true
+            self.askForForm()
         })
     }
     
@@ -452,5 +404,114 @@ class ViewController: UIViewController {
         }
         NSLog("Count: \(count)")
     }
+    
+    //this lets us catch the enter key
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if text == "\n"
+        {
+            enterKeyPressed()
+            // Return FALSE so that the final '\n' character doesn't get added
+            return false;
+        }
+        
+        // For any other character return TRUE so that the text gets added to the view
+        return true
+    }
+    
+    func attributedDescription(orig:String, new:String) -> NSMutableAttributedString
+    {
+        var a = orig.components(separatedBy: " ")
+        var b = new.components(separatedBy: " ")
+        
+        let att = NSMutableAttributedString.init(string: new)
+        var start = 0
+        for i in 0...4
+        {
+            if a[i] != b[i]
+            {
+                att.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Bold", size: fontSize)!, range: NSRange(location: start, length: b[i].characters.count))
+            }
+            start += b[i].characters.count + 1
+        }
+        return att
+    }
+    
+    func enterKeyPressed()
+    {
+        textView.isEditable = false
+        textView.isSelectable = false
+        textView.resignFirstResponder()
+        timerLabel.stopTimer()
+        showAnswer()
+    }
+    
+    func continuePressed(button: UIButton) {
+        
+        let b:Int = Int((vs.options?.repsPerVerb)!)
+        
+        if vs.seq == b
+        {
+            label2.text = ""
+            textView.text = ""
+            askForForm()
+            
+        }
+        else
+        {
+            if a == true
+            {
+                animatetextViewUp()
+            }
+            else
+            {
+                animateLabelUp()
+            }
+            a = !a
+        }
+    }
+    
+    
+    func start()
+    {
+        vs.reset()
+        askForForm()
+    }
+    
+    func askForForm()
+    {
+        vs.getNext()
+        label1.text = vs.givenForm?.getForm()
+        //stemLabel.text = vs.requestedForm?.getDescription()
+        stemLabel.attributedText = attributedDescription(orig: (vs.givenForm?.getDescription())!, new: (vs.requestedForm?.getDescription())!)
+        label2.isHidden = true
+        label2.text = vs.requestedForm?.getForm()
+        textView.isEditable = true
+        textView.isSelectable = true
+        textView.becomeFirstResponder()
+        timerLabel.startTimer()
+    }
+    
+    func showAnswer()
+    {
+        if a == true
+        {
+            textView.text = label2.text
+        }
+        else
+        {
+            label2.isHidden = false;
+        }
+    }
+    
+    func handleTimeOut()
+    {
+        NSLog("time out")
+        textView.resignFirstResponder()
+        textView.isEditable = false
+        textView.isSelectable = false
+    }
+    
+
 }
 

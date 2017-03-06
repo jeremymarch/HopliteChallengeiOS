@@ -35,6 +35,8 @@ class HCTimer: UILabel {
             self.text = "0.00 sec"
         }
         self.textColor = UIColor.black
+        
+        stopTimer()
         startTime = CACurrentMediaTime()
         timerDisplayLink = CADisplayLink.init(target: self, selector: #selector(runTimer))
         timerDisplayLink?.frameInterval = 1
@@ -76,7 +78,7 @@ class HCTimer: UILabel {
         {
             timerDisplayLink?.invalidate()
         }
-        timerDisplayLink = nil;
+        //timerDisplayLink = nil;
     }
     
 }

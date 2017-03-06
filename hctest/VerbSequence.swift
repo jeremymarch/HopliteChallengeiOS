@@ -18,6 +18,9 @@ class VerbSequence {
         self.givenForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 1)
         self.requestedForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 1)
         self.reset()
+        
+        options = VerbSeqOptions()
+        options?.repsPerVerb = 4
 }
     func getNext() -> Int
     {
@@ -58,7 +61,7 @@ class VerbSequence {
         
         self.seq = Int(a)
 
-        NSLog("len: \(x), seq: \(self.seq)")
+        NSLog("Seq: \(self.seq)")
         return Int(x)
     }
     

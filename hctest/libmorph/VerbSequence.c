@@ -335,7 +335,7 @@ int nextVerbSeq2(int *seq, VerbFormD *vf1, VerbFormD *vf2)
     vso.degreesToChange = 1;
     vso.isHCGame = false;
     vso.numUnits = 2;
-    vso.repsPerVerb = 5;
+    vso.repsPerVerb = 4;
     vso.practiceVerbID = -1;
     vso.units[0] = 3;// = {1,2, 3, 4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 };
     vso.units[1] = 4;
@@ -356,11 +356,7 @@ int nextVerbSeq2(int *seq, VerbFormD *vf1, VerbFormD *vf2)
     vfc2.mood = vf2->mood;
     vfc2.verb = &verbs[vf2->verbid];
     
-    printf("vf2: %i, %i\n", vfc1.verb->verbid, vfc2.verb->verbid);
-    
     int ret = nextVerbSeq(seq, &vfc1, &vfc2, &vso);
-    
-    printf("vf3: %i, %i\n", vfc1.verb->verbid, vfc2.verb->verbid);
     
     vf1->person = vfc1.person;
     vf1->number = vfc1.number;
@@ -407,7 +403,6 @@ int nextVerbSeq(int *seq, VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso)
     if (vso->practiceVerbID > -1)
     {
         v = &verbs[vso->practiceVerbID];
-        printf("practice: %i\n", v->verbid);
     }
     else if (vso->isHCGame)
     {
@@ -438,8 +433,6 @@ int nextVerbSeq(int *seq, VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso)
                 v = getRandomVerb(vso->units, vso->numUnits);
             } while (v == lastV);
             lastV = v;
-            printf("ABC: %i\n", v->verbid);
-            
             
             verbSeq = 1;
         }
@@ -457,7 +450,6 @@ int nextVerbSeq(int *seq, VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso)
     }
     */
     vf1->verb = v; //THIS IS THE VERB WE'E USING
-    printf("p2: %i\n", vf1->verb->verbid);
     //***************OVERRIDE for testing on specific verbs, set here*******************************
     //vf1->verb = &verbs[3];//46];//13]; //46 kathisthmi is longest
     //***************for testing on specific verbs*****************************************
@@ -492,7 +484,6 @@ int nextVerbSeq(int *seq, VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso)
     }
     else if (verbSeq == 1)
     {
-        printf("p3: %i\n", vf1->verb->verbid);
          do
          {
              generateForm(vf1);
