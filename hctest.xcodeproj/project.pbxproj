@@ -24,6 +24,8 @@
 		3F3443D31E6BB41D00FFAD04 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CF1E6BB41D00FFAD04 /* sqlite3.c */; };
 		3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */; };
 		3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443D61E6C814200FFAD04 /* newathu5.ttf */; };
+		3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FAA8D2E1E6D046300254E97 /* Life4X.png */; };
+		3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAA8D301E6D212900254E97 /* HCTimer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,8 @@
 		3F3443D21E6BB41D00FFAD04 /* GreekUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreekUnicode.h; path = libmorph/GreekUnicode.h; sourceTree = "<group>"; };
 		3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerbSequence.swift; sourceTree = "<group>"; };
 		3F3443D61E6C814200FFAD04 /* newathu5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newathu5.ttf; sourceTree = "<group>"; };
+		3FAA8D2E1E6D046300254E97 /* Life4X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Life4X.png; sourceTree = "<group>"; };
+		3FAA8D301E6D212900254E97 /* HCTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCTimer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,7 @@
 		3F3443A11E6BB17700FFAD04 /* hctest */ = {
 			isa = PBXGroup;
 			children = (
+				3FAA8D2E1E6D046300254E97 /* Life4X.png */,
 				3F3443D61E6C814200FFAD04 /* newathu5.ttf */,
 				3F3443B71E6BB25C00FFAD04 /* libmorph */,
 				3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */,
@@ -99,6 +104,7 @@
 				3F3443A91E6BB17700FFAD04 /* hctest.xcdatamodeld */,
 				3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */,
 				3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */,
+				3FAA8D301E6D212900254E97 /* HCTimer.swift */,
 			);
 			path = hctest;
 			sourceTree = "<group>";
@@ -193,6 +199,7 @@
 				3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */,
 				3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */,
 				3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */,
+				3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +218,7 @@
 				3F3443A31E6BB17700FFAD04 /* AppDelegate.swift in Sources */,
 				3F3443C41E6BB2B000FFAD04 /* accent.c in Sources */,
 				3F3443C91E6BB2CD00FFAD04 /* GreekForms.c in Sources */,
+				3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */,
 				3F3443D31E6BB41D00FFAD04 /* sqlite3.c in Sources */,
 				3F3443AB1E6BB17700FFAD04 /* hctest.xcdatamodeld in Sources */,
 				3F3443CE1E6BB33400FFAD04 /* VerbForm.swift in Sources */,
@@ -281,7 +289,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -325,7 +333,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -341,6 +349,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = hctest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hctest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -357,6 +366,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = hctest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hctest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -384,6 +394,7 @@
 				3F3443B61E6BB17700FFAD04 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

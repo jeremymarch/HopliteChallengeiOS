@@ -9,17 +9,35 @@
 import UIKit
 
 class ViewController: UIViewController {
-    //@IBOutlet var label:UILabel?
-    @IBOutlet var button:UIButton?
-    var label = UILabel()
+    var label1 = UILabel()
     var label2 = UILabel()
+    let stemLabel = UILabel()
     let textView = UITextView()
     let continueButton = UIButton()
     let headerView = UIView()
+    let timerLabel = HCTimer() //UILabel()
+    let quitButton = UIButton()
+    let scoreLabel = UILabel()
+    let mfLabel = UILabel()
+    
+    let life1 = UIImageView()
+    let life2 = UIImageView()
+    let life3 = UIImageView()
     
     var label1Top:NSLayoutConstraint?
-    var label2Top:NSLayoutConstraint?
+    var stemLabelTop:NSLayoutConstraint?
     var textViewTop:NSLayoutConstraint?
+    var label2Top:NSLayoutConstraint?
+    var a:Bool = true
+    
+    var timeFontSize:CGFloat = 24.0
+    var fontSize:CGFloat = 30.0
+    var greekFontSize:CGFloat = 40.0
+    let hcblue:UIColor = UIColor(colorLiteralRed: 0.0, green: 0.47, blue: 1.0, alpha: 1.0)
+    let hcorange:UIColor = UIColor(colorLiteralRed: 1.0, green: 0.2196, blue: 0.0, alpha: 1.0)
+    let testColors:Bool = false
+    
+    let animateDuration:TimeInterval = 0.6
     
     let vs:VerbSequence = VerbSequence()
     
@@ -31,89 +49,216 @@ class ViewController: UIViewController {
         //let m = VerbForm(person:0, number:0, tense:0, voice:0, mood:0, verb:4)
         //NSLog("here: \(m.getForm())")
         
-        /*
-        for constraint in (label.constraints) {
-            if constraint.identifier == "labelHeight"
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            timeFontSize = 24.0;
+            fontSize = 30.0;
+            greekFontSize = 40.0;
+        }
+        else if UIDevice.current.userInterfaceIdiom == .phone {
+            switch UIScreen.main.nativeBounds.height
             {
-                constraint.isActive = false;
+            case 480:       //iPhone Classic
+                timeFontSize = 20.0
+                fontSize = 24.0
+                greekFontSize = 28.0
+                
+            case 960:       //iPhone 4 or 4S
+                timeFontSize = 20.0
+                fontSize = 24.0
+                greekFontSize = 28.0
+                
+            case 1136:      //iPhone 5 or 5S or 5C
+                timeFontSize = 22.0
+                fontSize = 24.0
+                greekFontSize = 32.0
+                
+            case 1334:      //iPhone 6 or 6S
+                timeFontSize = 22.0
+                fontSize = 28.0
+                greekFontSize = 36.0
+                
+            case 2208:      //iPhone 6+ or 6S+
+                timeFontSize = 24.0
+                fontSize = 28.0
+                greekFontSize = 36.0
+                
+            default:
+                timeFontSize = 22.0
+                fontSize = 24.0
+                greekFontSize = 32.0
             }
         }
-        */
-        let fontSize:CGFloat = 24.0
-        let greekFont = UIFont(name: "NewAthenaUnicode", size: fontSize)
+        
+        let greekFont = UIFont(name: "NewAthenaUnicode", size: greekFontSize)
+        let headerFont = UIFont(name: "HelveticaNeue-Light", size: timeFontSize)
+        let stemFont = UIFont(name: "HelveticaNeue-Light", size: fontSize)
+        let continueFont = UIFont(name: "HelveticaNeue", size: fontSize)
         
         view.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false;
-        headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8.0).isActive = true
-        headerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
-        headerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
-        headerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.0, constant: 40.0).isActive = true
-        //label.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.0, constant: -12.0).isActive = true
-        headerView.backgroundColor = UIColor.yellow
+        headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 6.0).isActive = true
+        headerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0).isActive = true
+        headerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0.0).isActive = true
+        headerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.0, constant: 52.0).isActive = true
+        headerView.backgroundColor = UIColor.white
         
-        view.addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false;
-        label.textAlignment = NSTextAlignment.center
-        //label.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0).isActive = true
+        headerView.addSubview(timerLabel)
+        timerLabel.translatesAutoresizingMaskIntoConstraints = false;
+        timerLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 0.0).isActive = true
+        timerLabel.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -6.0).isActive = true
+        timerLabel.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: 0.54, constant: 0.0).isActive = true
+        timerLabel.widthAnchor.constraint(equalToConstant: 100.0).isActive = true
+        timerLabel.backgroundColor = UIColor.white
+        timerLabel.textColor = UIColor.black
+        timerLabel.text = "30.00 sec"
+        timerLabel.textAlignment = NSTextAlignment.right
+        timerLabel.font = headerFont
         
-        label1Top = label.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0)
+        headerView.addSubview(quitButton)
+        quitButton.translatesAutoresizingMaskIntoConstraints = false;
+        quitButton.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 0.0).isActive = true
+        quitButton.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 6.0).isActive = true
+        quitButton.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: 0.54, constant: 0.0).isActive = true
+        quitButton.widthAnchor.constraint(equalToConstant: 40.0).isActive = true
+        quitButton.backgroundColor = UIColor.white
+        quitButton.setTitleColor(UIColor.black, for: [])
+        quitButton.setTitle("X", for: [])
+        quitButton.titleLabel?.font = headerFont
+        quitButton.layer.borderWidth = 2.0
+        quitButton.layer.borderColor = UIColor.gray.cgColor
+        quitButton.layer.cornerRadius = 4.0
+
+        
+        headerView.addSubview(scoreLabel)
+        scoreLabel.translatesAutoresizingMaskIntoConstraints = false;
+        scoreLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 0.0).isActive = true
+        scoreLabel.leftAnchor.constraint(equalTo: quitButton.rightAnchor, constant: 6.0).isActive = true
+        scoreLabel.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: 0.54, constant: 0.0).isActive = true
+        scoreLabel.widthAnchor.constraint(equalToConstant: 90.0).isActive = true
+        scoreLabel.backgroundColor = UIColor.white
+        scoreLabel.textColor = UIColor.black
+        scoreLabel.text = "109939"
+        scoreLabel.textAlignment = NSTextAlignment.left
+        scoreLabel.font = headerFont
+        
+        headerView.addSubview(mfLabel)
+        mfLabel.translatesAutoresizingMaskIntoConstraints = false;
+        mfLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 0.0).isActive = true
+        mfLabel.rightAnchor.constraint(equalTo: timerLabel.leftAnchor, constant: -6.0).isActive = true
+        mfLabel.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: 0.54, constant: 0.0).isActive = true
+        mfLabel.widthAnchor.constraint(equalToConstant: 40.0).isActive = true
+        mfLabel.backgroundColor = UIColor.white
+        mfLabel.textColor = hcorange
+        mfLabel.text = "MF"
+        mfLabel.textAlignment = NSTextAlignment.center
+        mfLabel.font = headerFont
+        mfLabel.layer.borderWidth = 2.0
+        mfLabel.layer.borderColor = hcorange.cgColor
+        mfLabel.layer.cornerRadius = 4.0
+        
+        let life1i = UIImage(named:"Life4X.png")
+        headerView.addSubview(life1)
+        life1.translatesAutoresizingMaskIntoConstraints = false;
+        life1.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0).isActive = true
+        life1.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -6.0).isActive = true
+        life1.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
+        life1.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
+        life1.image = life1i
+        
+        headerView.addSubview(life2)
+        life2.translatesAutoresizingMaskIntoConstraints = false;
+        life2.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0).isActive = true
+        life2.rightAnchor.constraint(equalTo: life1.leftAnchor, constant: -4.0).isActive = true
+        life2.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
+        life2.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
+        life2.image = life1i
+        
+        headerView.addSubview(life3)
+        life3.translatesAutoresizingMaskIntoConstraints = false;
+        life3.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0).isActive = true
+        life3.rightAnchor.constraint(equalTo: life2.leftAnchor, constant: -4.0).isActive = true
+        life3.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
+        life3.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
+        life3.image = life1i
+        
+        view.addSubview(label1)
+        label1.translatesAutoresizingMaskIntoConstraints = false;
+        label1.textAlignment = NSTextAlignment.center
+        
+        label1Top = label1.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0)
         label1Top?.isActive = true
         
-        label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
-        label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
-        label.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.22).isActive = true
-        //label.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.0, constant: -12.0).isActive = true
-        label.backgroundColor = UIColor.cyan
-        label.font = greekFont
+        label1.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
+        label1.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
+        label1.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.22).isActive = true
+        label1.backgroundColor = UIColor.white
+        label1.font = greekFont
+        
+        
+        view.addSubview(stemLabel)
+        stemLabel.translatesAutoresizingMaskIntoConstraints = false;
+        stemLabel.textAlignment = NSTextAlignment.center
+        stemLabelTop = stemLabel.topAnchor.constraint(equalTo: label1.bottomAnchor, constant: 0.0)
+        stemLabelTop?.isActive = true
+        stemLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
+        stemLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
+        stemLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08).isActive = true
+        stemLabel.textColor = UIColor.gray
+        stemLabel.backgroundColor = UIColor.white
+        stemLabel.text = "1st pl. aor. act. ind."
+        stemLabel.font = stemFont
 
         view.addSubview(textView)
         textView.translatesAutoresizingMaskIntoConstraints = false;
         textView.textAlignment = NSTextAlignment.center
-        //textView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0.0).isActive = true
-        
-        textViewTop = textView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0.0)
+        textViewTop = textView.topAnchor.constraint(equalTo: stemLabel.bottomAnchor, constant: 0.0)
         textViewTop?.isActive = true
-        
-        
         textView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
         textView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
-        textView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2).isActive = true
-        //label.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.0, constant: -12.0).isActive = true
-        textView.backgroundColor = UIColor.green
+        textView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.22).isActive = true
+        textView.backgroundColor = UIColor.white
         textView.font = greekFont
         
         view.addSubview(label2)
         label2.translatesAutoresizingMaskIntoConstraints = false;
         label2.textAlignment = NSTextAlignment.center
-        
         label2Top = label2.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 0.0)
         label2Top?.isActive = true
-        
         label2.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
         label2.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
         label2.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.22).isActive = true
-        //label.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.0, constant: -12.0).isActive = true
-        label2.backgroundColor = UIColor.red
+        label2.backgroundColor = UIColor.white
         label2.font = greekFont
         
         view.addSubview(continueButton)
         continueButton.translatesAutoresizingMaskIntoConstraints = false;
-        continueButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8.0).isActive = true
+        continueButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -6.0).isActive = true
         continueButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
         continueButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
         continueButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.0, constant:60.0).isActive = true
-        //label.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.0, constant: -12.0).isActive = true
-        continueButton.backgroundColor = UIColor.blue
+        continueButton.backgroundColor = hcblue
+        continueButton.layer.cornerRadius = 2.0
         continueButton.setTitle("Continue", for: [])
         continueButton.titleLabel?.textColor = UIColor.white
+        continueButton.titleLabel?.font = continueFont
         
         
         vs.getNext()
-        label.text = vs.requestedForm?.getForm()
+        label1.text = vs.requestedForm?.getForm()
         
         continueButton.addTarget(self, action: #selector(press(button:)), for: .touchUpInside)
         
         //printVerbs()
+        timerLabel.countDownTime = 10
+        timerLabel.countDown = true
+        timerLabel.startTimer()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleTimeOut), name: NSNotification.Name(rawValue: "HCTimeOut"), object: nil)
+    }
+    
+    func handleTimeOut()
+    {
+        NSLog("time out")
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -127,39 +272,76 @@ class ViewController: UIViewController {
 
     func press(button: UIButton) {
         vs.getNext()
-        label.text = vs.requestedForm?.getForm()
+        label1.text = vs.requestedForm?.getForm()
+    
+        textView.text = "hello"
         
+        if a == true
+        {
+            animatetextViewUp()
+        }
+        else
+        {
+            animateLabelUp()
+        }
+        a = !a
+    }
+    
+    func animateLabelUp()
+    {
         label2Top?.isActive = false
         label2Top = label2.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0)
         label2Top?.isActive = true
         view.bringSubview(toFront: self.label2)
         
-        UIView.animate(withDuration: 1.0, animations: {
+        UIView.animate(withDuration: animateDuration, animations: {
             self.view.layoutIfNeeded()
             
         }, completion: {
             (value: Bool) in
             
-            self.textViewTop?.isActive = false
-            self.textViewTop = self.textView.topAnchor.constraint(equalTo: self.label2.bottomAnchor, constant: 0.0)
-            self.textViewTop?.isActive = true
+            self.stemLabelTop?.isActive = false
+            self.stemLabelTop = self.stemLabel.topAnchor.constraint(equalTo: self.label2.bottomAnchor, constant: 0.0)
+            self.stemLabelTop?.isActive = true
             
             self.label1Top?.isActive = false
-            self.label1Top = self.label.topAnchor.constraint(equalTo: self.textView.bottomAnchor, constant: 0.0)
+            self.label1Top = self.label1.topAnchor.constraint(equalTo: self.textView.bottomAnchor, constant: 0.0)
             self.label1Top?.isActive = true
             
             var temp:UILabel?
             temp = self.label2
-            self.label2 = self.label
-            self.label = temp!
-
+            self.label2 = self.label1
+            self.label1 = temp!
+            
             var tempCon:NSLayoutConstraint?
             tempCon = self.label2Top
             self.label2Top = self.label1Top
             self.label1Top = tempCon!
             
         })
+    }
+    
+    func animatetextViewUp()
+    {
+        self.textViewTop?.isActive = false
+        self.textViewTop = self.textView.topAnchor.constraint(equalTo: self.headerView.bottomAnchor, constant: 0.0)
+        self.textViewTop?.isActive = true
         
+        view.bringSubview(toFront: self.textView)
+        
+        UIView.animate(withDuration: animateDuration, animations: {
+            self.view.layoutIfNeeded()
+            
+        }, completion: {
+            (value: Bool) in
+            
+            self.label1.text = self.textView.text
+            self.textView.text = ""
+            
+            self.textViewTop?.isActive = false
+            self.textViewTop = self.textView.topAnchor.constraint(equalTo: self.stemLabel.bottomAnchor, constant: 0.0)
+            self.textViewTop?.isActive = true
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -213,7 +395,7 @@ class ViewController: UIViewController {
                                 s = vf?.getForm()
                                 if s != nil && (s?.characters.count)! > 0
                                 {
-                                    label.text = s
+                                    label1.text = s
                                     count += 1
                                 }
                             }
@@ -225,7 +407,5 @@ class ViewController: UIViewController {
         }
         NSLog("Count: \(count)")
     }
-    
-    
 }
 
