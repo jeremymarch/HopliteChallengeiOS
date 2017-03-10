@@ -16,6 +16,9 @@
 		3F0BBD0A1E6D354500933F44 /* HCPunctuationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBD021E6D354500933F44 /* HCPunctuationButton.swift */; };
 		3F0BBD0B1E6D354500933F44 /* HCSpaceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBD031E6D354500933F44 /* HCSpaceButton.swift */; };
 		3F0BBD0D1E6D355100933F44 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBD0C1E6D355100933F44 /* KeyboardViewController.swift */; };
+		3F2BF3C51E6DC8E200884CDC /* greencheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C41E6DC8E200884CDC /* greencheck.png */; };
+		3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C61E6DC8EC00884CDC /* redx.png */; };
+		3F2BF3C91E6DF5AC00884CDC /* HCMFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C81E6DF5AC00884CDC /* HCMFButton.swift */; };
 		3F3443A31E6BB17700FFAD04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */; };
 		3F3443A51E6BB17700FFAD04 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443A41E6BB17700FFAD04 /* ViewController.swift */; };
 		3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443A61E6BB17700FFAD04 /* Main.storyboard */; };
@@ -48,6 +51,9 @@
 		3F0BBD021E6D354500933F44 /* HCPunctuationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCPunctuationButton.swift; path = HCPolytonicGreekKB/HCPunctuationButton.swift; sourceTree = "<group>"; };
 		3F0BBD031E6D354500933F44 /* HCSpaceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCSpaceButton.swift; path = HCPolytonicGreekKB/HCSpaceButton.swift; sourceTree = "<group>"; };
 		3F0BBD0C1E6D355100933F44 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardViewController.swift; path = HCPolytonicGreekKB/KeyboardViewController.swift; sourceTree = "<group>"; };
+		3F2BF3C41E6DC8E200884CDC /* greencheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greencheck.png; sourceTree = "<group>"; };
+		3F2BF3C61E6DC8EC00884CDC /* redx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redx.png; sourceTree = "<group>"; };
+		3F2BF3C81E6DF5AC00884CDC /* HCMFButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCMFButton.swift; path = HCPolytonicGreekKB/HCMFButton.swift; sourceTree = "<group>"; };
 		3F34439F1E6BB17700FFAD04 /* hctest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hctest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F3443A41E6BB17700FFAD04 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +111,7 @@
 				3F0BBD011E6D354500933F44 /* HCPolytonicGreekKB-Bridging-Header.h */,
 				3F0BBD021E6D354500933F44 /* HCPunctuationButton.swift */,
 				3F0BBD031E6D354500933F44 /* HCSpaceButton.swift */,
+				3F2BF3C81E6DF5AC00884CDC /* HCMFButton.swift */,
 			);
 			name = "Hoplite Keyboard";
 			sourceTree = "<group>";
@@ -129,19 +136,21 @@
 			isa = PBXGroup;
 			children = (
 				3F0BBCFA1E6D352100933F44 /* Hoplite Keyboard */,
-				3FAA8D2E1E6D046300254E97 /* Life4X.png */,
-				3F3443D61E6C814200FFAD04 /* newathu5.ttf */,
 				3F3443B71E6BB25C00FFAD04 /* libmorph */,
 				3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */,
 				3F3443A41E6BB17700FFAD04 /* ViewController.swift */,
 				3F3443A61E6BB17700FFAD04 /* Main.storyboard */,
+				3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */,
+				3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */,
+				3FAA8D301E6D212900254E97 /* HCTimer.swift */,
 				3F3443AC1E6BB17700FFAD04 /* Assets.xcassets */,
 				3F3443AE1E6BB17700FFAD04 /* LaunchScreen.storyboard */,
 				3F3443B11E6BB17700FFAD04 /* Info.plist */,
 				3F3443A91E6BB17700FFAD04 /* hctest.xcdatamodeld */,
-				3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */,
-				3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */,
-				3FAA8D301E6D212900254E97 /* HCTimer.swift */,
+				3F2BF3C61E6DC8EC00884CDC /* redx.png */,
+				3F2BF3C41E6DC8E200884CDC /* greencheck.png */,
+				3FAA8D2E1E6D046300254E97 /* Life4X.png */,
+				3F3443D61E6C814200FFAD04 /* newathu5.ttf */,
 			);
 			path = hctest;
 			sourceTree = "<group>";
@@ -232,11 +241,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F2BF3C51E6DC8E200884CDC /* greencheck.png in Resources */,
 				3F3443B01E6BB17700FFAD04 /* LaunchScreen.storyboard in Resources */,
 				3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */,
 				3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */,
 				3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */,
 				3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */,
+				3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +279,7 @@
 				3F3443CE1E6BB33400FFAD04 /* VerbForm.swift in Sources */,
 				3F3443C01E6BB2A100FFAD04 /* ending.c in Sources */,
 				3F3443CB1E6BB2D700FFAD04 /* VerbSequence.c in Sources */,
+				3F2BF3C91E6DF5AC00884CDC /* HCMFButton.swift in Sources */,
 				3F0BBD091E6D354500933F44 /* HCGlobeButton.swift in Sources */,
 				3F0BBD061E6D354500933F44 /* HCCapsLockButton.swift in Sources */,
 			);

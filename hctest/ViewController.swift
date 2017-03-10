@@ -20,6 +20,9 @@ class ViewController: UIViewController, UITextViewDelegate  {
     let quitButton = UIButton()
     let scoreLabel = UILabel()
     let mfLabel = UILabel()
+    let checkImg = UIImage(named:"greencheck.png")
+    let xImg = UIImage(named:"redx.png")
+    let checkXView = UIImageView()
     
     let life1 = UIImageView()
     let life2 = UIImageView()
@@ -42,6 +45,8 @@ class ViewController: UIViewController, UITextViewDelegate  {
     
     var askOrAnswer:Bool = true
     var mfPressed:Bool = false
+    var blockContinueButton:Bool = false
+    var checkXXOffset:NSLayoutConstraint? = nil
     
     let vs:VerbSequence = VerbSequence()
     
@@ -259,6 +264,16 @@ class ViewController: UIViewController, UITextViewDelegate  {
         continueButton.titleLabel?.textColor = UIColor.white
         continueButton.titleLabel?.font = continueFont
         
+        view.addSubview(checkXView)
+        checkXView.translatesAutoresizingMaskIntoConstraints = false
+        checkXView.image = checkImg
+        checkXView.heightAnchor.constraint(equalToConstant: 25.0).isActive = true
+        checkXView.widthAnchor.constraint(equalToConstant: 25.0).isActive = true
+        view.addConstraint(NSLayoutConstraint(item: checkXView, attribute:NSLayoutAttribute.centerY , relatedBy: NSLayoutRelation.equal, toItem: textView, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0.0))
+        checkXXOffset = NSLayoutConstraint(item: checkXView, attribute:NSLayoutAttribute.centerX , relatedBy: NSLayoutRelation.equal, toItem: textView, attribute: NSLayoutAttribute.centerX, multiplier: 1.0, constant: 00.0)
+        view.addConstraint(checkXXOffset!)
+        checkXView.isHidden = true
+        
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb?.appExt = false
         textView.inputView = kb?.view
@@ -269,6 +284,8 @@ class ViewController: UIViewController, UITextViewDelegate  {
         timerLabel.countDown = true
         timerLabel.startTimer()
         NotificationCenter.default.addObserver(self, selector: #selector(handleTimeOut), name: NSNotification.Name(rawValue: "HCTimeOut"), object: nil)
+        
+        vs.DBInit2()
         
         start()
     }
@@ -347,6 +364,15 @@ class ViewController: UIViewController, UITextViewDelegate  {
         })
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if UIDevice.current.orientation.isLandscape {
+            print("Landscape")
+        } else {
+            print("Portrait")
+        }
+        positionCheckX()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         //http://stackoverflow.com/questions/12591192/center-text-vertically-in-a-uitextview
         //see below
@@ -420,7 +446,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
             // Return FALSE so that the final '\n' character doesn't get added
             return false;
         }
-        else if text == "."
+        else if text == "MF"
         {
             mfKeyPressed()
             // Return FALSE so that the final '\n' character doesn't get added
@@ -455,14 +481,46 @@ class ViewController: UIViewController, UITextViewDelegate  {
         checkAnswer()
     }
     
+    func sizeOfString(v:UITextView) -> CGSize
+    {
+        let s: String = v.text
+        let myString: NSString = s as NSString
+        return myString.size(attributes: [NSFontAttributeName: v.font!])
+    }
+    
+    func positionCheckX()
+    {
+        // 0 = center
+        //set offset from end of text
+        var offset:CGFloat = 0
+        if textView.text.characters.count > 0
+        {
+            offset = (sizeOfString(v: textView).width / 2) + 20
+        }
+        //make sure it doesn't go off the screen
+        if offset > textView.bounds.width / 2
+        {
+            offset = (textView.bounds.width / 2) - checkXView.bounds.width
+        }
+        checkXXOffset?.constant = offset
+        //NSLog("Width: \(textView.bounds.width), \(sizeOfString(v: textView).width), \(offset)")
+    }
+    
     func checkAnswer()
     {
         textView.isEditable = false
         textView.isSelectable = false
         textView.resignFirstResponder()
+        blockContinueButton = false
+        
+        positionCheckX()
+        
         if vs.checkVerb(givenForm1: (vs.requestedForm?.getForm())!, enteredForm1: textView.text, mfPressed: false, time: "234") == true
         {
             NSLog("yes!")
+            
+            checkXView.image = checkImg
+            checkXView.isHidden = false
             
         }
         else
@@ -470,28 +528,34 @@ class ViewController: UIViewController, UITextViewDelegate  {
             textView.textColor = UIColor.gray
             showAnswer()
             NSLog("no!")
+            checkXView.image = xImg
+            checkXView.isHidden = false
         }
     }
     
     func continuePressed(button: UIButton) {
-        
-        let b:Int = Int((vs.options?.repsPerVerb)!)
-        
-        if vs.seq == b
+        checkXView.isHidden = true
+        if blockContinueButton == false
         {
-            label2.text = ""
-            textView.text = ""
-            askForForm()
-        }
-        else
-        {
-            if label2.isHidden == true
+            blockContinueButton = true
+            let b:Int = Int((vs.options?.repsPerVerb)!)
+            
+            if vs.seq == b
             {
-                animatetextViewUp()
+                label2.text = ""
+                textView.text = ""
+                askForForm()
             }
             else
             {
-                animateLabelUp()
+                if label2.isHidden == true
+                {
+                    animatetextViewUp()
+                }
+                else
+                {
+                    animateLabelUp()
+                }
             }
         }
     }

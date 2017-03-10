@@ -103,5 +103,21 @@ class VerbSequence {
         }
         return buffer
     }
+    
+    func DBInit2()
+    {
+        let dbname:String = "hcdatadb.sqlite"
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let dbpath = documentsPath + "/" + dbname
+        NSLog("db: \(dbpath)")
+        
+        
+        let cPath = UnsafeMutablePointer<Int8>(mutating: dbpath)
+        let ret = dbInit(cPath)
+        if ret == false
+        {
+            NSLog("Couldn't load sqlite db")
+        }
+    }
 }
 

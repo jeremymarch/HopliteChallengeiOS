@@ -17,6 +17,8 @@ extension UIInputView: UIInputViewAudioFeedback {
 let orange = UIColor.init(red: 255/255.0, green: 96/255.0, blue: 70/255.0, alpha: 1.0)
 let green = UIColor.init(red: 102/255.0, green: 200/255.0, blue: 255/255.0, alpha: 1.0)
 let darkBlue = UIColor.init(red: 50/255.0, green: 90/255.0, blue: 139/255.0, alpha: 1.0)
+let green2 = UIColor.init(red: 76/255.0, green: 166/255.0, blue: 75/255.0, alpha: 1.0)
+let green3 = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
 
 public struct HopliteConstants{
     
@@ -30,8 +32,8 @@ public struct HopliteConstants{
     static let keyBGColorDown = UIColor.black
     static let keyTextColorDown = UIColor.white
     
-    static let accentBGColor = orange//UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
-    static let accentTextColor = UIColor.black
+    static let accentBGColor = green3 //orange//UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+    static let accentTextColor = UIColor.white
     static let accentBGColorDown = UIColor.black
     static let accentTextColorDown = UIColor.white
     
@@ -115,19 +117,20 @@ class KeyboardViewController: UIInputViewController {
     var tic:Int = 0
     
     var deleteButton:UIButton? = nil
-    var globeButton:UIButton? = nil
-    var capsLockButton:UIButton? = nil
-    var periodButton:UIButton? = nil
+    var mfButton:HCMFButton? = nil
+    //var globeButton:UIButton? = nil
+    //var capsLockButton:UIButton? = nil
+    //var periodButton:UIButton? = nil
     
     var heightConstraint:NSLayoutConstraint?
     
     let fontSize:CGFloat = 24.0
     let smallerFontSize:CGFloat = 20.0
 
-    var portraitHeight:CGFloat = 250.0
-    var landscapeHeight:CGFloat = 196.0
+    var portraitHeight:CGFloat = 200.0
+    var landscapeHeight:CGFloat = 157.0
     
-    let buttonHeightMultiplier:CGFloat = 0.174
+    let buttonHeightMultiplier:CGFloat = 0.22
     var buttonSpacing:CGFloat = 5.0
     let widthMultiple:CGFloat = 0.0976
     
@@ -189,7 +192,9 @@ class KeyboardViewController: UIInputViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        loadDefaults()
+        mfButton?.reset()
+        
+        //loadDefaults()
         //this makes sure the keyboard is right height when first loaded
         if self.isLandscape()
         {
@@ -208,8 +213,8 @@ class KeyboardViewController: UIInputViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        globeButton?.setNeedsDisplay() //to redraw globe icon
-        capsLockButton?.setNeedsDisplay()
+        //globeButton?.setNeedsDisplay() //to redraw globe icon
+        //capsLockButton?.setNeedsDisplay()
         deleteButton?.setNeedsDisplay()
         
         //these fix a problem where buttons are not initially drawn correctly?
@@ -270,8 +275,8 @@ class KeyboardViewController: UIInputViewController {
                     //self.inputView!.addConstraint(self.heightConstraint!)
                 }
                 
-                self.globeButton?.setNeedsDisplay() //to redraw globe icon
-                self.capsLockButton?.setNeedsDisplay()
+                //self.globeButton?.setNeedsDisplay() //to redraw globe icon
+                //self.capsLockButton?.setNeedsDisplay()
                 self.deleteButton?.setNeedsDisplay()
             }
         
@@ -308,22 +313,24 @@ class KeyboardViewController: UIInputViewController {
             if b.titleLabel?.text == "enter" || b.titleLabel?.text == "space"
             {
                 b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
-                b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple * 3).isActive = true
+                b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple * 1.83).isActive = true
                 b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
-                
+            }
+            else if b.titleLabel?.text == "MF"
+            {
+                b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple * 1.26).isActive = true
+                b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
             }
             else if b is HCDeleteButton
             {
-                b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple * 1.36).isActive = true
+                b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                 b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
-                
             }
             else
             {
                 b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                 b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                 b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
-                
             }
         }
     }
@@ -371,7 +378,7 @@ class KeyboardViewController: UIInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadDefaults()
+        //loadDefaults()
         
         self.inputView?.autoresizingMask = [] //this is needed too???
         
@@ -401,8 +408,8 @@ class KeyboardViewController: UIInputViewController {
             }
             else //larger iPhones
             {
-                portraitHeight = 250.0
-                landscapeHeight = 196.0
+                portraitHeight = 200.0
+                landscapeHeight = 157.0
             }
         }
         
@@ -430,13 +437,13 @@ class KeyboardViewController: UIInputViewController {
         stackView4.distribution  = UIStackViewDistribution.equalSpacing
         stackView4.alignment = UIStackViewAlignment.center
         stackView4.spacing   = buttonSpacing
-        
+        /*
         let stackView5   = UIStackView()
         stackView5.axis  = UILayoutConstraintAxis.horizontal
         stackView5.distribution  = UIStackViewDistribution.equalSpacing
         stackView5.alignment = UIStackViewAlignment.center
         stackView5.spacing   = buttonSpacing
-        
+        */
         stackViewV.axis  = UILayoutConstraintAxis.vertical
         stackViewV.distribution  = UIStackViewDistribution.equalSpacing
         stackViewV.alignment = UIStackViewAlignment.center
@@ -446,7 +453,7 @@ class KeyboardViewController: UIInputViewController {
         stackView2.translatesAutoresizingMaskIntoConstraints = false
         stackView3.translatesAutoresizingMaskIntoConstraints = false
         stackView4.translatesAutoresizingMaskIntoConstraints = false
-        stackView5.translatesAutoresizingMaskIntoConstraints = false
+        //stackView5.translatesAutoresizingMaskIntoConstraints = false
         stackViewV.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(stackViewV)
@@ -455,7 +462,7 @@ class KeyboardViewController: UIInputViewController {
         stackViewV.addArrangedSubview(stackView2)
         stackViewV.addArrangedSubview(stackView3)
         stackViewV.addArrangedSubview(stackView4)
-        stackViewV.addArrangedSubview(stackView5)
+        //stackViewV.addArrangedSubview(stackView5)
         
         /*
             punctuation:
@@ -465,11 +472,10 @@ class KeyboardViewController: UIInputViewController {
             question mark
             parentheses
         */
-        let keys: [[String]] = [["῾", "᾿", "´", "`", "˜", "¯", "ͺ", ",","·"],
+        let keys: [[String]] = [["MF", "῾", "᾿", "´", "˜", "¯", "ͺ", "enter"],
                                 ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                                ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
-                               ["ζ", "χ", "ψ", "ω", "β", "ν", "μ" , "BK" ],
-                               ["CP", "KB", "space", ".", "enter"]]
+                               ["ζ", "χ", "ψ", "ω", "β", "ν", "μ" , "( )", "BK" ]]
         
         for row in keys
         {
@@ -484,6 +490,49 @@ class KeyboardViewController: UIInputViewController {
                         b = HCPunctuationButton(buttonType:1)
                         buttons.append(b)
                         b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
+                    }
+                    else if key == "enter"
+                    {
+                        b = HCEnterButton()
+                        buttons.append(b)
+                        
+                        b.addTarget(self, action: #selector(returnPressed(_:)), for: .touchUpInside)
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
+                        
+                        if UIDevice.current.userInterfaceIdiom == .pad
+                        {
+                            b.layer.cornerRadius = HopliteConstants.ipadRadius
+                        }
+                        else
+                        {
+                            b.layer.cornerRadius = HopliteConstants.normalRadius
+                        }
+                        b.setTitle(key, for: [])
+                        b.setTitleColor(UIColor.white, for: [])
+                        
+                        b.backgroundColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
+                    }
+                    else if key == "MF"
+                    {
+                        b = HCMFButton()
+                        mfButton = b as! HCMFButton
+                        buttons.append(b)
+                        
+                        b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
+                        
+                        if UIDevice.current.userInterfaceIdiom == .pad
+                        {
+                            b.layer.cornerRadius = HopliteConstants.ipadRadius
+                        }
+                        else
+                        {
+                            b.layer.cornerRadius = HopliteConstants.normalRadius
+                        }
+                        b.setTitle(key, for: [])
+                        b.setTitleColor(UIColor.white, for: [])
+                        
+                        //b.backgroundColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
                     }
                     else
                     {
@@ -550,7 +599,7 @@ class KeyboardViewController: UIInputViewController {
                     {
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                     }
-                    else if key == "()"
+                    else if key == "( )"
                     {
                         b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
                     }
@@ -606,6 +655,23 @@ class KeyboardViewController: UIInputViewController {
                         
                         deleteButton = b
                     }
+                    else if key == "( )"
+                    {
+                        b = HCAccentButton(buttonType:1)
+                        if UIDevice.current.userInterfaceIdiom == .pad
+                        {
+                            b.layer.cornerRadius = HopliteConstants.ipadRadius
+                        }
+                        else
+                        {
+                            b.layer.cornerRadius = HopliteConstants.normalRadius
+                        }
+                        b.setTitle(key, for: [])
+                        b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: fontSize)
+                        buttons.append(b)
+                        b.addTarget(self, action: #selector(accentPressed(_:)), for: .touchUpInside)
+                        stackView4.addArrangedSubview(b)
+                    }
                     else
                     {
                         b = HCButton(buttonType:1)
@@ -617,6 +683,7 @@ class KeyboardViewController: UIInputViewController {
                         stackView4.addArrangedSubview(b)
                     }
                 }
+                    /*
                 else if row == keys[4]
                 {
                     if key == "CP"
@@ -731,7 +798,7 @@ class KeyboardViewController: UIInputViewController {
                         periodButton = b
                     }
 
-                }
+                } */
             }
         }
         
@@ -797,7 +864,7 @@ class KeyboardViewController: UIInputViewController {
         } else {
             textColor = UIColor.black
         }
-        globeButton!.setTitleColor(textColor, for: [])
+        //globeButton!.setTitleColor(textColor, for: [])
     }
     
     let COMBINING_GRAVE =            0x0300
@@ -847,7 +914,7 @@ class KeyboardViewController: UIInputViewController {
         {
             accent = 7
         }
-        else if whichAccent == "()" //surrounding parentheses
+        else if whichAccent == "( )" //surrounding parentheses
         {
             accent = 8
         }
@@ -971,14 +1038,7 @@ class KeyboardViewController: UIInputViewController {
         changeCaps(stackView2)
         changeCaps(stackView3)
         changeCaps(stackView4)
-        if capsLockOn
-        {
-            periodButton?.setTitle(";", for: UIControlState())
-        }
-        else
-        {
-            periodButton?.setTitle(".", for: UIControlState())
-        }
+        
     }
     func changeCaps(_ containerView: UIView) {
         for view in containerView.subviews {

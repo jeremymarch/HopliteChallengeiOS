@@ -1,5 +1,5 @@
 //
-//  morph.swift
+//  VerbForm.swift
 //  hctest
 //
 //  Created by Jeremy March on 3/4/17.
@@ -30,7 +30,7 @@ class VerbForm {
     func getForm() -> String
     {
         let bufferSize:Int = 500
-        var buffer2 = [Int8](repeating: 0, count: bufferSize)
+        var buffer = [Int8](repeating: 0, count: bufferSize)
         
         //let v = verbs
         //var a = v[1][1]
@@ -43,12 +43,12 @@ class VerbForm {
         vf.mood = UInt8(self.mood)
         vf.verbid = UInt32(self.verbid)
         
-        let x = getForm2(&vf, &buffer2, Int32(bufferSize), true, false)
+        let x = getForm2(&vf, &buffer, Int32(bufferSize), true, false)
         if x != 0
         {
             //let data = Data(bytes:buffer2, count:bufferSize)
             //let s = String(data: data, encoding: String.Encoding.utf8)
-            let s = String(cString: buffer2)
+            let s = String(cString: buffer)
             
             //NSLog("len: \(s.characters.count)")
         

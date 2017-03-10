@@ -1022,9 +1022,11 @@ bool dbInit(const char *path)
         printf("SQLite db open, path: %s, size: %lld\n", dbpath, size);
     }
     
+    char *check = "SELECT name FROM sqlite_master WHERE type='table' AND name='table_name'";
+    
     //"DROP TABLE IF EXISTS games; DROP TABLE IF EXISTS verbseq;
     
-    char *sql = "CREATE TABLE games (" \
+    char *sql = "CREATE TABLE IF NOT EXISTS games (" \
     "gameid INTEGER PRIMARY KEY NOT NULL, " \
     "timest INT NOT NULL, " \
     "score INT NOT NULL, " \
@@ -1032,7 +1034,7 @@ bool dbInit(const char *path)
     "lives INT NOT NULL " \
     "); " \
     
-    "CREATE TABLE verbseq (" \
+    "CREATE TABLE IF NOT EXISTS verbseq (" \
     "id INTEGER PRIMARY KEY NOT NULL, " \
     "timest INT NOT NULL, " \
     "gameid INT NOT NULL, " \
@@ -1079,7 +1081,7 @@ bool dbInit(const char *path)
     }
     */
     
-    printf("sqlite success\n");
+    printf("sqlite success, version: %s\n", SQLITE_VERSION);
     
     return true;
 }
