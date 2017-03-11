@@ -14,6 +14,8 @@ class VerbSequence {
     var options:VerbSeqOptions?
     var seq:Int = 1
     var score:Int = 0
+    var lives:Int = 3
+    var maxLive:Int = 3
     
     init() {
         self.givenForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 0)
@@ -88,7 +90,8 @@ class VerbSequence {
         print(enteredForm)
         
         let a = compareFormsCheckMFRecordResult(buffer2, Int32(enteredLen), buffer, Int32(givenLen), mfPressed, timeS, &ascore)
-        
+        score = Int(ascore)
+        NSLog("score: \(score)")
         return a
     }
     

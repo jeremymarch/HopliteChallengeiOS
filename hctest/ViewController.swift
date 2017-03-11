@@ -31,8 +31,9 @@ class ViewController: UIViewController, UITextViewDelegate  {
     var label1Top:NSLayoutConstraint?
     var stemLabelTop:NSLayoutConstraint?
     var textViewTop:NSLayoutConstraint?
+    var textViewTop2:NSLayoutConstraint?
     var label2Top:NSLayoutConstraint?
-    var a:Bool = true
+    //var a:Bool = true
     
     var timeFontSize:CGFloat = 24.0
     var fontSize:CGFloat = 30.0
@@ -47,9 +48,10 @@ class ViewController: UIViewController, UITextViewDelegate  {
     var mfPressed:Bool = false
     var blockContinueButton:Bool = false
     var checkXXOffset:NSLayoutConstraint? = nil
+    var checkXYOffset:NSLayoutConstraint? = nil
+    var isGame:Bool = true
     
     let vs:VerbSequence = VerbSequence()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -235,6 +237,8 @@ class ViewController: UIViewController, UITextViewDelegate  {
         textView.textAlignment = NSTextAlignment.center
         textViewTop = textView.topAnchor.constraint(equalTo: stemLabel.bottomAnchor, constant: 0.0)
         textViewTop?.isActive = true
+        textViewTop2 = textView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0)
+        textViewTop2?.isActive = false
         textView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
         textView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
         textView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.22).isActive = true
@@ -269,7 +273,10 @@ class ViewController: UIViewController, UITextViewDelegate  {
         checkXView.image = checkImg
         checkXView.heightAnchor.constraint(equalToConstant: 25.0).isActive = true
         checkXView.widthAnchor.constraint(equalToConstant: 25.0).isActive = true
-        view.addConstraint(NSLayoutConstraint(item: checkXView, attribute:NSLayoutAttribute.centerY , relatedBy: NSLayoutRelation.equal, toItem: textView, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0.0))
+        
+            
+        checkXYOffset = NSLayoutConstraint(item: checkXView, attribute:NSLayoutAttribute.centerY , relatedBy: NSLayoutRelation.equal, toItem: textView, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0.0)
+        view.addConstraint(checkXYOffset!)
         checkXXOffset = NSLayoutConstraint(item: checkXView, attribute:NSLayoutAttribute.centerX , relatedBy: NSLayoutRelation.equal, toItem: textView, attribute: NSLayoutAttribute.centerX, multiplier: 1.0, constant: 00.0)
         view.addConstraint(checkXXOffset!)
         checkXView.isHidden = true
@@ -284,6 +291,15 @@ class ViewController: UIViewController, UITextViewDelegate  {
         timerLabel.countDown = true
         timerLabel.startTimer()
         NotificationCenter.default.addObserver(self, selector: #selector(handleTimeOut), name: NSNotification.Name(rawValue: "HCTimeOut"), object: nil)
+        
+        if isGame == false
+        {
+            scoreLabel.isHidden = true
+            life1.isHidden = true
+            life2.isHidden = true
+            life3.isHidden = true
+            timerLabel.countDown = false
+        }
         
         vs.DBInit2()
         
@@ -333,6 +349,8 @@ class ViewController: UIViewController, UITextViewDelegate  {
             tempCon = self.label2Top
             self.label2Top = self.label1Top
             self.label1Top = tempCon!
+            self.view.bringSubview(toFront:self.checkXView)
+            self.view.layoutIfNeeded()
             self.askForForm()
         })
     }
@@ -341,10 +359,10 @@ class ViewController: UIViewController, UITextViewDelegate  {
     {
         label1.text = ""
         stemLabel.text = ""
-        
+
         self.textViewTop?.isActive = false
-        self.textViewTop = self.textView.topAnchor.constraint(equalTo: self.headerView.bottomAnchor, constant: 0.0)
-        self.textViewTop?.isActive = true
+        //self.textViewTop = self.textView.topAnchor.constraint(equalTo: self.headerView.bottomAnchor, constant: 0.0)
+        self.textViewTop2?.isActive = true
         
         view.bringSubview(toFront: self.textView)
         
@@ -357,9 +375,11 @@ class ViewController: UIViewController, UITextViewDelegate  {
             self.label1.text = self.textView.text
             self.textView.text = ""
             
-            self.textViewTop?.isActive = false
-            self.textViewTop = self.textView.topAnchor.constraint(equalTo: self.stemLabel.bottomAnchor, constant: 0.0)
+            self.textViewTop2?.isActive = false
+            //self.textViewTop = self.textView.topAnchor.constraint(equalTo: self.stemLabel.bottomAnchor, constant: 0.0)
             self.textViewTop?.isActive = true
+            self.view.bringSubview(toFront:self.checkXView)
+            self.view.layoutIfNeeded()
             self.askForForm()
         })
     }
@@ -503,7 +523,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
             offset = (textView.bounds.width / 2) - checkXView.bounds.width
         }
         checkXXOffset?.constant = offset
-        //NSLog("Width: \(textView.bounds.width), \(sizeOfString(v: textView).width), \(offset)")
+        NSLog("Width: \(textView.bounds.width), \(sizeOfString(v: textView).width), \(offset)")
     }
     
     func checkAnswer()
@@ -515,13 +535,16 @@ class ViewController: UIViewController, UITextViewDelegate  {
         
         positionCheckX()
         
-        if vs.checkVerb(givenForm1: (vs.requestedForm?.getForm())!, enteredForm1: textView.text, mfPressed: false, time: "234") == true
+        if vs.checkVerb(givenForm1: (vs.requestedForm?.getForm())!, enteredForm1: textView.text, mfPressed: mfPressed, time: "234") == true
         {
             NSLog("yes!")
             
             checkXView.image = checkImg
             checkXView.isHidden = false
-            
+            if isGame
+            {
+                setScore(score: vs.score)
+            }
         }
         else
         {
@@ -530,6 +553,39 @@ class ViewController: UIViewController, UITextViewDelegate  {
             NSLog("no!")
             checkXView.image = xImg
             checkXView.isHidden = false
+            if isGame
+            {
+                setLives(lives: vs.lives)
+            }
+        }
+    }
+    
+    func setScore(score:Int)
+    {
+        scoreLabel.text = String(score)
+    }
+    
+    func setLives(lives:Int)
+    {
+        switch lives
+        {
+        case 3:
+            life1.isHidden = false
+            life2.isHidden = false
+            life3.isHidden = false
+        case 2:
+            life1.isHidden = false
+            life2.isHidden = false
+            life3.isHidden = true
+        case 1:
+            life1.isHidden = false
+            life2.isHidden = true
+            life3.isHidden = true
+        case 0:
+            life1.isHidden = true
+            life2.isHidden = true
+            life3.isHidden = true
+        default: break
         }
     }
     

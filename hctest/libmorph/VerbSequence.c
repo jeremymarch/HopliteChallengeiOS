@@ -333,7 +333,7 @@ int nextVerbSeq2(int *seq, VerbFormD *vf1, VerbFormD *vf2)
 {
     VerbSeqOptions vso;
     vso.degreesToChange = 2;
-    vso.isHCGame = false;
+    vso.isHCGame = true;
     vso.numUnits = 1;
     vso.repsPerVerb = 4;
     vso.practiceVerbID = -1;
