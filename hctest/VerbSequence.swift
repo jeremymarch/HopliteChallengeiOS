@@ -13,7 +13,7 @@ class VerbSequence {
     var requestedForm:VerbForm?
     var options:VerbSeqOptions?
     var seq:Int = 1
-    var score:Int = 0
+    var score:Int32 = 0
     var lives:Int = 3
     var maxLives:Int = 3
     
@@ -24,6 +24,11 @@ class VerbSequence {
         
         options = VerbSeqOptions()
         options?.repsPerVerb = 4
+        options?.degreesToChange = 2
+        options?.isHCGame = true
+        options?.numUnits = 20
+        options?.practiceVerbID = -1
+        options?.units = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
 }
     func getNext() -> Int
     {
@@ -43,10 +48,10 @@ class VerbSequence {
         vf2.voice = (requestedForm?.voice)!
         vf2.mood = (requestedForm?.mood)!
         vf2.verbid = UInt32((requestedForm?.verbid)!)
-        
+
         var a:Int32 = Int32(self.seq)
         
-        let x = nextVerbSeq2(&a, &vf1, &vf2)
+        let x = nextVerbSeq2(&a, &vf1, &vf2, &options!)
         
         givenForm?.person = vf1.person
         givenForm?.number = vf1.number
@@ -75,34 +80,34 @@ class VerbSequence {
         score = 0
     }
     
-    func checkVerb(givenForm1:String, enteredForm1:String, mfPressed:Bool, time:String) -> Bool
+    func checkVerb(expectedForm:String, enteredForm:String, mfPressed:Bool, time:String) -> Bool
     {
-        var ascore:Int32 = Int32(self.score)
-        var givenLen = 0
-        let givenForm = stringToUtf16(s: givenForm1, len: &givenLen)
-        let buffer = UnsafeMutablePointer<UInt16>(mutating: givenForm)
+        var vScore:Int32 = self.score
+        var expectedLen:Int32 = 0
+        let expectedForm1 = stringToUtf16(s: expectedForm, len: &expectedLen)
+        let expectedBuffer = UnsafeMutablePointer<UInt16>(mutating: expectedForm1)
         
-        var enteredLen = 0
-        let enteredForm = stringToUtf16(s: enteredForm1, len: &enteredLen)
-        let buffer2 = UnsafeMutablePointer<UInt16>(mutating: enteredForm)
+        var enteredLen:Int32 = 0
+        let enteredForm1 = stringToUtf16(s: enteredForm, len: &enteredLen)
+        let enteredBuffer = UnsafeMutablePointer<UInt16>(mutating: enteredForm1)
         
-        let timeS = UnsafeMutablePointer<Int8>(mutating: time)
+        let timeBuffer = UnsafeMutablePointer<Int8>(mutating: time)
         
-        print(givenForm)
-        print(enteredForm)
+        print(expectedForm1)
+        print(enteredForm1)
         
-        let a = compareFormsCheckMFRecordResult(buffer2, Int32(enteredLen), buffer, Int32(givenLen), mfPressed, timeS, &ascore)
-        score = Int(ascore)
+        let a = compareFormsCheckMFRecordResult(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed, timeBuffer, &vScore)
+        self.score = vScore
         
         if a == false
         {
             lives -= 1
         }
-        NSLog("score: \(score), lives: \(lives)")
+        NSLog("score: \(self.score), lives: \(lives)")
         return a
     }
     
-    func stringToUtf16(s:String, len: inout Int) -> [UInt16]
+    func stringToUtf16(s:String, len: inout Int32) -> [UInt16]
     {
         len = 0
         var buffer = [UInt16]()

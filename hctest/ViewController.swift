@@ -56,10 +56,10 @@ class ViewController: UIViewController, UITextViewDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        //let m = VerbForm(person:0, number:0, tense:0, voice:0, mood:0, verb:4)
-        //NSLog("here: \(m.getForm())")
+        vs.options?.units = (3,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+        vs.options?.numUnits = 2
+        vs.options?.isHCGame = isGame
         
         textView.delegate = self
         
@@ -549,7 +549,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
         
         positionCheckX()
         
-        if vs.checkVerb(givenForm1: (vs.requestedForm?.getForm())!, enteredForm1: textView.text, mfPressed: mfPressed, time: "234") == true
+        if vs.checkVerb(expectedForm: (vs.requestedForm?.getForm())!, enteredForm: textView.text, mfPressed: mfPressed, time: String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB)) == true
         {
             NSLog("yes!")
             
@@ -574,7 +574,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
         }
     }
     
-    func setScore(score:Int)
+    func setScore(score:Int32)
     {
         scoreLabel.text = String(score)
     }

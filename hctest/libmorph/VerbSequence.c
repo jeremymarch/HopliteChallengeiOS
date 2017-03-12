@@ -285,12 +285,12 @@ void setHead(VerbFormC *vf)
     //VerbFormRecord *a = NULL;
 }
 
-bool compareFormsCheckMFRecordResult(UCS2 *expected, int expectedLen, UCS2 *given, int givenLen, bool MFPressed, char *elapsedTime, int *score)
+bool compareFormsCheckMFRecordResult(UCS2 *expected, int expectedLen, UCS2 *entered, int enteredLen, bool MFPressed, char *elapsedTime, int *score)
 {
     char buffer[200];
-    bool isCorrect = compareFormsCheckMF(expected, expectedLen, given, givenLen, MFPressed);
+    bool isCorrect = compareFormsCheckMF(expected, expectedLen, entered, enteredLen, MFPressed);
     
-    ucs2_to_utf8_string(given, givenLen, (unsigned char*)buffer);
+    ucs2_to_utf8_string(entered, enteredLen, (unsigned char*)buffer);
     
     if(globalGameId == GAME_INSIPIENT)
     {
@@ -329,8 +329,9 @@ void resetVerbSeq()
     firstVerbSeq = true;
 }
 
-int nextVerbSeq2(int *seq, VerbFormD *vf1, VerbFormD *vf2)
+int nextVerbSeq2(int *seq, VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1)
 {
+    /*
     VerbSeqOptions vso;
     vso.degreesToChange = 2;
     vso.isHCGame = true;
@@ -339,6 +340,7 @@ int nextVerbSeq2(int *seq, VerbFormD *vf1, VerbFormD *vf2)
     vso.practiceVerbID = -1;
     vso.units[0] = 1;// = {1,2, 3, 4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 };
     //vso.units[1] = 7;
+    */
     VerbFormC vfc1;
     VerbFormC vfc2;
     
@@ -356,7 +358,7 @@ int nextVerbSeq2(int *seq, VerbFormD *vf1, VerbFormD *vf2)
     vfc2.mood = vf2->mood;
     vfc2.verb = &verbs[vf2->verbid];
     
-    int ret = nextVerbSeq(seq, &vfc1, &vfc2, &vso);
+    int ret = nextVerbSeq(seq, &vfc1, &vfc2, vso1);
     
     vf1->person = vfc1.person;
     vf1->number = vfc1.number;

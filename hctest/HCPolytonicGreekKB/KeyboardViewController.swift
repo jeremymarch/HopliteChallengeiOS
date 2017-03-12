@@ -99,6 +99,7 @@ public enum UnicodeMode:Int32 {
     case PreComposedNoPUA = 0
     case PreComposedPUA = 1
     case CombiningOnly = 2
+    case PreComposedHC = 3
 }
 
 class KeyboardViewController: UIInputViewController {
@@ -139,7 +140,7 @@ class KeyboardViewController: UIInputViewController {
     var buttons: Array<UIButton> = []
     var bCount:Int = 0
     
-    var unicodeMode:Int32 = UnicodeMode.PreComposedNoPUA.rawValue
+    var unicodeMode:Int32 = UnicodeMode.PreComposedHC.rawValue
     
 
     
@@ -347,7 +348,7 @@ class KeyboardViewController: UIInputViewController {
             UIDevice.current.playInputClick()
         }
     }
-    
+    /*
     func loadDefaults()
     {
         let defaults = UserDefaults(suiteName: "group.com.philolog.hoplitekeyboard")
@@ -374,7 +375,7 @@ class KeyboardViewController: UIInputViewController {
         }
         NSLog("Set unicode mode: \(unicodeMode)")
     }
-    
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -515,7 +516,7 @@ class KeyboardViewController: UIInputViewController {
                     else if key == "MF"
                     {
                         b = HCMFButton()
-                        mfButton = b as! HCMFButton
+                        mfButton = b as? HCMFButton
                         buttons.append(b)
                         
                         b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)

@@ -60,7 +60,7 @@ void syncDataFile();
 bool dbInit(const char *path);
 void VerbSeqInit(const char *path);
 int nextVerbSeq(int *seq, VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso);
-int nextVerbSeq2(int *seq, VerbFormD *vf1, VerbFormD *vf2);
+int nextVerbSeq2(int *seq, VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1);
 void resetVerbSeq();
 void changeFormByDegrees(VerbFormC *verbform, int degrees);
 void generateForm(VerbFormC *verbform);
