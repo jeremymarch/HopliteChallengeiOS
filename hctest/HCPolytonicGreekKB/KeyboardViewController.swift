@@ -992,7 +992,14 @@ class KeyboardViewController: UIInputViewController {
     func keyPressed(button: UIButton) {
         
         let string = button.titleLabel!.text
-        (textDocumentProxy as UIKeyInput).insertText("\(string!)")
+        if string == "," //just for hc challenge
+        {
+            (textDocumentProxy as UIKeyInput).insertText(", ")
+        }
+        else
+        {
+            (textDocumentProxy as UIKeyInput).insertText("\(string!)")
+        }
     }
     
     func backSpacePressed(_ button: UIButton) {

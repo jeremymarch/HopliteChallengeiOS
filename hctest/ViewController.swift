@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UITextViewDelegate  {
     var kb:KeyboardViewController? = nil
+    var gameOverLabel = UILabel()
     var label1 = UILabel()
     var label2 = UILabel()
     let stemLabel = UILabel()
@@ -160,9 +161,22 @@ class ViewController: UIViewController, UITextViewDelegate  {
         scoreLabel.widthAnchor.constraint(equalToConstant: 90.0).isActive = true
         scoreLabel.backgroundColor = UIColor.white
         scoreLabel.textColor = UIColor.black
-        scoreLabel.text = "109939"
+        scoreLabel.text = "0"
         scoreLabel.textAlignment = NSTextAlignment.left
         scoreLabel.font = headerFont
+        
+        headerView.addSubview(gameOverLabel)
+        gameOverLabel.translatesAutoresizingMaskIntoConstraints = false;
+        gameOverLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0).isActive = true
+        gameOverLabel.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -6.0).isActive = true
+        gameOverLabel.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
+        gameOverLabel.widthAnchor.constraint(equalToConstant: 130.0).isActive = true
+        gameOverLabel.backgroundColor = UIColor.white
+        gameOverLabel.textColor = UIColor.red
+        gameOverLabel.text = "Game Over"
+        gameOverLabel.textAlignment = NSTextAlignment.right
+        gameOverLabel.font = headerFont
+        gameOverLabel.isHidden = true
         
         headerView.addSubview(mfLabel)
         mfLabel.translatesAutoresizingMaskIntoConstraints = false;
@@ -495,12 +509,6 @@ class ViewController: UIViewController, UITextViewDelegate  {
         return att
     }
     
-    func enterKeyPressed()
-    {
-        timerLabel.stopTimer()
-        checkAnswer()
-    }
-    
     func sizeOfString(v:UITextView) -> CGSize
     {
         let s: String = v.text
@@ -524,6 +532,12 @@ class ViewController: UIViewController, UITextViewDelegate  {
         }
         checkXXOffset?.constant = offset
         NSLog("Width: \(textView.bounds.width), \(sizeOfString(v: textView).width), \(offset)")
+    }
+    
+    func enterKeyPressed()
+    {
+        timerLabel.stopTimer()
+        checkAnswer()
     }
     
     func checkAnswer()
@@ -573,18 +587,23 @@ class ViewController: UIViewController, UITextViewDelegate  {
             life1.isHidden = false
             life2.isHidden = false
             life3.isHidden = false
+            gameOverLabel.isHidden = true
         case 2:
             life1.isHidden = false
             life2.isHidden = false
             life3.isHidden = true
+            gameOverLabel.isHidden = true
         case 1:
             life1.isHidden = false
             life2.isHidden = true
             life3.isHidden = true
+            gameOverLabel.isHidden = true
         case 0:
             life1.isHidden = true
             life2.isHidden = true
             life3.isHidden = true
+            gameOverLabel.isHidden = false
+            continueButton.setTitle("Play again?", for: [])
         default: break
         }
     }
@@ -593,10 +612,16 @@ class ViewController: UIViewController, UITextViewDelegate  {
         checkXView.isHidden = true
         if blockContinueButton == false
         {
-            blockContinueButton = true
-            let b:Int = Int((vs.options?.repsPerVerb)!)
+            let ret = vs.getNext()
             
-            if vs.seq == b
+            blockContinueButton = true
+            //let b:Int = Int((vs.options?.repsPerVerb)!)
+            
+            if isGame && vs.lives == 0
+            {
+                start()
+            }
+            else if ret == VERB_SEQ_CHANGE_NEW
             {
                 label2.text = ""
                 textView.text = ""
@@ -632,19 +657,32 @@ class ViewController: UIViewController, UITextViewDelegate  {
                 //1.5 x the time
                 let halfTime = timerLabel.countDownTime / 2
                 timerLabel.startTime += halfTime
+                kb?.mfButton?.setTitle(",", for: [])
             }
         }
     }
     
     func start()
     {
+        label1.text = ""
+        label2.text = ""
+        textView.text = ""
+        continueButton.setTitle("Continue", for: [])
+        gameOverLabel.isHidden = true
         vs.reset()
+        vs.getNext()
         askForForm()
+        if (isGame)
+        {
+            scoreLabel.text = String(0)
+            life1.isHidden = false;
+            life2.isHidden = false;
+            life3.isHidden = false;
+        }
     }
     
     func askForForm()
     {
-        vs.getNext()
         label1.text = vs.givenForm?.getForm()
         label1.isHidden = false
         //stemLabel.text = vs.requestedForm?.getDescription()
@@ -671,7 +709,5 @@ class ViewController: UIViewController, UITextViewDelegate  {
         
         checkAnswer()
     }
-    
-
 }
 

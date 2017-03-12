@@ -52,6 +52,7 @@ class HCMFButton: UIButton {
         
         backgroundColor = UIColor.white
         setTitleColor(hcorange, for: [])
+        
         setNeedsDisplay()
     }
     
@@ -81,6 +82,7 @@ class HCMFButton: UIButton {
         isDepressed = false
         layer.borderColor = nil
         layer.borderWidth = 0.0
+        setTitle("MF", for: [])
         
         backgroundColor = hcorange
         setTitleColor(UIColor.white, for: [])
