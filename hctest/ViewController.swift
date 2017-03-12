@@ -56,7 +56,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        isGame = true
         vs.options?.units = (3,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
         vs.options?.numUnits = 2
         vs.options?.isHCGame = isGame
@@ -71,11 +71,13 @@ class ViewController: UIViewController, UITextViewDelegate  {
             item.trailingBarButtonGroups = []
         }
         
+        var timerLabelWidth:CGFloat = 100.0
         if UIDevice.current.userInterfaceIdiom == .pad
         {
             timeFontSize = 24.0;
             fontSize = 30.0;
             greekFontSize = 40.0;
+            timerLabelWidth = 110.0
         }
         else //if UIDevice.current.userInterfaceIdiom == .phone
         {
@@ -113,6 +115,16 @@ class ViewController: UIViewController, UITextViewDelegate  {
             }
         }
         
+        var headerHeight:CGFloat = 52.0
+        var topHeaderRowHeightMultiple:CGFloat = 0.54
+        let lifeSize:CGFloat = 20.0
+        
+        if isGame == false
+        {
+            headerHeight = 30.0
+            topHeaderRowHeightMultiple = 1.0
+        }
+        
         let greekFont = UIFont(name: "NewAthenaUnicode", size: greekFontSize)
         let headerFont = UIFont(name: "HelveticaNeue-Light", size: timeFontSize)
         let stemFont = UIFont(name: "HelveticaNeue-Light", size: fontSize)
@@ -123,15 +135,15 @@ class ViewController: UIViewController, UITextViewDelegate  {
         headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 6.0).isActive = true
         headerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0).isActive = true
         headerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0.0).isActive = true
-        headerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.0, constant: 52.0).isActive = true
+        headerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.0, constant: headerHeight).isActive = true
         headerView.backgroundColor = UIColor.white
         
         headerView.addSubview(timerLabel)
         timerLabel.translatesAutoresizingMaskIntoConstraints = false;
         timerLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 0.0).isActive = true
         timerLabel.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -6.0).isActive = true
-        timerLabel.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: 0.54, constant: 0.0).isActive = true
-        timerLabel.widthAnchor.constraint(equalToConstant: 100.0).isActive = true
+        timerLabel.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: topHeaderRowHeightMultiple, constant: 0.0).isActive = true
+        timerLabel.widthAnchor.constraint(equalToConstant: timerLabelWidth).isActive = true
         timerLabel.backgroundColor = UIColor.white
         timerLabel.textColor = UIColor.black
         timerLabel.text = "30.00 sec"
@@ -142,7 +154,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
         quitButton.translatesAutoresizingMaskIntoConstraints = false;
         quitButton.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 0.0).isActive = true
         quitButton.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 6.0).isActive = true
-        quitButton.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: 0.54, constant: 0.0).isActive = true
+        quitButton.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: topHeaderRowHeightMultiple, constant: 0.0).isActive = true
         quitButton.widthAnchor.constraint(equalToConstant: 40.0).isActive = true
         quitButton.backgroundColor = UIColor.white
         quitButton.setTitleColor(UIColor.black, for: [])
@@ -152,12 +164,11 @@ class ViewController: UIViewController, UITextViewDelegate  {
         quitButton.layer.borderColor = UIColor.gray.cgColor
         quitButton.layer.cornerRadius = 4.0
 
-        
         headerView.addSubview(scoreLabel)
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false;
         scoreLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 0.0).isActive = true
         scoreLabel.leftAnchor.constraint(equalTo: quitButton.rightAnchor, constant: 6.0).isActive = true
-        scoreLabel.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: 0.54, constant: 0.0).isActive = true
+        scoreLabel.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: topHeaderRowHeightMultiple, constant: 0.0).isActive = true
         scoreLabel.widthAnchor.constraint(equalToConstant: 90.0).isActive = true
         scoreLabel.backgroundColor = UIColor.white
         scoreLabel.textColor = UIColor.black
@@ -182,7 +193,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
         mfLabel.translatesAutoresizingMaskIntoConstraints = false;
         mfLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 0.0).isActive = true
         mfLabel.rightAnchor.constraint(equalTo: timerLabel.leftAnchor, constant: -6.0).isActive = true
-        mfLabel.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: 0.54, constant: 0.0).isActive = true
+        mfLabel.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: topHeaderRowHeightMultiple, constant: 0.0).isActive = true
         mfLabel.widthAnchor.constraint(equalToConstant: 40.0).isActive = true
         mfLabel.backgroundColor = UIColor.white
         mfLabel.textColor = hcorange
@@ -199,24 +210,24 @@ class ViewController: UIViewController, UITextViewDelegate  {
         life1.translatesAutoresizingMaskIntoConstraints = false;
         life1.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0).isActive = true
         life1.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -6.0).isActive = true
-        life1.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
-        life1.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
+        life1.heightAnchor.constraint(equalToConstant: lifeSize).isActive = true
+        life1.widthAnchor.constraint(equalToConstant: lifeSize).isActive = true
         life1.image = life1i
         
         headerView.addSubview(life2)
         life2.translatesAutoresizingMaskIntoConstraints = false;
         life2.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0).isActive = true
         life2.rightAnchor.constraint(equalTo: life1.leftAnchor, constant: -4.0).isActive = true
-        life2.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
-        life2.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
+        life2.heightAnchor.constraint(equalToConstant: lifeSize).isActive = true
+        life2.widthAnchor.constraint(equalToConstant: lifeSize).isActive = true
         life2.image = life1i
         
         headerView.addSubview(life3)
         life3.translatesAutoresizingMaskIntoConstraints = false;
         life3.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0).isActive = true
         life3.rightAnchor.constraint(equalTo: life2.leftAnchor, constant: -4.0).isActive = true
-        life3.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
-        life3.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
+        life3.heightAnchor.constraint(equalToConstant: lifeSize).isActive = true
+        life3.widthAnchor.constraint(equalToConstant: lifeSize).isActive = true
         life3.image = life1i
         
         view.addSubview(label1)
