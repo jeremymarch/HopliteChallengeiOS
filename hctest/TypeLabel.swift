@@ -32,9 +32,9 @@ class TypeLabel: UILabel {
         self.duration = duration
         currentStep = 0
         
-        if self.attributedText != nil && (self.attributedText?.length)! > 0
+        if att != nil && (att?.length)! > 0 //self.attributedText != nil && (self.attributedText?.length)! > 0
         {
-            steps = (self.attributedText?.length)!
+            steps = (att?.length)!
             startTime = CACurrentMediaTime()
             timerDisplayLink = CADisplayLink.init(target: self, selector: #selector(updateHideAtt))
             timerDisplayLink?.frameInterval = 1
@@ -44,6 +44,7 @@ class TypeLabel: UILabel {
         {
             self.attributedText = nil
             self.text = ""
+            self.att = nil
         }
     }
     

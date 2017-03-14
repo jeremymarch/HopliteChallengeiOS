@@ -52,6 +52,8 @@ class ViewController: UIViewController, UITextViewDelegate  {
     var checkXYOffset:NSLayoutConstraint? = nil
     var isGame:Bool = true
     let typingDelay:TimeInterval = 0.03
+    var blockPinch:Bool = true
+    var isExpanded:Bool = false
     
     let vs:VerbSequence = VerbSequence()
     
@@ -327,6 +329,9 @@ class ViewController: UIViewController, UITextViewDelegate  {
             timerLabel.countDown = false
         }
         
+        let pinchRecognizer = UIPinchGestureRecognizer(target:self, action:#selector(handlePinch))
+        self.view.addGestureRecognizer(pinchRecognizer)
+        
         vs.DBInit2()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
             self.start()
@@ -400,7 +405,10 @@ class ViewController: UIViewController, UITextViewDelegate  {
             (value: Bool) in
             
             self.label1.textColor = UIColor.black
-            self.label1.text = self.textView.text
+            //self.label1.text = self.textView.text
+            let a = NSMutableAttributedString.init(string: self.textView.text)
+            self.label1.attributedText = a
+            self.label1.att = a
             self.textView.text = ""
             
             self.textViewTop2?.isActive = false
@@ -469,7 +477,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
                             {
                                 var z:Int = Int(v)
                                 vf = VerbForm(person: UInt8(person), number: UInt8(number), tense: UInt8(t), voice: UInt8(voice), mood: UInt8(mood), verb: z)
-                                s = vf?.getForm()
+                                s = vf?.getForm(decomposed:false)
                                 if s != nil && (s?.characters.count)! > 0
                                 {
                                     label1.text = s
@@ -560,10 +568,11 @@ class ViewController: UIViewController, UITextViewDelegate  {
         textView.isSelectable = false
         textView.resignFirstResponder()
         blockContinueButton = false
+        blockPinch = false
         
         positionCheckX()
         
-        if vs.checkVerb(expectedForm: (vs.requestedForm?.getForm())!, enteredForm: textView.text, mfPressed: mfPressed, time: String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB)) == true
+        if vs.checkVerb(expectedForm: (vs.requestedForm?.getForm(decomposed:false))!, enteredForm: textView.text, mfPressed: mfPressed, time: String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB)) == true
         {
             NSLog("yes!")
             
@@ -685,7 +694,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
         {
             mfPressed = true
             mfLabel.isHidden = false
-            if vs.requestedForm?.getForm().contains(",") == false
+            if vs.requestedForm?.getForm(decomposed:false).contains(",") == false
             {
                 timerLabel.stopTimer()
                 checkAnswer()
@@ -722,9 +731,10 @@ class ViewController: UIViewController, UITextViewDelegate  {
     func askForForm(erasePreviousForm:Bool)
     {
         var delay:TimeInterval = 0
+        blockPinch = true
         if erasePreviousForm
         {
-            label1.type(newText: (vs.givenForm?.getForm())!, duration: 0.3)
+            label1.type(newText: (vs.givenForm?.getForm(decomposed: false))!, duration: 0.3)
         }
         label1.isHidden = false
     
@@ -746,7 +756,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
     func showAnswer()
     {
         label2.isHidden = false
-        label2.type(newText: (vs.requestedForm?.getForm())!, duration: 0.3)
+        label2.type(newText: (vs.requestedForm?.getForm(decomposed: false))!, duration: 0.3)
     }
     
     func handleTimeOut()
@@ -755,5 +765,139 @@ class ViewController: UIViewController, UITextViewDelegate  {
         
         checkAnswer()
     }
+    
+    func handlePinch(sender: UIPinchGestureRecognizer)
+    {
+        //NSLog("Scale: %.2f | Velocity: %.2f",sender.scale, sender.velocity);
+        let thresholdVelocity:CGFloat  = 0 //4.0;
+        
+        if blockPinch == true
+        {
+            return
+        }
+        if sender.scale > 1 && sender.velocity > thresholdVelocity
+        {
+            expand()
+        }
+        else if sender.velocity < -thresholdVelocity
+        {
+            unexpand()
+        }
+    }
+    
+    func expand()
+    {
+        if isExpanded == true
+        {
+            return
+        }
+        NSLog("expand")
+        let a = NSMutableAttributedString.init(string: (vs.givenForm?.getForm(decomposed: true))!)
+        label1.attributedText = a
+        label1.att = a
+        label1.textColor = UIColor.black
+        if label2.attributedText?.string == ""
+        {
+            textView.text = vs.requestedForm?.getForm(decomposed: true)
+            positionCheckX()
+        }
+        else
+        {
+            let b = NSMutableAttributedString.init(string: (vs.requestedForm?.getForm(decomposed: true))!)
+            label2.attributedText = b
+            label2.att = b
+            label2.textColor = UIColor.black
+        }
+        isExpanded = true
+    }
+    
+    func unexpand()
+    {
+        if isExpanded == false
+        {
+            return
+        }
+        NSLog("unexpand")
+        
+        let a = NSMutableAttributedString.init(string: (vs.givenForm?.getForm(decomposed: false))!)
+        label1.attributedText = a
+        label1.att = a
+        label1.textColor = UIColor.black
+        
+        if label2.attributedText?.string == ""
+        {
+            textView.text = vs.requestedForm?.getForm(decomposed: false)
+            positionCheckX()
+        }
+        else
+        {
+            let b = NSMutableAttributedString.init(string: (vs.requestedForm?.getForm(decomposed: false))!)
+            label2.attributedText = b
+            label2.att = b
+            label2.textColor = UIColor.black
+        }
+        isExpanded = false
+    }
+    
+    /*
+    
+    -(void)expand //ie decompose
+    {
+    if (!self.expanded)
+    {
+    NSString *newChanged = [self.changedStrDecomposed stringByReplacingOccurrencesOfString:@", " withString:@",\n"];
+    if (self.changedForm.hidden == YES)
+    {
+    //self.changedForm.frame = self.textfield.frame;
+    //self.changedForm.hidden = NO;
+    //self.textfield.hidden = YES;
+    self.textfield.text = newChanged;
+    
+    //slide green check over
+    CGSize size = [self.textfield.text sizeWithAttributes:@{NSFontAttributeName: self.textfield.font}];
+    CGFloat gvX = (self.view.frame.size.width + size.width) / 2 + 15;
+    //don't let it go off the screen
+    if (gvX > self.view.frame.size.width - 26)
+    gvX = self.view.frame.size.width - 26;
+    [self.greenCheckView setFrame:CGRectMake(gvX, self.greenCheckView.frame.origin.y, self.greenCheckView.frame.size.width,self.greenCheckView.frame.size.height)];
+    }
+    else
+    {
+    self.changedForm.text = newChanged;
+    [self centerLabel:self.changedForm withString:newChanged setHeight:NO];
+    }
+    self.expanded = YES;
+    self.origForm.text = self.origStrDecomposed;
+    [self centerLabel:self.origForm withString:self.origStrDecomposed setHeight:NO];
+    }
+    }
+    
+    -(void)unexpand //ie un-decompose
+    {
+    if (self.expanded)
+    {
+    NSString *newChanged = [self.changedStr stringByReplacingOccurrencesOfString:@", " withString:@",\n"];
+    if (self.changedForm.hidden == YES)
+    {
+    self.textfield.text = newChanged;
+    //slide green check over
+    CGSize size = [self.textfield.text sizeWithAttributes:@{NSFontAttributeName: self.textfield.font}];
+    CGFloat gvX = (self.view.frame.size.width + size.width) / 2 + 15;
+    //don't let it go off the screen
+    if (gvX > self.view.frame.size.width - 26)
+    gvX = self.view.frame.size.width - 26;
+    [self.greenCheckView setFrame:CGRectMake(gvX, self.greenCheckView.frame.origin.y, self.greenCheckView.frame.size.width,self.greenCheckView.frame.size.height)];
+    }
+    else
+    {
+    self.changedForm.text = newChanged;
+    [self centerLabel:self.changedForm withString:newChanged setHeight:NO];
+    }
+    self.expanded = NO;
+    self.origForm.text = self.origStr;
+    [self centerLabel:self.origForm withString:self.origStr setHeight:NO];
+    }
+    }
+*/
 }
 

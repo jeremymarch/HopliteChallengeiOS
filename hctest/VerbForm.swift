@@ -27,7 +27,7 @@ class VerbForm {
         self.verbid = verb
     }
     
-    func getForm() -> String
+    func getForm(decomposed:Bool) -> String
     {
         let bufferSize:Int = 500
         var buffer = [Int8](repeating: 0, count: bufferSize)
@@ -43,7 +43,7 @@ class VerbForm {
         vf.mood = UInt8(self.mood)
         vf.verbid = UInt32(self.verbid)
         
-        let x = getForm2(&vf, &buffer, Int32(bufferSize), true, false)
+        let x = getForm2(&vf, &buffer, Int32(bufferSize), true, decomposed)
         if x != 0
         {
             //let data = Data(bytes:buffer2, count:bufferSize)
