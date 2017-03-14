@@ -52,7 +52,7 @@ class VerbForm {
             
             //NSLog("len: \(s.characters.count)")
         
-            return s
+            return s.replacingOccurrences(of: ", ", with: ",\n")
         }
         else
         {

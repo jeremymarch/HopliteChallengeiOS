@@ -250,6 +250,8 @@ class ViewController: UIViewController, UITextViewDelegate  {
         label1.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.22).isActive = true
         label1.backgroundColor = UIColor.white
         label1.font = greekFont
+        label1.lineBreakMode = .byWordWrapping // or NSLineBreakMode.ByWordWrapping
+        label1.numberOfLines = 0
         
         
         view.addSubview(stemLabel)
@@ -288,6 +290,8 @@ class ViewController: UIViewController, UITextViewDelegate  {
         label2.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.22).isActive = true
         label2.backgroundColor = UIColor.white
         label2.font = greekFont
+        label2.lineBreakMode = .byWordWrapping // or NSLineBreakMode.ByWordWrapping
+        label2.numberOfLines = 0
         
         view.addSubview(continueButton)
         continueButton.translatesAutoresizingMaskIntoConstraints = false;
@@ -732,6 +736,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
     {
         var delay:TimeInterval = 0
         blockPinch = true
+        isExpanded = false
         if erasePreviousForm
         {
             label1.type(newText: (vs.givenForm?.getForm(decomposed: false))!, duration: 0.3)
@@ -838,66 +843,5 @@ class ViewController: UIViewController, UITextViewDelegate  {
         }
         isExpanded = false
     }
-    
-    /*
-    
-    -(void)expand //ie decompose
-    {
-    if (!self.expanded)
-    {
-    NSString *newChanged = [self.changedStrDecomposed stringByReplacingOccurrencesOfString:@", " withString:@",\n"];
-    if (self.changedForm.hidden == YES)
-    {
-    //self.changedForm.frame = self.textfield.frame;
-    //self.changedForm.hidden = NO;
-    //self.textfield.hidden = YES;
-    self.textfield.text = newChanged;
-    
-    //slide green check over
-    CGSize size = [self.textfield.text sizeWithAttributes:@{NSFontAttributeName: self.textfield.font}];
-    CGFloat gvX = (self.view.frame.size.width + size.width) / 2 + 15;
-    //don't let it go off the screen
-    if (gvX > self.view.frame.size.width - 26)
-    gvX = self.view.frame.size.width - 26;
-    [self.greenCheckView setFrame:CGRectMake(gvX, self.greenCheckView.frame.origin.y, self.greenCheckView.frame.size.width,self.greenCheckView.frame.size.height)];
-    }
-    else
-    {
-    self.changedForm.text = newChanged;
-    [self centerLabel:self.changedForm withString:newChanged setHeight:NO];
-    }
-    self.expanded = YES;
-    self.origForm.text = self.origStrDecomposed;
-    [self centerLabel:self.origForm withString:self.origStrDecomposed setHeight:NO];
-    }
-    }
-    
-    -(void)unexpand //ie un-decompose
-    {
-    if (self.expanded)
-    {
-    NSString *newChanged = [self.changedStr stringByReplacingOccurrencesOfString:@", " withString:@",\n"];
-    if (self.changedForm.hidden == YES)
-    {
-    self.textfield.text = newChanged;
-    //slide green check over
-    CGSize size = [self.textfield.text sizeWithAttributes:@{NSFontAttributeName: self.textfield.font}];
-    CGFloat gvX = (self.view.frame.size.width + size.width) / 2 + 15;
-    //don't let it go off the screen
-    if (gvX > self.view.frame.size.width - 26)
-    gvX = self.view.frame.size.width - 26;
-    [self.greenCheckView setFrame:CGRectMake(gvX, self.greenCheckView.frame.origin.y, self.greenCheckView.frame.size.width,self.greenCheckView.frame.size.height)];
-    }
-    else
-    {
-    self.changedForm.text = newChanged;
-    [self centerLabel:self.changedForm withString:newChanged setHeight:NO];
-    }
-    self.expanded = NO;
-    self.origForm.text = self.origStr;
-    [self centerLabel:self.origForm withString:self.origStr setHeight:NO];
-    }
-    }
-*/
 }
 
