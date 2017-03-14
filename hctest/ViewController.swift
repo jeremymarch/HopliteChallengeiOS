@@ -11,13 +11,13 @@ import UIKit
 class ViewController: UIViewController, UITextViewDelegate  {
     var kb:KeyboardViewController? = nil
     var gameOverLabel = UILabel()
-    var label1 = UILabel()
-    var label2 = UILabel()
-    let stemLabel = UILabel()
+    var label1 = TypeLabel()
+    var label2 = TypeLabel()
+    let stemLabel = TypeLabel()
     let textView = UITextView()
     let continueButton = UIButton()
     let headerView = UIView()
-    let timerLabel = HCTimer() //UILabel()
+    let timerLabel = HCTimer()
     let quitButton = UIButton()
     let scoreLabel = UILabel()
     let mfLabel = UILabel()
@@ -51,6 +51,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
     var checkXXOffset:NSLayoutConstraint? = nil
     var checkXYOffset:NSLayoutConstraint? = nil
     var isGame:Bool = true
+    let typingDelay:TimeInterval = 0.03
     
     let vs:VerbSequence = VerbSequence()
     
@@ -119,10 +120,15 @@ class ViewController: UIViewController, UITextViewDelegate  {
         var topHeaderRowHeightMultiple:CGFloat = 0.54
         let lifeSize:CGFloat = 20.0
         
+        timerLabel.countDownTime = 30
+        timerLabel.countDown = true
+        NotificationCenter.default.addObserver(self, selector: #selector(handleTimeOut), name: NSNotification.Name(rawValue: "HCTimeOut"), object: nil)
+        
         if isGame == false
         {
             headerHeight = 30.0
             topHeaderRowHeightMultiple = 1.0
+            timerLabel.countDown = false
         }
         
         let greekFont = UIFont(name: "NewAthenaUnicode", size: greekFontSize)
@@ -146,7 +152,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
         timerLabel.widthAnchor.constraint(equalToConstant: timerLabelWidth).isActive = true
         timerLabel.backgroundColor = UIColor.white
         timerLabel.textColor = UIColor.black
-        timerLabel.text = "30.00 sec"
+        timerLabel.reset()
         timerLabel.textAlignment = NSTextAlignment.right
         timerLabel.font = headerFont
         
@@ -312,11 +318,6 @@ class ViewController: UIViewController, UITextViewDelegate  {
         
         continueButton.addTarget(self, action: #selector(continuePressed(button:)), for: .touchUpInside)
         
-        timerLabel.countDownTime = 30
-        timerLabel.countDown = true
-        timerLabel.startTimer()
-        NotificationCenter.default.addObserver(self, selector: #selector(handleTimeOut), name: NSNotification.Name(rawValue: "HCTimeOut"), object: nil)
-        
         if isGame == false
         {
             scoreLabel.isHidden = true
@@ -327,7 +328,6 @@ class ViewController: UIViewController, UITextViewDelegate  {
         }
         
         vs.DBInit2()
-        
         start()
     }
     
@@ -368,7 +368,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
             var temp:UILabel?
             temp = self.label2
             self.label2 = self.label1
-            self.label1 = temp!
+            self.label1 = temp! as! TypeLabel
             
             var tempCon:NSLayoutConstraint?
             tempCon = self.label2Top
@@ -376,7 +376,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
             self.label1Top = tempCon!
             self.view.bringSubview(toFront:self.checkXView)
             self.view.layoutIfNeeded()
-            self.askForForm()
+            self.askForForm(erasePreviousForm: false)
         })
     }
     
@@ -397,6 +397,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
         }, completion: {
             (value: Bool) in
             
+            self.label1.textColor = UIColor.black
             self.label1.text = self.textView.text
             self.textView.text = ""
             
@@ -405,7 +406,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
             self.textViewTop?.isActive = true
             self.view.bringSubview(toFront:self.checkXView)
             self.view.layoutIfNeeded()
-            self.askForForm()
+            self.askForForm(erasePreviousForm: false)
         })
     }
     
@@ -630,23 +631,43 @@ class ViewController: UIViewController, UITextViewDelegate  {
             
             if isGame && vs.lives == 0
             {
-                start()
+                label2.hide(duration:0.3)
+                stemLabel.hide(duration:0.3)
+                label1.hide(duration: 0.3)
+                textView.text = ""
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.start()
+                }
             }
             else if ret == VERB_SEQ_CHANGE_NEW
             {
-                label2.text = ""
+                //label2.text = ""
+                //label2.hideTypeText(newText: label2.text!, characterDelay: typingDelay, delay: 0.5)
+                label2.hide(duration:0.3)
+                stemLabel.hide(duration:0.3)
+                label1.hide(duration: 0.3)
                 textView.text = ""
-                askForForm()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    self.askForForm(erasePreviousForm: true)
+                }
             }
             else
             {
-                if label2.isHidden == true
+                if label2.isHidden == true || label2.text == ""
                 {
-                    animatetextViewUp()
+                    label1.hide(duration: 0.3)
+                    stemLabel.hide(duration:0.3)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                        self.animatetextViewUp()
+                    }
                 }
                 else
                 {
-                    animateLabelUp()
+                    label1.hide(duration: 0.3)
+                    stemLabel.hide(duration:0.3)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                        self.animateLabelUp()
+                    }
                 }
             }
         }
@@ -682,7 +703,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
         gameOverLabel.isHidden = true
         vs.reset()
         vs.getNext()
-        askForForm()
+        askForForm(erasePreviousForm: true)
         if (isGame)
         {
             scoreLabel.text = String(0)
@@ -692,26 +713,44 @@ class ViewController: UIViewController, UITextViewDelegate  {
         }
     }
     
-    func askForForm()
+    func askForForm(erasePreviousForm:Bool)
     {
-        label1.text = vs.givenForm?.getForm()
+        NSLog("HERE")
+        //label1.text = vs.givenForm?.getForm()
+        var delay:TimeInterval = 0
+        if erasePreviousForm
+        {
+            //delay = label1.typeText(newText: (vs.givenForm?.getForm())!, characterDelay: typingDelay, delay: 0)
+            label1.type(newText: (vs.givenForm?.getForm())!, duration: 0.3)
+        }
         label1.isHidden = false
+    NSLog("here2")
+    
+        //delay = stemLabel.typeTextAtt(newText: attributedDescription(orig: (vs.givenForm?.getDescription())!, new: (vs.requestedForm?.getDescription())!), characterDelay: typingDelay, delay: delay + 0.5)
+        stemLabel.type(newAttributedText: attributedDescription(orig: (vs.givenForm?.getDescription())!, new: (vs.requestedForm?.getDescription())!), duration: 0.3)
         //stemLabel.text = vs.requestedForm?.getDescription()
-        stemLabel.attributedText = attributedDescription(orig: (vs.givenForm?.getDescription())!, new: (vs.requestedForm?.getDescription())!)
-        label2.isHidden = true
-        label2.text = vs.requestedForm?.getForm()
+        //stemLabel.attributedText = attributedDescription(orig: (vs.givenForm?.getDescription())!, new: (vs.requestedForm?.getDescription())!)
+        //label2.isHidden = true
+        //label2.text = vs.requestedForm?.getForm()
         textView.isEditable = true
         textView.isSelectable = true
         textView.textColor = UIColor.black
-        textView.becomeFirstResponder()
         mfPressed = false
         mfLabel.isHidden = true
-        timerLabel.startTimer()
+        timerLabel.reset()
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay + 0.7) {
+            self.textView.becomeFirstResponder()
+            self.timerLabel.startTimer()
+            
+            //self.label1.hide(duration: 0.6)
+            //self.stemLabel.hide(duration: 0.6)
+        }
     }
     
     func showAnswer()
     {
         label2.isHidden = false
+        label2.type(newText: (vs.requestedForm?.getForm())!, duration: 0.3)
     }
     
     func handleTimeOut()

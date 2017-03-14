@@ -81,4 +81,16 @@ class HCTimer: UILabel {
         //timerDisplayLink = nil;
     }
     
+    func reset()
+    {
+        if countDown
+        {
+            self.text = String.init(format: "%.02f sec", countDownTime)
+        }
+        else
+        {
+            self.text = String.init(format: "%.02f sec", 0)
+        }
+    }
+    
 }
