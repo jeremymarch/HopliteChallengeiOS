@@ -14,7 +14,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
     var label1 = TypeLabel()
     var label2 = TypeLabel()
     let stemLabel = TypeLabel()
-    let textView = UITextView()
+    let textView = TypeTextView()
     let continueButton = UIButton()
     let headerView = UIView()
     let timerLabel = HCTimer()
@@ -258,9 +258,9 @@ class ViewController: UIViewController, UITextViewDelegate  {
         stemLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
         stemLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
         stemLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08).isActive = true
-        stemLabel.textColor = UIColor.gray
+        stemLabel.attTextColor = UIColor.gray
         stemLabel.backgroundColor = UIColor.white
-        stemLabel.text = "1st pl. aor. act. ind."
+        stemLabel.text = ""
         stemLabel.font = stemFont
 
         view.addSubview(textView)
@@ -328,7 +328,9 @@ class ViewController: UIViewController, UITextViewDelegate  {
         }
         
         vs.DBInit2()
-        start()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            self.start()
+        }
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -634,6 +636,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
                 label2.hide(duration:0.3)
                 stemLabel.hide(duration:0.3)
                 label1.hide(duration: 0.3)
+                //textView.hide(duration: 0.3)
                 textView.text = ""
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     self.start()
@@ -646,6 +649,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
                 label2.hide(duration:0.3)
                 stemLabel.hide(duration:0.3)
                 label1.hide(duration: 0.3)
+                //textView.hide(duration: 0.3)
                 textView.text = ""
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     self.askForForm(erasePreviousForm: true)
@@ -665,6 +669,8 @@ class ViewController: UIViewController, UITextViewDelegate  {
                 {
                     label1.hide(duration: 0.3)
                     stemLabel.hide(duration:0.3)
+                    //textView.hide(duration: 0.3)
+                    textView.text = ""
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                         self.animateLabelUp()
                     }
@@ -715,35 +721,25 @@ class ViewController: UIViewController, UITextViewDelegate  {
     
     func askForForm(erasePreviousForm:Bool)
     {
-        NSLog("HERE")
-        //label1.text = vs.givenForm?.getForm()
         var delay:TimeInterval = 0
         if erasePreviousForm
         {
-            //delay = label1.typeText(newText: (vs.givenForm?.getForm())!, characterDelay: typingDelay, delay: 0)
             label1.type(newText: (vs.givenForm?.getForm())!, duration: 0.3)
         }
         label1.isHidden = false
-    NSLog("here2")
     
-        //delay = stemLabel.typeTextAtt(newText: attributedDescription(orig: (vs.givenForm?.getDescription())!, new: (vs.requestedForm?.getDescription())!), characterDelay: typingDelay, delay: delay + 0.5)
         stemLabel.type(newAttributedText: attributedDescription(orig: (vs.givenForm?.getDescription())!, new: (vs.requestedForm?.getDescription())!), duration: 0.3)
-        //stemLabel.text = vs.requestedForm?.getDescription()
-        //stemLabel.attributedText = attributedDescription(orig: (vs.givenForm?.getDescription())!, new: (vs.requestedForm?.getDescription())!)
-        //label2.isHidden = true
-        //label2.text = vs.requestedForm?.getForm()
+
+        label2.text = ""
         textView.isEditable = true
         textView.isSelectable = true
         textView.textColor = UIColor.black
         mfPressed = false
         mfLabel.isHidden = true
         timerLabel.reset()
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay + 0.7) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay + 0.3) {
             self.textView.becomeFirstResponder()
             self.timerLabel.startTimer()
-            
-            //self.label1.hide(duration: 0.6)
-            //self.stemLabel.hide(duration: 0.6)
         }
     }
     

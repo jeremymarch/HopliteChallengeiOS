@@ -28,7 +28,7 @@ class HCTimer: UILabel {
     {
         if countDown == true
         {
-            self.text = String.init(format: "%ld.00 sec", countDownTime)
+            self.text = String.init(format: "%.02f sec", countDownTime)
         }
         else
         {

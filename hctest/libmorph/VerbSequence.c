@@ -453,7 +453,7 @@ int nextVerbSeq(int *seq, VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso)
     */
     vf1->verb = v; //THIS IS THE VERB WE'E USING
     //***************OVERRIDE for testing on specific verbs, set here*******************************
-    //vf1->verb = &verbs[3];//46];//13]; //46 kathisthmi is longest
+    //vf1->verb = &verbs[5];//46];//13]; //46 kathisthmi is longest
     //***************for testing on specific verbs*****************************************
     
     

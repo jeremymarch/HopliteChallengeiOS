@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class TypeLabel: UILabel {
+class TypeTextView: UITextView {
     var str:String? = nil
     var steps:Int = 0
     var timerDisplayLink:CADisplayLink?
@@ -23,14 +23,17 @@ class TypeLabel: UILabel {
         super.init(coder: aDecoder)!
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(frame: CGRect, textContainer: NSTextContainer?) {
+        super.init(frame: frame, textContainer: textContainer)
     }
-
+    
     func hide(duration:TimeInterval)
     {
         self.duration = duration
         currentStep = 0
+        
+        att = NSMutableAttributedString.init(string: text)
+        attributedText = att
         
         if self.attributedText != nil && (self.attributedText?.length)! > 0
         {
@@ -74,7 +77,7 @@ class TypeLabel: UILabel {
             type(newAttributedText:NSMutableAttributedString.init(string: newText), duration:duration)
         }
     }
-
+    
     func update()
     {
         var elapsedTime:CFTimeInterval = CACurrentMediaTime() - startTime
