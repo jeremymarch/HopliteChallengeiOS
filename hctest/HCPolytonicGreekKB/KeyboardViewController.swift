@@ -128,7 +128,7 @@ class KeyboardViewController: UIInputViewController {
     let fontSize:CGFloat = 24.0
     let smallerFontSize:CGFloat = 20.0
 
-    var portraitHeight:CGFloat = 200.0
+    var portraitHeight:CGFloat = 222.0
     var landscapeHeight:CGFloat = 157.0
     
     let buttonHeightMultiplier:CGFloat = 0.22
@@ -395,8 +395,8 @@ class KeyboardViewController: UIInputViewController {
 
         if UIDevice.current.userInterfaceIdiom == .pad
         {
-            portraitHeight = 380.0
-            landscapeHeight = 360.0
+            portraitHeight = 340.0
+            landscapeHeight = 290.0
         }
         else
         {
@@ -404,12 +404,12 @@ class KeyboardViewController: UIInputViewController {
             if UIScreen.main.nativeBounds.width < 641
             {
                 buttonSpacing = 4.0
-                portraitHeight = 236.0
+                portraitHeight = 200.0
                 landscapeHeight = 186.0
             }
             else //larger iPhones
             {
-                portraitHeight = 200.0
+                portraitHeight = 222.0
                 landscapeHeight = 157.0
             }
         }

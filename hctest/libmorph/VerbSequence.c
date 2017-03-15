@@ -405,6 +405,7 @@ int nextVerbSeq(int *seq, VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso)
     if (vso->practiceVerbID > -1)
     {
         v = &verbs[vso->practiceVerbID];
+        fprintf(stderr, "verbid: %i, %i\n", vso->practiceVerbID, v->verbid);
     }
     else if (vso->isHCGame)
     {
@@ -453,9 +454,8 @@ int nextVerbSeq(int *seq, VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso)
     */
     vf1->verb = v; //THIS IS THE VERB WE'E USING
     //***************OVERRIDE for testing on specific verbs, set here*******************************
-    //vf1->verb = &verbs[5];//46];//13]; //46 kathisthmi is longest
+    //vf1->verb = &verbs[46];//46];//13]; //46 kathisthmi is longest
     //***************for testing on specific verbs*****************************************
-    
     
     int highestUnit = 0;
     for (int i = 0; i < vso->numUnits; i++)
@@ -501,14 +501,15 @@ int nextVerbSeq(int *seq, VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso)
         vf1->tense = lastVF.tense;
         vf1->voice = lastVF.voice;
         vf1->mood = lastVF.mood;
-        if (lastVF.verb != NULL)
+/*        if (lastVF.verb != NULL)
             vf1->verb = lastVF.verb;
         else
             vf1->verb = &verbs[1];
-        
+    */
         //we assume this is valid since it was the resulting form from last seq.
         //getForm(vf1, buffer, bufferLen, false, false);
     }
+
   /*
     if (vf1->verb == NULL)
     {
@@ -555,8 +556,8 @@ int nextVerbSeq(int *seq, VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso)
 
     /*
      //**************for testing to force form****************************
-    vf1->person = SECOND;
-    vf1->number = SINGULAR;
+    vf1->person = THIRD;
+    vf1->number = PLURAL;
     vf1->tense = AORIST;
     vf1->voice = ACTIVE;
     vf1->mood = OPTATIVE;
@@ -586,7 +587,7 @@ int nextVerbSeq(int *seq, VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso)
     }
     
     //setHead(vf2); //we set it here, add whether it is correct later
-    
+    //fprintf(stderr, "verbid2: %i, %i\n", vf1->verb->verbid, vf2->verb->verbid);
     if (verbSeq == 1)
         return VERB_SEQ_CHANGE_NEW;
     else

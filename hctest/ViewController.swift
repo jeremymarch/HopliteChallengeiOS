@@ -34,7 +34,6 @@ class ViewController: UIViewController, UITextViewDelegate  {
     var textViewTop:NSLayoutConstraint?
     var textViewTop2:NSLayoutConstraint?
     var label2Top:NSLayoutConstraint?
-    //var a:Bool = true
     
     var timeFontSize:CGFloat = 24.0
     var fontSize:CGFloat = 30.0
@@ -47,7 +46,6 @@ class ViewController: UIViewController, UITextViewDelegate  {
     
     var askOrAnswer:Bool = true
     var mfPressed:Bool = false
-    var blockContinueButton:Bool = false
     var checkXXOffset:NSLayoutConstraint? = nil
     var checkXYOffset:NSLayoutConstraint? = nil
     var isGame:Bool = true
@@ -59,12 +57,11 @@ class ViewController: UIViewController, UITextViewDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        isGame = true
-        vs.options?.units = (3,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
-        vs.options?.numUnits = 2
+        isGame = false
+        vs.options?.practiceVerbID = -1//3
+        vs.options?.units = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
+        vs.options?.numUnits = 20
         vs.options?.isHCGame = isGame
-        
-        textView.delegate = self
         
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
@@ -74,13 +71,13 @@ class ViewController: UIViewController, UITextViewDelegate  {
             item.trailingBarButtonGroups = []
         }
         
-        var timerLabelWidth:CGFloat = 100.0
+        var timerLabelWidth:CGFloat = 110.0
         if UIDevice.current.userInterfaceIdiom == .pad
         {
-            timeFontSize = 24.0;
-            fontSize = 30.0;
-            greekFontSize = 40.0;
-            timerLabelWidth = 110.0
+            timeFontSize = 24.0
+            fontSize = 30.0
+            greekFontSize = 40.0
+            timerLabelWidth = 130.0
         }
         else //if UIDevice.current.userInterfaceIdiom == .phone
         {
@@ -99,7 +96,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
             case 1136:      //iPhone 5 or 5S or 5C
                 timeFontSize = 22.0
                 fontSize = 24.0
-                greekFontSize = 32.0
+                greekFontSize = 30.0
                 
             case 1334:      //iPhone 6 or 6S
                 timeFontSize = 22.0
@@ -253,7 +250,6 @@ class ViewController: UIViewController, UITextViewDelegate  {
         label1.lineBreakMode = .byWordWrapping // or NSLineBreakMode.ByWordWrapping
         label1.numberOfLines = 0
         
-        
         view.addSubview(stemLabel)
         stemLabel.translatesAutoresizingMaskIntoConstraints = false;
         stemLabel.textAlignment = NSTextAlignment.center
@@ -279,6 +275,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
         textView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.22).isActive = true
         textView.backgroundColor = UIColor.white
         textView.font = greekFont
+        textView.delegate = self
         
         view.addSubview(label2)
         label2.translatesAutoresizingMaskIntoConstraints = false;
@@ -304,6 +301,8 @@ class ViewController: UIViewController, UITextViewDelegate  {
         continueButton.setTitle("Continue", for: [])
         continueButton.titleLabel?.textColor = UIColor.white
         continueButton.titleLabel?.font = continueFont
+        continueButton.isEnabled = false
+        continueButton.isHidden = true
         
         view.addSubview(checkXView)
         checkXView.translatesAutoresizingMaskIntoConstraints = false
@@ -339,6 +338,17 @@ class ViewController: UIViewController, UITextViewDelegate  {
         vs.DBInit2()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
             self.start()
+        }
+    }
+    
+    override var shouldAutorotate: Bool {
+        if UIDevice.current.userInterfaceIdiom == .phone
+        {
+            return false
+        }
+        else
+        {
+            return true
         }
     }
     
@@ -557,7 +567,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
             offset = (textView.bounds.width / 2) - checkXView.bounds.width
         }
         checkXXOffset?.constant = offset
-        NSLog("Width: \(textView.bounds.width), \(sizeOfString(v: textView).width), \(offset)")
+        //NSLog("Width: \(textView.bounds.width), \(sizeOfString(v: textView).width), \(offset)")
     }
     
     func enterKeyPressed()
@@ -571,7 +581,8 @@ class ViewController: UIViewController, UITextViewDelegate  {
         textView.isEditable = false
         textView.isSelectable = false
         textView.resignFirstResponder()
-        blockContinueButton = false
+        continueButton.isHidden = false
+        continueButton.isEnabled = true
         blockPinch = false
         
         positionCheckX()
@@ -636,57 +647,51 @@ class ViewController: UIViewController, UITextViewDelegate  {
     }
     
     func continuePressed(button: UIButton) {
+        continueButton.isEnabled = false
         checkXView.isHidden = true
-        if blockContinueButton == false
+        unexpand() //has to be called before getNext()
+        let ret = vs.getNext()
+        
+        if isGame && vs.lives == 0
         {
-            let ret = vs.getNext()
-            
-            blockContinueButton = true
-            //let b:Int = Int((vs.options?.repsPerVerb)!)
-            
-            if isGame && vs.lives == 0
-            {
-                label2.hide(duration:0.3)
-                stemLabel.hide(duration:0.3)
-                label1.hide(duration: 0.3)
-                //textView.hide(duration: 0.3)
-                textView.text = ""
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    self.start()
-                }
+            label2.hide(duration:0.3)
+            stemLabel.hide(duration:0.3)
+            label1.hide(duration: 0.3)
+            //textView.hide(duration: 0.3)
+            textView.text = ""
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.start()
             }
-            else if ret == VERB_SEQ_CHANGE_NEW
+        }
+        else if ret == VERB_SEQ_CHANGE_NEW
+        {
+            label2.hide(duration:0.3)
+            stemLabel.hide(duration:0.3)
+            label1.hide(duration: 0.3)
+            //textView.hide(duration: 0.3)
+            textView.text = ""
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                self.askForForm(erasePreviousForm: true)
+            }
+        }
+        else
+        {
+            if label2.isHidden == true || label2.text == ""
             {
-                //label2.text = ""
-                //label2.hideTypeText(newText: label2.text!, characterDelay: typingDelay, delay: 0.5)
-                label2.hide(duration:0.3)
-                stemLabel.hide(duration:0.3)
                 label1.hide(duration: 0.3)
-                //textView.hide(duration: 0.3)
-                textView.text = ""
+                stemLabel.hide(duration:0.3)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                    self.askForForm(erasePreviousForm: true)
+                    self.animatetextViewUp()
                 }
             }
             else
             {
-                if label2.isHidden == true || label2.text == ""
-                {
-                    label1.hide(duration: 0.3)
-                    stemLabel.hide(duration:0.3)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                        self.animatetextViewUp()
-                    }
-                }
-                else
-                {
-                    label1.hide(duration: 0.3)
-                    stemLabel.hide(duration:0.3)
-                    //textView.hide(duration: 0.3)
-                    textView.text = ""
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                        self.animateLabelUp()
-                    }
+                label1.hide(duration: 0.3)
+                stemLabel.hide(duration:0.3)
+                //textView.hide(duration: 0.3)
+                textView.text = ""
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    self.animateLabelUp()
                 }
             }
         }
