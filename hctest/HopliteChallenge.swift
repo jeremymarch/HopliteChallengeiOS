@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextViewDelegate  {
+class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     var kb:KeyboardViewController? = nil
     var gameOverLabel = UILabel()
     var label1 = TypeLabel()
@@ -49,6 +49,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
     var checkXXOffset:NSLayoutConstraint? = nil
     var checkXYOffset:NSLayoutConstraint? = nil
     var isGame:Bool = true
+    var practiceVerbId:Int = -1
     let typingDelay:TimeInterval = 0.03
     var blockPinch:Bool = true
     var isExpanded:Bool = false
@@ -57,8 +58,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        isGame = false
-        vs.options?.practiceVerbID = -1//3
+        vs.options?.practiceVerbID = Int32(practiceVerbId)
         vs.options?.units = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
         vs.options?.numUnits = 20
         vs.options?.isHCGame = isGame
@@ -168,6 +168,15 @@ class ViewController: UIViewController, UITextViewDelegate  {
         quitButton.layer.borderWidth = 2.0
         quitButton.layer.borderColor = UIColor.gray.cgColor
         quitButton.layer.cornerRadius = 4.0
+        if practiceVerbId < 0
+        {
+            quitButton.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), for: UIControlEvents.touchUpInside)
+        }
+        else
+        {
+            //pop controller to go back to verb detail
+            quitButton.addTarget(self, action: #selector(goBackToVerbDetail), for: UIControlEvents.touchUpInside)
+        }
 
         headerView.addSubview(scoreLabel)
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false;
@@ -341,6 +350,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
         }
     }
     
+    //this doesn't work if used in nav controller, so this is blocked in appDelegate
     override var shouldAutorotate: Bool {
         if UIDevice.current.userInterfaceIdiom == .phone
         {
@@ -359,6 +369,11 @@ class ViewController: UIViewController, UITextViewDelegate  {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func goBackToVerbDetail()
+    {
+        let _ = self.navigationController?.popViewController(animated: true)
     }
     
     func animateLabelUp()
@@ -447,6 +462,7 @@ class ViewController: UIViewController, UITextViewDelegate  {
         //http://stackoverflow.com/questions/12591192/center-text-vertically-in-a-uitextview
         //see below
         textView.addObserver(self, forKeyPath: "contentSize", options: [.new], context: nil)
+        self.navigationController?.isNavigationBarHidden = true
         
         //addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
     }

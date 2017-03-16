@@ -22,7 +22,7 @@
 		3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C61E6DC8EC00884CDC /* redx.png */; };
 		3F2BF3C91E6DF5AC00884CDC /* HCMFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C81E6DF5AC00884CDC /* HCMFButton.swift */; };
 		3F3443A31E6BB17700FFAD04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */; };
-		3F3443A51E6BB17700FFAD04 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443A41E6BB17700FFAD04 /* ViewController.swift */; };
+		3F3443A51E6BB17700FFAD04 /* HopliteChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443A41E6BB17700FFAD04 /* HopliteChallenge.swift */; };
 		3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443A61E6BB17700FFAD04 /* Main.storyboard */; };
 		3F3443AB1E6BB17700FFAD04 /* hctest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443A91E6BB17700FFAD04 /* hctest.xcdatamodeld */; };
 		3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443AC1E6BB17700FFAD04 /* Assets.xcassets */; };
@@ -40,6 +40,12 @@
 		3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443D61E6C814200FFAD04 /* newathu5.ttf */; };
 		3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FAA8D2E1E6D046300254E97 /* Life4X.png */; };
 		3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAA8D301E6D212900254E97 /* HCTimer.swift */; };
+		3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B401E78EF0700144F7D /* MenuViewController.swift */; };
+		3FF71B431E78EF3600144F7D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B421E78EF3600144F7D /* BaseViewController.swift */; };
+		3FF71B451E79EC4700144F7D /* GameHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B441E79EC4700144F7D /* GameHistory.swift */; };
+		3FF71B471E79EF5600144F7D /* VerbList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B461E79EF5600144F7D /* VerbList.swift */; };
+		3FF71B491E79EF6900144F7D /* VerbDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B481E79EF6900144F7D /* VerbDetail.swift */; };
+		3FF71B4B1E7A290300144F7D /* Verb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B4A1E7A290300144F7D /* Verb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +66,7 @@
 		3F2BF3C81E6DF5AC00884CDC /* HCMFButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCMFButton.swift; path = HCPolytonicGreekKB/HCMFButton.swift; sourceTree = "<group>"; };
 		3F34439F1E6BB17700FFAD04 /* hctest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hctest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3F3443A41E6BB17700FFAD04 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3F3443A41E6BB17700FFAD04 /* HopliteChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HopliteChallenge.swift; sourceTree = "<group>"; };
 		3F3443A71E6BB17700FFAD04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3F3443AA1E6BB17700FFAD04 /* hctest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = hctest.xcdatamodel; sourceTree = "<group>"; };
 		3F3443AC1E6BB17700FFAD04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -89,6 +95,12 @@
 		3F3443D61E6C814200FFAD04 /* newathu5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newathu5.ttf; sourceTree = "<group>"; };
 		3FAA8D2E1E6D046300254E97 /* Life4X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Life4X.png; sourceTree = "<group>"; };
 		3FAA8D301E6D212900254E97 /* HCTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCTimer.swift; sourceTree = "<group>"; };
+		3FF71B401E78EF0700144F7D /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		3FF71B421E78EF3600144F7D /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		3FF71B441E79EC4700144F7D /* GameHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHistory.swift; sourceTree = "<group>"; };
+		3FF71B461E79EF5600144F7D /* VerbList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerbList.swift; sourceTree = "<group>"; };
+		3FF71B481E79EF6900144F7D /* VerbDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerbDetail.swift; sourceTree = "<group>"; };
+		3FF71B4A1E7A290300144F7D /* Verb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,12 +154,13 @@
 				3F0BBCFA1E6D352100933F44 /* Hoplite Keyboard */,
 				3F3443B71E6BB25C00FFAD04 /* libmorph */,
 				3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */,
-				3F3443A41E6BB17700FFAD04 /* ViewController.swift */,
+				3F3443A41E6BB17700FFAD04 /* HopliteChallenge.swift */,
 				3F195A261E7610050025EF00 /* TypeLabel.swift */,
 				3F0EC6361E7784AE0084347F /* TypeTextView.swift */,
 				3F3443A61E6BB17700FFAD04 /* Main.storyboard */,
 				3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */,
 				3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */,
+				3FF71B4A1E7A290300144F7D /* Verb.swift */,
 				3FAA8D301E6D212900254E97 /* HCTimer.swift */,
 				3F3443AC1E6BB17700FFAD04 /* Assets.xcassets */,
 				3F3443AE1E6BB17700FFAD04 /* LaunchScreen.storyboard */,
@@ -157,6 +170,11 @@
 				3F2BF3C41E6DC8E200884CDC /* greencheck.png */,
 				3FAA8D2E1E6D046300254E97 /* Life4X.png */,
 				3F3443D61E6C814200FFAD04 /* newathu5.ttf */,
+				3FF71B401E78EF0700144F7D /* MenuViewController.swift */,
+				3FF71B421E78EF3600144F7D /* BaseViewController.swift */,
+				3FF71B441E79EC4700144F7D /* GameHistory.swift */,
+				3FF71B461E79EF5600144F7D /* VerbList.swift */,
+				3FF71B481E79EF6900144F7D /* VerbDetail.swift */,
 			);
 			path = hctest;
 			sourceTree = "<group>";
@@ -264,15 +282,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FF71B471E79EF5600144F7D /* VerbList.swift in Sources */,
 				3F0BBD051E6D354500933F44 /* HCbutton.swift in Sources */,
 				3F3443C71E6BB2BF00FFAD04 /* utilities.c in Sources */,
 				3F3443BA1E6BB27A00FFAD04 /* libmorph.c in Sources */,
 				3F0EC6371E7784AE0084347F /* TypeTextView.swift in Sources */,
 				3F0BBD071E6D354500933F44 /* HCDeleteButton.swift in Sources */,
+				3FF71B431E78EF3600144F7D /* BaseViewController.swift in Sources */,
 				3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */,
 				3F3443C11E6BB2A100FFAD04 /* augment.c in Sources */,
 				3F0BBD041E6D354500933F44 /* HCAccentButton.swift in Sources */,
-				3F3443A51E6BB17700FFAD04 /* ViewController.swift in Sources */,
+				3F3443A51E6BB17700FFAD04 /* HopliteChallenge.swift in Sources */,
 				3F3443A31E6BB17700FFAD04 /* AppDelegate.swift in Sources */,
 				3F0BBD081E6D354500933F44 /* HCEnterButton.swift in Sources */,
 				3F3443C41E6BB2B000FFAD04 /* accent.c in Sources */,
@@ -282,14 +302,18 @@
 				3F0BBD0D1E6D355100933F44 /* KeyboardViewController.swift in Sources */,
 				3F0BBD0A1E6D354500933F44 /* HCPunctuationButton.swift in Sources */,
 				3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */,
+				3FF71B4B1E7A290300144F7D /* Verb.swift in Sources */,
 				3F3443D31E6BB41D00FFAD04 /* sqlite3.c in Sources */,
 				3F3443AB1E6BB17700FFAD04 /* hctest.xcdatamodeld in Sources */,
 				3F3443CE1E6BB33400FFAD04 /* VerbForm.swift in Sources */,
+				3FF71B491E79EF6900144F7D /* VerbDetail.swift in Sources */,
 				3F3443C01E6BB2A100FFAD04 /* ending.c in Sources */,
+				3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */,
 				3F3443CB1E6BB2D700FFAD04 /* VerbSequence.c in Sources */,
 				3F2BF3C91E6DF5AC00884CDC /* HCMFButton.swift in Sources */,
 				3F0BBD091E6D354500933F44 /* HCGlobeButton.swift in Sources */,
 				3F0BBD061E6D354500933F44 /* HCCapsLockButton.swift in Sources */,
+				3FF71B451E79EC4700144F7D /* GameHistory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
