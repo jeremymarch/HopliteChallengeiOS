@@ -7,81 +7,162 @@
 //
 
 import UIKit
-
+struct Game {
+    var id = 0
+    var date = ""
+    var score = 0
+}
 class GameHistoryViewController: UITableViewController {
     
-    /**
-     *  Array containing menu options
-     */
-    var arrayMenuOptions = [Dictionary<String,String>]()
-    
-    /**
-     *  Delegate of the MenuVC
-     */
-    var delegate : SlideMenuDelegate?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        NSLog("games history loaded")
-        tableView?.delegate = self
-        tableView?.dataSource = self
-        title = "Game History"
-        //tableView.tableFooterView = UIView()
-        // Do any additional setup after loading the view.
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        updateArrayMenuOptions()
-        self.navigationController?.isNavigationBarHidden = false
-    }
-    
-    func updateArrayMenuOptions(){
-        NSLog("update array")
-        arrayMenuOptions.append(["title":"Home", "icon":"HomeIcon"])
-        arrayMenuOptions.append(["title":"Play", "icon":"PlayIcon"])
+        var games = [Game]()
         
-        tableView.reloadData()
-        NSLog("update array2")
-    }
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            title = "Games"
+            
+            let dbname:String = "hcdatadb.sqlite"
+            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+            let dbpath = documentsPath + "/" + dbname
+            
+            //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
+            let db = openDatabase(dbpath: dbpath)
+            query(db: db!)
+        }
+        
+        func query(db:OpaquePointer) {
+            var queryStatement: OpaquePointer? = nil
+            
+            let queryStatementString:String = "SELECT gameid,timest,score FROM games ORDER BY gameid DESC;"
+            
+            if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK
+            {
+                //sqlite3_bind_int(queryStatement, 1, Int32(gameid))
+                
+                while sqlite3_step(queryStatement) == SQLITE_ROW
+                {
+                    let gameid = sqlite3_column_int(queryStatement, 0)
+                    let timest = sqlite3_column_int(queryStatement, 1)
+                    let score = sqlite3_column_int(queryStatement, 2)
+                    
+                    games.append(Game(id: Int(gameid), date: convertDateFormater(date: Int(timest)), score: Int(score)))
+                    /*
+                     print("Query Result:")
+                     print("\(person),\(number),\(tense),\(voice),\(mood):\(verbid) | \(incorrectString), \(isCorrect), \(timeString)")
+                     */
+                }
+            }
+            else
+            {
+                print("SELECT statement could not be prepared")
+            }
+            sqlite3_finalize(queryStatement)
+        }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "GameHistoryCell")!
+    func convertDateFormater(date: Int) -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(date))
         
-        cell.selectionStyle = UITableViewCellSelectionStyle.none
-        cell.layoutMargins = UIEdgeInsets.zero
-        cell.preservesSuperviewLayoutMargins = false
-        cell.backgroundColor = UIColor.clear
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy MMM EEEE HH:mm"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        let timeStamp = dateFormatter.string(from: date)
         
-        let lblTitle : UILabel = cell.contentView.viewWithTag(101) as! UILabel
-        //let imgIcon : UIImageView = cell.contentView.viewWithTag(100) as! UIImageView
-        
-        //imgIcon.image = UIImage(named: arrayMenuOptions[indexPath.row]["icon"]!)
-        lblTitle.text = arrayMenuOptions[indexPath.row]["title"]!
-        
-        NSLog("menu: \(arrayMenuOptions[indexPath.row]["title"]!)")
-        
-        return cell
+        return timeStamp
     }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.tag = indexPath.row
-        //self.onCloseMenuClick(btn)
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        NSLog("rows: \(arrayMenuOptions.count)")
-        return arrayMenuOptions.count
-    }
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1;
+        
+        //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
+        func openDatabase(dbpath:String) -> OpaquePointer? {
+            var db: OpaquePointer? = nil
+            if sqlite3_open(dbpath, &db) == SQLITE_OK {
+                print("Successfully opened connection to database at \(dbpath)")
+            } else {
+                print("Unable to open database. Verify that you created the directory described " +
+                    "in the Getting Started section.")
+            }
+            //to reset
+            //sqlite3_exec(db, "UPDATE verbseq SET elapsedtime='1.23';", nil, nil, nil)
+            return db
+        }
+        
+        override func didReceiveMemoryWarning() {
+            super.didReceiveMemoryWarning()
+        }
+        
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            self.navigationController?.isNavigationBarHidden = false
+            tableView.reloadData()
+        }
+        
+        override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "GameHistoryCell")!
+            
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
+            cell.layoutMargins = UIEdgeInsets.zero
+            cell.preservesSuperviewLayoutMargins = false
+            cell.backgroundColor = UIColor.clear
+            cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+            
+            let index = indexPath.row
+            cell.tag = games[index].id
+            
+            let dateTitle : UILabel = cell.contentView.viewWithTag(101) as! UILabel
+            let scoreTitle : UILabel = cell.contentView.viewWithTag(102) as! UILabel
+            
+            if games[index].id == 1
+            {
+                dateTitle.text = "Practice History"
+                scoreTitle.text = ""
+            }
+            else
+            {
+                dateTitle.text = games[index].date
+                scoreTitle.text = String(games[index].score)
+            }
+            
+            
+            return cell
+        }
+        
+        override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            let btn = UIButton(type: UIButtonType.custom)
+            btn.tag = indexPath.row
+            
+            performSegue(withIdentifier: "SegueToGameResults", sender: self)
+        }
+        
+        override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return games.count
+        }
+        
+        override func numberOfSections(in tableView: UITableView) -> Int {
+            return 1
+        }
+        
+        override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return 44
+        }
+        /*
+         override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+         
+         let label = UILabel()
+         label.text = "  Unit \(section + 1)"
+         
+         label.backgroundColor = UIColor.blue
+         label.textColor = UIColor.white
+         return label
+         }
+         
+         override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+         return 34
+         }
+         */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let indexPath = tableView.indexPathForSelectedRow
+        //let id = indexPath.
+        let gameid = games[(indexPath?.row)!].id
+
+        let gr = segue.destination as! GameResultsViewController
+        gr.gameid = gameid
     }
 }
 

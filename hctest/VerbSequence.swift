@@ -91,12 +91,12 @@ class VerbSequence {
         let enteredForm1 = stringToUtf16(s: enteredForm, len: &enteredLen)
         let enteredBuffer = UnsafeMutablePointer<UInt16>(mutating: enteredForm1)
         
-        let timeBuffer = UnsafeMutablePointer<Int8>(mutating: time)
-        
         print(expectedForm1)
         print(enteredForm1)
+        let newTime = time.replacingOccurrences(of: " sec", with: "")
         
-        let a = compareFormsCheckMFRecordResult(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed, timeBuffer, &vScore)
+        //pass c string: http://stackoverflow.com/questions/31378120/convert-swift-string-into-cchar-pointer
+        let a = compareFormsCheckMFRecordResult(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed, newTime, &vScore)
         self.score = vScore
         
         if a == false

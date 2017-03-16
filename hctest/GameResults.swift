@@ -23,7 +23,7 @@ struct Result {
 
 class GameResultsViewController: UITableViewController {
     
-    var gameid:Int = -1
+    var gameid:Int = 1
     var res = [Result]()
     let checkImage = UIImage(named:"greencheck.png")
     let xImage = UIImage(named:"redx.png")
@@ -31,35 +31,32 @@ class GameResultsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Game Results"
-        
+        if gameid == 1
+        {
+            title = "Practice History"
+        }
+        else
+        {
+            title = "Game History"
+        }
         let dbname:String = "hcdatadb.sqlite"
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let dbpath = documentsPath + "/" + dbname
         
         //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
         let db = openDatabase(dbpath: dbpath)
-        query(db: db!, gameid: 1)
-        
-        /*
-         let db = Connection(dbpath, readonly:true)
-         
-         let users = Table("games")
-         for user in db.prepare(users) {
-         print("id: \(user[gameid]), score: \(user[score])")
-         // id: 1, email: alice@mac.com, name: Optional("Alice")
-         }
-         */
+        query(db: db!, gameid: gameid)
     }
     
     func query(db:OpaquePointer, gameid:Int) {
         var queryStatement: OpaquePointer? = nil
-        // 1
+
         let queryStatementString:String = "SELECT person,number,tense,voice,mood,verbid,incorrectAns,elapsedtime,correct FROM verbseq WHERE gameid=? ORDER BY ID DESC LIMIT 100;"
         
-        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK
+        {
             sqlite3_bind_int(queryStatement, 1, Int32(gameid))
-            // 2
+
             while sqlite3_step(queryStatement) == SQLITE_ROW
             {
                 let person = sqlite3_column_int(queryStatement, 0)
@@ -75,31 +72,20 @@ class GameResultsViewController: UITableViewController {
                 let isCorrect = sqlite3_column_int(queryStatement, 8)
                 
                 res.append(Result(person: person, number: number, tense: tense, voice: voice, mood: mood, verbid: verbid, incorrectAns: incorrectString, elapsedTime: timeString, isCorrect: isCorrect))
-                
-                
-                // 5
+                /*
                 print("Query Result:")
                 print("\(person),\(number),\(tense),\(voice),\(mood):\(verbid) | \(incorrectString), \(isCorrect), \(timeString)")
-                
+                */
             }
             
-        } else {
+        }
+        else
+        {
             print("SELECT statement could not be prepared")
         }
-        
-        // 6
         sqlite3_finalize(queryStatement)
     }
-    /*
-     func query(db:OpaquePointer, gameid:Int)
-     {
-     let query = "SELECT person,number,tense,voice,mood,verbid,incorrectAns,elapsedtime,correct FROM verbseq WHERE gameid=\(gameid) ORDER BY ID DESC LIMIT 100;"
-     //char *err_msg = 0;
-     //[results2 removeAllObjects];
-     int rc = sqlite3_exec(db, query, getVerbSeqCallback2, 0, 0);
-     
-     }
-     */
+
     //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
     func openDatabase(dbpath:String) -> OpaquePointer? {
         var db: OpaquePointer? = nil
@@ -109,6 +95,8 @@ class GameResultsViewController: UITableViewController {
             print("Unable to open database. Verify that you created the directory described " +
                 "in the Getting Started section.")
         }
+        //to reset
+        //sqlite3_exec(db, "UPDATE verbseq SET elapsedtime='1.23';", nil, nil, nil)
         return db
     }
     
@@ -151,7 +139,7 @@ class GameResultsViewController: UITableViewController {
         stemTitle.text = vf.getDescription()
         correctTitle.text = vf.getForm(decomposed: false)
         incorrectTitle.text = res[index].incorrectAns
-        timeTitle.text = "23.48"//res[index].elapsedTime
+        timeTitle.text = res[index].elapsedTime
         isCorrect.image = (res[index].isCorrect == 0) ? xImage : checkImage
         return cell
     }
