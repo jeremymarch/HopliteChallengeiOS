@@ -175,9 +175,9 @@
 				3FF71B401E78EF0700144F7D /* MenuViewController.swift */,
 				3FF71B421E78EF3600144F7D /* BaseViewController.swift */,
 				3FF71B441E79EC4700144F7D /* GameHistory.swift */,
+				3F0541631E7A688800DEB439 /* GameResults.swift */,
 				3FF71B461E79EF5600144F7D /* VerbList.swift */,
 				3FF71B481E79EF6900144F7D /* VerbDetail.swift */,
-				3F0541631E7A688800DEB439 /* GameResults.swift */,
 			);
 			path = hctest;
 			sourceTree = "<group>";

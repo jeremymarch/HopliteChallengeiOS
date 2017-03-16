@@ -562,11 +562,11 @@ int nextVerbSeq(int *seq, VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso)
     vf1->voice = ACTIVE;
     vf1->mood = OPTATIVE;
     
-    vf2->person = THIRD;
-     vf2->number = PLURAL;
-    vf2->tense = AORIST;
-     vf2->voice = ACTIVE;
-     vf2->mood = OPTATIVE;
+    vf2->person = SECOND;
+     vf2->number = SINGULAR;
+    vf2->tense = PRESENT;
+     vf2->voice = MIDDLE;
+     vf2->mood = INDICATIVE;
      vf2->verb = vf1->verb;
      //**************for testing to force form****************************
     */

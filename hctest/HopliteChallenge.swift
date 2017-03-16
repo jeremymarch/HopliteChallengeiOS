@@ -505,7 +505,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
                         {
                             for number in 0...NUM_NUMBERS
                             {
-                                var z:Int = Int(v)
+                                let z:Int = Int(v)
                                 vf = VerbForm(person: UInt8(person), number: UInt8(number), tense: UInt8(t), voice: UInt8(voice), mood: UInt8(mood), verb: z)
                                 s = vf?.getForm(decomposed:false)
                                 if s != nil && (s?.characters.count)! > 0
@@ -742,7 +742,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         continueButton.setTitle("Continue", for: [])
         gameOverLabel.isHidden = true
         vs.reset()
-        vs.getNext()
+        let _ = vs.getNext()
         askForForm(erasePreviousForm: true)
         if (isGame)
         {
@@ -755,7 +755,6 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     
     func askForForm(erasePreviousForm:Bool)
     {
-        var delay:TimeInterval = 0
         blockPinch = true
         isExpanded = false
         if erasePreviousForm
@@ -773,7 +772,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         mfPressed = false
         mfLabel.isHidden = true
         timerLabel.reset()
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay + 0.3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.textView.becomeFirstResponder()
             self.timerLabel.startTimer()
         }

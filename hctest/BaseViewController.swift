@@ -12,54 +12,47 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func slideMenuItemSelectedAtIndex(_ index: Int32) {
-        let topViewController : UIViewController = self.navigationController!.topViewController!
-        print("View Controller is : \(topViewController) \n", terminator: "")
-        switch(index){
+        //let topViewController : UIViewController = self.navigationController!.topViewController!
+        //print("View Controller is : \(topViewController) \n", terminator: "")
+        switch(index) {
         case 0:
-            print("Home\n", terminator: "")
-            
             self.openViewControllerBasedOnIdentifier("HopliteChallenge")
-            
-            break
         case 1:
-            print("Play\n", terminator: "")
-            
-            self.openViewControllerBasedOnIdentifier("GameHistory")
+            //about
+            self.openViewControllerBasedOnIdentifier("HopliteChallenge")
         case 2:
-            print("Play\n", terminator: "")
-            
-            self.openViewControllerBasedOnIdentifier("GameResults")
+            //settings
+            self.openViewControllerBasedOnIdentifier("HopliteChallenge")
         case 3:
-            print("VL\n", terminator: "")
-            
+            self.openViewControllerBasedOnIdentifier("GameHistory")
+        case 4:
             self.openViewControllerBasedOnIdentifier("VerbList")
-            
-            break
         default:
-            print("default\n", terminator: "")
+            NSLog("default")
         }
     }
     
     func openViewControllerBasedOnIdentifier(_ strIdentifier:String){
         let destViewController : UIViewController = self.storyboard!.instantiateViewController(withIdentifier: strIdentifier)
         let topViewController : UIViewController = self.navigationController!.topViewController!
-        if (topViewController.restorationIdentifier! == destViewController.restorationIdentifier!){
+        if topViewController.restorationIdentifier! == destViewController.restorationIdentifier!
+        {
             print("Same VC")
-        } else {
+        }
+        else
+        {
             self.navigationController!.pushViewController(destViewController, animated: true)
         }
     }
     
-    func addSlideMenuButton(){
+    func addSlideMenuButton() {
         let btnShowMenu = UIButton(type: UIButtonType.system)
         btnShowMenu.setImage(self.defaultMenuImage(), for: UIControlState())
         btnShowMenu.frame = CGRect(x: 0, y: 0, width: 30, height: 30)

@@ -41,16 +41,12 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSLog("menu loaded")
         tblMenuOptions?.delegate = self
         tblMenuOptions?.dataSource = self
-        //tblMenuOptions.tableFooterView = UIView()
-        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,21 +56,20 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func updateArrayMenuOptions(){
-        NSLog("update array")
-        arrayMenuOptions.append(["title":"Home", "icon":"HomeIcon"])
+        arrayMenuOptions.append(["title":"Play", "icon":"HomeIcon"])
+        arrayMenuOptions.append(["title":"About", "icon":"PlayIcon"])
+        arrayMenuOptions.append(["title":"Settings", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"Game History", "icon":"PlayIcon"])
-        arrayMenuOptions.append(["title":"Game Results", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"Verb List", "icon":"PlayIcon"])
         
         tblMenuOptions!.reloadData()
-        NSLog("update array2")
     }
     
     @IBAction func onCloseMenuClick(_ button:UIButton!){
         btnMenu.tag = 0
         
         if (self.delegate != nil) {
-            var index = Int32(button.tag)
+            let index = Int32(button.tag)
             //if(button == self.btnCloseMenuOverlay){
             //    index = -1
             //}

@@ -83,17 +83,17 @@ void getStartEnd(UCS2 *w1, int w1len, int *starts, int *ends, int *numStrings)
     int end = 0;
     int i = 0;
     
-    while((w1[i] == SPACE || w1[i] == COMMA) && i < w1len)
+    while((w1[i] == SPACE || w1[i] == COMMA ||w1[i] == NEWLINE) && i < w1len)
         i++;
     
     starts[0] = i;
     for ( ; i < w1len; i++)
     {
-        if (w1[i] == COMMA || w1[i] == SPACE)
+        if (w1[i] == COMMA || w1[i] == SPACE ||w1[i] == NEWLINE)
         {
             ends[end++] = i;
             i++;
-            while((w1[i] == SPACE || w1[i] == COMMA) && i < w1len)
+            while((w1[i] == SPACE || w1[i] == COMMA ||w1[i] == NEWLINE) && i < w1len)
                 i++;
             if (i < w1len)
             {

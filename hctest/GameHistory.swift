@@ -61,9 +61,12 @@ class GameHistoryViewController: UITableViewController {
     func convertDateFormater(date: Int) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(date))
         
+        //let now = Date.init()
+        //if date.compare(now)
+        
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy MMM EEEE HH:mm"
-        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        dateFormatter.dateFormat = "yyyy MMM dd HH:mm"
+        //dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
         let timeStamp = dateFormatter.string(from: date)
         
         return timeStamp
@@ -72,9 +75,12 @@ class GameHistoryViewController: UITableViewController {
         //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
         func openDatabase(dbpath:String) -> OpaquePointer? {
             var db: OpaquePointer? = nil
-            if sqlite3_open(dbpath, &db) == SQLITE_OK {
+            if sqlite3_open(dbpath, &db) == SQLITE_OK
+            {
                 print("Successfully opened connection to database at \(dbpath)")
-            } else {
+            }
+            else
+            {
                 print("Unable to open database. Verify that you created the directory described " +
                     "in the Getting Started section.")
             }
@@ -141,11 +147,11 @@ class GameHistoryViewController: UITableViewController {
         override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             return 44
         }
-        /*
+    
          override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
          
          let label = UILabel()
-         label.text = "  Unit \(section + 1)"
+         label.text = "  Games"
          
          label.backgroundColor = UIColor.blue
          label.textColor = UIColor.white
@@ -155,7 +161,7 @@ class GameHistoryViewController: UITableViewController {
          override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
          return 34
          }
-         */
+ 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let indexPath = tableView.indexPathForSelectedRow
         //let id = indexPath.
