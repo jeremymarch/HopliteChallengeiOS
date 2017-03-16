@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F0541641E7A688800DEB439 /* GameResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0541631E7A688800DEB439 /* GameResults.swift */; };
 		3F0BBD041E6D354500933F44 /* HCAccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBCFB1E6D354500933F44 /* HCAccentButton.swift */; };
 		3F0BBD051E6D354500933F44 /* HCbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBCFC1E6D354500933F44 /* HCbutton.swift */; };
 		3F0BBD061E6D354500933F44 /* HCCapsLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBCFD1E6D354500933F44 /* HCCapsLockButton.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F0541631E7A688800DEB439 /* GameResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameResults.swift; sourceTree = "<group>"; };
 		3F0BBCFB1E6D354500933F44 /* HCAccentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCAccentButton.swift; path = HCPolytonicGreekKB/HCAccentButton.swift; sourceTree = "<group>"; };
 		3F0BBCFC1E6D354500933F44 /* HCbutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCbutton.swift; path = HCPolytonicGreekKB/HCbutton.swift; sourceTree = "<group>"; };
 		3F0BBCFD1E6D354500933F44 /* HCCapsLockButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCCapsLockButton.swift; path = HCPolytonicGreekKB/HCCapsLockButton.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				3FF71B441E79EC4700144F7D /* GameHistory.swift */,
 				3FF71B461E79EF5600144F7D /* VerbList.swift */,
 				3FF71B481E79EF6900144F7D /* VerbDetail.swift */,
+				3F0541631E7A688800DEB439 /* GameResults.swift */,
 			);
 			path = hctest;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				3F3443BA1E6BB27A00FFAD04 /* libmorph.c in Sources */,
 				3F0EC6371E7784AE0084347F /* TypeTextView.swift in Sources */,
 				3F0BBD071E6D354500933F44 /* HCDeleteButton.swift in Sources */,
+				3F0541641E7A688800DEB439 /* GameResults.swift in Sources */,
 				3FF71B431E78EF3600144F7D /* BaseViewController.swift in Sources */,
 				3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */,
 				3F3443C11E6BB2A100FFAD04 /* augment.c in Sources */,

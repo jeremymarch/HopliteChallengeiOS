@@ -35,6 +35,10 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             
             self.openViewControllerBasedOnIdentifier("GameHistory")
         case 2:
+            print("Play\n", terminator: "")
+            
+            self.openViewControllerBasedOnIdentifier("GameResults")
+        case 3:
             print("VL\n", terminator: "")
             
             self.openViewControllerBasedOnIdentifier("VerbList")
@@ -46,17 +50,13 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
     }
     
     func openViewControllerBasedOnIdentifier(_ strIdentifier:String){
-        NSLog("abc1")
         let destViewController : UIViewController = self.storyboard!.instantiateViewController(withIdentifier: strIdentifier)
-        NSLog("abc2")
         let topViewController : UIViewController = self.navigationController!.topViewController!
-        NSLog("abc3")
         if (topViewController.restorationIdentifier! == destViewController.restorationIdentifier!){
             print("Same VC")
         } else {
             self.navigationController!.pushViewController(destViewController, animated: true)
         }
-        NSLog("abc4")
     }
     
     func addSlideMenuButton(){

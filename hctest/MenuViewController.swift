@@ -63,6 +63,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         NSLog("update array")
         arrayMenuOptions.append(["title":"Home", "icon":"HomeIcon"])
         arrayMenuOptions.append(["title":"Game History", "icon":"PlayIcon"])
+        arrayMenuOptions.append(["title":"Game Results", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"Verb List", "icon":"PlayIcon"])
         
         tblMenuOptions!.reloadData()
@@ -77,7 +78,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             //if(button == self.btnCloseMenuOverlay){
             //    index = -1
             //}
-            NSLog("menu click \(index)")
+            //NSLog("menu click \(index)")
             delegate?.slideMenuItemSelectedAtIndex(index)
         }
         
@@ -105,7 +106,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //imgIcon.image = UIImage(named: arrayMenuOptions[indexPath.row]["icon"]!)
         lblTitle.text = arrayMenuOptions[indexPath.row]["title"]!
         
-        NSLog("menu: \(arrayMenuOptions[indexPath.row]["title"]!)")
+        //NSLog("menu: \(arrayMenuOptions[indexPath.row]["title"]!)")
         
         return cell
     }
@@ -117,7 +118,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        NSLog("rows: \(arrayMenuOptions.count)")
+        //NSLog("rows: \(arrayMenuOptions.count)")
         return arrayMenuOptions.count
     }
     
