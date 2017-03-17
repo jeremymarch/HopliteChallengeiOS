@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 struct Game {
     var id = 0
     var date = ""
@@ -20,9 +21,7 @@ class GameHistoryViewController: UITableViewController {
             super.viewDidLoad()
             title = "Games"
             
-            let dbname:String = "hcdatadb.sqlite"
-            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-            let dbpath = documentsPath + "/" + dbname
+            let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
             
             //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
             let db = openDatabase(dbpath: dbpath)

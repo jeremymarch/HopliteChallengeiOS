@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SQLite
 
 struct Result {
     var person:Int32 = 0
@@ -39,9 +38,8 @@ class GameResultsViewController: UITableViewController {
         {
             title = "Game History"
         }
-        let dbname:String = "hcdatadb.sqlite"
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let dbpath = documentsPath + "/" + dbname
+        
+        let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
         
         //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
         let db = openDatabase(dbpath: dbpath)

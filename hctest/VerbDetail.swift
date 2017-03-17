@@ -7,97 +7,74 @@
 //
 
 import UIKit
-import SQLite
+struct FormRow {
+    var label = ""
+    var form = ""
+    var decomposedForm = ""
+}
 
-class VerbDetailViewController: UIViewController {
+class VerbDetailViewController: UITableViewController {
+    
+    let persons = ["first", "second", "third"]
+    let numbers = ["singular", "plural"]
+    let tenses = ["Present", "Imperfect", "Future", "Aorist", "Perfect", "Pluperfect"]
+    let voices = ["Active", "Middle", "Passive"]
+    let moods = ["Indicative", "Subjunctive", "Optative", "Imperative"]
+    
+    let personsabbrev = ["1st", "2nd", "3rd"]
+    let numbersabbrev = ["sing.", "pl."]
+    let tensesabbrev = ["pres.", "imp.", "fut.", "aor.", "perf.", "plup."]
+    let voicesabbrev = ["act.", "mid.", "pass."]
+    let moodsabbrev = ["ind.", "subj.", "opt.", "imper."]
     
     var verbIndex:Int = -1
-    var res = [Result]()
+    var forms = [FormRow]()
+    var sections = [String]()
+    var sectionCounts = [Int]()
+    var isExpanded:Bool = false
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Verb"
         
-        let dbname:String = "hcdatadb.sqlite"
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let dbpath = documentsPath + "/" + dbname
+        let v = Verb2(verbid: verbIndex)
+        printVerb(verb: v)
+        //tableView.separatorStyle = .none
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 44
         
-        //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
-        let db = openDatabase(dbpath: dbpath)
-        query(db: db!, gameid: 1)
-        
-        /*
-        let db = Connection(dbpath, readonly:true)
-        
-        let users = Table("games")
-        for user in db.prepare(users) {
-            print("id: \(user[gameid]), score: \(user[score])")
-            // id: 1, email: alice@mac.com, name: Optional("Alice")
-        }
-        */
         let backButton = UIBarButtonItem(title: "Practice", style: UIBarButtonItemStyle.plain, target: self, action: #selector
             (practiceVerb))
         self.navigationItem.rightBarButtonItem = backButton
+        
+        let pinchRecognizer = UIPinchGestureRecognizer(target:self, action:#selector(handlePinch))
+        self.view.addGestureRecognizer(pinchRecognizer)
     }
     
-    func query(db:OpaquePointer, gameid:Int) {
-        var queryStatement: OpaquePointer? = nil
-        // 1
-        let queryStatementString:String = "SELECT person,number,tense,voice,mood,verbid,incorrectAns,elapsedtime,correct FROM verbseq WHERE gameid=? ORDER BY ID DESC LIMIT 100;"
-        
-        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
-            sqlite3_bind_int(queryStatement, 1, Int32(gameid))
-            // 2
-            while sqlite3_step(queryStatement) == SQLITE_ROW
-            {
-                let person = sqlite3_column_int(queryStatement, 0)
-                let number = sqlite3_column_int(queryStatement, 1)
-                let tense = sqlite3_column_int(queryStatement, 2)
-                let voice = sqlite3_column_int(queryStatement, 3)
-                let mood = sqlite3_column_int(queryStatement, 4)
-                let verbid = sqlite3_column_int(queryStatement, 5)
-                let incorrect = sqlite3_column_text(queryStatement, 6)
-                let incorrectString = String(cString: incorrect!)
-                let time = sqlite3_column_text(queryStatement, 7)
-                let timeString = String(cString: time!)
-                let isCorrect = sqlite3_column_int(queryStatement, 8)
-                
-                res.append(Result(person: person, number: number, tense: tense, voice: voice, mood: mood, verbid: verbid, incorrectAns: incorrectString, elapsedTime: timeString, isCorrect: isCorrect))
-                
-                
-                // 5
-                print("Query Result:")
-                print("\(person),\(number),\(tense), \(voice),\(mood): \(verbid) | \(incorrectString), \(isCorrect)")
-                
-            }
-            
-        } else {
-            print("SELECT statement could not be prepared")
-        }
-        
-        // 6
-        sqlite3_finalize(queryStatement)
-    }
-    /*
-    func query(db:OpaquePointer, gameid:Int)
+    func handlePinch(sender: UIPinchGestureRecognizer)
     {
-        let query = "SELECT person,number,tense,voice,mood,verbid,incorrectAns,elapsedtime,correct FROM verbseq WHERE gameid=\(gameid) ORDER BY ID DESC LIMIT 100;"
-        //char *err_msg = 0;
-        //[results2 removeAllObjects];
-        int rc = sqlite3_exec(db, query, getVerbSeqCallback2, 0, 0);
-
-    }
-    */
-    func openDatabase(dbpath:String) -> OpaquePointer? {
-        var db: OpaquePointer? = nil
-        if sqlite3_open(dbpath, &db) == SQLITE_OK {
-            print("Successfully opened connection to database at \(dbpath)")
-        } else {
-            print("Unable to open database. Verify that you created the directory described " +
-                "in the Getting Started section.")
+        //NSLog("Scale: %.2f | Velocity: %.2f",sender.scale, sender.velocity);
+        let thresholdVelocity:CGFloat  = 0 //4.0;
+        
+        if sender.scale > 1 && sender.velocity > thresholdVelocity
+        {
+            if isExpanded == false
+            {
+                isExpanded = true
+                tableView.reloadData()
+            }
         }
-        return db
+        else if sender.velocity < -thresholdVelocity
+        {
+            if isExpanded == true
+            {
+                isExpanded = false
+                tableView.reloadData()
+            }
+        }
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -107,7 +84,7 @@ class VerbDetailViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
     }
-    /*
+    
     func printVerb(verb:Verb2)
     {
         let vf = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: Int(verb.verbId))
@@ -125,61 +102,132 @@ class VerbDetailViewController: UIViewController {
             {
                 for mood in 0..<NUM_MOODS
                 {
-                    if !isOida && mood != INDICATIVE && (tense == PERFECT || tense == PLUPERFECT || tense == IMPERFECT || tense == FUTURE)
+                    let m:Int = Int(mood)
+                    if !isOida && m != INDICATIVE && (tense == PERFECT || tense == PLUPERFECT || tense == IMPERFECT || tense == FUTURE)
                     {
                         continue
                     }
-                    else if isOida && mood != INDICATIVE && (tense == PLUPERFECT || tense == IMPERFECT || tense == FUTURE)
+                    else if isOida && m != INDICATIVE && (tense == PLUPERFECT || tense == IMPERFECT || tense == FUTURE)
                     {
                         continue
                     }
                     var s:String?
                     if voice == ACTIVE || tense == AORIST || tense == FUTURE
                     {
-                        s = "  " + tenses[tense] + " " + voices[voice] + " " + moods[mood]
+                        s = "  " + tenses[tense] + " " + voices[voice] + " " + moods[m]
                     }
                     else if voice == MIDDLE
                     {
                         //yes it's correct, middle deponents do not have a passive voice.  H&Q page 316
                         if  verb.isDeponent() == MIDDLE_DEPONENT || verb.isDeponent() == PASSIVE_DEPONENT || verb.isDeponent() == DEPONENT_GIGNOMAI || verb.present == "κεῖμαι"
                         {
-                            s = "  " + tenses[tense] + " " + "Middle" + " " + moods[mood]
+                            s = "  " + tenses[tense] + " " + "Middle" + " " + moods[m]
                         }
                         else
                         {
-                            s = "  " + tenses[tense] + " " + "Middle/Passive" + " " + moods[mood]
+                            s = "  " + tenses[tense] + " " + "Middle/Passive" + " " + moods[m]
                         }
                     }
                     else
                     {
                         continue; //skip passive if middle+passive are the same
                     }
-
+                    var sectionCount = 0
                     for number in 0..<NUM_NUMBERS
                     {
                         for person in 0..<NUM_PERSONS
                         {
-                            vf.number = UInt8(number)
                             vf.person = UInt8(person)
+                            vf.number = UInt8(number)
+                            vf.tense = UInt8(tense)
+                            vf.voice = UInt8(voice)
                             vf.mood = UInt8(mood)
                             
                             var form = vf.getForm(decomposed: false)
                             
                             if (form != "")
                             {
-                                let label = String.init(format: "%d%s:", (person+1), (number == 0) ? "s" : "p")
+                                let label = String.init(format: "%d%@:", (person+1), (number == 0) ? "s" : "p")
                                 form = form.replacingOccurrences(of: ", ", with: "\n")
-                                    
+                                
+                                let row = FormRow(label: label, form: form, decomposedForm: vf.getForm(decomposed: true).replacingOccurrences(of: ", ", with: "\n"))
+                                forms.append(row)
+                                sectionCount += 1
                             }
                         }
                     }
+                    if sectionCount > 0
+                    {
+                        sections.append(s!)
+                        sectionCounts.append(sectionCount)
+                    }
                 }
-                
             }
         }
-        
     }
-*/
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "VerbDetailCell")!
+        
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        cell.layoutMargins = UIEdgeInsets.zero
+        cell.preservesSuperviewLayoutMargins = true
+        cell.backgroundColor = UIColor.clear
+        cell.accessoryType = UITableViewCellAccessoryType.none
+        
+        let lblTitle : UILabel = cell.contentView.viewWithTag(101) as! UILabel
+        let lblTitle2 : UILabel = cell.contentView.viewWithTag(102) as! UILabel
+        
+        var index = 0
+        for i in 0..<indexPath.section
+        {
+            index += sectionCounts[i]
+        }
+        index += indexPath.row
+        
+        if isExpanded == true
+        {
+            lblTitle.text = forms[index].decomposedForm
+        }
+        else
+        {
+            lblTitle.text = forms[index].form
+        }
+        
+        lblTitle2.text = forms[index].label
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let btn = UIButton(type: UIButtonType.custom)
+        btn.tag = indexPath.row
+        
+        performSegue(withIdentifier: "SegueToVerbDetail", sender: self)
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sectionCounts[section]//verbsPerSection[section]
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count//verbsPerSection.count
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let label = UILabel()
+        label.text = sections[section]
+        
+        label.backgroundColor = UIColor.blue
+        label.textColor = UIColor.white
+        return label
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 34
+    }
+
     func practiceVerb()
     {
         performSegue(withIdentifier: "SegueToHoplitePractice", sender: self)

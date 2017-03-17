@@ -57,9 +57,6 @@ class Verb2 {
     
     func isDeponent() -> Int
     {
-        
-        
-        return 1//deponentType(vf.verb)
-        
+        return Int(deponentType2(Int32(verbId)))
     }
 }

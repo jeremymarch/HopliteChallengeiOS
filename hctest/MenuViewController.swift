@@ -65,7 +65,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tblMenuOptions!.reloadData()
     }
     
-    @IBAction func onCloseMenuClick(_ button:UIButton!){
+    @IBAction func onCloseMenuClick(_ button:UIButton!) {
         btnMenu.tag = 0
         
         if (self.delegate != nil) {

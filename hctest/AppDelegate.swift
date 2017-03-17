@@ -11,7 +11,10 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    let dbname:String = "hcdatadb.sqlite"
+    let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+    let dbpath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" + "hcdatadb.sqlite"
+    
     var window: UIWindow?
     
     //http://stackoverflow.com/questions/34037274/shouldautorotate-not-working-with-navigation-controllar-swift-2
