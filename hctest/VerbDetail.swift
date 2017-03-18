@@ -36,9 +36,17 @@ class VerbDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Verb"
         
         let v = Verb2(verbid: verbIndex)
+        
+        if v.present.characters.count > 0
+        {
+            title = v.present
+        }
+        else
+        {
+            title = v.future
+        }
         printVerb(verb: v)
         //tableView.separatorStyle = .none
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -61,6 +69,7 @@ class VerbDetailViewController: UITableViewController {
         {
             if isExpanded == false
             {
+                //NSLog("expand")
                 isExpanded = true
                 tableView.reloadData()
             }
@@ -69,20 +78,27 @@ class VerbDetailViewController: UITableViewController {
         {
             if isExpanded == true
             {
+                //NSLog("unexpand")
                 isExpanded = false
                 tableView.reloadData()
             }
         }
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        let att = [ NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 18)! ]
+        self.navigationController?.navigationBar.titleTextAttributes = att
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        
+        let att = [ NSFontAttributeName: UIFont(name: "NewAthenaUnicode", size: 22)! ]
+        self.navigationController?.navigationBar.titleTextAttributes = att
     }
     
     func printVerb(verb:Verb2)

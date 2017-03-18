@@ -16,6 +16,7 @@ class VerbSequence {
     var score:Int32 = 0
     var lives:Int = 3
     var maxLives:Int = 3
+    var units = [Int]()
     
     init() {
         self.givenForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 0)
@@ -133,6 +134,22 @@ class VerbSequence {
         {
             NSLog("Couldn't load sqlite db")
         }
+    }
+    func setUnits(units:[Int])
+    {
+        var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        var i = 0
+        for u in units
+        {
+            a[i] = u
+            i += 1
+        }
+        //c int array is a tuple in swift, so translate array to tuple
+        let t = (Int32(a[0]), Int32(a[1]), Int32(a[2]), Int32(a[3]), Int32(a[4]), Int32(a[5]), Int32(a[6]), Int32(a[7]), Int32(a[8]), Int32(a[9]), Int32(a[10]), Int32(a[11]), Int32(a[12]), Int32(a[13]), Int32(a[14]), Int32(a[15]), Int32(a[16]), Int32(a[17]), Int32(a[18]), Int32(a[19]))
+        
+        options?.units = t
+        options?.numUnits = UInt8(i)
+        self.units = units
     }
 }
 

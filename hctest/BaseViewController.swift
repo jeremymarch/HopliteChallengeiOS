@@ -29,7 +29,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             self.openViewControllerBasedOnIdentifier("HopliteChallenge")
         case 2:
             //settings
-            self.openViewControllerBasedOnIdentifier("HopliteChallenge")
+            self.openViewControllerBasedOnIdentifier("Settings")
         case 3:
             self.openViewControllerBasedOnIdentifier("GameHistory")
         case 4:

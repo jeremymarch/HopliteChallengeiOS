@@ -1,24 +1,40 @@
 //
-//  VerbList.swift
+//  HCSettings.swift
 //  hctest
 //
-//  Created by Jeremy March on 3/15/17.
+//  Created by Jeremy March on 3/17/17.
 //  Copyright © 2017 Jeremy March. All rights reserved.
 //
 
 import UIKit
 
-class VerbListViewController: UITableViewController {
+class HCSettingsViewController: UITableViewController {
     
-    var items = [String]()
-    let verbsPerSection:[Int] = [2,2,4,4,4,4,3,2,4,6,7,8,8,8,8,8,7,9,9,7]
+    var toggleStates = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView?.delegate = self
         tableView?.dataSource = self
         
-        title = "Verbs"
+        let def = UserDefaults.standard.object(forKey: "Levels")
+        if def != nil
+        {
+            var i = 0
+            for d in def as! [Bool]
+            {
+                toggleStates[i] = d
+                i += 1
+            }
+        }
+        else
+        {
+            let d = UserDefaults.standard
+            d.set(toggleStates, forKey: "Levels")
+            d.synchronize()
+        }
+        
+        title = "Settings"
     }
     
     override func didReceiveMemoryWarning() {
@@ -27,85 +43,63 @@ class VerbListViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateArray()
         self.navigationController?.isNavigationBarHidden = false
     }
     
-    func updateArray(){
-        
-        let mirror = Mirror(reflecting: verbs)
-        for (_, value) in mirror.children {
-            switch value {
-            case is Verb:
-                var s:String = String(cString: (value as! Verb).present)
-                if s.characters.count < 1
-                {
-                    s = String(cString: (value as! Verb).future)
-                }
-                items.append(s)
-            default: ()
-            }
-        }
- 
-        /*
-        for i in 0..<NUM_VERBS
-        {
-            let v = Verb2(verbid: Int(i))
-            var s:String = v.present
-            if s.characters.count < 1
-            {
-                s = v.future
-            }
-            items.append(s)
-            
-        }
-        */
-        tableView.reloadData()
-    }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "VerbListCell")!
-
+        let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell")!
+        
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.layoutMargins = UIEdgeInsets.zero
         cell.preservesSuperviewLayoutMargins = false
         cell.backgroundColor = UIColor.clear
-        cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+        cell.accessoryType = UITableViewCellAccessoryType.none
+        
+        let switchView = UISwitch()
+        cell.accessoryView = switchView
+        switchView.setOn(toggleStates[indexPath.row], animated: true)
+        switchView.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
         
         let lblTitle : UILabel = cell.contentView.viewWithTag(101) as! UILabel
         
-        var index = 0
-        for i in 0..<indexPath.section
-        {
-            index += verbsPerSection[i]
-        }
-        index += indexPath.row
-        
-        lblTitle.text = items[index]
+        lblTitle.text = "Unit \((indexPath.row + 1))"
         
         return cell
+    }
+    
+    func switchChanged(sender:UIView)
+    {
+        let switch1 = sender as! UISwitch
+        let indexPath = tableView.indexPath(for: switch1.superview as! UITableViewCell)
+        let on = switch1.isOn
+        
+        toggleStates[(indexPath?.row)!] = on
+        
+        let defaults = UserDefaults.standard
+        defaults.set(toggleStates, forKey: "Levels")
+        defaults.synchronize()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let btn = UIButton(type: UIButtonType.custom)
         btn.tag = indexPath.row
         
-        performSegue(withIdentifier: "SegueToVerbDetail", sender: self)
+        //performSegue(withIdentifier: "SegueToVerbDetail", sender: self)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return verbsPerSection[section]
+        return 20
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 20//verbsPerSection.count
+        return 1
     }
-    
+    /*
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
+        
         let label = UILabel()
         label.text = "  Unit \(section + 1)"
-
+        
         label.backgroundColor = UIColor.blue
         label.textColor = UIColor.white
         return label
@@ -114,7 +108,8 @@ class VerbListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 34
     }
-    
+    */
+    /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let indexPath = tableView.indexPathForSelectedRow
         var verbIndex = 0
@@ -126,5 +121,6 @@ class VerbListViewController: UITableViewController {
         let vd = segue.destination as! VerbDetailViewController
         vd.verbIndex = verbIndex
     }
+ */
 }
 

@@ -58,11 +58,12 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isGame = false
         vs.options?.practiceVerbID = Int32(practiceVerbId)
         vs.options?.units = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
         vs.options?.numUnits = 20
         vs.options?.isHCGame = isGame
-        
+ 
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
         {
@@ -307,11 +308,11 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         continueButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.0, constant:60.0).isActive = true
         continueButton.backgroundColor = hcblue
         continueButton.layer.cornerRadius = 2.0
-        continueButton.setTitle("Continue", for: [])
+        continueButton.setTitle("Play", for: [])
         continueButton.titleLabel?.textColor = UIColor.white
         continueButton.titleLabel?.font = continueFont
-        continueButton.isEnabled = false
-        continueButton.isHidden = true
+        //continueButton.isEnabled = false
+        //continueButton.isHidden = true
         
         view.addSubview(checkXView)
         checkXView.translatesAutoresizingMaskIntoConstraints = false
@@ -345,9 +346,9 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         self.view.addGestureRecognizer(pinchRecognizer)
         
         vs.DBInit2()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-            self.start()
-        }
+        //DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+        //    self.start()
+        //}
     }
     
     //this doesn't work if used in nav controller, so this is blocked in appDelegate
@@ -464,7 +465,32 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         textView.addObserver(self, forKeyPath: "contentSize", options: [.new], context: nil)
         self.navigationController?.isNavigationBarHidden = true
         
-        //addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
+        reloadSettings()
+        vs.reset()
+    }
+    
+    func reloadSettings()
+    {
+        //NSLog("load settings start")
+        let def = UserDefaults.standard.object(forKey: "Levels")
+        if def != nil
+        {
+            NSLog("has setting")
+            var units = [Int]()
+            let d = def as! [Bool]
+            var j = 1
+            for i in d
+            {
+                if i == true
+                {
+                    units.append(j)
+                }
+                j += 1
+            }
+            vs.setUnits(units: units)
+            //print(units)
+        }
+        //NSLog("load settings done")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -664,6 +690,14 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     
     func continuePressed(button: UIButton) {
         continueButton.isEnabled = false
+        
+        if continueButton.titleLabel?.text == "Play"
+        {
+            start()
+            return
+        }
+        
+        
         checkXView.isHidden = true
         unexpand() //has to be called before getNext()
         let ret = vs.getNext()
