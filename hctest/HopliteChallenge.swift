@@ -58,10 +58,9 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        isGame = false
         vs.options?.practiceVerbID = Int32(practiceVerbId)
-        vs.options?.units = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
-        vs.options?.numUnits = 20
+        //vs.options?.units = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
+        //vs.options?.numUnits = 20
         vs.options?.isHCGame = isGame
  
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
@@ -171,7 +170,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         quitButton.layer.cornerRadius = 4.0
         if practiceVerbId < 0
         {
-            quitButton.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), for: UIControlEvents.touchUpInside)
+            quitButton.addTarget(self, action: #selector(menuButtonPressed), for: UIControlEvents.touchUpInside)
         }
         else
         {
@@ -372,6 +371,44 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         // Dispose of any resources that can be recreated.
     }
     
+    func menuButtonPressed(sender:UIButton)
+    {
+        if isGame && vs.lives > 0
+        {
+            let isFirstResp = textView.isFirstResponder
+            textView.resignFirstResponder()
+            let alert = UIAlertController(title: "Alert", message: "Are you sure you want to quit this game?", preferredStyle: .alert)
+            
+            let no = UIAlertAction(title: "Cancel", style: .cancel, handler: {alert in
+                if isFirstResp == true
+                {
+                    self.textView.becomeFirstResponder()
+                }
+            })
+            
+            let yes = UIAlertAction(title: "Yes", style: .default, handler: {alert in
+                self.timerLabel.stopTimer()
+                self.checkAnswer()
+                self.onSlideMenuButtonPressed(sender)
+            })
+            
+            alert.addAction(no)
+            alert.addAction(yes)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+        else
+        {
+            textView.resignFirstResponder()
+            if timerLabel.isRunning == true
+            {
+                timerLabel.stopTimer()
+                checkAnswer()
+            }
+            self.onSlideMenuButtonPressed(sender)
+        }
+    }
+    
     func goBackToVerbDetail()
     {
         let _ = self.navigationController?.popViewController(animated: true)
@@ -475,7 +512,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         let def = UserDefaults.standard.object(forKey: "Levels")
         if def != nil
         {
-            NSLog("has setting")
+            //NSLog("has setting")
             var units = [Int]()
             let d = def as! [Bool]
             var j = 1
