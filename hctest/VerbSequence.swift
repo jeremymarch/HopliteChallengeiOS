@@ -101,9 +101,13 @@ class VerbSequence {
         let a = compareFormsCheckMFRecordResult(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed, newTime, &vScore, &vLives)
         self.score = vScore
         
-        if a == false
+        if a == false && options?.isHCGame == true
         {
             lives -= 1
+        }
+        else
+        {
+            lives = -1
         }
         NSLog("score: \(self.score), lives: \(lives)")
         return a

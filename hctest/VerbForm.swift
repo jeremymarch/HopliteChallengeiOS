@@ -27,6 +27,24 @@ class VerbForm {
         self.verbid = verb
     }
     
+    var form:String {
+        get {
+            return getForm(decomposed: false)
+        }
+    }
+    
+    var decomposedForm:String {
+        get {
+            return getForm(decomposed: true)
+        }
+    }
+    
+    var description:String {
+        get {
+            return getDescription()
+        }
+    }
+    
     func getForm(decomposed:Bool) -> String
     {
         let bufferSize:Int = 500

@@ -27,7 +27,6 @@ class HCDeleteButton: UIButton {
     var deleteXColorDown:UIColor        = HopliteConstants.deleteXColorDown
     
     required init(devicea:Int = 1) {
-        let device = 1
         super.init(frame: .zero)
         
         self.addTarget(self, action: #selector(touchUpInside1(sender:)), for: .touchUpInside)
@@ -60,7 +59,7 @@ class HCDeleteButton: UIButton {
     override func draw(_ rect: CGRect) {
         self.device = 1
         // Drawing code
-        NSLog("Draw delete")
+        //NSLog("Draw delete")
         let context = UIGraphicsGetCurrentContext()
         
         let buttonRadius:CGFloat

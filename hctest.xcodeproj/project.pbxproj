@@ -18,6 +18,18 @@
 		3F0BBD0B1E6D354500933F44 /* HCSpaceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBD031E6D354500933F44 /* HCSpaceButton.swift */; };
 		3F0BBD0D1E6D355100933F44 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBD0C1E6D355100933F44 /* KeyboardViewController.swift */; };
 		3F0EC6371E7784AE0084347F /* TypeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0EC6361E7784AE0084347F /* TypeTextView.swift */; };
+		3F15E1731E8450A0009760A0 /* hctestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15E1721E8450A0009760A0 /* hctestTests.swift */; };
+		3F15E17B1E8462C3009760A0 /* Verb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B4A1E7A290300144F7D /* Verb.swift */; };
+		3F15E17C1E8462F2009760A0 /* VerbForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */; };
+		3F15E17D1E84AFDD009760A0 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CF1E6BB41D00FFAD04 /* sqlite3.c */; };
+		3F15E17E1E84AFEB009760A0 /* VerbSequence.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CA1E6BB2D700FFAD04 /* VerbSequence.c */; };
+		3F15E17F1E84AFEE009760A0 /* GreekForms.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443C81E6BB2CD00FFAD04 /* GreekForms.c */; };
+		3F15E1801E84AFF2009760A0 /* utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443C51E6BB2BF00FFAD04 /* utilities.c */; };
+		3F15E1811E84AFF6009760A0 /* accent.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443C21E6BB2B000FFAD04 /* accent.c */; };
+		3F15E1821E84AFFA009760A0 /* ending.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443BC1E6BB2A100FFAD04 /* ending.c */; };
+		3F15E1831E84AFFE009760A0 /* augment.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443BF1E6BB2A100FFAD04 /* augment.c */; };
+		3F15E1841E84B002009760A0 /* libmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443B91E6BB27A00FFAD04 /* libmorph.c */; };
+		3F15E1861E85A893009760A0 /* hamburger.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F15E1851E85A893009760A0 /* hamburger.png */; };
 		3F195A271E7610050025EF00 /* TypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195A261E7610050025EF00 /* TypeLabel.swift */; };
 		3F2BF3C51E6DC8E200884CDC /* greencheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C41E6DC8E200884CDC /* greencheck.png */; };
 		3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C61E6DC8EC00884CDC /* redx.png */; };
@@ -50,6 +62,16 @@
 		3FF71B4B1E7A290300144F7D /* Verb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B4A1E7A290300144F7D /* Verb.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		3F15E1751E8450A0009760A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F3443971E6BB17700FFAD04 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3F34439E1E6BB17700FFAD04;
+			remoteInfo = hctest;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		3F0541631E7A688800DEB439 /* GameResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameResults.swift; sourceTree = "<group>"; };
 		3F0BBCFB1E6D354500933F44 /* HCAccentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCAccentButton.swift; path = HCPolytonicGreekKB/HCAccentButton.swift; sourceTree = "<group>"; };
@@ -63,6 +85,10 @@
 		3F0BBD031E6D354500933F44 /* HCSpaceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCSpaceButton.swift; path = HCPolytonicGreekKB/HCSpaceButton.swift; sourceTree = "<group>"; };
 		3F0BBD0C1E6D355100933F44 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardViewController.swift; path = HCPolytonicGreekKB/KeyboardViewController.swift; sourceTree = "<group>"; };
 		3F0EC6361E7784AE0084347F /* TypeTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeTextView.swift; sourceTree = "<group>"; };
+		3F15E1701E8450A0009760A0 /* hctestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hctestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F15E1721E8450A0009760A0 /* hctestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hctestTests.swift; sourceTree = "<group>"; };
+		3F15E1741E8450A0009760A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F15E1851E85A893009760A0 /* hamburger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hamburger.png; sourceTree = "<group>"; };
 		3F195A261E7610050025EF00 /* TypeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeLabel.swift; sourceTree = "<group>"; };
 		3F2BF3C41E6DC8E200884CDC /* greencheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greencheck.png; sourceTree = "<group>"; };
 		3F2BF3C61E6DC8EC00884CDC /* redx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redx.png; sourceTree = "<group>"; };
@@ -108,6 +134,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3F15E16D1E8450A0009760A0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3F34439C1E6BB17700FFAD04 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -136,10 +169,20 @@
 			name = "Hoplite Keyboard";
 			sourceTree = "<group>";
 		};
+		3F15E1711E8450A0009760A0 /* hctestTests */ = {
+			isa = PBXGroup;
+			children = (
+				3F15E1721E8450A0009760A0 /* hctestTests.swift */,
+				3F15E1741E8450A0009760A0 /* Info.plist */,
+			);
+			path = hctestTests;
+			sourceTree = "<group>";
+		};
 		3F3443961E6BB17700FFAD04 = {
 			isa = PBXGroup;
 			children = (
 				3F3443A11E6BB17700FFAD04 /* hctest */,
+				3F15E1711E8450A0009760A0 /* hctestTests */,
 				3F3443A01E6BB17700FFAD04 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -148,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				3F34439F1E6BB17700FFAD04 /* hctest.app */,
+				3F15E1701E8450A0009760A0 /* hctestTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -161,19 +205,10 @@
 				3F3443A41E6BB17700FFAD04 /* HopliteChallenge.swift */,
 				3F195A261E7610050025EF00 /* TypeLabel.swift */,
 				3F0EC6361E7784AE0084347F /* TypeTextView.swift */,
-				3F3443A61E6BB17700FFAD04 /* Main.storyboard */,
 				3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */,
 				3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */,
 				3FF71B4A1E7A290300144F7D /* Verb.swift */,
 				3FAA8D301E6D212900254E97 /* HCTimer.swift */,
-				3F3443AC1E6BB17700FFAD04 /* Assets.xcassets */,
-				3F3443AE1E6BB17700FFAD04 /* LaunchScreen.storyboard */,
-				3F3443B11E6BB17700FFAD04 /* Info.plist */,
-				3F3443A91E6BB17700FFAD04 /* hctest.xcdatamodeld */,
-				3F2BF3C61E6DC8EC00884CDC /* redx.png */,
-				3F2BF3C41E6DC8E200884CDC /* greencheck.png */,
-				3FAA8D2E1E6D046300254E97 /* Life4X.png */,
-				3F3443D61E6C814200FFAD04 /* newathu5.ttf */,
 				3FF71B401E78EF0700144F7D /* MenuViewController.swift */,
 				3FF71B421E78EF3600144F7D /* BaseViewController.swift */,
 				3FF71B441E79EC4700144F7D /* GameHistory.swift */,
@@ -181,6 +216,16 @@
 				3FF71B461E79EF5600144F7D /* VerbList.swift */,
 				3FF71B481E79EF6900144F7D /* VerbDetail.swift */,
 				3F4869CD1E7C9A020051B46A /* HCSettings.swift */,
+				3F3443AC1E6BB17700FFAD04 /* Assets.xcassets */,
+				3F3443A61E6BB17700FFAD04 /* Main.storyboard */,
+				3F3443AE1E6BB17700FFAD04 /* LaunchScreen.storyboard */,
+				3F3443B11E6BB17700FFAD04 /* Info.plist */,
+				3F3443A91E6BB17700FFAD04 /* hctest.xcdatamodeld */,
+				3F2BF3C61E6DC8EC00884CDC /* redx.png */,
+				3F2BF3C41E6DC8E200884CDC /* greencheck.png */,
+				3FAA8D2E1E6D046300254E97 /* Life4X.png */,
+				3F15E1851E85A893009760A0 /* hamburger.png */,
+				3F3443D61E6C814200FFAD04 /* newathu5.ttf */,
 			);
 			path = hctest;
 			sourceTree = "<group>";
@@ -213,6 +258,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3F15E16F1E8450A0009760A0 /* hctestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F15E1791E8450A0009760A0 /* Build configuration list for PBXNativeTarget "hctestTests" */;
+			buildPhases = (
+				3F15E16C1E8450A0009760A0 /* Sources */,
+				3F15E16D1E8450A0009760A0 /* Frameworks */,
+				3F15E16E1E8450A0009760A0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3F15E1761E8450A0009760A0 /* PBXTargetDependency */,
+			);
+			name = hctestTests;
+			productName = hctestTests;
+			productReference = 3F15E1701E8450A0009760A0 /* hctestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		3F34439E1E6BB17700FFAD04 /* hctest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3F3443B41E6BB17700FFAD04 /* Build configuration list for PBXNativeTarget "hctest" */;
@@ -240,6 +303,12 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Jeremy March";
 				TargetAttributes = {
+					3F15E16F1E8450A0009760A0 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = EFHC4XFZ38;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 3F34439E1E6BB17700FFAD04;
+					};
 					3F34439E1E6BB17700FFAD04 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = EFHC4XFZ38;
@@ -262,11 +331,19 @@
 			projectRoot = "";
 			targets = (
 				3F34439E1E6BB17700FFAD04 /* hctest */,
+				3F15E16F1E8450A0009760A0 /* hctestTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3F15E16E1E8450A0009760A0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3F34439D1E6BB17700FFAD04 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -276,6 +353,7 @@
 				3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */,
 				3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */,
 				3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */,
+				3F15E1861E85A893009760A0 /* hamburger.png in Resources */,
 				3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */,
 				3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */,
 			);
@@ -284,6 +362,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3F15E16C1E8450A0009760A0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F15E1801E84AFF2009760A0 /* utilities.c in Sources */,
+				3F15E17F1E84AFEE009760A0 /* GreekForms.c in Sources */,
+				3F15E1841E84B002009760A0 /* libmorph.c in Sources */,
+				3F15E17B1E8462C3009760A0 /* Verb.swift in Sources */,
+				3F15E1731E8450A0009760A0 /* hctestTests.swift in Sources */,
+				3F15E17C1E8462F2009760A0 /* VerbForm.swift in Sources */,
+				3F15E17D1E84AFDD009760A0 /* sqlite3.c in Sources */,
+				3F15E1821E84AFFA009760A0 /* ending.c in Sources */,
+				3F15E1831E84AFFE009760A0 /* augment.c in Sources */,
+				3F15E17E1E84AFEB009760A0 /* VerbSequence.c in Sources */,
+				3F15E1811E84AFF6009760A0 /* accent.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3F34439B1E6BB17700FFAD04 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -327,6 +423,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		3F15E1761E8450A0009760A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3F34439E1E6BB17700FFAD04 /* hctest */;
+			targetProxy = 3F15E1751E8450A0009760A0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		3F3443A61E6BB17700FFAD04 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -347,6 +451,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3F15E1771E8450A0009760A0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = EFHC4XFZ38;
+				INFOPLIST_FILE = hctestTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hctestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hctest.app/hctest";
+			};
+			name = Debug;
+		};
+		3F15E1781E8450A0009760A0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = EFHC4XFZ38;
+				INFOPLIST_FILE = hctestTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hctestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hctest.app/hctest";
+			};
+			name = Release;
+		};
 		3F3443B21E6BB17700FFAD04 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -476,6 +610,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3F15E1791E8450A0009760A0 /* Build configuration list for PBXNativeTarget "hctestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F15E1771E8450A0009760A0 /* Debug */,
+				3F15E1781E8450A0009760A0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3F34439A1E6BB17700FFAD04 /* Build configuration list for PBXProject "hctest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

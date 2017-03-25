@@ -124,7 +124,7 @@ class TypeLabel: UILabel {
         
         if newStep > currentStep
         {
-            att?.addAttribute(NSForegroundColorAttributeName, value: backgroundColor, range: NSRange(location: steps - newStep, length: newStep))
+            att?.addAttribute(NSForegroundColorAttributeName, value: backgroundColor as Any, range: NSRange(location: steps - newStep, length: newStep))
             self.attributedText = att
             currentStep = newStep
             

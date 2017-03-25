@@ -18,7 +18,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     let continueButton = UIButton()
     let headerView = UIView()
     let timerLabel = HCTimer()
-    let quitButton = UIButton()
+    let quitButton = UIButton(type: UIButtonType.custom) as UIButton
     let scoreLabel = UILabel()
     let mfLabel = UILabel()
     let checkImg = UIImage(named:"greencheck.png")
@@ -125,7 +125,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         
         if isGame == false
         {
-            headerHeight = 30.0
+            headerHeight = 36.0
             topHeaderRowHeightMultiple = 1.0
             timerLabel.countDown = false
         }
@@ -136,7 +136,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         let continueFont = UIFont(name: "HelveticaNeue", size: fontSize)
         
         view.addSubview(headerView)
-        headerView.translatesAutoresizingMaskIntoConstraints = false;
+        headerView.translatesAutoresizingMaskIntoConstraints = false
         headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 6.0).isActive = true
         headerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0).isActive = true
         headerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0.0).isActive = true
@@ -144,7 +144,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         headerView.backgroundColor = UIColor.white
         
         headerView.addSubview(timerLabel)
-        timerLabel.translatesAutoresizingMaskIntoConstraints = false;
+        timerLabel.translatesAutoresizingMaskIntoConstraints = false
         timerLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 0.0).isActive = true
         timerLabel.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -6.0).isActive = true
         timerLabel.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: topHeaderRowHeightMultiple, constant: 0.0).isActive = true
@@ -156,18 +156,24 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         timerLabel.font = headerFont
         
         headerView.addSubview(quitButton)
-        quitButton.translatesAutoresizingMaskIntoConstraints = false;
+        quitButton.translatesAutoresizingMaskIntoConstraints = false
         quitButton.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 0.0).isActive = true
         quitButton.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 6.0).isActive = true
-        quitButton.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: topHeaderRowHeightMultiple, constant: 0.0).isActive = true
+        quitButton.heightAnchor.constraint(equalToConstant: 36.0).isActive = true
         quitButton.widthAnchor.constraint(equalToConstant: 40.0).isActive = true
         quitButton.backgroundColor = UIColor.white
-        quitButton.setTitleColor(UIColor.black, for: [])
-        quitButton.setTitle("X", for: [])
-        quitButton.titleLabel?.font = headerFont
+        //quitButton.setTitleColor(UIColor.black, for: [])
+        //quitButton.setTitle("X", for: [])
+        //quitButton.titleLabel?.font = headerFont
+        
         quitButton.layer.borderWidth = 2.0
-        quitButton.layer.borderColor = UIColor.gray.cgColor
+        quitButton.layer.borderColor = UIColor(colorLiteralRed: 0.88, green: 0.88, blue: 0.88, alpha: 1.0).cgColor
         quitButton.layer.cornerRadius = 4.0
+        quitButton.imageEdgeInsets = UIEdgeInsetsMake(2, 4, 2, 4)
+ 
+        let image = UIImage(named: "hamburger.png") as UIImage?
+        quitButton.setImage(image, for: .normal)
+        
         if practiceVerbId < 0
         {
             quitButton.addTarget(self, action: #selector(menuButtonPressed), for: UIControlEvents.touchUpInside)
@@ -179,9 +185,9 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         }
 
         headerView.addSubview(scoreLabel)
-        scoreLabel.translatesAutoresizingMaskIntoConstraints = false;
+        scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 0.0).isActive = true
-        scoreLabel.leftAnchor.constraint(equalTo: quitButton.rightAnchor, constant: 6.0).isActive = true
+        scoreLabel.leftAnchor.constraint(equalTo: quitButton.rightAnchor, constant: 8.0).isActive = true
         scoreLabel.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: topHeaderRowHeightMultiple, constant: 0.0).isActive = true
         scoreLabel.widthAnchor.constraint(equalToConstant: 90.0).isActive = true
         scoreLabel.backgroundColor = UIColor.white
@@ -191,7 +197,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         scoreLabel.font = headerFont
         
         headerView.addSubview(gameOverLabel)
-        gameOverLabel.translatesAutoresizingMaskIntoConstraints = false;
+        gameOverLabel.translatesAutoresizingMaskIntoConstraints = false
         gameOverLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0).isActive = true
         gameOverLabel.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -6.0).isActive = true
         gameOverLabel.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
@@ -204,10 +210,10 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         gameOverLabel.isHidden = true
         
         headerView.addSubview(mfLabel)
-        mfLabel.translatesAutoresizingMaskIntoConstraints = false;
+        mfLabel.translatesAutoresizingMaskIntoConstraints = false
         mfLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 0.0).isActive = true
         mfLabel.rightAnchor.constraint(equalTo: timerLabel.leftAnchor, constant: -6.0).isActive = true
-        mfLabel.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: topHeaderRowHeightMultiple, constant: 0.0).isActive = true
+        mfLabel.heightAnchor.constraint(equalToConstant: 34.0).isActive = true
         mfLabel.widthAnchor.constraint(equalToConstant: 40.0).isActive = true
         mfLabel.backgroundColor = UIColor.white
         mfLabel.textColor = hcorange
@@ -221,7 +227,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         
         let life1i = UIImage(named:"Life4X.png")
         headerView.addSubview(life1)
-        life1.translatesAutoresizingMaskIntoConstraints = false;
+        life1.translatesAutoresizingMaskIntoConstraints = false
         life1.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0).isActive = true
         life1.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -6.0).isActive = true
         life1.heightAnchor.constraint(equalToConstant: lifeSize).isActive = true
@@ -229,7 +235,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         life1.image = life1i
         
         headerView.addSubview(life2)
-        life2.translatesAutoresizingMaskIntoConstraints = false;
+        life2.translatesAutoresizingMaskIntoConstraints = false
         life2.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0).isActive = true
         life2.rightAnchor.constraint(equalTo: life1.leftAnchor, constant: -4.0).isActive = true
         life2.heightAnchor.constraint(equalToConstant: lifeSize).isActive = true
@@ -237,7 +243,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         life2.image = life1i
         
         headerView.addSubview(life3)
-        life3.translatesAutoresizingMaskIntoConstraints = false;
+        life3.translatesAutoresizingMaskIntoConstraints = false
         life3.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0).isActive = true
         life3.rightAnchor.constraint(equalTo: life2.leftAnchor, constant: -4.0).isActive = true
         life3.heightAnchor.constraint(equalToConstant: lifeSize).isActive = true
@@ -245,7 +251,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         life3.image = life1i
         
         view.addSubview(label1)
-        label1.translatesAutoresizingMaskIntoConstraints = false;
+        label1.translatesAutoresizingMaskIntoConstraints = false
         label1.textAlignment = NSTextAlignment.center
         
         label1Top = label1.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0)
@@ -260,7 +266,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         label1.numberOfLines = 0
         
         view.addSubview(stemLabel)
-        stemLabel.translatesAutoresizingMaskIntoConstraints = false;
+        stemLabel.translatesAutoresizingMaskIntoConstraints = false
         stemLabel.textAlignment = NSTextAlignment.center
         stemLabelTop = stemLabel.topAnchor.constraint(equalTo: label1.bottomAnchor, constant: 0.0)
         stemLabelTop?.isActive = true
@@ -273,7 +279,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         stemLabel.font = stemFont
 
         view.addSubview(textView)
-        textView.translatesAutoresizingMaskIntoConstraints = false;
+        textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textAlignment = NSTextAlignment.center
         textViewTop = textView.topAnchor.constraint(equalTo: stemLabel.bottomAnchor, constant: 0.0)
         textViewTop?.isActive = true
@@ -287,7 +293,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         textView.delegate = self
         
         view.addSubview(label2)
-        label2.translatesAutoresizingMaskIntoConstraints = false;
+        label2.translatesAutoresizingMaskIntoConstraints = false
         label2.textAlignment = NSTextAlignment.center
         label2Top = label2.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 0.0)
         label2Top?.isActive = true
@@ -300,7 +306,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         label2.numberOfLines = 0
         
         view.addSubview(continueButton)
-        continueButton.translatesAutoresizingMaskIntoConstraints = false;
+        continueButton.translatesAutoresizingMaskIntoConstraints = false
         continueButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -6.0).isActive = true
         continueButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
         continueButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
@@ -373,27 +379,27 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     
     func menuButtonPressed(sender:UIButton)
     {
-        if isGame && vs.lives > 0
+        if isGame && timerLabel.isRunning == true //vs.lives > 0
         {
             let isFirstResp = textView.isFirstResponder
             textView.resignFirstResponder()
             let alert = UIAlertController(title: "Alert", message: "Are you sure you want to quit this game?", preferredStyle: .alert)
             
-            let no = UIAlertAction(title: "Cancel", style: .cancel, handler: {alert in
+            let no = UIAlertAction(title: "Cancel", style: .cancel, handler: { alert in
                 if isFirstResp == true
                 {
                     self.textView.becomeFirstResponder()
                 }
             })
             
-            let yes = UIAlertAction(title: "Yes", style: .default, handler: {alert in
+            let yes = UIAlertAction(title: "Yes", style: .default, handler: { alert in
                 self.timerLabel.stopTimer()
                 self.checkAnswer()
                 self.onSlideMenuButtonPressed(sender)
             })
             
-            alert.addAction(no)
             alert.addAction(yes)
+            alert.addAction(no)
             
             self.present(alert, animated: true, completion: nil)
         }

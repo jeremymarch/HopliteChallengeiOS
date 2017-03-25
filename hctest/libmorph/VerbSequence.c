@@ -311,7 +311,10 @@ bool compareFormsCheckMFRecordResult(UCS2 *expected, int expectedLen, UCS2 *ente
         }
         else
         {
-            *lives -= 1;
+            if (globalGameId > -1)
+                *lives -= 1;
+            else
+                *lives = -1;
         }
         
         updateGameScore(globalGameId, globalScore, *lives);
@@ -1155,7 +1158,7 @@ void addNewGameToDB(int topUnit, long *gameid)
 void updateGameScore(long gameid, int score, int lives)
 {
     char *zErrMsg = 0;
-    snprintf(sqlitePrepquery, sqlitePrepqueryLen, "UPDATE games SET score=%d,lives=%d WHERE gameid=%d;", score, lives, gameid);
+    snprintf(sqlitePrepquery, sqlitePrepqueryLen, "UPDATE games SET score=%d,lives=%d WHERE gameid=%ld;", score, lives, gameid);
     int rc = sqlite3_exec(db, sqlitePrepquery, 0, 0, &zErrMsg);
     if( rc != SQLITE_OK )
     {

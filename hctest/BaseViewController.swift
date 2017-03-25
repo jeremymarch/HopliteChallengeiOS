@@ -35,7 +35,8 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         case 4:
             self.openViewControllerBasedOnIdentifier("VerbList")
         default:
-            NSLog("default")
+            //NSLog("default")
+            break
         }
     }
     
@@ -44,7 +45,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         let topViewController : UIViewController = self.navigationController!.topViewController!
         if topViewController.restorationIdentifier! == destViewController.restorationIdentifier!
         {
-            print("Same VC")
+            //print("Same VC")
         }
         else
         {

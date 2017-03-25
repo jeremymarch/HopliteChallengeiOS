@@ -142,8 +142,6 @@ class KeyboardViewController: UIInputViewController {
     
     var unicodeMode:Int32 = UnicodeMode.PreComposedHC.rawValue
     
-
-    
     /*
      //best to update constraint in place rather than in updateConstraints() if possible, see:
      //https://developer.apple.com/reference/uikit/uiviewcontroller/1621379-updateviewconstraints
@@ -153,7 +151,7 @@ class KeyboardViewController: UIInputViewController {
         super.updateViewConstraints()
     }
     */
-    
+    /*
      //http://stackoverflow.com/questions/31916979/how-touch-drag-enter-works
     func handleDrag(gestureRecognizer:UIPanGestureRecognizer)
     {
@@ -189,7 +187,7 @@ class KeyboardViewController: UIInputViewController {
             self.currentButton = nil
         }
     }
-    
+    */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
