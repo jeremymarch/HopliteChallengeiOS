@@ -347,8 +347,8 @@ char *getEnding(VerbFormC *vf, UCS2 *word, int wordLen, bool contractedFuture, b
     UCS2 secondAorist[2] = { GREEK_SMALL_LETTER_OMICRON, GREEK_SMALL_LETTER_NU };
     UCS2 secondAorist2[4] = { GREEK_SMALL_LETTER_OMICRON, GREEK_SMALL_LETTER_MU, GREEK_SMALL_LETTER_ETA, GREEK_SMALL_LETTER_NU };
     
-    UCS2 isthmi2[4] = { GREEK_SMALL_LETTER_SIGMA, GREEK_SMALL_LETTER_TAU, GREEK_SMALL_LETTER_ETA, GREEK_SMALL_LETTER_NU };
-    UCS2 deponent[] = { GREEK_SMALL_LETTER_OMICRON, GREEK_SMALL_LETTER_MU, GREEK_SMALL_LETTER_ALPHA, GREEK_SMALL_LETTER_IOTA };
+    //UCS2 isthmi2[4] = { GREEK_SMALL_LETTER_SIGMA, GREEK_SMALL_LETTER_TAU, GREEK_SMALL_LETTER_ETA, GREEK_SMALL_LETTER_NU };
+    //UCS2 deponent[] = { GREEK_SMALL_LETTER_OMICRON, GREEK_SMALL_LETTER_MU, GREEK_SMALL_LETTER_ALPHA, GREEK_SMALL_LETTER_IOTA };
     int ending = 0;
 
     //H&Q page 503, 607, 676
@@ -2010,7 +2010,7 @@ int getForm(VerbFormC *vf, char *utf8OutputBuffer, int bufferLen, bool includeAl
     int ret = getFormUCS2(vf, ucs2Buffer, &bufferLen2, includeAlternateForms, decompose);
     if (ret != 0)
     {
-        ucs2_to_utf8_string(ucs2Buffer, bufferLen2, utf8OutputBuffer);
+        ucs2_to_utf8_string(ucs2Buffer, bufferLen2, (unsigned char*)utf8OutputBuffer);
     }
     return ret;
 }
@@ -2500,6 +2500,9 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
                 accentRecessive(vf, &ucs2Buffer[stemStartInBuffer], &tempStemLen);
             }
             
+            //do contraction here
+            //contractEnding(vf, &ucs2Buffer[stemStartInBuffer], &tempStemLen, &ucs2Endings[endingStart], endingLen);
+            
             if (decompose && !ACCENT_DECOMPOSED_FORMS)
             {
                 stripAccent(&ucs2Buffer[stemStartInBuffer], &tempStemLen);
@@ -2551,6 +2554,26 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
         return 0;
     else
         return 1;
+}
+
+//contraction for present and imperfect
+void contractEnding(VerbFormC *vf, UCS2 *buffer, int *len, UCS2 *ending, int endingLen)
+{
+    if ((vf->tense == PRESENT || vf->tense == IMPERFECT) && (utf8HasSuffix(vf->verb->present, "άω") || utf8HasSuffix(vf->verb->present, "άομαι") || utf8HasSuffix(vf->verb->present, "έω") || utf8HasSuffix(vf->verb->present, "έομαι") || utf8HasSuffix(vf->verb->present, "όω") || utf8HasSuffix(vf->verb->present, "όομαι")))
+    {
+        //1st sing and plural, 3rd pl
+        if (buffer[*len - endingLen - 1] == GREEK_SMALL_LETTER_ALPHA_WITH_OXIA && ending[0] == GREEK_SMALL_LETTER_OMEGA)
+        {
+            leftShiftFromOffsetSteps(buffer, *len - endingLen - 1, 1, len);
+            buffer[*len - 1] = GREEK_SMALL_LETTER_OMEGA_WITH_PERISPOMENI;
+        }
+        else if (buffer[*len - endingLen - 1] == GREEK_SMALL_LETTER_ALPHA_WITH_OXIA && ending[0] == GREEK_SMALL_LETTER_EPSILON && endingLen > 1 && ending[1] == GREEK_SMALL_LETTER_IOTA)
+        {
+            leftShiftFromOffsetSteps(buffer, *len - endingLen, 2, len);
+            buffer[*len - 2] = GREEK_SMALL_LETTER_ALPHA_WITH_PERISPOMENI_AND_YPOGEGRAMMENI;
+        }
+        
+    }
 }
 
 bool utf8HasSuffix(char *s, char *suffix)

@@ -44,7 +44,7 @@ enum {
 DataFormat *hcdata = NULL;
 size_t sizeInBytes = 0;
 const int sqlitePrepqueryLen = 1024;
-char sqlitePrepquery[1024];
+char sqlitePrepquery[sqlitePrepqueryLen];
 sqlite3_stmt *statement;
 sqlite3_stmt *statement2;
 sqlite3 *db;
@@ -118,8 +118,6 @@ void addToRecentVFArray(VerbFormC *vf)
     recentVFArray[recentVFArrayHead].mood = vf->mood;
     recentVFArray[recentVFArrayHead].verb = vf->verb;
 }
- 
-
 
 VerbFormC lastVF;
 
@@ -136,8 +134,7 @@ int findVerbIndexByPointer(Verb *v)
 void randomAlternative(char *s, int *offset);
 void addNewGameToDB(int topUnit, long *gameid);
 void updateGameScore(long gameid, int score, int lives);
-bool setHeadAnswer(bool correct, char *givenAnswer, char *elapsedTime);
-
+bool setHeadAnswer(bool correct, char *givenAnswer, const char *elapsedTime);
 
 int getVerbSeqCallback(void *NotUsed, int argc, char **argv,
              char **azColName) {
@@ -1094,7 +1091,7 @@ bool dbInit(const char *path)
     return true;
 }
 
-bool setHeadAnswer(bool correct, char *givenAnswer, char *elapsedTime)
+bool setHeadAnswer(bool correct, char *givenAnswer, const char *elapsedTime)
 {
     /*
     if (0)//hcdata)
@@ -1157,6 +1154,7 @@ void addNewGameToDB(int topUnit, long *gameid)
 
 void updateGameScore(long gameid, int score, int lives)
 {
+    fprintf(stderr, "sqlite: gameid: %ld, score: %d, lives: %d\n", gameid, score, lives);
     char *zErrMsg = 0;
     snprintf(sqlitePrepquery, sqlitePrepqueryLen, "UPDATE games SET score=%d,lives=%d WHERE gameid=%ld;", score, lives, gameid);
     int rc = sqlite3_exec(db, sqlitePrepquery, 0, 0, &zErrMsg);

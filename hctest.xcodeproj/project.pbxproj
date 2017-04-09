@@ -246,9 +246,9 @@
 				3F3443C31E6BB2B000FFAD04 /* accent.h */,
 				3F3443BB1E6BB2A100FFAD04 /* ending.h */,
 				3F3443BC1E6BB2A100FFAD04 /* ending.c */,
-				3F3443BD1E6BB2A100FFAD04 /* libmorph.h */,
 				3F3443BE1E6BB2A100FFAD04 /* augment.h */,
 				3F3443BF1E6BB2A100FFAD04 /* augment.c */,
+				3F3443BD1E6BB2A100FFAD04 /* libmorph.h */,
 				3F3443B91E6BB27A00FFAD04 /* libmorph.c */,
 				3F3443B81E6BB27900FFAD04 /* hctest-Bridging-Header.h */,
 			);
@@ -461,6 +461,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hctestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hctest.app/hctest";
 			};
@@ -476,6 +477,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hctestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hctest.app/hctest";
 			};

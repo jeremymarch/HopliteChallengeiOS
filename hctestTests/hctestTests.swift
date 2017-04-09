@@ -7,9 +7,30 @@
 //
 
 import XCTest
-
+struct FormRow {
+    var label = ""
+    var form = ""
+    var decomposedForm = ""
+}
 
 class hctestTests: XCTestCase {
+    let persons = ["first", "second", "third"]
+    let numbers = ["singular", "plural"]
+    let tenses = ["Present", "Imperfect", "Future", "Aorist", "Perfect", "Pluperfect"]
+    let voices = ["Active", "Middle", "Passive"]
+    let moods = ["Indicative", "Subjunctive", "Optative", "Imperative"]
+    
+    let personsabbrev = ["1st", "2nd", "3rd"]
+    let numbersabbrev = ["sing.", "pl."]
+    let tensesabbrev = ["pres.", "imp.", "fut.", "aor.", "perf.", "plup."]
+    let voicesabbrev = ["act.", "mid.", "pass."]
+    let moodsabbrev = ["ind.", "subj.", "opt.", "imper."]
+    
+    var verbIndex:Int = -1
+    var forms = [FormRow]()
+    var sections = [String]()
+    var sectionCounts = [Int]()
+    var isExpanded:Bool = false
     
     override func setUp() {
         super.setUp()
@@ -33,7 +54,7 @@ class hctestTests: XCTestCase {
         }
     }
     
-    /*
+    
     func printVerb(verb:Verb2)
     {
         let vf = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: Int(verb.verbId))
@@ -114,6 +135,5 @@ class hctestTests: XCTestCase {
             }
         }
     }
-*/
     
 }

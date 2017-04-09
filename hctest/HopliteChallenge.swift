@@ -738,8 +738,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         {
             start()
             return
-        }
-        
+        }        
         
         checkXView.isHidden = true
         unexpand() //has to be called before getNext()

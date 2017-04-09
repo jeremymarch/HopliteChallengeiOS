@@ -50,12 +50,10 @@ class HCCapsLockButton: UIButton {
     
     func radians(_ degrees:Double) -> Double
     {
-        return degrees * M_PI/180;
+        return degrees * Double.pi/180;
     }
     
     override func draw(_ rect: CGRect) {
-        // Drawing code
-        
         let outerRect:CGRect = self.bounds.insetBy(dx: 0, dy: 0);
         let buttonRadius:CGFloat
         if UIDevice.current.userInterfaceIdiom == .pad

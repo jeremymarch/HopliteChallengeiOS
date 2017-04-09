@@ -17,6 +17,7 @@ class VerbSequence {
     var lives:Int = 3
     var maxLives:Int = 3
     var units = [Int]()
+    var gameId:Int = -1
     
     init() {
         self.givenForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 0)
@@ -105,7 +106,7 @@ class VerbSequence {
         {
             lives -= 1
         }
-        else
+        else if options?.isHCGame == false
         {
             lives = -1
         }

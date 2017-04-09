@@ -214,14 +214,14 @@ class VerbDetailViewController: UITableViewController {
         
         return cell
     }
-    
+    /*
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let btn = UIButton(type: UIButtonType.custom)
         btn.tag = indexPath.row
         
-        performSegue(withIdentifier: "SegueToVerbDetail", sender: self)
+        //performSegue(withIdentifier: "SegueToVerbDetail", sender: self)
     }
-    
+    */
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sectionCounts[section]//verbsPerSection[section]
     }
