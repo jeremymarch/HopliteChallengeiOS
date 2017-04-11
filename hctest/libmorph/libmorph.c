@@ -341,7 +341,6 @@ bool letterIsAccented(UCS2 letter)
     return false;
 }
 
-
 char *getEnding(VerbFormC *vf, UCS2 *word, int wordLen, bool contractedFuture, bool preContactedEndings)
 {
     UCS2 secondAorist[2] = { GREEK_SMALL_LETTER_OMICRON, GREEK_SMALL_LETTER_NU };
@@ -2004,8 +2003,8 @@ int getForm(VerbFormC *vf, char *utf8OutputBuffer, int bufferLen, bool includeAl
 {
     utf8OutputBuffer[0] = '\0'; //clear buffer
     
-    UCS2 ucs2Buffer[1024];
     int bufferLen2 = 1024;
+    UCS2 ucs2Buffer[bufferLen2];
     
     int ret = getFormUCS2(vf, ucs2Buffer, &bufferLen2, includeAlternateForms, decompose);
     if (ret != 0)
@@ -2555,7 +2554,7 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
     else
         return 1;
 }
-
+/*
 //contraction for present and imperfect
 void contractEnding(VerbFormC *vf, UCS2 *buffer, int *len, UCS2 *ending, int endingLen)
 {
@@ -2575,7 +2574,7 @@ void contractEnding(VerbFormC *vf, UCS2 *buffer, int *len, UCS2 *ending, int end
         
     }
 }
-
+*/
 bool utf8HasSuffix(char *s, char *suffix)
 {
     unsigned long len = strlen(s);
@@ -2809,27 +2808,6 @@ bool accentWord(UCS2 *ucs2String, int *len, int syllableToAccent, int accent)
     return true;
 }
 
-void tonosToOxia(UCS2 *word, int len)
-{
-    for (int i = 0; i < len; i++)
-    {
-        if (word[i] == GREEK_SMALL_LETTER_ALPHA_WITH_TONOS)
-            word[i] = GREEK_SMALL_LETTER_ALPHA_WITH_OXIA;
-        else if (word[i] == GREEK_SMALL_LETTER_EPSILON_WITH_TONOS)
-            word[i] = GREEK_SMALL_LETTER_EPSILON_WITH_OXIA;
-        else if (word[i] == GREEK_SMALL_LETTER_ETA_WITH_TONOS)
-            word[i] = GREEK_SMALL_LETTER_ETA_WITH_OXIA;
-        else if (word[i] == GREEK_SMALL_LETTER_IOTA_WITH_TONOS)
-            word[i] = GREEK_SMALL_LETTER_IOTA_WITH_OXIA;
-        else if (word[i] == GREEK_SMALL_LETTER_OMICRON_WITH_TONOS)
-            word[i] = GREEK_SMALL_LETTER_OMICRON_WITH_OXIA;
-        else if (word[i] == GREEK_SMALL_LETTER_UPSILON_WITH_TONOS)
-            word[i] = GREEK_SMALL_LETTER_UPSILON_WITH_OXIA;
-        else if (word[i] == GREEK_SMALL_LETTER_OMEGA_WITH_TONOS)
-            word[i] = GREEK_SMALL_LETTER_OMEGA_WITH_OXIA;
-    }
-}
-
 void stripAccent(UCS2 *word, int *len)
 {
     int i = 0;
@@ -3013,6 +2991,27 @@ void stripAccent(UCS2 *word, int *len)
             default:
                 break;
         }
+    }
+}
+
+void tonosToOxia(UCS2 *word, int len)
+{
+    for (int i = 0; i < len; i++)
+    {
+        if (word[i] == GREEK_SMALL_LETTER_ALPHA_WITH_TONOS)
+            word[i] = GREEK_SMALL_LETTER_ALPHA_WITH_OXIA;
+        else if (word[i] == GREEK_SMALL_LETTER_EPSILON_WITH_TONOS)
+            word[i] = GREEK_SMALL_LETTER_EPSILON_WITH_OXIA;
+        else if (word[i] == GREEK_SMALL_LETTER_ETA_WITH_TONOS)
+            word[i] = GREEK_SMALL_LETTER_ETA_WITH_OXIA;
+        else if (word[i] == GREEK_SMALL_LETTER_IOTA_WITH_TONOS)
+            word[i] = GREEK_SMALL_LETTER_IOTA_WITH_OXIA;
+        else if (word[i] == GREEK_SMALL_LETTER_OMICRON_WITH_TONOS)
+            word[i] = GREEK_SMALL_LETTER_OMICRON_WITH_OXIA;
+        else if (word[i] == GREEK_SMALL_LETTER_UPSILON_WITH_TONOS)
+            word[i] = GREEK_SMALL_LETTER_UPSILON_WITH_OXIA;
+        else if (word[i] == GREEK_SMALL_LETTER_OMEGA_WITH_TONOS)
+            word[i] = GREEK_SMALL_LETTER_OMEGA_WITH_OXIA;
     }
 }
 
