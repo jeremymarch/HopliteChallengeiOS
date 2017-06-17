@@ -85,7 +85,7 @@
 		3F0BBD031E6D354500933F44 /* HCSpaceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCSpaceButton.swift; path = HCPolytonicGreekKB/HCSpaceButton.swift; sourceTree = "<group>"; };
 		3F0BBD0C1E6D355100933F44 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardViewController.swift; path = HCPolytonicGreekKB/KeyboardViewController.swift; sourceTree = "<group>"; };
 		3F0EC6361E7784AE0084347F /* TypeTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeTextView.swift; sourceTree = "<group>"; };
-		3F15E1701E8450A0009760A0 /* hctestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hctestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F15E1701E8450A0009760A0 /* HopliteChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HopliteChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F15E1721E8450A0009760A0 /* hctestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hctestTests.swift; sourceTree = "<group>"; };
 		3F15E1741E8450A0009760A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F15E1851E85A893009760A0 /* hamburger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hamburger.png; sourceTree = "<group>"; };
@@ -93,7 +93,7 @@
 		3F2BF3C41E6DC8E200884CDC /* greencheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greencheck.png; sourceTree = "<group>"; };
 		3F2BF3C61E6DC8EC00884CDC /* redx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redx.png; sourceTree = "<group>"; };
 		3F2BF3C81E6DF5AC00884CDC /* HCMFButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCMFButton.swift; path = HCPolytonicGreekKB/HCMFButton.swift; sourceTree = "<group>"; };
-		3F34439F1E6BB17700FFAD04 /* hctest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hctest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F34439F1E6BB17700FFAD04 /* HopliteChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HopliteChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F3443A41E6BB17700FFAD04 /* HopliteChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HopliteChallenge.swift; sourceTree = "<group>"; };
 		3F3443A71E6BB17700FFAD04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -169,20 +169,21 @@
 			name = "Hoplite Keyboard";
 			sourceTree = "<group>";
 		};
-		3F15E1711E8450A0009760A0 /* hctestTests */ = {
+		3F15E1711E8450A0009760A0 /* HopliteChallengeTests */ = {
 			isa = PBXGroup;
 			children = (
 				3F15E1721E8450A0009760A0 /* hctestTests.swift */,
 				3F15E1741E8450A0009760A0 /* Info.plist */,
 			);
+			name = HopliteChallengeTests;
 			path = hctestTests;
 			sourceTree = "<group>";
 		};
 		3F3443961E6BB17700FFAD04 = {
 			isa = PBXGroup;
 			children = (
-				3F3443A11E6BB17700FFAD04 /* hctest */,
-				3F15E1711E8450A0009760A0 /* hctestTests */,
+				3F3443A11E6BB17700FFAD04 /* HopliteChallenge */,
+				3F15E1711E8450A0009760A0 /* HopliteChallengeTests */,
 				3F3443A01E6BB17700FFAD04 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -190,13 +191,13 @@
 		3F3443A01E6BB17700FFAD04 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3F34439F1E6BB17700FFAD04 /* hctest.app */,
-				3F15E1701E8450A0009760A0 /* hctestTests.xctest */,
+				3F34439F1E6BB17700FFAD04 /* HopliteChallenge.app */,
+				3F15E1701E8450A0009760A0 /* HopliteChallengeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3F3443A11E6BB17700FFAD04 /* hctest */ = {
+		3F3443A11E6BB17700FFAD04 /* HopliteChallenge */ = {
 			isa = PBXGroup;
 			children = (
 				3F0BBCFA1E6D352100933F44 /* Hoplite Keyboard */,
@@ -227,6 +228,7 @@
 				3F15E1851E85A893009760A0 /* hamburger.png */,
 				3F3443D61E6C814200FFAD04 /* newathu5.ttf */,
 			);
+			name = HopliteChallenge;
 			path = hctest;
 			sourceTree = "<group>";
 		};
@@ -258,9 +260,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3F15E16F1E8450A0009760A0 /* hctestTests */ = {
+		3F15E16F1E8450A0009760A0 /* HopliteChallengeTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3F15E1791E8450A0009760A0 /* Build configuration list for PBXNativeTarget "hctestTests" */;
+			buildConfigurationList = 3F15E1791E8450A0009760A0 /* Build configuration list for PBXNativeTarget "HopliteChallengeTests" */;
 			buildPhases = (
 				3F15E16C1E8450A0009760A0 /* Sources */,
 				3F15E16D1E8450A0009760A0 /* Frameworks */,
@@ -271,14 +273,14 @@
 			dependencies = (
 				3F15E1761E8450A0009760A0 /* PBXTargetDependency */,
 			);
-			name = hctestTests;
+			name = HopliteChallengeTests;
 			productName = hctestTests;
-			productReference = 3F15E1701E8450A0009760A0 /* hctestTests.xctest */;
+			productReference = 3F15E1701E8450A0009760A0 /* HopliteChallengeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3F34439E1E6BB17700FFAD04 /* hctest */ = {
+		3F34439E1E6BB17700FFAD04 /* HopliteChallenge */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3F3443B41E6BB17700FFAD04 /* Build configuration list for PBXNativeTarget "hctest" */;
+			buildConfigurationList = 3F3443B41E6BB17700FFAD04 /* Build configuration list for PBXNativeTarget "HopliteChallenge" */;
 			buildPhases = (
 				3F34439B1E6BB17700FFAD04 /* Sources */,
 				3F34439C1E6BB17700FFAD04 /* Frameworks */,
@@ -288,9 +290,9 @@
 			);
 			dependencies = (
 			);
-			name = hctest;
+			name = HopliteChallenge;
 			productName = hctest;
-			productReference = 3F34439F1E6BB17700FFAD04 /* hctest.app */;
+			productReference = 3F34439F1E6BB17700FFAD04 /* HopliteChallenge.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -330,8 +332,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3F34439E1E6BB17700FFAD04 /* hctest */,
-				3F15E16F1E8450A0009760A0 /* hctestTests */,
+				3F34439E1E6BB17700FFAD04 /* HopliteChallenge */,
+				3F15E16F1E8450A0009760A0 /* HopliteChallengeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -426,7 +428,7 @@
 /* Begin PBXTargetDependency section */
 		3F15E1761E8450A0009760A0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3F34439E1E6BB17700FFAD04 /* hctest */;
+			target = 3F34439E1E6BB17700FFAD04 /* HopliteChallenge */;
 			targetProxy = 3F15E1751E8450A0009760A0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -614,7 +616,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3F15E1791E8450A0009760A0 /* Build configuration list for PBXNativeTarget "hctestTests" */ = {
+		3F15E1791E8450A0009760A0 /* Build configuration list for PBXNativeTarget "HopliteChallengeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3F15E1771E8450A0009760A0 /* Debug */,
@@ -632,7 +634,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3F3443B41E6BB17700FFAD04 /* Build configuration list for PBXNativeTarget "hctest" */ = {
+		3F3443B41E6BB17700FFAD04 /* Build configuration list for PBXNativeTarget "HopliteChallenge" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3F3443B51E6BB17700FFAD04 /* Debug */,
