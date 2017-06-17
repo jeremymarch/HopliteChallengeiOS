@@ -103,8 +103,15 @@ class VerbDetailViewController: UITableViewController {
     
     func printVerb(verb:Verb2)
     {
-        let vf = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: Int(verb.verbId))
 
+        sections.append("  Principal Parts")
+        sectionCounts.append(1)
+        let row = FormRow(label: "", form: verb.principalParts(seperator: " or"), decomposedForm: verb.principalParts(seperator: " or"))
+        //let row = FormRow(label: "", form: "def", decomposedForm: "abc")
+        forms.append(row)
+
+        let vf = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: Int(verb.verbId))
+        
         var isOida:Bool = false
         if verb.present == "οἶδα" || verb.present == "σύνοιδα"
         {
@@ -182,17 +189,24 @@ class VerbDetailViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "VerbDetailCell")!
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let cellName : String
+        if indexPath.section == 0 && indexPath.row == 0
+        {
+            cellName = "VerbDetailPPCell"
+        }
+        else
+        {
+            cellName = "VerbDetailCell"
+        }
+        let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: cellName)!
         
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.layoutMargins = UIEdgeInsets.zero
         cell.preservesSuperviewLayoutMargins = true
         cell.backgroundColor = UIColor.clear
         cell.accessoryType = UITableViewCellAccessoryType.none
-        
-        let lblTitle : UILabel = cell.contentView.viewWithTag(101) as! UILabel
-        let lblTitle2 : UILabel = cell.contentView.viewWithTag(102) as! UILabel
         
         var index = 0
         for i in 0..<indexPath.section
@@ -201,17 +215,27 @@ class VerbDetailViewController: UITableViewController {
         }
         index += indexPath.row
         
-        if isExpanded == true
+        if indexPath.section == 0 && indexPath.row == 0
         {
-            lblTitle.text = forms[index].decomposedForm
+            let pp : UILabel = cell.contentView.viewWithTag(101) as! UILabel
+            pp.text = forms[index].form
         }
         else
         {
-            lblTitle.text = forms[index].form
+            let lblTitle : UILabel = cell.contentView.viewWithTag(101) as! UILabel
+            let lblTitle2 : UILabel = cell.contentView.viewWithTag(102) as! UILabel
+            
+            if isExpanded == true
+            {
+                lblTitle.text = forms[index].decomposedForm
+            }
+            else
+            {
+                lblTitle.text = forms[index].form
+            }
+            
+            lblTitle2.text = forms[index].label
         }
-        
-        lblTitle2.text = forms[index].label
-        
         return cell
     }
     /*
@@ -235,7 +259,8 @@ class VerbDetailViewController: UITableViewController {
         let label = UILabel()
         label.text = sections[section]
         
-        label.backgroundColor = UIColor.blue
+        //label.backgroundColor = UIColor.blue
+        label.backgroundColor = UIColor.init(red: 0, green: 0, blue: 110.0/255.0, alpha: 1.0)
         label.textColor = UIColor.white
         return label
     }

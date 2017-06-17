@@ -17,7 +17,7 @@
                BlueprintIdentifier = "3F34439E1E6BB17700FFAD04"
                BuildableName = "hctest.app"
                BlueprintName = "hctest"
-               ReferencedContainer = "container:hctest.xcodeproj">
+               ReferencedContainer = "container:HopliteChallenge.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "3F15E16F1E8450A0009760A0"
                BuildableName = "hctestTests.xctest"
                BlueprintName = "hctestTests"
-               ReferencedContainer = "container:hctest.xcodeproj">
+               ReferencedContainer = "container:HopliteChallenge.xcodeproj">
             </BuildableReference>
             <LocationScenarioReference
                identifier = "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier"
@@ -49,7 +49,7 @@
             BlueprintIdentifier = "3F34439E1E6BB17700FFAD04"
             BuildableName = "hctest.app"
             BlueprintName = "hctest"
-            ReferencedContainer = "container:hctest.xcodeproj">
+            ReferencedContainer = "container:HopliteChallenge.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -72,7 +72,7 @@
             BlueprintIdentifier = "3F34439E1E6BB17700FFAD04"
             BuildableName = "hctest.app"
             BlueprintName = "hctest"
-            ReferencedContainer = "container:hctest.xcodeproj">
+            ReferencedContainer = "container:HopliteChallenge.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -91,7 +91,7 @@
             BlueprintIdentifier = "3F34439E1E6BB17700FFAD04"
             BuildableName = "hctest.app"
             BlueprintName = "hctest"
-            ReferencedContainer = "container:hctest.xcodeproj">
+            ReferencedContainer = "container:HopliteChallenge.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

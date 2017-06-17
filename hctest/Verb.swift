@@ -42,15 +42,20 @@ class Verb2 {
         }
     }
     
-    func principalParts() -> String
+    func principalParts(seperator:String) -> String
     {
+        var innerSeperator:String = " or "
+        if seperator != ""
+        {
+            innerSeperator = seperator
+        }
         var sa = [String]()
-        sa[0] = present != "" ? present : dash
-        sa[1] = future != "" ? future : dash
-        sa[2] = aorist != "" ? aorist : dash
-        sa[3] = perfect != "" ? perfect : dash
-        sa[4] = perfMid != "" ? perfMid : dash
-        sa[5] = aoristPass != "" ? aoristPass : dash
+        sa.append(present != "" ? present.replacingOccurrences(of: ",", with: innerSeperator) : dash)
+        sa.append(future != "" ? future.replacingOccurrences(of: ",", with: innerSeperator) : dash)
+        sa.append(aorist != "" ? aorist.replacingOccurrences(of: ",", with: innerSeperator) : dash)
+        sa.append(perfect != "" ? perfect.replacingOccurrences(of: ",", with: innerSeperator) : dash)
+        sa.append(perfMid != "" ? perfMid.replacingOccurrences(of: ",", with: innerSeperator) : dash)
+        sa.append(aoristPass != "" ? aoristPass.replacingOccurrences(of: ",", with: innerSeperator) : dash)
         
         return sa.joined(separator: ", ")
     }

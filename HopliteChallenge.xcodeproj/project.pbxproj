@@ -317,7 +317,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3F34439A1E6BB17700FFAD04 /* Build configuration list for PBXProject "hctest" */;
+			buildConfigurationList = 3F34439A1E6BB17700FFAD04 /* Build configuration list for PBXProject "HopliteChallenge" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -623,7 +623,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3F34439A1E6BB17700FFAD04 /* Build configuration list for PBXProject "hctest" */ = {
+		3F34439A1E6BB17700FFAD04 /* Build configuration list for PBXProject "HopliteChallenge" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3F3443B21E6BB17700FFAD04 /* Debug */,
