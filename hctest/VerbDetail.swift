@@ -32,7 +32,6 @@ class VerbDetailViewController: UITableViewController {
     var sections = [String]()
     var sectionCounts = [Int]()
     var isExpanded:Bool = false
-   
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -18,7 +18,7 @@ class Verb2 {
     var verbId:UInt32 = 0
     var verbClass:UInt32 = 0
     var HQUnit:UInt8 = 0
-    let dash = "–"
+    let dash = "—"//let dash = "–"
     
     init(verbid:Int)
     {
