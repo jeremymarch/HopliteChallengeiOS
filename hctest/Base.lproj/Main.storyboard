@@ -18,7 +18,7 @@
         <!--Menu View Controller-->
         <scene sceneID="c48-TY-jCr">
             <objects>
-                <viewController restorationIdentifier="MenuViewController" storyboardIdentifier="MenuViewController" id="y8s-NC-Zzi" customClass="MenuViewController" customModule="hctest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="MenuViewController" storyboardIdentifier="MenuViewController" id="y8s-NC-Zzi" customClass="MenuViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jLs-3u-0gn"/>
                         <viewControllerLayoutGuide type="bottom" id="HVV-Z6-uFK"/>
@@ -70,7 +70,7 @@
         <!--Settings View Controller-->
         <scene sceneID="nE1-BW-kH1">
             <objects>
-                <tableViewController restorationIdentifier="Settings" storyboardIdentifier="Settings" id="hg9-po-93R" customClass="HCSettingsViewController" customModule="hctest" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="Settings" storyboardIdentifier="Settings" id="hg9-po-93R" customClass="HCSettingsViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="FsK-fo-GWk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -112,7 +112,7 @@
         <scene sceneID="GNd-vO-sQx">
             <objects>
                 <navigationController id="3b4-Ch-zZ1" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hqG-iq-6DD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hqG-iq-6DD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -131,7 +131,7 @@
         <!--Verb List View Controller-->
         <scene sceneID="Lg5-2W-HEp">
             <objects>
-                <tableViewController restorationIdentifier="VerbList" storyboardIdentifier="VerbList" id="dJ3-da-FTq" customClass="VerbListViewController" customModule="hctest" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="VerbList" storyboardIdentifier="VerbList" id="dJ3-da-FTq" customClass="VerbListViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="T1I-fV-dQn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -176,7 +176,7 @@
         <!--Verb Detail View Controller-->
         <scene sceneID="xo5-uj-RJb">
             <objects>
-                <tableViewController restorationIdentifier="VerbDetail" storyboardIdentifier="VerbDetail" id="1Dv-kH-UhO" customClass="VerbDetailViewController" customModule="hctest" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="VerbDetail" storyboardIdentifier="VerbDetail" id="1Dv-kH-UhO" customClass="VerbDetailViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="YjP-5g-ucy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -247,17 +247,35 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="SegueToHoplitePractice" id="VgU-Tx-znX"/>
+                        <segue destination="OEm-Yv-54X" kind="show" identifier="SegueToHoplitePractice" id="Pbp-sN-62w"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ryf-1s-pei" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1127.2" y="936.88155922038993"/>
         </scene>
+        <!--Hoplite Challenge-->
+        <scene sceneID="aKK-V2-kfE">
+            <objects>
+                <viewController id="OEm-Yv-54X" customClass="HopliteChallenge" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="70H-5G-EpC"/>
+                        <viewControllerLayoutGuide type="bottom" id="FhM-wp-5KV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9OY-dG-TkB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2bd-aL-o8m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1127" y="1758"/>
+        </scene>
         <!--Game Results View Controller-->
         <scene sceneID="KxA-BI-Vyh">
             <objects>
-                <tableViewController restorationIdentifier="GameResults" storyboardIdentifier="GameResults" id="MS4-eY-o5H" customClass="GameResultsViewController" customModule="hctest" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="GameResults" storyboardIdentifier="GameResults" id="MS4-eY-o5H" customClass="GameResultsViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="5b6-4v-aX3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -337,7 +355,7 @@
         <!--Hoplite Challenge-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController restorationIdentifier="HopliteChallenge" storyboardIdentifier="HopliteChallenge" id="BYZ-38-t0r" customClass="HopliteChallenge" customModule="hctest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="HopliteChallenge" storyboardIdentifier="HopliteChallenge" id="BYZ-38-t0r" customClass="HopliteChallenge" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -356,7 +374,7 @@
         <!--Game History View Controller-->
         <scene sceneID="7B4-xf-Sxg">
             <objects>
-                <tableViewController restorationIdentifier="GameHistory" storyboardIdentifier="GameHistory" id="GuB-la-JF8" customClass="GameHistoryViewController" customModule="hctest" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="GameHistory" storyboardIdentifier="GameHistory" id="GuB-la-JF8" customClass="GameHistoryViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="huv-aw-9yu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -407,6 +425,5 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="USx-nv-zQl"/>
-        <segue reference="VgU-Tx-znX"/>
     </inferredMetricsTieBreakers>
 </document>
