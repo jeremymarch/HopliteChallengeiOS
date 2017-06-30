@@ -2214,7 +2214,7 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
     int stemStart = 0;
     int stemLen = 0;
     int endingStart = 0;
-    int endingLen = 0;
+    int endingLen = 0; 
 
     //Step 2: for each stem of this principal part...
     for (stem = 0; stem < numStems; stem++)
