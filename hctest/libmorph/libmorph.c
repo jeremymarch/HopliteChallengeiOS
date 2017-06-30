@@ -2241,6 +2241,12 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
             continue;
         }
         
+        //since this form is the same, only show it once
+        if ( (utf8HasSuffix(vf->verb->present, "στημι") || utf8HasSuffix(vf->verb->present, "σταμαι")) && vf->tense == AORIST && vf->voice == ACTIVE && vf->mood == INDICATIVE && vf->person == THIRD && vf->number == PLURAL && !decompose && stem > 0)
+        {
+            continue;
+        }
+        
         //Step 4: strip accent from principal part
         stripAccent(&ucs2Stems[stemStart], &stemLen);
         
