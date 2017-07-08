@@ -42,6 +42,9 @@ enum {
     GAME_PRACTICE = 1 //the practice "game" has an id of 1.
 };
 
+bool buildSequence(VerbSeqOptions *vso);
+int nextVerbSeqCustom(int *seq, VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso);
+
 //GLOBAL VARIABLES
 DataFormat *hcdata = NULL;
 size_t sizeInBytes = 0;
@@ -326,6 +329,7 @@ bool compareFormsCheckMFRecordResult(UCS2 *expected, int expectedLen, UCS2 *ente
     return isCorrect;
 }
 
+int currentVerb = 0;
 void resetVerbSeq()
 {
     globalGameId = GAME_INVALID;
@@ -333,6 +337,8 @@ void resetVerbSeq()
     lastAnswerCorrect = false;
     verbSeq = 99999;
     firstVerbSeq = true;
+    buildSequence(NULL);
+    currentVerb = 0;
 }
 
 int nextVerbSeq2(int *seq, VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1)
@@ -349,7 +355,7 @@ int nextVerbSeq2(int *seq, VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1)
     */
     VerbFormC vfc1;
     VerbFormC vfc2;
-    
+    /*
     vfc1.person = vf1->person;
     vfc1.number = vf1->number;
     vfc1.tense = vf1->tense;
@@ -363,8 +369,11 @@ int nextVerbSeq2(int *seq, VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1)
     vfc2.voice = vf2->voice;
     vfc2.mood = vf2->mood;
     vfc2.verb = &verbs[vf2->verbid];
-    
+    */
     int ret = nextVerbSeq(seq, &vfc1, &vfc2, vso1);
+    //int ret = nextVerbSeqCustom(seq, &vfc1, &vfc2, vso1);
+    
+    fprintf(stderr, "HERE: %d", vfc1.verb->verbid);
     
     vf1->person = vfc1.person;
     vf1->number = vfc1.number;
@@ -382,6 +391,137 @@ int nextVerbSeq2(int *seq, VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1)
     
     return ret;
 }
+
+int nextVerbSeq2new(int *seq, VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1)
+{
+    int ret = nextVerbSeqCustom(seq, vf1, vf2, vso1);
+    
+    return ret;
+}
+
+VerbFormD vseq[1024];
+
+#define NELEMS(x)  (sizeof(x) / sizeof(x[0]))
+
+/* arrange the N elements of ARRAY in random order.
+ * Only effective if N is much smaller than RAND_MAX;
+ * if this may not be the case, use a better random
+ * number generator. */
+static void shuffle(void *array, size_t n, size_t size) {
+    char tmp[size];
+    char *arr = array;
+    size_t stride = size * sizeof(char);
+    
+    if (n > 1) {
+        size_t i;
+        for (i = 0; i < n - 1; ++i) {
+            size_t rnd = (size_t) rand();
+            size_t j = i + rnd / (RAND_MAX / (n - i) + 1);
+            
+            memcpy(tmp, arr + j * stride, size);
+            memcpy(arr + j * stride, arr + i * stride, size);
+            memcpy(arr + i * stride, tmp, size);
+        }
+    }
+}
+
+bool buildSequence(VerbSeqOptions *vso)
+{
+    int persons[3] = { 0,1,2 };
+    int numbers[2] = { 0,1 };
+    int tenses[5] = { 0,1,2,3,4 };
+    int voices[3] = { 0,1,2 };
+    int moods[4] = { 0,1,2,3 };
+    
+    int numPerson = 3;
+    int numNumbers = 2;
+    int numTense = 5;
+    int numVoice = 3;
+    int numMood = 4;
+    
+    int seqNum = 0;
+    int verbid = 1;
+    
+    if (vso)
+    {
+        verbid = vso->practiceVerbID;
+    }
+    char buffer[1024];
+    
+    for (int t = 0; t < numTense; t++)
+    {
+        for (int v = 0; v < numVoice; v++)
+        {
+            for (int m = 0; m < numMood; m++)
+            {
+                for (int n = 0; n < numNumbers; n++)
+                {
+                    for (int p = 0; p < numPerson; p++)
+                    {
+                        VerbFormD vf;
+                        vf.verbid = verbid;
+                        vf.person = persons[p];
+                        vf.number = numbers[n];
+                        vf.tense = tenses[t];
+                        vf.voice = voices[v];
+                        vf.mood = moods[m];
+                        
+                        
+                        if (getForm2(&vf, buffer, 1024, true, false) && strlen(buffer) > 0)
+                        {
+                            //memcpy(&vseq[seqNum], &vf, sizeof(vf));
+                            vseq[seqNum].person = vf.person;
+                            vseq[seqNum].number = vf.number;
+                            vseq[seqNum].tense = vf.tense;
+                            vseq[seqNum].voice = vf.voice;
+                            vseq[seqNum].mood = vf.mood;
+                            vseq[seqNum].verbid = vf.verbid;
+                            
+                            fprintf(stderr, "Building seq #: %d, %d\n", seqNum, vseq[seqNum].person);
+                            seqNum++;
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    shuffle(vseq, NELEMS(vseq), sizeof(vseq[0]));
+    
+    return true;
+}
+
+int nextVerbSeqCustom(int *seq, VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso)
+{
+    char buffer[1024];
+    int len = 1024;
+    
+    vf1->person = vseq[currentVerb].person;
+    vf1->number = vseq[currentVerb].number;
+    vf1->tense = vseq[currentVerb].tense;
+    vf1->voice = vseq[currentVerb].voice;
+    vf1->mood = vseq[currentVerb].mood;
+    vf1->verbid = vseq[currentVerb].verbid;
+
+    //getAbbrevDescription(vf1, buffer, len);
+    //fprintf(stderr, "current verb A: %d, person: %d, %s, %d\n", currentVerb, vf1->person,  buffer, vf1->verb->verbid);
+    
+    currentVerb++;
+    
+    vf2->person = vseq[currentVerb].person;
+    vf2->number = vseq[currentVerb].number;
+    vf2->tense = vseq[currentVerb].tense;
+    vf2->voice = vseq[currentVerb].voice;
+    vf2->mood = vseq[currentVerb].mood;
+    vf2->verbid = vseq[currentVerb].verbid;
+    //vf2 = &vseq[currentVerb];
+    //getAbbrevDescription(vf2, buffer, len);
+    //fprintf(stderr, "current verb B: %d, person: %d, %s, %d\n", currentVerb, vf2->person,  buffer, vf2->verb->verbid);
+    //fprintf(stderr, "current verb C\n");
+    return 1;
+}
+
 
 bool once = true;
 long lastInitialDegreesToChange = 0;
