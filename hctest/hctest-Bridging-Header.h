@@ -7,4 +7,4 @@
 #import "VerbSequence.h"
 #import "accent.h"
 #import "sqlite3.h"
-
+#import "swiftVSeqLayer.h"

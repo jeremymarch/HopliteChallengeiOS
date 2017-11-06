@@ -50,19 +50,26 @@ typedef struct vso {
     bool askPrincipalParts;
     bool isHCGame; //else is practice
     int practiceVerbID; //to just practice on one verb
+    long gameId;
+    int score;
+    int lives;
+    int verbSeq;
+    bool firstVerbSeq;
+    bool lastAnswerCorrect;
     int units[20];
     
 } VerbSeqOptions;
 
-bool compareFormsCheckMFRecordResult(UCS2 *expected, int expectedLen, UCS2 *given, int givenLen, bool MFPressed, const char *elapsedTime, int *score, int *lives);
+void externalSetUnits(const char *units);
+bool compareFormsCheckMFRecordResult(UCS2 *expected, int expectedLen, UCS2 *given, int givenLen, bool MFPressed, const char *elapsedTime, VerbSeqOptions *opt);
 void closeDataFile();
 void syncDataFile();
 
 bool dbInit(const char *path);
-void VerbSeqInit(const char *path);
-int nextVerbSeq(int *seq, VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso);
-int nextVerbSeq2(int *seq, VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1);
-void resetVerbSeq();
+//void VerbSeqInit(const char *path);
+int nextVerbSeq(VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso);
+int nextVerbSeq2(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1);
+void resetVerbSeq(VerbSeqOptions *opt);
 void changeFormByDegrees(VerbFormC *verbform, int degrees);
 void generateForm(VerbFormC *verbform);
 void getDistractorsForChange(VerbFormC *orig, VerbFormC *new, int numDistractors, char *buffer);

@@ -72,7 +72,7 @@ class TypeTextView: UITextView {
     
     func type(newText:String, duration:TimeInterval)
     {
-        if newText.characters.count > 0
+        if newText.count > 0
         {
             type(newAttributedText:NSMutableAttributedString.init(string: newText), duration:duration)
         }

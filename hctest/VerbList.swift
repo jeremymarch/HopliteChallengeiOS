@@ -38,7 +38,7 @@ class VerbListViewController: UITableViewController {
             switch value {
             case is Verb:
                 var s:String = String(cString: (value as! Verb).present)
-                if s.characters.count < 1
+                if s.count < 1
                 {
                     s = String(cString: (value as! Verb).future)
                 }

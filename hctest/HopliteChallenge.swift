@@ -38,8 +38,8 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     var timeFontSize:CGFloat = 24.0
     var fontSize:CGFloat = 30.0
     var greekFontSize:CGFloat = 40.0
-    let hcblue:UIColor = UIColor(colorLiteralRed: 0.0, green: 0.47, blue: 1.0, alpha: 1.0)
-    let hcorange:UIColor = UIColor(colorLiteralRed: 1.0, green: 0.2196, blue: 0.0, alpha: 1.0)
+    let hcblue:UIColor = UIColor(red: 0.0, green: 0.47, blue: 1.0, alpha: 1.0)
+    let hcorange:UIColor = UIColor(red: 1.0, green: 0.2196, blue: 0.0, alpha: 1.0)
     let testColors:Bool = false
     
     let animateDuration:TimeInterval = 0.4
@@ -167,7 +167,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         //quitButton.titleLabel?.font = headerFont
         
         quitButton.layer.borderWidth = 2.0
-        quitButton.layer.borderColor = UIColor(colorLiteralRed: 0.88, green: 0.88, blue: 0.88, alpha: 1.0).cgColor
+        quitButton.layer.borderColor = UIColor(red: 0.88, green: 0.88, blue: 0.88, alpha: 1.0).cgColor
         quitButton.layer.cornerRadius = 4.0
         quitButton.imageEdgeInsets = UIEdgeInsetsMake(2, 4, 2, 4)
  
@@ -577,7 +577,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
                                 let z:Int = Int(v)
                                 vf = VerbForm(person: UInt8(person), number: UInt8(number), tense: UInt8(t), voice: UInt8(voice), mood: UInt8(mood), verb: z)
                                 s = vf?.getForm(decomposed:false)
-                                if s != nil && (s?.characters.count)! > 0
+                                if s != nil && (s?.count)! > 0
                                 {
                                     label1.text = s
                                     count += 1
@@ -623,9 +623,9 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         {
             if a[i] != b[i]
             {
-                att.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Bold", size: fontSize)!, range: NSRange(location: start, length: b[i].characters.count))
+                att.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Bold", size: fontSize)!, range: NSRange(location: start, length: b[i].count))
             }
-            start += b[i].characters.count + 1
+            start += b[i].count + 1
         }
         return att
     }
@@ -642,7 +642,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         // 0 = center
         //set offset from end of text
         var offset:CGFloat = 0
-        if textView.text.characters.count > 0
+        if textView.text.count > 0
         {
             offset = (sizeOfString(v: textView).width / 2) + 20
         }

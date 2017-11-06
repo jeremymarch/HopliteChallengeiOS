@@ -38,7 +38,7 @@ class VerbDetailViewController: UITableViewController {
         
         let v = Verb2(verbid: verbIndex)
         
-        if v.present.characters.count > 0
+        if v.present.count > 0
         {
             title = v.present
         }

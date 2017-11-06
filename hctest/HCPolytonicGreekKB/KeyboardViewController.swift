@@ -929,7 +929,7 @@ class KeyboardViewController: UIInputViewController {
         
         
         let context = self.textDocumentProxy.documentContextBeforeInput
-        let len = context?.characters.count
+        let len = context?.count
         if len == nil || len! < 1
         {
             return;

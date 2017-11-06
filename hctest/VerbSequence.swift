@@ -22,7 +22,7 @@ class VerbSequence {
     init() {
         self.givenForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 0)
         self.requestedForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 0)
-        self.reset()
+        //self.reset()
         
         options = VerbSeqOptions()
         options?.repsPerVerb = 4
@@ -31,6 +31,8 @@ class VerbSequence {
         options?.numUnits = 20
         options?.practiceVerbID = -1
         options?.units = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
+        
+        externalSetUnits("19,20")
 }
     func getNext() -> Int
     {
@@ -53,7 +55,7 @@ class VerbSequence {
 
         var a:Int32 = Int32(self.seq)
         
-        let x = nextVerbSeq2(&a, &vf1, &vf2, &options!)
+        let x = nextVS(&a, &vf1, &vf2)
         
         givenForm?.person = vf1.person
         givenForm?.number = vf1.number
@@ -77,7 +79,7 @@ class VerbSequence {
     
     func reset()
     {
-        resetVerbSeq()
+        swiftResetVerbSeq();
         lives = maxLives
         score = 0
     }
@@ -99,7 +101,7 @@ class VerbSequence {
         let newTime = time.replacingOccurrences(of: " sec", with: "")
         
         //pass c string: http://stackoverflow.com/questions/31378120/convert-swift-string-into-cchar-pointer
-        let a = compareFormsCheckMFRecordResult(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed, newTime, &vScore, &vLives)
+        let a = checkVFResult(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed, newTime, &vScore, &vLives)
         self.score = vScore
         
         if a == false && options?.isHCGame == true
@@ -143,18 +145,24 @@ class VerbSequence {
     }
     func setUnits(units:[Int])
     {
-        var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-        var i = 0
+        var s:String = ""
+        //var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        //var i = 0
         for u in units
         {
-            a[i] = u
-            i += 1
+            s = s + "," + String(u)
+            //a[i] = u
+            //i += 1
         }
         //c int array is a tuple in swift, so translate array to tuple
-        let t = (Int32(a[0]), Int32(a[1]), Int32(a[2]), Int32(a[3]), Int32(a[4]), Int32(a[5]), Int32(a[6]), Int32(a[7]), Int32(a[8]), Int32(a[9]), Int32(a[10]), Int32(a[11]), Int32(a[12]), Int32(a[13]), Int32(a[14]), Int32(a[15]), Int32(a[16]), Int32(a[17]), Int32(a[18]), Int32(a[19]))
-        
-        options?.units = t
-        options?.numUnits = UInt8(i)
+        //let t = (Int32(a[0]), Int32(a[1]), Int32(a[2]), Int32(a[3]), Int32(a[4]), Int32(a[5]), Int32(a[6]), Int32(a[7]), Int32(a[8]), Int32(a[9])
+            /*
+            , Int32(a[10]), Int32(a[11]), Int32(a[12]), Int32(a[13]), Int32(a[14]), Int32(a[15]), Int32(a[16]), Int32(a[17]), Int32(a[18]), Int32(a[19]))
+        */
+        //options?.units = s
+        //options?.numUnits = UInt8(i)
+        let s2 = s.cString(using: .utf8)
+        externalSetUnits(s2)
         self.units = units
     }
 }

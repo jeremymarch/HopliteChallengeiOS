@@ -57,7 +57,7 @@ int ucs2_to_utf8 (UCS2 ucs2, unsigned char * utf8)
     }
     if (ucs2 >= 0x800 && ucs2 < 0xFFFF) {
         if (ucs2 >= 0xD800 && ucs2 <= 0xDFFF) {
-            /* Ill-formed. */
+            // Ill-formed.
             return UNICODE_SURROGATE_PAIR;
         }
         utf8[0] = ((ucs2 >> 12)       ) | 0xE0;
@@ -66,8 +66,10 @@ int ucs2_to_utf8 (UCS2 ucs2, unsigned char * utf8)
         utf8[3] = '\0';
         return 3;
     }
+    /*
+    //ucs2 >= UINT16_MAX &&
     if (ucs2 >= 0x10000 && ucs2 < 0x10FFFF) {
-        /* http://tidy.sourceforge.net/cgi-bin/lxr/source/src/utf8.c#L380 */
+        // http://tidy.sourceforge.net/cgi-bin/lxr/source/src/utf8.c#L380
         utf8[0] = 0xF0 | (ucs2 >> 18);
         utf8[1] = 0x80 | ((ucs2 >> 12) & 0x3F);
         utf8[2] = 0x80 | ((ucs2 >> 6) & 0x3F);
@@ -75,6 +77,7 @@ int ucs2_to_utf8 (UCS2 ucs2, unsigned char * utf8)
         utf8[4] = '\0';
         return 4;
     }
+*/
     return UNICODE_BAD_INPUT;
 }
 

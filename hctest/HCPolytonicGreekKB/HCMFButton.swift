@@ -20,7 +20,7 @@ class HCMFButton: UIButton {
     var bgDownColor = HopliteConstants.accentBGColorDown
     var textDownColor = HopliteConstants.accentTextColorDown
     
-    let hcorange = UIColor(colorLiteralRed: 1.0, green: 0.2196, blue: 0, alpha: 1)
+    let hcorange = UIColor(red: 1.0, green: 0.2196, blue: 0, alpha: 1)
     
     var btype: Int? = nil
     var isDepressed:Bool = false
