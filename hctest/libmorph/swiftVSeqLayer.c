@@ -8,11 +8,11 @@
 #include <stdlib.h>
 #include "swiftVSeqLayer.h"
 
-VerbSeqOptions swiftLayerOptions;
+VerbSeqOptions swiftLayerOptions; //this is the global options for the app.
 
 void setOptions()
 {
-    swiftLayerOptions.startOnFirstSing = true;
+    swiftLayerOptions.startOnFirstSing = false;
 }
 
 void externalSetUnits(const char *unitStr)
@@ -59,6 +59,29 @@ void swiftResetVerbSeq()
     swiftLayerOptions.startOnFirstSing = false;
     swiftLayerOptions.degreesToChange = 2;
     swiftLayerOptions.practiceVerbID = 3;
+    
+    swiftLayerOptions.seqOptions.persons[0] = 0;
+    swiftLayerOptions.seqOptions.persons[1] = 1;
+    swiftLayerOptions.seqOptions.persons[2] = 2;
+    swiftLayerOptions.seqOptions.numbers[0] = 0;
+    swiftLayerOptions.seqOptions.numbers[1] = 1;
+    swiftLayerOptions.seqOptions.tenses[0] = 0;
+    swiftLayerOptions.seqOptions.tenses[1] = 1;
+    swiftLayerOptions.seqOptions.tenses[2] = 2;
+    swiftLayerOptions.seqOptions.tenses[3] = 3;
+    swiftLayerOptions.seqOptions.tenses[4] = 4;
+    swiftLayerOptions.seqOptions.voices[0] = 0;
+    swiftLayerOptions.seqOptions.voices[1] = 1;
+    swiftLayerOptions.seqOptions.voices[2] = 2;
+    swiftLayerOptions.seqOptions.moods[0] = 3;
+    swiftLayerOptions.seqOptions.moods[1] = 1;
+    swiftLayerOptions.seqOptions.moods[2] = 2;
+    swiftLayerOptions.seqOptions.moods[3] = 3;
+    swiftLayerOptions.seqOptions.numPerson = 3;
+    swiftLayerOptions.seqOptions.numNumbers = 2;
+    swiftLayerOptions.seqOptions.numTense = 5;
+    swiftLayerOptions.seqOptions.numVoice = 3;
+    swiftLayerOptions.seqOptions.numMood = 1;
     
     externalSetUnits("2");
     

@@ -67,7 +67,7 @@ class HCSettingsViewController: UITableViewController {
         return cell
     }
     
-    func switchChanged(sender:UIView)
+    @objc func switchChanged(sender:UIView)
     {
         let switch1 = sender as! UISwitch
         let indexPath = tableView.indexPath(for: switch1.superview as! UITableViewCell)

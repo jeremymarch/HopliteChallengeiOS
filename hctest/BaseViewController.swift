@@ -34,6 +34,8 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             self.openViewControllerBasedOnIdentifier("GameHistory")
         case 4:
             self.openViewControllerBasedOnIdentifier("VerbList")
+        case 5:
+            self.openViewControllerBasedOnIdentifier("Accents")
         default:
             //NSLog("default")
             break
@@ -84,7 +86,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         return defaultMenuImage;
     }
     
-    func onSlideMenuButtonPressed(_ sender : UIButton){
+    @objc func onSlideMenuButtonPressed(_ sender : UIButton){
         if (sender.tag == 10)
         {
             // To Hide Menu If it already there

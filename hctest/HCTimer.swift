@@ -45,7 +45,7 @@ class HCTimer: UILabel {
         isRunning = true
     }
     
-    func runTimer()
+    @objc func runTimer()
     {
         var elapsedTime:CFTimeInterval = CACurrentMediaTime() - startTime
         elapsedTimeForDB = elapsedTime

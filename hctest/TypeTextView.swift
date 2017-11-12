@@ -78,7 +78,7 @@ class TypeTextView: UITextView {
         }
     }
     
-    func update()
+    @objc func update()
     {
         var elapsedTime:CFTimeInterval = CACurrentMediaTime() - startTime
         //NSLog("steps: \(steps), duration: \(duration), elapsed: \(elapsedTime), \(elapsedTime / duration)")
@@ -96,7 +96,7 @@ class TypeTextView: UITextView {
         
         if newStep > currentStep
         {
-            att?.addAttribute(NSForegroundColorAttributeName, value: attTextColor, range: NSRange(location: 0, length: newStep))
+            att?.addAttribute(NSAttributedStringKey.foregroundColor, value: attTextColor, range: NSRange(location: 0, length: newStep))
             self.attributedText = att
             currentStep = newStep
             
@@ -108,7 +108,7 @@ class TypeTextView: UITextView {
         }
     }
     
-    func updateHideAtt()
+    @objc func updateHideAtt()
     {
         var elapsedTime:CFTimeInterval = CACurrentMediaTime() - startTime
         //NSLog("steps: \(steps), duration: \(duration), elapsed: \(elapsedTime), \(elapsedTime / duration)")
@@ -126,7 +126,7 @@ class TypeTextView: UITextView {
         
         if newStep > currentStep
         {
-            att?.addAttribute(NSForegroundColorAttributeName, value: backgroundColor as Any, range: NSRange(location: steps - newStep, length: newStep))
+            att?.addAttribute(NSAttributedStringKey.foregroundColor, value: backgroundColor as Any, range: NSRange(location: steps - newStep, length: newStep))
             self.attributedText = att
             currentStep = newStep
             

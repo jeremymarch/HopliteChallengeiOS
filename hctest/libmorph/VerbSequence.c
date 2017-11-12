@@ -397,12 +397,10 @@ int nextVerbSeq2(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1)
 VerbFormD vseq[1024];
 
 #define NELEMS(x)  (sizeof(x) / sizeof(x[0])) //this doesn't work because not using whole array
-
 /* arrange the N elements of ARRAY in random order.
  * Only effective if N is much smaller than RAND_MAX;
  * if this may not be the case, use a better random
  * number generator. */
-
 static void shuffle2(void *array, size_t n, size_t size) {
     char tmp[size];
     char *arr = array;
@@ -420,7 +418,7 @@ static void shuffle2(void *array, size_t n, size_t size) {
         }
     }
 }
-
+/*
 static void shuffle1(void *array, size_t n, size_t size) {
     // This if() is not needed functionally, but left per OP's style
     if (n > 1) {
@@ -438,7 +436,8 @@ static void shuffle1(void *array, size_t n, size_t size) {
         free(aux);
     }
 }
-
+*/
+/*
 #define Shuffle(A, B, C) shuffle(A, B, 0, C, sizeof(*A))
 void * shuffle(void * array, int seed, int index, int len, size_t size);
 void swap(void * num1, void * num2, size_t size);
@@ -462,21 +461,9 @@ void swap(void * a, void * b, size_t size)
     memcpy(b, temp, size);
     free(temp);
 }
-
+*/
 bool buildSequence(VerbSeqOptions *vso)
 {
-    int persons[3] = { 0,1,2 };
-    int numbers[2] = { 0,1 };
-    int tenses[5] = { 0,1,2,3,4 };
-    int voices[3] = { 0,1,2 };
-    int moods[4] = { 3 };
-    
-    int numPerson = 3;
-    int numNumbers = 2;
-    int numTense = 5;
-    int numVoice = 3;
-    int numMood = 1;
-    
     int seqNum = 0;
     int verbid = 1;
     
@@ -486,23 +473,23 @@ bool buildSequence(VerbSeqOptions *vso)
     }
     char buffer[1024];
     
-    for (int t = 0; t < numTense; t++)
+    for (int t = 0; t < vso->seqOptions.numTense; t++)
     {
-        for (int v = 0; v < numVoice; v++)
+        for (int v = 0; v < vso->seqOptions.numVoice; v++)
         {
-            for (int m = 0; m < numMood; m++)
+            for (int m = 0; m < vso->seqOptions.numMood; m++)
             {
-                for (int n = 0; n < numNumbers; n++)
+                for (int n = 0; n < vso->seqOptions.numNumbers; n++)
                 {
-                    for (int p = 0; p < numPerson; p++)
+                    for (int p = 0; p < vso->seqOptions.numPerson; p++)
                     {
                         VerbFormD vf;
                         vf.verbid = verbid;
-                        vf.person = persons[p];
-                        vf.number = numbers[n];
-                        vf.tense = tenses[t];
-                        vf.voice = voices[v];
-                        vf.mood = moods[m];
+                        vf.person = vso->seqOptions.persons[p];
+                        vf.number = vso->seqOptions.numbers[n];
+                        vf.tense = vso->seqOptions.tenses[t];
+                        vf.voice = vso->seqOptions.voices[v];
+                        vf.mood = vso->seqOptions.moods[m];
                         
                         
                         if (getForm2(&vf, buffer, 1024, true, false) && strlen(buffer) > 0)

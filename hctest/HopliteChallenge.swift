@@ -377,7 +377,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         // Dispose of any resources that can be recreated.
     }
     
-    func menuButtonPressed(sender:UIButton)
+    @objc func menuButtonPressed(sender:UIButton)
     {
         if isGame && timerLabel.isRunning == true //vs.lives > 0
         {
@@ -415,7 +415,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         }
     }
     
-    func goBackToVerbDetail()
+    @objc func goBackToVerbDetail()
     {
         let _ = self.navigationController?.popViewController(animated: true)
     }
@@ -623,7 +623,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         {
             if a[i] != b[i]
             {
-                att.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Bold", size: fontSize)!, range: NSRange(location: start, length: b[i].count))
+                att.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "HelveticaNeue-Bold", size: fontSize)!, range: NSRange(location: start, length: b[i].count))
             }
             start += b[i].count + 1
         }
@@ -634,7 +634,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     {
         let s: String = v.text
         let myString: NSString = s as NSString
-        return myString.size(attributes: [NSFontAttributeName: v.font!])
+        return myString.size(withAttributes: [NSAttributedStringKey.font: v.font!])
     }
     
     func positionCheckX()
@@ -731,7 +731,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         }
     }
     
-    func continuePressed(button: UIButton) {
+    @objc func continuePressed(button: UIButton) {
         continueButton.isEnabled = false
         
         if continueButton.titleLabel?.text == "Play"
@@ -860,14 +860,14 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         label2.type(newText: (vs.requestedForm?.getForm(decomposed: false))!, duration: 0.3)
     }
     
-    func handleTimeOut()
+    @objc func handleTimeOut()
     {
         NSLog("time out")
         
         checkAnswer()
     }
     
-    func handlePinch(sender: UIPinchGestureRecognizer)
+    @objc func handlePinch(sender: UIPinchGestureRecognizer)
     {
         //NSLog("Scale: %.2f | Velocity: %.2f",sender.scale, sender.velocity);
         let thresholdVelocity:CGFloat  = 0 //4.0;

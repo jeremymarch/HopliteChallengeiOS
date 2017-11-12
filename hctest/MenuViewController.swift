@@ -61,6 +61,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         arrayMenuOptions.append(["title":"Settings", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"Game History", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"Verb List", "icon":"PlayIcon"])
+        arrayMenuOptions.append(["title":"Accents", "icon":"PlayIcon"])
         
         tblMenuOptions!.reloadData()
     }

@@ -41,6 +41,19 @@ typedef struct da {
     VerbFormRecord vr[2000];
 } DataFormat;
 
+typedef struct so {
+    int numPerson;
+    int numNumbers;
+    int numTense;
+    int numVoice;
+    int numMood;
+    int persons[3];
+    int numbers[2];
+    int tenses[5];
+    int voices[3];
+    int moods[4];
+} SeqOptions;
+
 typedef struct vso {
     bool startOnFirstSing;
     unsigned char repsPerVerb;
@@ -57,7 +70,7 @@ typedef struct vso {
     bool firstVerbSeq;
     bool lastAnswerCorrect;
     int units[20];
-    
+    SeqOptions seqOptions;
 } VerbSeqOptions;
 
 void externalSetUnits(const char *units);

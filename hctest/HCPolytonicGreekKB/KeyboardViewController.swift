@@ -299,7 +299,7 @@ class KeyboardViewController: UIInputViewController {
                                                attribute: .notAnAttribute,
                                                multiplier: 1.0,
                                                constant: kbHeight)
-         heightConstraint!.priority = 999.0
+         heightConstraint!.priority = UILayoutPriority(rawValue: 999.0)
          heightConstraint?.isActive = true
          self.view.addConstraint(heightConstraint!)
         
@@ -883,7 +883,7 @@ class KeyboardViewController: UIInputViewController {
     let HYPHEN =                     0x2010
     let COMMA =                      0x002C
     
-    func accentPressed(_ button: UIButton) {
+    @objc func accentPressed(_ button: UIButton) {
         let whichAccent = button.titleLabel!.text
         var accent = -1
         if whichAccent == "´" //acute
@@ -984,12 +984,12 @@ class KeyboardViewController: UIInputViewController {
         (textDocumentProxy as UIKeyInput).insertText("\(newLetter)")
     }
 
-    func keyPressedDown(button: UIButton) {
+    @objc func keyPressedDown(button: UIButton) {
         //button.superview!.bringSubview(toFront: button)
         playKeyClick()
     }
     
-    func keyPressed(button: UIButton) {
+    @objc func keyPressed(button: UIButton) {
         
         let string = button.titleLabel!.text
         if string == "," //just for hc challenge
@@ -1002,12 +1002,12 @@ class KeyboardViewController: UIInputViewController {
         }
     }
     
-    func backSpacePressed(_ button: UIButton) {
+    @objc func backSpacePressed(_ button: UIButton) {
         (textDocumentProxy as UIKeyInput).deleteBackward()
         playKeyClick()
     }
     
-    func longDeletePressGesture(gestureReconizer: UILongPressGestureRecognizer) {
+    @objc func longDeletePressGesture(gestureReconizer: UILongPressGestureRecognizer) {
         
         if ( gestureReconizer.state == UIGestureRecognizerState.began )
         {
@@ -1035,7 +1035,7 @@ class KeyboardViewController: UIInputViewController {
         (textDocumentProxy as UIKeyInput).insertText(". ")
     }
     
-    func returnPressed(_ button: UIButton) {
+    @objc func returnPressed(_ button: UIButton) {
         (textDocumentProxy as UIKeyInput).insertText("\n")
     }
     

@@ -59,7 +59,7 @@ class VerbDetailViewController: UITableViewController {
         self.view.addGestureRecognizer(pinchRecognizer)
     }
     
-    func handlePinch(sender: UIPinchGestureRecognizer)
+    @objc func handlePinch(sender: UIPinchGestureRecognizer)
     {
         //NSLog("Scale: %.2f | Velocity: %.2f",sender.scale, sender.velocity);
         let thresholdVelocity:CGFloat  = 0 //4.0;
@@ -89,14 +89,14 @@ class VerbDetailViewController: UITableViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        let att = [ NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 18)! ]
+        let att = [ NSAttributedStringKey.font: UIFont(name: "HelveticaNeue", size: 18)! ]
         self.navigationController?.navigationBar.titleTextAttributes = att
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         
-        let att = [ NSFontAttributeName: UIFont(name: "NewAthenaUnicode", size: 22)! ]
+        let att = [ NSAttributedStringKey.font: UIFont(name: "NewAthenaUnicode", size: 22)! ]
         self.navigationController?.navigationBar.titleTextAttributes = att
     }
     
@@ -268,7 +268,7 @@ class VerbDetailViewController: UITableViewController {
         return 34
     }
 
-    func practiceVerb()
+    @objc func practiceVerb()
     {
         performSegue(withIdentifier: "SegueToHoplitePractice", sender: self)
     }

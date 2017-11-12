@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3b4-Ch-zZ1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3b4-Ch-zZ1">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,6 +16,24 @@
         </array>
     </customFonts>
     <scenes>
+        <!--Accents View Controller-->
+        <scene sceneID="eBI-W1-AhH">
+            <objects>
+                <viewController restorationIdentifier="Accents" storyboardIdentifier="Accents" id="KHK-FC-ST2" customClass="AccentsViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Bcq-pW-JM7"/>
+                        <viewControllerLayoutGuide type="bottom" id="bG8-jb-IbX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="Accents" id="SwV-iV-1C7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zNF-a7-FeX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3449" y="937"/>
+        </scene>
         <!--Menu View Controller-->
         <scene sceneID="c48-TY-jCr">
             <objects>
@@ -113,7 +132,7 @@
             <objects>
                 <navigationController id="3b4-Ch-zZ1" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hqG-iq-6DD">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -122,6 +141,7 @@
                         <segue destination="GuB-la-JF8" kind="show" identifier="SegueToGameHistory" id="HvO-aN-VxS"/>
                         <segue destination="dJ3-da-FTq" kind="show" identifier="SegueToVerbList" id="0mV-Om-HJY"/>
                         <segue destination="MS4-eY-o5H" kind="show" identifier="SegueToGameResults" id="USx-nv-zQl"/>
+                        <segue destination="KHK-FC-ST2" kind="show" identifier="SegueToAccents" id="t58-uR-wdT"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UiL-SM-4y8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -301,7 +321,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incorrect Ans" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5L-MW-yAQ">
-                                            <rect key="frame" x="8" y="49" width="108" height="22"/>
+                                            <rect key="frame" x="16" y="47" width="108" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="n5L-MW-yAQ" secondAttribute="height" multiplier="103:21" id="F5U-dg-Ki1"/>
                                             </constraints>
@@ -319,7 +339,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" tag="105" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="37L-9H-lhD">
-                                            <rect key="frame" x="345" y="8" width="22" height="22"/>
+                                            <rect key="frame" x="337" y="11" width="22" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="22" id="ZXt-ty-vUq"/>
                                                 <constraint firstAttribute="width" constant="22" id="fy3-c6-4Wt"/>
