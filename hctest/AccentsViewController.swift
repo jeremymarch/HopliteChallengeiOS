@@ -9,10 +9,29 @@
 import UIKit
 
 class AccentsViewController: UIViewController {
-
+    var accentLabel:AccentTextField?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        accentLabel = AccentTextField.init(frame: .zero)
+        
+        accentLabel?.text = "Nothing to show"
+        accentLabel?.textAlignment = .center
+        accentLabel?.backgroundColor = .red  // Set background color to see if label is centered
+        accentLabel?.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(accentLabel!)
+        
+        let widthConstraint = NSLayoutConstraint(item: accentLabel!, attribute: .width, relatedBy: .equal,
+                                                 toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 250)
+        
+        let heightConstraint = NSLayoutConstraint(item: accentLabel!, attribute: .height, relatedBy: .equal,
+                                                  toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 100)
+        
+        let xConstraint = NSLayoutConstraint(item: accentLabel!, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0)
+        
+        let yConstraint = NSLayoutConstraint(item: accentLabel!, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1, constant: 0)
+        
+        NSLayoutConstraint.activate([widthConstraint, heightConstraint, xConstraint, yConstraint])
         // Do any additional setup after loading the view.
     }
 

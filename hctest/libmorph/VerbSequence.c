@@ -304,6 +304,7 @@ bool compareFormsCheckMFRecordResult(UCS2 *expected, int expectedLen, UCS2 *ente
                 opt->score += (pointsPerForm * bonusPointsMultiple); //add bonus here
             else
                 opt->score += pointsPerForm;
+            fprintf(stderr, "SScore: %i\n", opt->score);
         }
         else
         {
@@ -319,7 +320,7 @@ bool compareFormsCheckMFRecordResult(UCS2 *expected, int expectedLen, UCS2 *ente
     opt->lastAnswerCorrect = isCorrect; //keep track of last answer here, so we don't need to rely on the db
     
     setHeadAnswer(isCorrect, buffer, elapsedTime, opt);
-    
+
     return isCorrect;
 }
 
@@ -350,7 +351,7 @@ int nextVerbSeq2old(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1)
     */
     VerbFormC vfc1;
     VerbFormC vfc2;
-    /*
+    
     vfc1.person = vf1->person;
     vfc1.number = vf1->number;
     vfc1.tense = vf1->tense;
@@ -364,7 +365,7 @@ int nextVerbSeq2old(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1)
     vfc2.voice = vf2->voice;
     vfc2.mood = vf2->mood;
     vfc2.verb = &verbs[vf2->verbid];
-    */
+    
     int ret = nextVerbSeq(&vfc1, &vfc2, vso1);
     //int ret = nextVerbSeqCustom(&vfc1, &vfc2, vso1);
     
@@ -389,7 +390,8 @@ int nextVerbSeq2old(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1)
 
 int nextVerbSeq2(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1)
 {
-    int ret = nextVerbSeqCustom(vf1, vf2, vso1);
+    //int ret = nextVerbSeqCustom(vf1, vf2, vso1);
+    int ret = nextVerbSeq2old(vf1, vf2, vso1);
 
     return ret;
 }
