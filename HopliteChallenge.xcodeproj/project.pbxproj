@@ -52,6 +52,7 @@
 		3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */; };
 		3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443D61E6C814200FFAD04 /* newathu5.ttf */; };
 		3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4869CD1E7C9A020051B46A /* HCSettings.swift */; };
+		3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */; };
 		3F6D20541FB7B8DA0000615B /* AccentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */; };
 		3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20551FB8E4EA0000615B /* AccentTextField.swift */; };
 		3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FAA8D2E1E6D046300254E97 /* Life4X.png */; };
@@ -127,6 +128,7 @@
 		3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerbSequence.swift; sourceTree = "<group>"; };
 		3F3443D61E6C814200FFAD04 /* newathu5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newathu5.ttf; sourceTree = "<group>"; };
 		3F4869CD1E7C9A020051B46A /* HCSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCSettings.swift; sourceTree = "<group>"; };
+		3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabTableViewController.swift; sourceTree = "<group>"; };
 		3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentsViewController.swift; sourceTree = "<group>"; };
 		3F6D20551FB8E4EA0000615B /* AccentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentTextField.swift; sourceTree = "<group>"; };
 		3FAA8D2E1E6D046300254E97 /* Life4X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Life4X.png; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				3F3443D61E6C814200FFAD04 /* newathu5.ttf */,
 				3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */,
 				3F6D20551FB8E4EA0000615B /* AccentTextField.swift */,
+				3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -409,6 +412,7 @@
 				3F0EC6371E7784AE0084347F /* TypeTextView.swift in Sources */,
 				3F0BBD071E6D354500933F44 /* HCDeleteButton.swift in Sources */,
 				3F0541641E7A688800DEB439 /* GameResults.swift in Sources */,
+				3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */,
 				3FF71B431E78EF3600144F7D /* BaseViewController.swift in Sources */,
 				3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */,
 				3F3443C11E6BB2A100FFAD04 /* augment.c in Sources */,

@@ -16,6 +16,43 @@
         </array>
     </customFonts>
     <scenes>
+        <!--Vocab Table View Controller-->
+        <scene sceneID="ITI-Rb-lS3">
+            <objects>
+                <tableViewController storyboardIdentifier="Vocabulary" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1nU-oR-SZ3" customClass="VocabTableViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fqw-2E-y3p">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="l2G-mh-cGe" style="IBUITableViewCellStyleDefault" id="x0J-TV-FcO">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="x0J-TV-FcO" id="VSi-hT-cGZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="l2G-mh-cGe">
+                                            <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="1nU-oR-SZ3" id="i6X-kO-LCB"/>
+                            <outlet property="delegate" destination="1nU-oR-SZ3" id="cYq-JE-VPY"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DlU-bq-Vus" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4196" y="949.47526236881572"/>
+        </scene>
         <!--Accents View Controller-->
         <scene sceneID="eBI-W1-AhH">
             <objects>
@@ -142,6 +179,7 @@
                         <segue destination="dJ3-da-FTq" kind="show" identifier="SegueToVerbList" id="0mV-Om-HJY"/>
                         <segue destination="MS4-eY-o5H" kind="show" identifier="SegueToGameResults" id="USx-nv-zQl"/>
                         <segue destination="KHK-FC-ST2" kind="show" identifier="SegueToAccents" id="t58-uR-wdT"/>
+                        <segue destination="1nU-oR-SZ3" kind="show" identifier="showVocabTableSegue" id="uO1-6g-uDI"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UiL-SM-4y8" userLabel="First Responder" sceneMemberID="firstResponder"/>

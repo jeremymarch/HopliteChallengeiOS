@@ -36,6 +36,8 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             self.openViewControllerBasedOnIdentifier("VerbList")
         case 5:
             self.openViewControllerBasedOnIdentifier("Accents")
+        case 6:
+            self.openViewControllerBasedOnIdentifier("Vocabulary")
         default:
             //NSLog("default")
             break
