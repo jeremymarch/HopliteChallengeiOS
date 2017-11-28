@@ -20,6 +20,11 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -87,7 +92,7 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
     
     func configureCell(_ cell: UITableViewCell, withEvent gw: Words) {
         //cell.textLabel!.text = event.timestamp!.description
-        cell.textLabel!.text = gw.lemma?.description
+        cell.textLabel!.text = "\(gw.hqid.description) \(gw.lemma!.description)"
         let greekFont = UIFont(name: "NewAthenaUnicode", size: 24.0)
         cell.textLabel?.font = greekFont
         //cell.tag = Int(gw.wordid)

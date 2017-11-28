@@ -42,6 +42,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let id: Int
             let lemma: String
             let unit: Int
+            enum CodingKeys : String, CodingKey {
+                case id
+                case lemma = "l"
+                case unit = "u"
+            }
         }
         let meta: Meta
         let rows: [Row]
@@ -54,12 +59,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func deleteAll()
+    {
+        let backgroundContext = NSManagedObjectContext(concurrencyType:.privateQueueConcurrencyType)
+        if #available(iOS 10.0, *) {
+            backgroundContext.persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator
+        }
+        else
+        {
+            backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator
+        }
+        
+        let employeesFetch: NSFetchRequest<Words> = NSFetchRequest(entityName: "Words")
+
+        // Create Batch Delete Request
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: employeesFetch as! NSFetchRequest<NSFetchRequestResult>)
+        
+        do {
+            try backgroundContext.execute(batchDeleteRequest)
+            
+        } catch {
+            // Error Handling
+            print("Failed deleting")
+        }
+        do {
+            try backgroundContext.save()
+        } catch {
+            print("Failed saving")
+        }
+    }
+    
     func datasync()
     {
+        //let time = NSDate.init()
+        let timestamp = 0 //time.timeIntervalSince1970
+        NSLog("Time: \(timestamp)")
+        
         NSLog("START REQUEST")
         //http://benscheirman.com/2017/06/ultimate-guide-to-json-parsing-with-swift-4/
         //https://stackoverflow.com/questions/32631184/the-resource-could-not-be-loaded-because-the-app-transport-security-policy-requi
-        let urlString = URL(string: "http://philolog.us/hqjson.php")//http://philolog.us/hqvocab.php?unit=20&AndUnder=on&sort=alpha")
+        let urlString = URL(string: "http://philolog.us/hqjson.php?updated=\(timestamp)")//http://philolog.us/hqvocab.php?unit=20&AndUnder=on&sort=alpha")
         if let url = urlString {
             let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if error != nil {
@@ -74,29 +113,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 let decoder = JSONDecoder()
                                 let rows = try decoder.decode(HQResponse.self, from: usableData)
                                 NSLog("Updated: \(rows.meta.updated)")
-                                for row in rows.rows {
-                                    print("Row: \(row.id), \(row.lemma), \(row.unit)")
-
+                                
+                                DispatchQueue.main.sync {
                                     //https://stackoverflow.com/questions/46956921/main-thread-checker-ui-api-called-on-a-background-thread-uiapplication-deleg
-                                    let backgroundContext = NSManagedObjectContext(concurrencyType:.privateQueueConcurrencyType)
-                                    if #available(iOS 10.0, *) {
-                                        backgroundContext.persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator
-                                    }
-                                    else
-                                    {
-                                        backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-                                    }
-                                    let entity = NSEntityDescription.entity(forEntityName: "Words", in: backgroundContext)
+                                //let backgroundContext = NSManagedObjectContext(concurrencyType:.privateQueueConcurrencyType)
+                                //backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+                                let backgroundContext = self.managedObjectContext
+                                if #available(iOS 10.0, *) {
+                                    backgroundContext.persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator
+                                }
+                                else
+                                {
+                                    backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator
+                                }
+                                let entity = NSEntityDescription.entity(forEntityName: "Words", in: backgroundContext)
+                                
+                                //var count = 0
+                                for row in rows.rows {
+                                    //print("Row: \(row.id), \(row.lemma), \(row.unit)")
+
                                     let newUser = NSManagedObject(entity: entity!, insertInto: backgroundContext)
                                     newUser.setValue(row.id, forKey: "hqid")
                                     newUser.setValue(row.unit, forKey: "unit")
                                     newUser.setValue(row.lemma, forKey: "lemma")
+                                    //count = count + 1
                                     do {
                                         try backgroundContext.save()
-                                    } catch {
-                                        print("Failed saving")
+                                    } catch let error as NSError {
+                                        print("failed saving: \(error.localizedDescription)")
                                     }
                                 }
+                                //NSLog("Count: \(count)")
+                                
+                                let employeesFetch: NSFetchRequest<Words> = NSFetchRequest(entityName: "Words")
+                                do {
+                                    let newCount = try backgroundContext.count(for: employeesFetch)
+                                    NSLog("done2 \(newCount)")
+                                } catch { }
+                                }
+                                
                             } catch let error as NSError {
                                 print(error.localizedDescription)
                             }
