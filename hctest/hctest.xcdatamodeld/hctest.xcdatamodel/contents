@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="16G1036" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Words" representedClassName="Words" syncable="YES" codeGenerationType="class">
+    <entity name="HQWords" representedClassName="HQWords" syncable="YES" codeGenerationType="class">
         <attribute name="aorist" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="aoristpass" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="def" optional="YES" attributeType="String" syncable="YES"/>
@@ -23,6 +23,6 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Words" positionX="-63" positionY="-18" width="128" height="270"/>
+        <element name="HQWords" positionX="-63" positionY="-18" width="128" height="270"/>
     </elements>
 </model>

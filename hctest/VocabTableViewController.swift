@@ -44,12 +44,12 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
         return sectionInfo.numberOfObjects
     }
 
-    var fetchedResultsController: NSFetchedResultsController<Words> {
+    var fetchedResultsController: NSFetchedResultsController<HQWords> {
         if _fetchedResultsController != nil {
             return _fetchedResultsController!
         }
         
-        let fetchRequest: NSFetchRequest<Words> = Words.fetchRequest()
+        let fetchRequest: NSFetchRequest<HQWords> = HQWords.fetchRequest()
         
         // Set the batch size to a suitable number.
         fetchRequest.fetchBatchSize = 20
@@ -78,7 +78,7 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
         
         return _fetchedResultsController!
     }
-    var _fetchedResultsController: NSFetchedResultsController<Words>? = nil
+    var _fetchedResultsController: NSFetchedResultsController<HQWords>? = nil
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -90,7 +90,7 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
         return cell
     }
     
-    func configureCell(_ cell: UITableViewCell, withEvent gw: Words) {
+    func configureCell(_ cell: UITableViewCell, withEvent gw: HQWords) {
         //cell.textLabel!.text = event.timestamp!.description
         cell.textLabel!.text = "\(gw.hqid.description) \(gw.lemma!.description)"
         let greekFont = UIFont(name: "NewAthenaUnicode", size: 24.0)

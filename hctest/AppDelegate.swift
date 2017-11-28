@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator
         }
         
-        let employeesFetch: NSFetchRequest<Words> = NSFetchRequest(entityName: "Words")
+        let employeesFetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
 
         // Create Batch Delete Request
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: employeesFetch as! NSFetchRequest<NSFetchRequestResult>)
@@ -119,6 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 //let backgroundContext = NSManagedObjectContext(concurrencyType:.privateQueueConcurrencyType)
                                 //backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
                                 let backgroundContext = self.managedObjectContext
+                                    backgroundContext.mergePolicy = NSRollbackMergePolicy //needed or duplicates x2
                                 if #available(iOS 10.0, *) {
                                     backgroundContext.persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator
                                 }
@@ -126,7 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 {
                                     backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator
                                 }
-                                let entity = NSEntityDescription.entity(forEntityName: "Words", in: backgroundContext)
+                                let entity = NSEntityDescription.entity(forEntityName: "HQWords", in: backgroundContext)
                                 
                                 //var count = 0
                                 for row in rows.rows {
@@ -137,17 +138,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     newUser.setValue(row.unit, forKey: "unit")
                                     newUser.setValue(row.lemma, forKey: "lemma")
                                     //count = count + 1
+                                    
+                                }
                                     do {
                                         try backgroundContext.save()
                                     } catch let error as NSError {
                                         print("failed saving: \(error.localizedDescription)")
                                     }
-                                }
                                 //NSLog("Count: \(count)")
                                 
-                                let employeesFetch: NSFetchRequest<Words> = NSFetchRequest(entityName: "Words")
+                                let countFetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
                                 do {
-                                    let newCount = try backgroundContext.count(for: employeesFetch)
+                                    let newCount = try backgroundContext.count(for: countFetch)
                                     NSLog("done2 \(newCount)")
                                 } catch { }
                                 }
