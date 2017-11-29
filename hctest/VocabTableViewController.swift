@@ -10,7 +10,44 @@ import UIKit
 import CoreData
 
 class VocabTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
-
+    var wordsPerUnit = [Int](repeating: 0, count: 20)
+    
+    func countForUnit(unit: Int) -> Int {
+        let moc = self.fetchedResultsController.managedObjectContext
+        if #available(iOS 10.0, *) {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HQWords")
+            fetchRequest.predicate = NSPredicate(format: "unit = %d", unit)
+            fetchRequest.includesSubentities = false
+            
+            var entitiesCount = 0
+            
+            do {
+                entitiesCount = try moc.count(for: fetchRequest)
+            }
+            catch {
+                print("error executing fetch request: \(error)")
+            }
+            
+            return entitiesCount
+        }
+        else
+        {
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "HQWords")
+            fetchRequest.predicate = NSPredicate(format: "unit = %d", unit)
+            
+            var results: [NSManagedObject] = []
+            
+            do {
+                results = try moc.fetch(fetchRequest)
+            }
+            catch {
+                print("error executing fetch request: \(error)")
+            }
+            
+            return results.count
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,6 +56,25 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        for (u, _) in wordsPerUnit.enumerated()
+        {
+            wordsPerUnit[u] = countForUnit(unit: u+1)
+            //NSLog("words per: \(u), \(wordsPerUnit[u])")
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let label = UILabel()
+        label.text = "  Unit \(section + 1)"
+        
+        label.backgroundColor = UIColor.init(red: 0, green: 0, blue: 110.0/255.0, alpha: 1.0)
+        label.textColor = UIColor.white
+        return label
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 34
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,14 +91,14 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 20
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        let sectionInfo = fetchedResultsController.sections![section]
-        NSLog("FRC Count: \(sectionInfo.numberOfObjects)")
-        return sectionInfo.numberOfObjects
+        //let sectionInfo = fetchedResultsController.sections![section]
+        //NSLog("FRC Count: \(sectionInfo.numberOfObjects)")
+        return wordsPerUnit[section]
     }
 
     var fetchedResultsController: NSFetchedResultsController<HQWords> {
@@ -64,7 +120,7 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
         // nil for section name key path means "no sections".
         let x = UIApplication.shared.delegate as! AppDelegate
         
-        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: x.managedObjectContext, sectionNameKeyPath: nil, cacheName: "VocabMaster")
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: x.managedObjectContext, sectionNameKeyPath: "unit", cacheName: "VocabMaster")
         aFetchedResultsController.delegate = self
         _fetchedResultsController = aFetchedResultsController
         
@@ -93,7 +149,8 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
     
     func configureCell(_ cell: UITableViewCell, withEvent gw: HQWords) {
         //cell.textLabel!.text = event.timestamp!.description
-        cell.textLabel!.text = "\(gw.hqid.description) \(gw.lemma!.description)"
+        //cell.textLabel!.text = "\(gw.hqid.description) \(gw.lemma!.description)"
+        cell.textLabel!.text = gw.lemma!.description
         let greekFont = UIFont(name: "NewAthenaUnicode", size: 24.0)
         cell.textLabel?.font = greekFont
         //cell.tag = Int(gw.wordid)
