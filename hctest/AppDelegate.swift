@@ -89,6 +89,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func hqWordExists(id: Int) -> Bool {
+        if #available(iOS 10.0, *) {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HQWords")
+            fetchRequest.predicate = NSPredicate(format: "hqid = %d", id)
+            fetchRequest.includesSubentities = false
+            
+            var entitiesCount = 0
+            
+            do {
+                entitiesCount = try managedObjectContext.count(for: fetchRequest)
+            }
+            catch {
+                print("error executing fetch request: \(error)")
+            }
+            
+            return entitiesCount > 0
+        }
+        else
+        {
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "HQWords")
+            fetchRequest.predicate = NSPredicate(format: "hqid = %d", id)
+            
+            var results: [NSManagedObject] = []
+            
+            do {
+                results = try managedObjectContext.fetch(fetchRequest)
+            }
+            catch {
+                print("error executing fetch request: \(error)")
+            }
+            
+            return results.count > 0
+        }
+    }
+    
     func datasync()
     {
         //let time = NSDate.init()
@@ -116,42 +151,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 
                                 DispatchQueue.main.sync {
                                     //https://stackoverflow.com/questions/46956921/main-thread-checker-ui-api-called-on-a-background-thread-uiapplication-deleg
-                                //let backgroundContext = NSManagedObjectContext(concurrencyType:.privateQueueConcurrencyType)
-                                //backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-                                let backgroundContext = self.managedObjectContext
+                                    //let backgroundContext = NSManagedObjectContext(concurrencyType:.privateQueueConcurrencyType)
+                                    //backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+                                    let backgroundContext = self.managedObjectContext
                                     backgroundContext.mergePolicy = NSRollbackMergePolicy //needed or duplicates x2
-                                if #available(iOS 10.0, *) {
-                                    backgroundContext.persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator
-                                }
-                                else
-                                {
-                                    backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-                                }
-                                let entity = NSEntityDescription.entity(forEntityName: "HQWords", in: backgroundContext)
-                                
-                                //var count = 0
-                                for row in rows.rows {
-                                    //print("Row: \(row.id), \(row.lemma), \(row.unit)")
-
-                                    let newUser = NSManagedObject(entity: entity!, insertInto: backgroundContext)
-                                    newUser.setValue(row.id, forKey: "hqid")
-                                    newUser.setValue(row.unit, forKey: "unit")
-                                    newUser.setValue(row.lemma, forKey: "lemma")
-                                    //count = count + 1
-                                    
-                                }
+                                    if #available(iOS 10.0, *) {
+                                        backgroundContext.persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator
+                                    }
+                                    else
+                                    {
+                                        backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator
+                                    }
+                                    let entity = NSEntityDescription.entity(forEntityName: "HQWords", in: backgroundContext)
+                                    /*
+                                    let countFetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
                                     do {
-                                        try backgroundContext.save()
+                                        let newCount = try backgroundContext.count(for: countFetch)
+                                        NSLog("count1 \(newCount)")
+                                    } catch { }
+                                    */
+                                    //var count = 0
+                                    for row in rows.rows {
+                                        //print("Row: \(row.id), \(row.lemma), \(row.unit)")
+                                        if self.hqWordExists(id:row.id)
+                                        {
+                                            NSLog("duplicate \(row.id)")
+                                            continue
+                                        }
+                                        
+                                        let newWord = NSManagedObject(entity: entity!, insertInto: backgroundContext)
+                                        newWord.setValue(row.id, forKey: "hqid")
+                                        newWord.setValue(row.unit, forKey: "unit")
+                                        newWord.setValue(row.lemma, forKey: "lemma")
+                                    }
+                                    do {
+                                        if backgroundContext.hasChanges
+                                        {
+                                            try backgroundContext.save()
+                                        }
                                     } catch let error as NSError {
                                         print("failed saving: \(error.localizedDescription)")
                                     }
-                                //NSLog("Count: \(count)")
-                                
-                                let countFetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
-                                do {
-                                    let newCount = try backgroundContext.count(for: countFetch)
-                                    NSLog("done2 \(newCount)")
-                                } catch { }
+                                    //NSLog("Count: \(count)")
+                                    
+                                    let countFetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
+                                    do {
+                                        let newCount = try backgroundContext.count(for: countFetch)
+                                        NSLog("count2 \(newCount)")
+                                    } catch { }
                                 }
                                 
                             } catch let error as NSError {

@@ -41,6 +41,7 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         let sectionInfo = fetchedResultsController.sections![section]
+        NSLog("FRC Count: \(sectionInfo.numberOfObjects)")
         return sectionInfo.numberOfObjects
     }
 
