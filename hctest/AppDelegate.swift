@@ -42,10 +42,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let id: Int
             let lemma: String
             let unit: Int
+            let def: String
+            let pos: String
+            let present:String
+            let future:String
+            let aorist:String
+            let perfect:String
+            let perfectmid:String
+            let aoristpass:String
+            let note:String
+            let lastupdated:Int
             enum CodingKeys : String, CodingKey {
                 case id
                 case lemma = "l"
                 case unit = "u"
+                case def = "d"
+                case pos = "ps"
+                case present = "p"
+                case future = "f"
+                case aorist = "a"
+                case perfect = "pe"
+                case perfectmid = "pm"
+                case aoristpass = "ap"
+                case note = "n"
+                case lastupdated = "up"
             }
         }
         let meta: Meta
@@ -127,14 +147,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func datasync()
     {
         //let time = NSDate.init()
-        let timestamp = 0 //time.timeIntervalSince1970
+        var timestamp = 0 //time.timeIntervalSince1970
+        
+        let def = UserDefaults.standard.object(forKey: "LastUpdate")
+        if def != nil
+        {
+            timestamp = def as! Int
+        }
+        else
+        {
+            let d = UserDefaults.standard
+            d.set(timestamp, forKey: "LastUpdate")
+            d.synchronize()
+        }
         NSLog("Time: \(timestamp)")
         
         NSLog("START REQUEST")
         //http://benscheirman.com/2017/06/ultimate-guide-to-json-parsing-with-swift-4/
         //https://stackoverflow.com/questions/32631184/the-resource-could-not-be-loaded-because-the-app-transport-security-policy-requi
-        let urlString = URL(string: "http://philolog.us/hqjson.php?updated=\(timestamp)")//http://philolog.us/hqvocab.php?unit=20&AndUnder=on&sort=alpha")
+        let urlString = URL(string: "http://philolog.us/hqjson.php?lastupdated=\(timestamp)")//http://philolog.us/hqvocab.php?unit=20&AndUnder=on&sort=alpha")
         if let url = urlString {
+            //let session = NSURLSession(configuration: .defaultSessionConfiguration(), delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
             let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if error != nil {
                     NSLog("boo")
@@ -147,6 +180,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             do {
                                 let decoder = JSONDecoder()
                                 let rows = try decoder.decode(HQResponse.self, from: usableData)
+                                
                                 NSLog("Updated: \(rows.meta.updated)")
                                 
                                 DispatchQueue.main.sync {
@@ -173,6 +207,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     //var count = 0
                                     for row in rows.rows {
                                         //print("Row: \(row.id), \(row.lemma), \(row.unit)")
+                                        
                                         if self.hqWordExists(id:row.id)
                                         {
                                             NSLog("duplicate \(row.id)")
@@ -183,6 +218,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         newWord.setValue(row.id, forKey: "hqid")
                                         newWord.setValue(row.unit, forKey: "unit")
                                         newWord.setValue(row.lemma, forKey: "lemma")
+                                        newWord.setValue(row.def, forKey: "def")
+                                        newWord.setValue(row.present, forKey: "present")
+                                        newWord.setValue(row.future, forKey: "future")
+                                        newWord.setValue(row.aorist, forKey: "aorist")
+                                        newWord.setValue(row.perfect, forKey: "perfect")
+                                        newWord.setValue(row.perfectmid, forKey: "perfectmid")
+                                        newWord.setValue(row.aoristpass, forKey: "aoristpass")
+                                        newWord.setValue(row.note, forKey: "note")
+                                        newWord.setValue(row.lastupdated, forKey: "lastupdated")
                                     }
                                     do {
                                         if backgroundContext.hasChanges
