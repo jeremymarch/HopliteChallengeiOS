@@ -149,7 +149,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //let time = NSDate.init()
         var timestamp = 0 //time.timeIntervalSince1970
         
-        let def = UserDefaults.standard.object(forKey: "LastUpdate")
+        let def = UserDefaults.standard.object(forKey: "LastUpdated")
         if def != nil
         {
             timestamp = def as! Int
@@ -157,7 +157,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else
         {
             let d = UserDefaults.standard
-            d.set(timestamp, forKey: "LastUpdate")
+            d.set(timestamp, forKey: "LastUpdated")
             d.synchronize()
         }
         NSLog("Time: \(timestamp)")
@@ -166,6 +166,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //http://benscheirman.com/2017/06/ultimate-guide-to-json-parsing-with-swift-4/
         //https://stackoverflow.com/questions/32631184/the-resource-could-not-be-loaded-because-the-app-transport-security-policy-requi
         let urlString = URL(string: "http://philolog.us/hqjson.php?lastupdated=\(timestamp)")//http://philolog.us/hqvocab.php?unit=20&AndUnder=on&sort=alpha")
+        NSLog("Start timestamp: \(timestamp)")
         if let url = urlString {
             //let session = NSURLSession(configuration: .defaultSessionConfiguration(), delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
             let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -205,6 +206,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     } catch { }
                                     */
                                     //var count = 0
+                                    var highestTimestamp = 0;
                                     for row in rows.rows {
                                         //print("Row: \(row.id), \(row.lemma), \(row.unit)")
                                         
@@ -212,6 +214,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         {
                                             NSLog("duplicate \(row.id)")
                                             continue
+                                        }
+                                        if row.lastupdated > highestTimestamp
+                                        {
+                                            highestTimestamp = row.lastupdated
                                         }
                                         
                                         let newWord = NSManagedObject(entity: entity!, insertInto: backgroundContext)
@@ -237,6 +243,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         print("failed saving: \(error.localizedDescription)")
                                     }
                                     //NSLog("Count: \(count)")
+                                    if highestTimestamp > timestamp
+                                    {
+                                        UserDefaults.standard.set(highestTimestamp, forKey: "LastUpdated")
+                                        NSLog("New timestamp: \(highestTimestamp)")
+                                    }
                                     
                                     let countFetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
                                     do {

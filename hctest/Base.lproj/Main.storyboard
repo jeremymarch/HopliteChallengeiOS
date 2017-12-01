@@ -16,6 +16,36 @@
         </array>
     </customFonts>
     <scenes>
+        <!--Vocab Detail View Controller-->
+        <scene sceneID="wzI-fC-IcZ">
+            <objects>
+                <viewController id="a2w-sk-COz" customClass="VocabDetailViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jEQ-JW-iDV"/>
+                        <viewControllerLayoutGuide type="bottom" id="fkB-gO-Pyv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XLL-b2-h22">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ig1-A5-FhO">
+                                <rect key="frame" x="16" y="155" width="343" height="173"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="defLabel" destination="ig1-A5-FhO" id="YWZ-Z8-3an"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zJq-mF-vWl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4999.1999999999998" y="948.57571214392806"/>
+        </scene>
         <!--Vocab Table View Controller-->
         <scene sceneID="ITI-Rb-lS3">
             <objects>
@@ -41,6 +71,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="a2w-sk-COz" kind="show" identifier="ShowVocabDetail" id="YUJ-mi-Y4B"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -310,7 +343,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ryf-1s-pei" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1127.2" y="936.88155922038993"/>
+            <point key="canvasLocation" x="-1046" y="975"/>
         </scene>
         <!--Hoplite Challenge-->
         <scene sceneID="aKK-V2-kfE">

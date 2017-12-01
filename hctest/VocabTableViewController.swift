@@ -160,7 +160,13 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
         cell.selectedBackgroundView = bgColorView
     }
  
-
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //let btn = UIButton(type: UIButtonType.custom)
+        //btn.tag = indexPath.row
+        
+        //performSegue(withIdentifier: "ShowVocabDetail", sender: self)
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -196,14 +202,19 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let indexPath = tableView.indexPathForSelectedRow
+        let object = fetchedResultsController.object(at: indexPath!)
+        let wordid = Int(object.hqid)
+        let vd = segue.destination as! VocabDetailViewController
+        vd.hqid = wordid
     }
-    */
+    
 
 }

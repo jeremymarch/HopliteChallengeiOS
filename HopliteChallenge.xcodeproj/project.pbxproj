@@ -31,6 +31,7 @@
 		3F15E1841E84B002009760A0 /* libmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443B91E6BB27A00FFAD04 /* libmorph.c */; };
 		3F15E1861E85A893009760A0 /* hamburger.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F15E1851E85A893009760A0 /* hamburger.png */; };
 		3F195A271E7610050025EF00 /* TypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195A261E7610050025EF00 /* TypeLabel.swift */; };
+		3F28F7F21FD0C1D4008A69D9 /* VocabDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */; };
 		3F2BF3C51E6DC8E200884CDC /* greencheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C41E6DC8E200884CDC /* greencheck.png */; };
 		3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C61E6DC8EC00884CDC /* redx.png */; };
 		3F2BF3C91E6DF5AC00884CDC /* HCMFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C81E6DF5AC00884CDC /* HCMFButton.swift */; };
@@ -95,6 +96,7 @@
 		3F15E1741E8450A0009760A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F15E1851E85A893009760A0 /* hamburger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hamburger.png; sourceTree = "<group>"; };
 		3F195A261E7610050025EF00 /* TypeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeLabel.swift; sourceTree = "<group>"; };
+		3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabDetailViewController.swift; sourceTree = "<group>"; };
 		3F2BF3C41E6DC8E200884CDC /* greencheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greencheck.png; sourceTree = "<group>"; };
 		3F2BF3C61E6DC8EC00884CDC /* redx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redx.png; sourceTree = "<group>"; };
 		3F2BF3C81E6DF5AC00884CDC /* HCMFButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCMFButton.swift; path = HCPolytonicGreekKB/HCMFButton.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */,
 				3F6D20551FB8E4EA0000615B /* AccentTextField.swift */,
 				3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */,
+				3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -435,6 +438,7 @@
 				3F3443C01E6BB2A100FFAD04 /* ending.c in Sources */,
 				3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */,
 				3F3443CB1E6BB2D700FFAD04 /* VerbSequence.c in Sources */,
+				3F28F7F21FD0C1D4008A69D9 /* VocabDetailViewController.swift in Sources */,
 				3F2BF3C91E6DF5AC00884CDC /* HCMFButton.swift in Sources */,
 				3F0BBD091E6D354500933F44 /* HCGlobeButton.swift in Sources */,
 				3F0BBD061E6D354500933F44 /* HCCapsLockButton.swift in Sources */,
