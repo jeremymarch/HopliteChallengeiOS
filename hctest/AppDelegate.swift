@@ -109,6 +109,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func getWordObjectOrNew(hqid: Int, context:NSManagedObjectContext) -> NSManagedObject
+    {
+        if let w = getWordObject(hqid: hqid, context:context)
+        {
+            return w
+        }
+        else
+        {
+            let entity = NSEntityDescription.entity(forEntityName: "HQWords", in: context)
+            return NSManagedObject(entity: entity!, insertInto: context)
+        }
+    }
+    
+    func getWordObject(hqid: Int, context:NSManagedObjectContext) -> NSManagedObject?
+    {
+        if hqid < 1
+        {
+            return nil
+        }
+        /*
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        
+        var vc:NSManagedObjectContext
+        if #available(iOS 10.0, *) {
+            vc = delegate.persistentContainer.viewContext
+        } else {
+            vc = delegate.managedObjectContext
+        }
+        */
+        let request: NSFetchRequest<HQWords> = HQWords.fetchRequest()
+        if #available(iOS 10.0, *) {
+            request.entity = HQWords.entity()
+        } else {
+            request.entity = NSEntityDescription.entity(forEntityName: "HQWords", in: context)
+        }
+        
+        let pred = NSPredicate(format: "(hqid = %d)", hqid)
+        request.predicate = pred
+        var results:[Any]?
+        do {
+            results =
+                try context.fetch(request as!
+                    NSFetchRequest<NSFetchRequestResult>)
+            
+        } catch let error {
+            NSLog("Error: %@", error.localizedDescription)
+            return nil
+        }
+        if results != nil && results!.count > 0
+        {
+            return results?.first as! NSManagedObject
+        }
+        else
+        {
+            return nil
+        }
+    }
+    
     func hqWordExists(id: Int) -> Bool {
         if #available(iOS 10.0, *) {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HQWords")
@@ -209,18 +267,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     var highestTimestamp = 0;
                                     for row in rows.rows {
                                         //print("Row: \(row.id), \(row.lemma), \(row.unit)")
-                                        
+                                        /*
                                         if self.hqWordExists(id:row.id)
                                         {
                                             NSLog("duplicate \(row.id)")
                                             continue
                                         }
+                                        */
                                         if row.lastupdated > highestTimestamp
                                         {
                                             highestTimestamp = row.lastupdated
                                         }
                                         
-                                        let newWord = NSManagedObject(entity: entity!, insertInto: backgroundContext)
+                                        let newWord = self.getWordObjectOrNew(hqid:row.id, context:backgroundContext)
+                                        
                                         newWord.setValue(row.id, forKey: "hqid")
                                         newWord.setValue(row.unit, forKey: "unit")
                                         newWord.setValue(row.lemma, forKey: "lemma")
@@ -237,6 +297,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     do {
                                         if backgroundContext.hasChanges
                                         {
+                                            NSLog("has changes!")
                                             try backgroundContext.save()
                                             //NSLog("Count: \(count)")
                                             if highestTimestamp > timestamp

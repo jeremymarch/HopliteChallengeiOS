@@ -70,7 +70,6 @@ class VocabDetailViewController: UIViewController {
                     NSFetchRequest<NSFetchRequestResult>) as? [HQWords]
             
         } catch let error {
-            // Handle error
             NSLog("Error: %@", error.localizedDescription)
             return
         }
@@ -79,14 +78,10 @@ class VocabDetailViewController: UIViewController {
         {
             let match = results?[0]
             let def2:String = match!.def!
-            //NSLog("res: %@", def2)
             
             if let w = defLabel
             {
-                //label.text = detail.timestamp!.description
-                //let html = header + def2 + "</BODY></HTML>"
                 w.text = def2
-                //NSLog("html: \(html)")
             }
         }
         else
