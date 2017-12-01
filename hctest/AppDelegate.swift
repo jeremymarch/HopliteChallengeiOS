@@ -90,10 +90,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator
         }
         
-        let employeesFetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
+        let fetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
 
         // Create Batch Delete Request
-        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: employeesFetch as! NSFetchRequest<NSFetchRequestResult>)
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetch as! NSFetchRequest<NSFetchRequestResult>)
         
         do {
             try backgroundContext.execute(batchDeleteRequest)
@@ -149,14 +149,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //let time = NSDate.init()
         var timestamp = 0 //time.timeIntervalSince1970
         
-        let def = UserDefaults.standard.object(forKey: "LastUpdated")
-        if def != nil
+        let d = UserDefaults.standard
+        let time = d.object(forKey: "LastUpdated")
+        if time != nil
         {
-            timestamp = def as! Int
+            timestamp = time as! Int
         }
         else
         {
-            let d = UserDefaults.standard
             d.set(timestamp, forKey: "LastUpdated")
             d.synchronize()
         }
@@ -238,15 +238,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         if backgroundContext.hasChanges
                                         {
                                             try backgroundContext.save()
+                                            //NSLog("Count: \(count)")
+                                            if highestTimestamp > timestamp
+                                            {
+                                                UserDefaults.standard.set(highestTimestamp, forKey: "LastUpdated")
+                                                NSLog("New timestamp: \(highestTimestamp)")
+                                            }
                                         }
                                     } catch let error as NSError {
                                         print("failed saving: \(error.localizedDescription)")
-                                    }
-                                    //NSLog("Count: \(count)")
-                                    if highestTimestamp > timestamp
-                                    {
-                                        UserDefaults.standard.set(highestTimestamp, forKey: "LastUpdated")
-                                        NSLog("New timestamp: \(highestTimestamp)")
                                     }
                                     
                                     let countFetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
