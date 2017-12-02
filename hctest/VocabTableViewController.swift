@@ -43,13 +43,15 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
             catch {
                 print("error executing fetch request: \(error)")
             }
-            
             return results.count
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        delegate.datasync()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

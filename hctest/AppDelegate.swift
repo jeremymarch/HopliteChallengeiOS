@@ -76,6 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         datasync()
+        
         return true
     }
     
@@ -128,31 +129,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
             return nil
         }
-        /*
-        let delegate = UIApplication.shared.delegate as! AppDelegate
-        
-        var vc:NSManagedObjectContext
-        if #available(iOS 10.0, *) {
-            vc = delegate.persistentContainer.viewContext
-        } else {
-            vc = delegate.managedObjectContext
-        }
-        */
+
         let request: NSFetchRequest<HQWords> = HQWords.fetchRequest()
         if #available(iOS 10.0, *) {
             request.entity = HQWords.entity()
         } else {
             request.entity = NSEntityDescription.entity(forEntityName: "HQWords", in: context)
         }
-        
         let pred = NSPredicate(format: "(hqid = %d)", hqid)
         request.predicate = pred
         var results:[Any]?
         do {
-            results =
-                try context.fetch(request as!
-                    NSFetchRequest<NSFetchRequestResult>)
-            
+            results = try context.fetch(request as! NSFetchRequest<NSFetchRequestResult>)
         } catch let error {
             NSLog("Error: %@", error.localizedDescription)
             return nil
@@ -244,9 +232,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 
                                 DispatchQueue.main.sync {
                                     //https://stackoverflow.com/questions/46956921/main-thread-checker-ui-api-called-on-a-background-thread-uiapplication-deleg
-                                    //let backgroundContext = NSManagedObjectContext(concurrencyType:.privateQueueConcurrencyType)
+                                    let backgroundContext = NSManagedObjectContext(concurrencyType:.privateQueueConcurrencyType)
                                     //backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-                                    let backgroundContext = self.managedObjectContext
+                                    //let backgroundContext = self.managedObjectContext
                                     backgroundContext.mergePolicy = NSRollbackMergePolicy //needed or duplicates x2
                                     if #available(iOS 10.0, *) {
                                         backgroundContext.persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator
@@ -540,6 +528,30 @@ extension NSPersistentContainer {
         }
         
         self.init(name: name, managedObjectModel: mom)
+    }
+}
+
+//https://stackoverflow.com/questions/26784315/can-i-somehow-do-a-synchronous-http-request-via-nsurlsession-in-swift
+extension URLSession {
+    func synchronousDataTask(with url: URL) -> (Data?, URLResponse?, Error?) {
+        var data: Data?
+        var response: URLResponse?
+        var error: Error?
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        let dataTask = self.dataTask(with: url) {
+            data = $0
+            response = $1
+            error = $2
+            
+            semaphore.signal()
+        }
+        dataTask.resume()
+        
+        _ = semaphore.wait(timeout: .distantFuture)
+        
+        return (data, response, error)
     }
 }
 
