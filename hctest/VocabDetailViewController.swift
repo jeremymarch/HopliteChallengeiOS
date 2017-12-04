@@ -22,6 +22,7 @@ class VocabDetailViewController: UIViewController {
     var hqid:Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
+        //https://www.natashatherobot.com/ios-autolayout-scrollview/
         scrollView!.contentSize = contentView!.frame.size;
         // Do any additional setup after loading the view.
     }
