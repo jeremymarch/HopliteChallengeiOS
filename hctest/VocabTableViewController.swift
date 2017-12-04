@@ -11,7 +11,7 @@ import CoreData
 
 class VocabTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     var wordsPerUnit = [Int](repeating: 0, count: 20)
-    var sortAlpha = false
+    var sortAlpha = true
     
     func countForUnit(unit: Int) -> Int {
         let moc = self.fetchedResultsController.managedObjectContext
@@ -84,7 +84,14 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 34
+        if !sortAlpha
+        {
+            return 34
+        }
+        else
+        {
+            return 0
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

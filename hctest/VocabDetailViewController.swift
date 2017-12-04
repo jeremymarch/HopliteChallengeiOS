@@ -10,12 +10,12 @@ import UIKit
 import CoreData
 
 class VocabDetailViewController: UIViewController {
-    @IBOutlet var lemmaLabel:UILabel?
-    @IBOutlet var unitLabel:UILabel?
-    @IBOutlet var posLabel:UILabel?
-    @IBOutlet var defLabel:UILabel?
-    @IBOutlet var ppLabel:UILabel?
-    @IBOutlet var noteLabel:UILabel?
+    @IBOutlet var lemmaLabel:UITextField?
+    @IBOutlet var unitLabel:UITextField?
+    @IBOutlet var posLabel:UITextField?
+    @IBOutlet var defLabel:UITextView?
+    @IBOutlet var ppLabel:UITextView?
+    @IBOutlet var noteLabel:UITextView?
     @IBOutlet var scrollView:UIScrollView?
     @IBOutlet var contentView:UIView?
     
@@ -47,6 +47,25 @@ class VocabDetailViewController: UIViewController {
             loadDef()
         }
     
+    }
+    
+    func principalParts(present:String, future:String,aorist:String,perfect:String,perfectmid:String,aoristpass:String,seperator:String) -> String
+    {
+        let dash = "—"//let dash = "–"
+        var innerSeperator:String = " or"
+        if seperator != ""
+        {
+            innerSeperator = seperator
+        }
+        var sa = [String]()
+        sa.append(present != "" ? present.replacingOccurrences(of: ",", with: innerSeperator) : dash)
+        sa.append(future != "" ? future.replacingOccurrences(of: ",", with: innerSeperator) : dash)
+        sa.append(aorist != "" ? aorist.replacingOccurrences(of: ",", with: innerSeperator) : dash)
+        sa.append(perfect != "" ? perfect.replacingOccurrences(of: ",", with: innerSeperator) : dash)
+        sa.append(perfectmid != "" ? perfectmid.replacingOccurrences(of: ",", with: innerSeperator) : dash)
+        sa.append(aoristpass != "" ? aoristpass.replacingOccurrences(of: ",", with: innerSeperator) : dash)
+        
+        return sa.joined(separator: ", ")
     }
     
     func loadDef()
@@ -90,7 +109,7 @@ class VocabDetailViewController: UIViewController {
             let unit:Int16 = match!.unit
             let pos:String = match!.pos!
             let note:String = match!.note!
-            let pp:String = match!.present! + ", " + match!.future! + ", " + match!.aorist! + ", " + match!.perfect! + ", " + match!.perfectmid! + ", " + match!.aoristpass!
+            let pp:String = principalParts(present:match!.present!, future:match!.future!, aorist:match!.aorist!,perfect:match!.perfect!,perfectmid:match!.perfectmid!, aoristpass:match!.aoristpass!,seperator: " or")
             
             if let w = defLabel
             {
@@ -114,7 +133,10 @@ class VocabDetailViewController: UIViewController {
             }
             if let w = ppLabel
             {
-                w.text = pp
+                if pos == "Verb"
+                {
+                    w.text = pp
+                }
             }
         }
         else
