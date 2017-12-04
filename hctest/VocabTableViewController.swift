@@ -11,7 +11,7 @@ import CoreData
 
 class VocabTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     var wordsPerUnit = [Int](repeating: 0, count: 20)
-    var sortAlpha = true
+    var sortAlpha = false
     
     func countForUnit(unit: Int) -> Int {
         let moc = self.fetchedResultsController.managedObjectContext
@@ -124,7 +124,7 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
             return 527
         }
     }
-
+ 
     var fetchedResultsController: NSFetchedResultsController<HQWords> {
         if _fetchedResultsController != nil {
             return _fetchedResultsController!
@@ -147,7 +147,7 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
         if sortAlpha
         {
             sectionField = nil
-            sortField = "lemma"
+            sortField = "seq"
         }
         else
         {
@@ -155,8 +155,7 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
             sectionField = "unit"
         }
         
-        let sortDescriptor = NSSortDescriptor(key: sortField, ascending: true, selector:#selector(NSString.caseInsensitiveCompare))
-        
+        let sortDescriptor = NSSortDescriptor(key: sortField, ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: x.managedObjectContext, sectionNameKeyPath: sectionField, cacheName: "VocabMaster")
@@ -257,3 +256,4 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
     
 
 }
+

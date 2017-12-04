@@ -52,6 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let aoristpass:String
             let note:String
             let lastupdated:Int
+            let seq:Int16
             enum CodingKeys : String, CodingKey {
                 case id
                 case lemma = "l"
@@ -66,6 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 case aoristpass = "ap"
                 case note = "n"
                 case lastupdated = "up"
+                case seq = "s"
             }
         }
         let meta: Meta
@@ -282,6 +284,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         newWord.setValue(row.aoristpass, forKey: "aoristpass")
                                         newWord.setValue(row.note, forKey: "note")
                                         newWord.setValue(row.lastupdated, forKey: "lastupdated")
+                                        newWord.setValue(row.seq, forKey: "seq")
                                     }
                                     do {
                                         if backgroundContext.hasChanges
