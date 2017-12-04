@@ -88,8 +88,10 @@
                                     </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="3ZW-1h-l24" secondAttribute="bottom" constant="-614" id="1hd-uw-0FD"/>
                                     <constraint firstItem="3ZW-1h-l24" firstAttribute="leading" secondItem="apD-Bu-x68" secondAttribute="leading" id="7lm-9c-gOW"/>
                                     <constraint firstAttribute="trailing" secondItem="3ZW-1h-l24" secondAttribute="trailing" id="S0P-zH-HIP"/>
+                                    <constraint firstItem="3ZW-1h-l24" firstAttribute="top" secondItem="apD-Bu-x68" secondAttribute="top" id="gOo-4u-8zc"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
