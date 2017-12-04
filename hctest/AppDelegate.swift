@@ -273,6 +273,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         newWord.setValue(row.unit, forKey: "unit")
                                         newWord.setValue(row.lemma, forKey: "lemma")
                                         newWord.setValue(row.def, forKey: "def")
+                                        newWord.setValue(row.pos, forKey: "pos")
                                         newWord.setValue(row.present, forKey: "present")
                                         newWord.setValue(row.future, forKey: "future")
                                         newWord.setValue(row.aorist, forKey: "aorist")

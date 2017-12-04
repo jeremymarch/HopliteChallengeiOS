@@ -10,11 +10,19 @@ import UIKit
 import CoreData
 
 class VocabDetailViewController: UIViewController {
+    @IBOutlet var lemmaLabel:UILabel?
+    @IBOutlet var unitLabel:UILabel?
+    @IBOutlet var posLabel:UILabel?
     @IBOutlet var defLabel:UILabel?
+    @IBOutlet var ppLabel:UILabel?
+    @IBOutlet var noteLabel:UILabel?
+    @IBOutlet var scrollView:UIScrollView?
+    @IBOutlet var contentView:UIView?
+    
     var hqid:Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        scrollView!.contentSize = contentView!.frame.size;
         // Do any additional setup after loading the view.
     }
 
@@ -77,11 +85,36 @@ class VocabDetailViewController: UIViewController {
         if results != nil && results!.count > 0
         {
             let match = results?[0]
-            let def2:String = match!.def!
+            let lemma:String = match!.lemma!
+            let def:String = match!.def!
+            let unit:Int16 = match!.unit
+            let pos:String = match!.pos!
+            let note:String = match!.note!
+            let pp:String = match!.present! + ", " + match!.future! + ", " + match!.aorist! + ", " + match!.perfect! + ", " + match!.perfectmid! + ", " + match!.aoristpass!
             
             if let w = defLabel
             {
-                w.text = def2
+                w.text = def
+            }
+            if let w = lemmaLabel
+            {
+                w.text = lemma
+            }
+            if let w = posLabel
+            {
+                w.text = pos
+            }
+            if let w = unitLabel
+            {
+                w.text = "\(unit)"
+            }
+            if let w = noteLabel
+            {
+                w.text = note
+            }
+            if let w = ppLabel
+            {
+                w.text = pp
             }
         }
         else
