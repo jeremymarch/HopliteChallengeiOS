@@ -11,6 +11,7 @@ import CoreData
 
 class VocabTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     var wordsPerUnit = [Int](repeating: 0, count: 20)
+    var sortAlpha = true
     
     func countForUnit(unit: Int) -> Int {
         let moc = self.fetchedResultsController.managedObjectContext
@@ -67,12 +68,19 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let label = UILabel()
-        label.text = "  Unit \(section + 1)"
-        
-        label.backgroundColor = UIColor.init(red: 0, green: 0, blue: 110.0/255.0, alpha: 1.0)
-        label.textColor = UIColor.white
-        return label
+        if !sortAlpha
+        {
+            let label = UILabel()
+            label.text = "  Unit \(section + 1)"
+            
+            label.backgroundColor = UIColor.init(red: 0, green: 0, blue: 110.0/255.0, alpha: 1.0)
+            label.textColor = UIColor.white
+            return label
+        }
+        else
+        {
+            return nil
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -93,14 +101,28 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 20
+        if !sortAlpha
+        {
+            return 20
+        }
+        else
+        {
+            return 1
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         //let sectionInfo = fetchedResultsController.sections![section]
         //NSLog("FRC Count: \(sectionInfo.numberOfObjects)")
-        return wordsPerUnit[section]
+        if !sortAlpha
+        {
+            return wordsPerUnit[section]
+        }
+        else
+        {
+            return 527
+        }
     }
 
     var fetchedResultsController: NSFetchedResultsController<HQWords> {
@@ -114,15 +136,30 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
         fetchRequest.fetchBatchSize = 20
         
         // Edit the sort key as appropriate.
-        let sortDescriptor = NSSortDescriptor(key: "hqid", ascending: true)
         
-        fetchRequest.sortDescriptors = [sortDescriptor]
         
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
         let x = UIApplication.shared.delegate as! AppDelegate
         
-        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: x.managedObjectContext, sectionNameKeyPath: "unit", cacheName: "VocabMaster")
+        var sectionField:String?
+        var sortField:String?
+        if sortAlpha
+        {
+            sectionField = nil
+            sortField = "lemma"
+        }
+        else
+        {
+            sortField = "hqid"
+            sectionField = "unit"
+        }
+        
+        let sortDescriptor = NSSortDescriptor(key: sortField, ascending: true, selector:#selector(NSString.caseInsensitiveCompare))
+        
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: x.managedObjectContext, sectionNameKeyPath: sectionField, cacheName: "VocabMaster")
         aFetchedResultsController.delegate = self
         _fetchedResultsController = aFetchedResultsController
         
