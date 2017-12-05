@@ -48,11 +48,24 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
         }
     }
     
+    
+    @objc func sortTogglePressed(_ sender: UIBarButtonItem ) {
+        self.dismiss(animated: true, completion: nil)
+        sortAlpha = !sortAlpha
+        _fetchedResultsController = nil
+        tableView.reloadData()
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let delegate = UIApplication.shared.delegate as! AppDelegate
         delegate.datasync()
+        
+        let sortToggleBarButton = UIBarButtonItem(title: "Toggle Sort", style: .done, target: self, action: #selector(sortTogglePressed(_:)))
+        self.navigationItem.rightBarButtonItem = sortToggleBarButton
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -195,7 +208,15 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
     func configureCell(_ cell: UITableViewCell, withEvent gw: HQWords) {
         //cell.textLabel!.text = event.timestamp!.description
         //cell.textLabel!.text = "\(gw.hqid.description) \(gw.lemma!.description)"
-        cell.textLabel!.text = gw.lemma!.description
+        if !sortAlpha
+        {
+            cell.textLabel!.text = gw.lemma!.description
+        }
+        else
+        {
+            cell.textLabel!.text = gw.lemma!.description + " (" + gw.unit.description + ")"
+        }
+        
         let greekFont = UIFont(name: "NewAthenaUnicode", size: 24.0)
         cell.textLabel?.font = greekFont
         //cell.tag = Int(gw.wordid)
@@ -260,7 +281,5 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
         let vd = segue.destination as! VocabDetailViewController
         vd.hqid = wordid
     }
-    
-
 }
 
