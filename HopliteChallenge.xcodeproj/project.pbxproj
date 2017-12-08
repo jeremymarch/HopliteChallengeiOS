@@ -31,6 +31,7 @@
 		3F15E1841E84B002009760A0 /* libmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443B91E6BB27A00FFAD04 /* libmorph.c */; };
 		3F15E1861E85A893009760A0 /* hamburger.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F15E1851E85A893009760A0 /* hamburger.png */; };
 		3F195A271E7610050025EF00 /* TypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195A261E7610050025EF00 /* TypeLabel.swift */; };
+		3F1A64721FDA22BE00D38351 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3F1A64711FDA22BE00D38351 /* Podfile */; };
 		3F28F7F21FD0C1D4008A69D9 /* VocabDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */; };
 		3F2BF3C51E6DC8E200884CDC /* greencheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C41E6DC8E200884CDC /* greencheck.png */; };
 		3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C61E6DC8EC00884CDC /* redx.png */; };
@@ -56,6 +57,7 @@
 		3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */; };
 		3F6D20541FB7B8DA0000615B /* AccentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */; };
 		3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20551FB8E4EA0000615B /* AccentTextField.swift */; };
+		3F74B2D71FDA34EC0044B0FC /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */; };
 		3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FAA8D2E1E6D046300254E97 /* Life4X.png */; };
 		3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAA8D301E6D212900254E97 /* HCTimer.swift */; };
 		3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B401E78EF0700144F7D /* MenuViewController.swift */; };
@@ -66,6 +68,7 @@
 		3FF71B4B1E7A290300144F7D /* Verb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B4A1E7A290300144F7D /* Verb.swift */; };
 		3FFE2C081FAE7CA50013A92E /* swiftVSeqLayer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FFE2C061FAE7CA50013A92E /* swiftVSeqLayer.c */; };
 		3FFE2C091FAE7ED90013A92E /* swiftVSeqLayer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FFE2C061FAE7CA50013A92E /* swiftVSeqLayer.c */; };
+		40A9093BB289BD3CA7F681FB /* Pods_HopliteChallenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27075C33C32281AD0F07B97C /* Pods_HopliteChallenge.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +82,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		151C77D90F5A7107DE2C5150 /* Pods-HopliteChallenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HopliteChallenge.release.xcconfig"; path = "Pods/Target Support Files/Pods-HopliteChallenge/Pods-HopliteChallenge.release.xcconfig"; sourceTree = "<group>"; };
+		27075C33C32281AD0F07B97C /* Pods_HopliteChallenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HopliteChallenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F0541631E7A688800DEB439 /* GameResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameResults.swift; sourceTree = "<group>"; };
 		3F0BBCFB1E6D354500933F44 /* HCAccentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCAccentButton.swift; path = HCPolytonicGreekKB/HCAccentButton.swift; sourceTree = "<group>"; };
 		3F0BBCFC1E6D354500933F44 /* HCbutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCbutton.swift; path = HCPolytonicGreekKB/HCbutton.swift; sourceTree = "<group>"; };
@@ -96,6 +101,7 @@
 		3F15E1741E8450A0009760A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F15E1851E85A893009760A0 /* hamburger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hamburger.png; sourceTree = "<group>"; };
 		3F195A261E7610050025EF00 /* TypeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeLabel.swift; sourceTree = "<group>"; };
+		3F1A64711FDA22BE00D38351 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabDetailViewController.swift; sourceTree = "<group>"; };
 		3F2BF3C41E6DC8E200884CDC /* greencheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greencheck.png; sourceTree = "<group>"; };
 		3F2BF3C61E6DC8EC00884CDC /* redx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redx.png; sourceTree = "<group>"; };
@@ -133,6 +139,7 @@
 		3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabTableViewController.swift; sourceTree = "<group>"; };
 		3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentsViewController.swift; sourceTree = "<group>"; };
 		3F6D20551FB8E4EA0000615B /* AccentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentTextField.swift; sourceTree = "<group>"; };
+		3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		3FAA8D2E1E6D046300254E97 /* Life4X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Life4X.png; sourceTree = "<group>"; };
 		3FAA8D301E6D212900254E97 /* HCTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCTimer.swift; sourceTree = "<group>"; };
 		3FF71B401E78EF0700144F7D /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +150,7 @@
 		3FF71B4A1E7A290300144F7D /* Verb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verb.swift; sourceTree = "<group>"; };
 		3FFE2C061FAE7CA50013A92E /* swiftVSeqLayer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = swiftVSeqLayer.c; path = libmorph/swiftVSeqLayer.c; sourceTree = "<group>"; };
 		3FFE2C071FAE7CA50013A92E /* swiftVSeqLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = swiftVSeqLayer.h; path = libmorph/swiftVSeqLayer.h; sourceTree = "<group>"; };
+		539CB0D9A15B3F4CF2605F86 /* Pods-HopliteChallenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HopliteChallenge.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HopliteChallenge/Pods-HopliteChallenge.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +165,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40A9093BB289BD3CA7F681FB /* Pods_HopliteChallenge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,9 +203,12 @@
 		3F3443961E6BB17700FFAD04 = {
 			isa = PBXGroup;
 			children = (
+				3F1A64711FDA22BE00D38351 /* Podfile */,
 				3F3443A11E6BB17700FFAD04 /* HopliteChallenge */,
 				3F15E1711E8450A0009760A0 /* HopliteChallengeTests */,
 				3F3443A01E6BB17700FFAD04 /* Products */,
+				E64163E6C995064FBB676A1E /* Pods */,
+				DF2A71188EEF94728AD15FAC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -243,6 +255,7 @@
 				3F6D20551FB8E4EA0000615B /* AccentTextField.swift */,
 				3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */,
 				3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */,
+				3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -275,6 +288,23 @@
 			name = libmorph;
 			sourceTree = "<group>";
 		};
+		DF2A71188EEF94728AD15FAC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				27075C33C32281AD0F07B97C /* Pods_HopliteChallenge.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E64163E6C995064FBB676A1E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				539CB0D9A15B3F4CF2605F86 /* Pods-HopliteChallenge.debug.xcconfig */,
+				151C77D90F5A7107DE2C5150 /* Pods-HopliteChallenge.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -300,9 +330,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3F3443B41E6BB17700FFAD04 /* Build configuration list for PBXNativeTarget "HopliteChallenge" */;
 			buildPhases = (
+				120BC056F44F369BEF2BD34E /* [CP] Check Pods Manifest.lock */,
 				3F34439B1E6BB17700FFAD04 /* Sources */,
 				3F34439C1E6BB17700FFAD04 /* Frameworks */,
 				3F34439D1E6BB17700FFAD04 /* Resources */,
+				450F22E2F75C2D93B8B17AAB /* [CP] Embed Pods Frameworks */,
+				ACA317064041E0AE3DDD1A12 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -375,12 +408,69 @@
 				3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */,
 				3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */,
 				3F15E1861E85A893009760A0 /* hamburger.png in Resources */,
+				3F1A64721FDA22BE00D38351 /* Podfile in Resources */,
 				3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */,
 				3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		120BC056F44F369BEF2BD34E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HopliteChallenge-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		450F22E2F75C2D93B8B17AAB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-HopliteChallenge/Pods-HopliteChallenge-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
+				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koloda.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HopliteChallenge/Pods-HopliteChallenge-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ACA317064041E0AE3DDD1A12 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HopliteChallenge/Pods-HopliteChallenge-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3F15E16C1E8450A0009760A0 /* Sources */ = {
@@ -434,6 +524,7 @@
 				3F3443D31E6BB41D00FFAD04 /* sqlite3.c in Sources */,
 				3F3443AB1E6BB17700FFAD04 /* hctest.xcdatamodeld in Sources */,
 				3F3443CE1E6BB33400FFAD04 /* VerbForm.swift in Sources */,
+				3F74B2D71FDA34EC0044B0FC /* CardViewController.swift in Sources */,
 				3FF71B491E79EF6900144F7D /* VerbDetail.swift in Sources */,
 				3F3443C01E6BB2A100FFAD04 /* ending.c in Sources */,
 				3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */,
@@ -623,6 +714,7 @@
 		};
 		3F3443B51E6BB17700FFAD04 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 539CB0D9A15B3F4CF2605F86 /* Pods-HopliteChallenge.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -641,6 +733,7 @@
 		};
 		3F3443B61E6BB17700FFAD04 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 151C77D90F5A7107DE2C5150 /* Pods-HopliteChallenge.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

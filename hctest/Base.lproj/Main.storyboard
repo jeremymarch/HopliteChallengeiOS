@@ -118,6 +118,39 @@
             </objects>
             <point key="canvasLocation" x="-4999.1999999999998" y="948.57571214392806"/>
         </scene>
+        <!--Card View Controller-->
+        <scene sceneID="5E8-XS-xWw">
+            <objects>
+                <viewController storyboardIdentifier="CardView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VdO-38-HhR" customClass="CardViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FnJ-KA-44z"/>
+                        <viewControllerLayoutGuide type="bottom" id="jW8-aS-ooe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JNt-AP-uhg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uPB-cq-4JV" customClass="KolodaView" customModule="Koloda">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="uPB-cq-4JV" secondAttribute="trailing" id="7dB-PE-4fM"/>
+                            <constraint firstItem="uPB-cq-4JV" firstAttribute="top" secondItem="JNt-AP-uhg" secondAttribute="top" id="AxB-Te-sC4"/>
+                            <constraint firstItem="jW8-aS-ooe" firstAttribute="top" secondItem="uPB-cq-4JV" secondAttribute="bottom" id="GSv-st-Pfc"/>
+                            <constraint firstItem="uPB-cq-4JV" firstAttribute="leading" secondItem="JNt-AP-uhg" secondAttribute="leading" id="aJe-8G-79z"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="kolodaView" destination="uPB-cq-4JV" id="kmc-hr-w2t"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lU7-7a-ikD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4366" y="1819"/>
+        </scene>
         <!--Vocab Table View Controller-->
         <scene sceneID="ITI-Rb-lS3">
             <objects>
@@ -285,6 +318,7 @@
                         <segue destination="MS4-eY-o5H" kind="show" identifier="SegueToGameResults" id="USx-nv-zQl"/>
                         <segue destination="KHK-FC-ST2" kind="show" identifier="SegueToAccents" id="t58-uR-wdT"/>
                         <segue destination="1nU-oR-SZ3" kind="show" identifier="showVocabTableSegue" id="uO1-6g-uDI"/>
+                        <segue destination="VdO-38-HhR" kind="show" id="BKi-BD-RsX"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UiL-SM-4y8" userLabel="First Responder" sceneMemberID="firstResponder"/>

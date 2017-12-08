@@ -38,6 +38,8 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             self.openViewControllerBasedOnIdentifier("Accents")
         case 6:
             self.openViewControllerBasedOnIdentifier("Vocabulary")
+        case 7:
+            self.openViewControllerBasedOnIdentifier("CardView")
         default:
             //NSLog("default")
             break
