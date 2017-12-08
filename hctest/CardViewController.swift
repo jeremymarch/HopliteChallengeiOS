@@ -58,9 +58,12 @@ extension CardViewController: KolodaViewDataSource {
     }
     
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
-        let l = UILabel.init()
-        l.textAlignment = .center
-        l.text = "test"
+        let f = self.view.frame
+        let frame1 = CGRect(x: f.minX - 40, y: f.minY - 40, width: f.width - 80, height: f.height - 80)
+        let l = CardView.init(frame: frame1)// UILabel.init()
+        l.frame = frame1
+        l.label1!.textAlignment = .center
+        l.label1!.text = "test"
         return l;//UIImageView(image: images[index])
     }
     

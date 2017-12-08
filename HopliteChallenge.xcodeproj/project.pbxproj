@@ -58,6 +58,7 @@
 		3F6D20541FB7B8DA0000615B /* AccentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */; };
 		3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20551FB8E4EA0000615B /* AccentTextField.swift */; };
 		3F74B2D71FDA34EC0044B0FC /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */; };
+		3F74B2D91FDA55580044B0FC /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74B2D81FDA55580044B0FC /* CardView.swift */; };
 		3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FAA8D2E1E6D046300254E97 /* Life4X.png */; };
 		3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAA8D301E6D212900254E97 /* HCTimer.swift */; };
 		3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B401E78EF0700144F7D /* MenuViewController.swift */; };
@@ -140,6 +141,7 @@
 		3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentsViewController.swift; sourceTree = "<group>"; };
 		3F6D20551FB8E4EA0000615B /* AccentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentTextField.swift; sourceTree = "<group>"; };
 		3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
+		3F74B2D81FDA55580044B0FC /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		3FAA8D2E1E6D046300254E97 /* Life4X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Life4X.png; sourceTree = "<group>"; };
 		3FAA8D301E6D212900254E97 /* HCTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCTimer.swift; sourceTree = "<group>"; };
 		3FF71B401E78EF0700144F7D /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */,
 				3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */,
 				3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */,
+				3F74B2D81FDA55580044B0FC /* CardView.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -521,6 +524,7 @@
 				3F0BBD0A1E6D354500933F44 /* HCPunctuationButton.swift in Sources */,
 				3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */,
 				3FF71B4B1E7A290300144F7D /* Verb.swift in Sources */,
+				3F74B2D91FDA55580044B0FC /* CardView.swift in Sources */,
 				3F3443D31E6BB41D00FFAD04 /* sqlite3.c in Sources */,
 				3F3443AB1E6BB17700FFAD04 /* hctest.xcdatamodeld in Sources */,
 				3F3443CE1E6BB33400FFAD04 /* VerbForm.swift in Sources */,
