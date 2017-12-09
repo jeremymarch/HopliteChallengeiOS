@@ -12,6 +12,8 @@ import CoreData
 
 class CardViewController: UIViewController {
 @IBOutlet weak var kolodaView: KolodaView!
+    var cardIndex = 0
+    var hqidForCardIndex = [Int]()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .gray
@@ -24,9 +26,6 @@ class CardViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        
-        //let att = [ NSAttributedStringKey.font: UIFont(name: "NewAthenaUnicode", size: 22)! ]
-        //self.navigationController?.navigationBar.titleTextAttributes = att
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,12 +43,39 @@ extension CardViewController: KolodaViewDelegate {
     func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
         //UIApplication.shared.openURL(URL(string: "https://yalantis.com/")!)
     }
+    
+    func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection)
+    {
+        if direction == .left
+        {
+            print("left, \(hqidForCardIndex[index])")
+        }
+        else if direction == .right
+        {
+            print("right, \(hqidForCardIndex[index])")
+        }
+        else
+        {
+            print("other direction, \(hqidForCardIndex[index])")
+        }
+    }
+    
+    func kolodaShouldTransparentizeNextCard(_ koloda: KolodaView) -> Bool
+    {
+        return true
+    }
+    
+    func kolodaSwipeThresholdRatioMargin(_ koloda: KolodaView) -> CGFloat?
+    {
+        //return 0.1 //extremely sensitive, 0.9 very insensitive
+        return 0.66
+    }
 }
 
 extension CardViewController: KolodaViewDataSource {
     
     func kolodaNumberOfCards(_ koloda:KolodaView) -> Int {
-        return 20
+        return 200000000000
     }
     
     func kolodaSpeedThatCardShouldDrag(_ koloda: KolodaView) -> DragSpeed {
@@ -57,21 +83,26 @@ extension CardViewController: KolodaViewDataSource {
     }
     
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
+        
         let f = self.view.frame
         let l = CardView.init(frame: f)
         var fs:String = ""
         var bs:String = ""
-        loadDef(frontStr: &fs, backString: &bs)
+        var hqid = 0
+        nextCard(hqid: &hqid, frontStr: &fs, backString: &bs)
+        
+        print("card index: \(index), \(hqid)")
+        hqidForCardIndex.append(hqid)
         l.label1!.text = fs
         l.label2!.text = bs
-        return l;//UIImageView(image: images[index])
+        return l;
     }
     
     func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
         return nil//Bundle.main.loadNibNamed("OverlayView", owner: self, options: nil)[0] as? OverlayView
     }
     
-    func loadDef(frontStr:inout String, backString: inout String)
+    func nextCard(hqid: inout Int, frontStr:inout String, backString: inout String)
     {
         let delegate = UIApplication.shared.delegate as! AppDelegate
         var vc:NSManagedObjectContext
@@ -86,9 +117,10 @@ extension CardViewController: KolodaViewDataSource {
         } else {
             request.entity = NSEntityDescription.entity(forEntityName: "HQWords", in: delegate.managedObjectContext)
         }
-        
-        let pred = NSPredicate(format: "(hqid = %d)", 1)
-        request.predicate = pred
+        let sortDescriptor = NSSortDescriptor(key: "seq", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+        //let pred = NSPredicate(format: "(hqid = %d)", 1)
+        //request.predicate = pred
         var results: [HQWords]? = nil
         do {
             results =
@@ -102,9 +134,12 @@ extension CardViewController: KolodaViewDataSource {
         
         if results != nil && results!.count > 0
         {
-            let match = results?[0]
+            let match = results?[cardIndex]
             frontStr = match!.lemma!
             backString = match!.def!
+            hqid = Int(match!.hqid)
+            
+            cardIndex = cardIndex + 1
         }
         else
         {
