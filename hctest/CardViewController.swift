@@ -18,6 +18,14 @@ class CardViewController: UIViewController {
         kolodaView.dataSource = self
         kolodaView.delegate = self
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
+        
+        //let att = [ NSAttributedStringKey.font: UIFont(name: "NewAthenaUnicode", size: 22)! ]
+        //self.navigationController?.navigationBar.titleTextAttributes = att
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -50,7 +58,7 @@ extension CardViewController: KolodaViewDelegate {
 extension CardViewController: KolodaViewDataSource {
     
     func kolodaNumberOfCards(_ koloda:KolodaView) -> Int {
-        return 1
+        return 20
     }
     
     func kolodaSpeedThatCardShouldDrag(_ koloda: KolodaView) -> DragSpeed {
@@ -59,10 +67,7 @@ extension CardViewController: KolodaViewDataSource {
     
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
         let f = self.view.frame
-        let frame1 = CGRect(x: f.minX - 40, y: f.minY - 40, width: f.width - 80, height: f.height - 80)
-        let l = CardView.init(frame: frame1)// UILabel.init()
-        l.frame = frame1
-        l.label1!.textAlignment = .center
+        let l = CardView.init(frame: f)
         l.label1!.text = "test"
         return l;//UIImageView(image: images[index])
     }
