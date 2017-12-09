@@ -69,6 +69,7 @@ extension CardViewController: KolodaViewDataSource {
         let f = self.view.frame
         let l = CardView.init(frame: f)
         l.label1!.text = "test"
+        l.label2!.text = "back"
         return l;//UIImageView(image: images[index])
     }
     
