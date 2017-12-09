@@ -26,7 +26,7 @@ class CardView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.frame = frame
-        
+        self.backgroundColor = UIColor.clear
         innerView = UIView.init(frame: frame)
         frontView = UIView.init(frame: frame)
         backView = UIView.init(frame: frame)
@@ -81,9 +81,11 @@ class CardView: UIView {
         
         label1 = UILabel.init(frame:innerView!.frame)
         label1?.textAlignment = .center
+        label1?.font = UIFont(name: "NewAthenaUnicode", size: 28)
         
         label2 = UILabel.init(frame:innerView!.frame)
         label2?.textAlignment = .center
+        label2?.font = UIFont(name: "NewAthenaUnicode", size: 28)
         
         //label1?.backgroundColor = .blue
         frontView?.addSubview(label1!)
