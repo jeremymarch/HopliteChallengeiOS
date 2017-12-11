@@ -14,6 +14,8 @@ class CardViewController: UIViewController {
 @IBOutlet weak var kolodaView: KolodaView!
     var cardIndex = 0
     var hqidForCardIndex = [Int]()
+    let cc = CardController.init()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .gray
@@ -46,6 +48,7 @@ extension CardViewController: KolodaViewDelegate {
     
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection)
     {
+        /*
         if direction == .left
         {
             print("left, \(hqidForCardIndex[index])")
@@ -58,6 +61,10 @@ extension CardViewController: KolodaViewDelegate {
         {
             print("other direction, \(hqidForCardIndex[index])")
         }
+        */
+        let c:Bool = (direction == .right) ? true : false
+        
+        cc.markRightOrWrong(cardId:hqidForCardIndex[index], correct:c)
     }
     
     func kolodaShouldTransparentizeNextCard(_ koloda: KolodaView) -> Bool
@@ -68,7 +75,7 @@ extension CardViewController: KolodaViewDelegate {
     func kolodaSwipeThresholdRatioMargin(_ koloda: KolodaView) -> CGFloat?
     {
         //return 0.1 //extremely sensitive, 0.9 very insensitive
-        return 0.66
+        return 0.6
     }
 }
 
@@ -89,7 +96,7 @@ extension CardViewController: KolodaViewDataSource {
         var fs:String = ""
         var bs:String = ""
         var hqid = 0
-        nextCard(hqid: &hqid, frontStr: &fs, backString: &bs)
+        cc.nextCard(hqid: &hqid, frontStr: &fs, backString: &bs)
         
         print("card index: \(index), \(hqid)")
         hqidForCardIndex.append(hqid)
@@ -102,48 +109,5 @@ extension CardViewController: KolodaViewDataSource {
         return nil//Bundle.main.loadNibNamed("OverlayView", owner: self, options: nil)[0] as? OverlayView
     }
     
-    func nextCard(hqid: inout Int, frontStr:inout String, backString: inout String)
-    {
-        let delegate = UIApplication.shared.delegate as! AppDelegate
-        var vc:NSManagedObjectContext
-        if #available(iOS 10.0, *) {
-            vc = delegate.persistentContainer.viewContext
-        } else {
-            vc = delegate.managedObjectContext
-        }
-        let request: NSFetchRequest<HQWords> = HQWords.fetchRequest()
-        if #available(iOS 10.0, *) {
-            request.entity = HQWords.entity()
-        } else {
-            request.entity = NSEntityDescription.entity(forEntityName: "HQWords", in: delegate.managedObjectContext)
-        }
-        let sortDescriptor = NSSortDescriptor(key: "seq", ascending: true)
-        request.sortDescriptors = [sortDescriptor]
-        //let pred = NSPredicate(format: "(hqid = %d)", 1)
-        //request.predicate = pred
-        var results: [HQWords]? = nil
-        do {
-            results =
-                try vc.fetch(request as!
-                    NSFetchRequest<NSFetchRequestResult>) as? [HQWords]
-            
-        } catch let error {
-            NSLog("Error: %@", error.localizedDescription)
-            return
-        }
-        
-        if results != nil && results!.count > 0
-        {
-            let match = results?[cardIndex]
-            frontStr = match!.lemma!
-            backString = match!.def!
-            hqid = Int(match!.hqid)
-            
-            cardIndex = cardIndex + 1
-        }
-        else
-        {
-            frontStr = "Could not find Greek word."
-        }
-    }
+    
 }

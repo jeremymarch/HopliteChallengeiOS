@@ -53,6 +53,7 @@
 		3F3443D31E6BB41D00FFAD04 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CF1E6BB41D00FFAD04 /* sqlite3.c */; };
 		3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */; };
 		3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443D61E6C814200FFAD04 /* newathu5.ttf */; };
+		3F4205361FDDA57200BCA548 /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4205351FDDA57200BCA548 /* CardController.swift */; };
 		3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4869CD1E7C9A020051B46A /* HCSettings.swift */; };
 		3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */; };
 		3F6D20541FB7B8DA0000615B /* AccentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */; };
@@ -136,6 +137,7 @@
 		3F3443D21E6BB41D00FFAD04 /* GreekUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreekUnicode.h; path = libmorph/GreekUnicode.h; sourceTree = "<group>"; };
 		3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerbSequence.swift; sourceTree = "<group>"; };
 		3F3443D61E6C814200FFAD04 /* newathu5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newathu5.ttf; sourceTree = "<group>"; };
+		3F4205351FDDA57200BCA548 /* CardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
 		3F4869CD1E7C9A020051B46A /* HCSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCSettings.swift; sourceTree = "<group>"; };
 		3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabTableViewController.swift; sourceTree = "<group>"; };
 		3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentsViewController.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */,
 				3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */,
 				3F74B2D81FDA55580044B0FC /* CardView.swift */,
+				3F4205351FDDA57200BCA548 /* CardController.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -524,6 +527,7 @@
 				3F0BBD0A1E6D354500933F44 /* HCPunctuationButton.swift in Sources */,
 				3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */,
 				3FF71B4B1E7A290300144F7D /* Verb.swift in Sources */,
+				3F4205361FDDA57200BCA548 /* CardController.swift in Sources */,
 				3F74B2D91FDA55580044B0FC /* CardView.swift in Sources */,
 				3F3443D31E6BB41D00FFAD04 /* sqlite3.c in Sources */,
 				3F3443AB1E6BB17700FFAD04 /* hctest.xcdatamodeld in Sources */,
