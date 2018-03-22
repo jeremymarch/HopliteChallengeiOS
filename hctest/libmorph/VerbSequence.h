@@ -14,6 +14,12 @@
 #include "GreekForms.h"
 
 enum {
+    GAME_INVALID = -1,
+    GAME_INSIPIENT = 0, //A game which is started, but not yet in the db.  We add it to the db when first item is answered
+    GAME_PRACTICE = 1 //the practice "game" has an id of 1.
+};
+
+enum {
     VERB_SEQ_CHANGE = 1,
     VERB_SEQ_CHANGE_NEW,
     VERB_SEQ_PP,

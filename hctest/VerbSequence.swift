@@ -73,7 +73,7 @@ class VerbSequence {
         
         self.seq = Int(a)
 
-        NSLog("Seq: \(self.seq)")
+        NSLog("Seq sw: \(self.seq)")
         return Int(x)
     }
     
@@ -137,6 +137,7 @@ class VerbSequence {
         
         
         let cPath = UnsafeMutablePointer<Int8>(mutating: dbpath)
+        NSLog("swift db init")
         let ret = dbInit(cPath)
         if ret == false
         {

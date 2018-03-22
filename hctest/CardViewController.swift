@@ -18,7 +18,8 @@ class CardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .gray
+        //self.view.backgroundColor = .red //does nothing
+        
         // Do any additional setup after loading the view.
         kolodaView.dataSource = self
         kolodaView.delegate = self
@@ -48,28 +49,13 @@ extension CardViewController: KolodaViewDelegate {
     
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection)
     {
-        /*
-        if direction == .left
-        {
-            print("left, \(hqidForCardIndex[index])")
-        }
-        else if direction == .right
-        {
-            print("right, \(hqidForCardIndex[index])")
-        }
-        else
-        {
-            print("other direction, \(hqidForCardIndex[index])")
-        }
-        */
-        let c:Bool = (direction == .right) ? true : false
-        
-        cc.markRightOrWrong(cardId:hqidForCardIndex[index], correct:c)
+        let isCorrect:Bool = (direction == .right) ? true : false
+        cc.markRightOrWrong(cardId:hqidForCardIndex[index], correct:isCorrect)
     }
     
     func kolodaShouldTransparentizeNextCard(_ koloda: KolodaView) -> Bool
     {
-        return true
+        return false//this only starts working after the first two cards?
     }
     
     func kolodaSwipeThresholdRatioMargin(_ koloda: KolodaView) -> CGFloat?
@@ -82,7 +68,7 @@ extension CardViewController: KolodaViewDelegate {
 extension CardViewController: KolodaViewDataSource {
     
     func kolodaNumberOfCards(_ koloda:KolodaView) -> Int {
-        return 200000000000
+        return 200000000000 //make room for infinite cards
     }
     
     func kolodaSpeedThatCardShouldDrag(_ koloda: KolodaView) -> DragSpeed {
@@ -93,6 +79,7 @@ extension CardViewController: KolodaViewDataSource {
         
         let f = self.view.frame
         let l = CardView.init(frame: f)
+        l.backgroundColor = .clear
         var fs:String = ""
         var bs:String = ""
         var hqid = 0

@@ -213,7 +213,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSLog("START REQUEST")
         //http://benscheirman.com/2017/06/ultimate-guide-to-json-parsing-with-swift-4/
         //https://stackoverflow.com/questions/32631184/the-resource-could-not-be-loaded-because-the-app-transport-security-policy-requi
-        let urlString = URL(string: "http://philolog.us/hqjson.php?lastupdated=\(timestamp)")//http://philolog.us/hqvocab.php?unit=20&AndUnder=on&sort=alpha")
+        
+        //with password:https://gist.github.com/n8armstrong/5c5c828f1b82b0315e24
+        let urlString = URL(string: "https://philolog.us/hqjson.php?lastupdated=\(timestamp)")//https://philolog.us/hqvocab.php?unit=20&AndUnder=on&sort=alpha")
         NSLog("Start timestamp: \(timestamp)")
         if let url = urlString {
             //let session = NSURLSession(configuration: .defaultSessionConfiguration(), delegate: nil, delegateQueue: NSOperationQueue.mainQueue())

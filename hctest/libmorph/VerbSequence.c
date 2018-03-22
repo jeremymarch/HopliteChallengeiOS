@@ -36,11 +36,6 @@
 
 //these are assigned to globalGameID.
 //its practice, insipient, or 1-n = a real saved game
-enum {
-    GAME_INVALID = -1,
-    GAME_INSIPIENT = 0, //A game which is started, but not yet in the db.  We add it to the db when first item is answered
-    GAME_PRACTICE = 1 //the practice "game" has an id of 1.
-};
 
 bool buildSequence(VerbSeqOptions *vso);
 int nextVerbSeqCustom(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso);
@@ -366,10 +361,12 @@ int nextVerbSeq2old(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1)
     vfc2.mood = vf2->mood;
     vfc2.verb = &verbs[vf2->verbid];
     
+    fprintf(stderr, "HERE1: %d", vfc1.verb->verbid);
+    
     int ret = nextVerbSeq(&vfc1, &vfc2, vso1);
     //int ret = nextVerbSeqCustom(&vfc1, &vfc2, vso1);
     
-    fprintf(stderr, "HERE: %d", vfc1.verb->verbid);
+    fprintf(stderr, "HERE2: %d", vfc1.verb->verbid);
     
     vf1->person = vfc1.person;
     vf1->number = vfc1.number;
@@ -469,7 +466,7 @@ bool buildSequence(VerbSeqOptions *vso)
     int seqNum = 0;
     int verbid = 1;
     
-    if (vso)
+    if (vso && vso->practiceVerbID > -1)
     {
         verbid = vso->practiceVerbID;
     }
@@ -560,6 +557,7 @@ bool once = true;
 long lastInitialDegreesToChange = 0;
 int nextVerbSeq(VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso)
 {
+    fprintf(stderr, "GET FORM");
     static Verb *v;
     static Verb *lastV = NULL;
     
@@ -588,6 +586,7 @@ int nextVerbSeq(VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso)
     }
     else if (vso->isHCGame)
     {
+        fprintf(stderr, "IS GAME");
         if (!vso->lastAnswerCorrect || vso->verbSeq >= HC_VERBS_PER_SET)
         {
             do //so we don't ask the same verb twice in a row

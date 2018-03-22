@@ -357,18 +357,20 @@ char *getEnding(VerbFormC *vf, UCS2 *word, int wordLen, bool contractedFuture, b
     }
     else if (utf8HasSuffix(vf->verb->present, "κεῖμαι"))
     {
-        if (vf->tense == PRESENT  && vf->mood == INDICATIVE)
+        if (vf->tense == PRESENT && vf->mood == INDICATIVE)
             ending = PERFECT_MIDPASS_IND;
         else if (vf->tense == IMPERFECT  && vf->mood == INDICATIVE)
             ending = PLUPERFECT_MIDPASS_IND;
         else if (vf->mood == SUBJUNCTIVE)
             ending = PRESENT_MIDPASS_SUBJ;
-        else if (vf->mood == OPTATIVE)
+        else if (vf->tense == PRESENT && vf->mood == OPTATIVE)
             ending = PRESENT_MIDPASS_OPT;
         else if (vf->mood == IMPERATIVE)
             ending  = AORIST_MIDDLE_IMPERATIVES_MI;
-        else if (vf->tense == FUTURE)
+        else if (vf->tense == FUTURE && vf->mood == INDICATIVE)
             ending = PRESENT_MIDPASS_IND;
+        else if (vf->tense == FUTURE && vf->mood == OPTATIVE)
+            ending = PRESENT_MIDPASS_OPT;
     }
     ////echw h&q page 504
     else if (utf8HasSuffix(vf->verb->present, "ἔχω") && vf->tense == AORIST && vf->voice == ACTIVE && vf->mood == SUBJUNCTIVE)
@@ -459,7 +461,22 @@ char *getEnding(VerbFormC *vf, UCS2 *word, int wordLen, bool contractedFuture, b
         ending = AORIST_MIDDLE_IMPERATIVES_MI;
     /* end MI verbs */
     
-    /* CONTRACTED FUTURES */
+    /* CONTRACTED FUTURE OPTATIVES */
+    else if (vf->mood == OPTATIVE && vf->tense == FUTURE && vf->voice == ACTIVE && contractedFuture && preContactedEndings && (vf->verb->verbclass & CONTRACTED_FUTURE_ALPHA) != CONTRACTED_FUTURE_ALPHA)
+        ending = PRESENT_ACTIVE_OPT_E_CONTRACTED;
+    else if (vf->mood == OPTATIVE && vf->tense == FUTURE && vf->voice == ACTIVE && contractedFuture && !preContactedEndings)
+        ending = PRESENT_ACTIVE_OPT;
+    else if (vf->mood == OPTATIVE && vf->tense == FUTURE && vf->voice == MIDDLE && contractedFuture && preContactedEndings && (vf->verb->verbclass & CONTRACTED_FUTURE_ALPHA) != CONTRACTED_FUTURE_ALPHA)
+        ending = PRESENT_MIDPASS_OPT_E_CONTRACTED;
+    else if (vf->mood == OPTATIVE && vf->tense == FUTURE && vf->voice == MIDDLE && contractedFuture && !preContactedEndings)
+        ending = PRESENT_MIDPASS_OPT;
+    /* ALPHA CONTRACTED */
+    else if (vf->mood == OPTATIVE && vf->tense == FUTURE && vf->voice == ACTIVE && contractedFuture && preContactedEndings && (vf->verb->verbclass & CONTRACTED_FUTURE_ALPHA) == CONTRACTED_FUTURE_ALPHA)
+        ending = PRESENT_ACTIVE_OPT_A_CONTRACTED;
+    else if (vf->mood == OPTATIVE && vf->tense == FUTURE && vf->voice == MIDDLE && contractedFuture && preContactedEndings && (vf->verb->verbclass & CONTRACTED_FUTURE_ALPHA) == CONTRACTED_FUTURE_ALPHA)
+        ending = PRESENT_MIDPASS_OPT_A_CONTRACTED;
+    
+    /* CONTRACTED FUTURES  */
     else if (vf->tense == FUTURE && vf->voice == ACTIVE && contractedFuture && preContactedEndings && (vf->verb->verbclass & CONTRACTED_FUTURE_ALPHA) != CONTRACTED_FUTURE_ALPHA)
         ending = PRESENT_ACTIVE_INDIC_E_CONTRACTED;
     else if (vf->tense == FUTURE && vf->voice == ACTIVE && contractedFuture && !preContactedEndings)
@@ -587,6 +604,8 @@ char *getEnding(VerbFormC *vf, UCS2 *word, int wordLen, bool contractedFuture, b
         ending = PERFECT_ACTIVE_IND;
     else if (vf->tense == PLUPERFECT && vf->voice == ACTIVE && vf->mood == INDICATIVE)
         ending = PLUPERFECT_ACTIVE_IND;
+    else if (vf->tense == FUTURE && vf->voice == ACTIVE && vf->mood == OPTATIVE)
+        ending = PRESENT_ACTIVE_OPT;
     else if (vf->tense == FUTURE && vf->voice == ACTIVE && vf->mood == INDICATIVE)
         ending = FUTURE_ACTIVE_IND;
     else if (vf->tense == PRESENT && vf->voice == ACTIVE && vf->mood == SUBJUNCTIVE)
@@ -633,6 +652,8 @@ char *getEnding(VerbFormC *vf, UCS2 *word, int wordLen, bool contractedFuture, b
         ending = AORIST_MIDDLE_IMPERATIVE;
     else if (vf->tense == AORIST && vf->voice == PASSIVE && vf->mood == IMPERATIVE)
         ending = AORIST_PASSIVE_IMPERATIVE;
+    else if (vf->tense == FUTURE && (vf->voice == MIDDLE || vf->voice == PASSIVE) && vf->mood == OPTATIVE)
+        ending = PRESENT_MIDPASS_OPT;
     else if (vf->tense == FUTURE && (vf->voice == MIDDLE || vf->voice == PASSIVE) && vf->mood == INDICATIVE)
         ending = FUTURE_MIDPASS_IND;
     else
@@ -673,23 +694,57 @@ char *getEnding(VerbFormC *vf, UCS2 *word, int wordLen, bool contractedFuture, b
     */
 }
 
+unsigned char getPrincipalPartForFORM(unsigned char tense, unsigned char voice)
+{
+    //also need to consider deponent verbs, NO THEY ARE THE SAME HERE
+    if (tense == PRESENT || tense == IMPERFECT)
+        return 1;
+    else if ( tense == FUTURE && voice != PASSIVE)
+        return 2;
+    else if ( tense == FUTURE)
+        return 6;
+    else if (tense == AORIST && voice == PASSIVE)
+        return 6;
+    else if (tense == AORIST)
+        return 3;
+    else if (voice == ACTIVE && ( tense == PERFECT || tense == PLUPERFECT))
+        return 4;
+    else
+        return 5;
+}
+
+char *getPrincipalPartFromVerb(Verb *verb, unsigned char part)
+{
+    switch ( part )
+    {
+        case 1:
+            return verb->present;
+            break;
+        case 2:
+            return verb->future;
+            break;
+        case 3:
+            return verb->aorist;
+            break;
+        case 4:
+            return verb->perf;
+            break;
+        case 5:
+            return verb->perfmid;
+            break;
+        case 6:
+            return verb->aoristpass;
+            break;
+        default:
+            return "";
+            break;
+    }
+}
+
 char *getPrincipalPartForTense(Verb *verb, unsigned char tense, unsigned char voice)
 {
-    //also need to consider deponent verbs
-    if (tense == PRESENT || tense == IMPERFECT)
-        return verb->present;
-    else if ( tense == FUTURE && voice != PASSIVE)
-        return verb->future;
-    else if ( tense == FUTURE)
-        return verb->aoristpass;
-    else if (tense == AORIST && voice == PASSIVE)
-        return verb->aoristpass;
-    else if (tense == AORIST)
-        return verb->aorist;
-    else if (voice == ACTIVE && ( tense == PERFECT || tense == PLUPERFECT))
-        return verb->perf;
-    else
-        return verb->perfmid;
+    unsigned char p = getPrincipalPartForFORM(tense, voice);
+    return getPrincipalPartFromVerb(verb, p);
 }
 
 int getEimi(VerbFormC *vf, UCS2 *buffer, int *bufferLen)
@@ -3240,7 +3295,7 @@ bool formIsValidReal(unsigned char person, unsigned char number, unsigned char t
 {
     if ( tense == IMPERFECT && (mood == SUBJUNCTIVE || mood == OPTATIVE || mood == IMPERATIVE) )
         return false;
-    if ( tense == FUTURE && (mood == SUBJUNCTIVE || mood == OPTATIVE || mood == IMPERATIVE) )
+    if ( tense == FUTURE && (mood == SUBJUNCTIVE || mood == IMPERATIVE) )
         return false;
     if ( tense == PERFECT && (mood == SUBJUNCTIVE || mood == OPTATIVE || mood == IMPERATIVE) )
         return false;

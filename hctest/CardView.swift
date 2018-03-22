@@ -30,7 +30,7 @@ class CardView: UIView {
         containerView = UIView.init(frame: frame)
         frontView = UIView.init(frame: frame)
         backView = UIView.init(frame: frame)
-        containerView?.backgroundColor = .white
+        containerView?.backgroundColor = .clear
         frontView?.backgroundColor = .white
         backView?.backgroundColor = .white
         containerView?.translatesAutoresizingMaskIntoConstraints = false

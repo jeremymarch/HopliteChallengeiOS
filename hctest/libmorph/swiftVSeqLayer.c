@@ -37,9 +37,10 @@ void externalSetUnits(const char *unitStr)
 
 int nextVS(int *seq, VerbFormD *vf1, VerbFormD *vf2)
 {
-    int a = nextVerbSeq(vf1, vf2, &swiftLayerOptions);
+    fprintf(stdout, "SWIFT LAYER1\n\n");
+    int a = nextVerbSeq2(vf1, vf2, &swiftLayerOptions);
     *seq = swiftLayerOptions.verbSeq;
-    //fprintf(stdout, "SWIFT LAYER\n\n");
+    fprintf(stdout, "SWIFT LAYER2\n\n");
     return a;
 }
 
@@ -56,10 +57,10 @@ bool checkVFResult(UCS2 *expected, int expectedLen, UCS2 *entered, int enteredLe
 void swiftResetVerbSeq()
 {
     swiftLayerOptions.isHCGame = true;
-    //swiftLayerOptions.gameId = INSIPIENT
+    swiftLayerOptions.gameId = GAME_INSIPIENT;
     swiftLayerOptions.startOnFirstSing = false;
     swiftLayerOptions.degreesToChange = 2;
-    swiftLayerOptions.practiceVerbID = 3;
+    swiftLayerOptions.practiceVerbID = -1;//4;
     
     swiftLayerOptions.seqOptions.persons[0] = 0;
     swiftLayerOptions.seqOptions.persons[1] = 1;

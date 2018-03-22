@@ -349,7 +349,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         
         let pinchRecognizer = UIPinchGestureRecognizer(target:self, action:#selector(handlePinch))
         self.view.addGestureRecognizer(pinchRecognizer)
-        
+        NSLog("hc dbinit")
         vs.DBInit2()
         //DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
         //    self.start()
