@@ -1127,6 +1127,8 @@ int getDei(VerbFormC *vf, UCS2 *buffer, int *bufferLen, bool decompose)
         }
         else if (vf->tense == FUTURE && vf->mood == OPTATIVE)
         {
+            //no future optative: H&Q p 565, 566
+            /*
             if (decompose)
             {
                 rightShiftFromOffsetSteps(buffer, 2, 2, bufferLen);
@@ -1142,6 +1144,8 @@ int getDei(VerbFormC *vf, UCS2 *buffer, int *bufferLen, bool decompose)
             buffer[*bufferLen+0] = GREEK_SMALL_LETTER_OMICRON;
             buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA;
             *bufferLen += 2;
+             */
+            return 0;
         }
         else if (vf->tense == AORIST && vf->mood == INDICATIVE)
         {
@@ -1276,7 +1280,7 @@ int getXrh(VerbFormC *vf, UCS2 *buffer, int *bufferLen, bool decompose)
             }
             
         }
-        else if (vf->tense == FUTURE)
+        else if (vf->tense == FUTURE && vf->mood == INDICATIVE)
         {
             if (decompose)
             {
@@ -1299,6 +1303,7 @@ int getXrh(VerbFormC *vf, UCS2 *buffer, int *bufferLen, bool decompose)
         }
         else
         {
+            //no future optative: H&Q p 565, 566
             return 0;
         }
         return 1;
