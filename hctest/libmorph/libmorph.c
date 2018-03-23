@@ -465,7 +465,7 @@ char *getEnding(VerbFormC *vf, UCS2 *word, int wordLen, bool contractedFuture, b
     else if (vf->mood == OPTATIVE && vf->tense == FUTURE && vf->voice == ACTIVE && contractedFuture && preContactedEndings && (vf->verb->verbclass & CONTRACTED_FUTURE_ALPHA) != CONTRACTED_FUTURE_ALPHA)
         ending = PRESENT_ACTIVE_OPT_E_CONTRACTED;
     else if (vf->mood == OPTATIVE && vf->tense == FUTURE && vf->voice == ACTIVE && contractedFuture && !preContactedEndings)
-        ending = PRESENT_ACTIVE_OPT;
+        ending = PRESENT_ACTIVE_OPTATIVE_CONTRACTED_NOT_PRECONTRACTED;
     else if (vf->mood == OPTATIVE && vf->tense == FUTURE && vf->voice == MIDDLE && contractedFuture && preContactedEndings && (vf->verb->verbclass & CONTRACTED_FUTURE_ALPHA) != CONTRACTED_FUTURE_ALPHA)
         ending = PRESENT_MIDPASS_OPT_E_CONTRACTED;
     else if (vf->mood == OPTATIVE && vf->tense == FUTURE && vf->voice == MIDDLE && contractedFuture && !preContactedEndings)
@@ -473,6 +473,8 @@ char *getEnding(VerbFormC *vf, UCS2 *word, int wordLen, bool contractedFuture, b
     /* ALPHA CONTRACTED */
     else if (vf->mood == OPTATIVE && vf->tense == FUTURE && vf->voice == ACTIVE && contractedFuture && preContactedEndings && (vf->verb->verbclass & CONTRACTED_FUTURE_ALPHA) == CONTRACTED_FUTURE_ALPHA)
         ending = PRESENT_ACTIVE_OPT_A_CONTRACTED;
+    else if (vf->mood == OPTATIVE && vf->tense == FUTURE && vf->voice == ACTIVE && contractedFuture && !preContactedEndings && (vf->verb->verbclass & CONTRACTED_FUTURE_ALPHA) == CONTRACTED_FUTURE_ALPHA)
+        ending = PRESENT_ACTIVE_OPTATIVE_CONTRACTED_NOT_PRECONTRACTED;
     else if (vf->mood == OPTATIVE && vf->tense == FUTURE && vf->voice == MIDDLE && contractedFuture && preContactedEndings && (vf->verb->verbclass & CONTRACTED_FUTURE_ALPHA) == CONTRACTED_FUTURE_ALPHA)
         ending = PRESENT_MIDPASS_OPT_A_CONTRACTED;
     

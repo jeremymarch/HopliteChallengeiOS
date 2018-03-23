@@ -81,7 +81,7 @@ int main(int argc, char **argv)
             {
                 for (int m = 0; m < NUM_MOODS; m++)
                 {
-                    if (m != INDICATIVE && (g1 == PERFECT || g1 == PLUPERFECT || g1 == IMPERFECT || g1 == FUTURE))
+                    if (m != INDICATIVE && (g1 == PERFECT || g1 == PLUPERFECT || g1 == IMPERFECT || (g1 == FUTURE && m != OPTATIVE)))
                         continue;
 
                     vf.voice = v;
