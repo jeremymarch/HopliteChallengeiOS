@@ -1107,7 +1107,7 @@ int getDei(VerbFormC *vf, UCS2 *buffer, int *bufferLen, bool decompose)
                 buffer[*bufferLen] = GREEK_SMALL_LETTER_IOTA;
             *bufferLen += 1;
         }
-        else if (vf->tense == FUTURE)
+        else if (vf->tense == FUTURE && vf->mood == INDICATIVE)
         {
             if (decompose)
             {
@@ -1122,6 +1122,24 @@ int getDei(VerbFormC *vf, UCS2 *buffer, int *bufferLen, bool decompose)
                 *bufferLen += 2;
             }
             buffer[*bufferLen+0] = GREEK_SMALL_LETTER_EPSILON;
+            buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA;
+            *bufferLen += 2;
+        }
+        else if (vf->tense == FUTURE && vf->mood == OPTATIVE)
+        {
+            if (decompose)
+            {
+                rightShiftFromOffsetSteps(buffer, 2, 2, bufferLen);
+                buffer[2] = GREEK_SMALL_LETTER_ETA;
+                buffer[3] = GREEK_SMALL_LETTER_SIGMA;
+            }
+            else
+            {
+                buffer[*bufferLen] = GREEK_SMALL_LETTER_ETA;
+                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_SIGMA;
+                *bufferLen += 2;
+            }
+            buffer[*bufferLen+0] = GREEK_SMALL_LETTER_OMICRON;
             buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA;
             *bufferLen += 2;
         }
