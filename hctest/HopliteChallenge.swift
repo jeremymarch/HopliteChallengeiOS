@@ -137,7 +137,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         
         view.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
-        headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 6.0).isActive = true
+        headerView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 6.0).isActive = true
         headerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0).isActive = true
         headerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0.0).isActive = true
         headerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.0, constant: headerHeight).isActive = true

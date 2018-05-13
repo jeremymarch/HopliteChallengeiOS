@@ -1278,7 +1278,6 @@ int getXrh(VerbFormC *vf, UCS2 *buffer, int *bufferLen, bool decompose)
                 buffer[*bufferLen+6] = GREEK_SMALL_LETTER_NU;
                 *bufferLen += 7;
             }
-            
         }
         else if (vf->tense == FUTURE && vf->mood == INDICATIVE)
         {
