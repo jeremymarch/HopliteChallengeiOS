@@ -9,9 +9,16 @@
 import UIKit
 import CoreData
 
-class VocabTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class VocabTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate,UITextFieldDelegate {
     var wordsPerUnit = [Int](repeating: 0, count: 20)
     var sortAlpha = true
+    @IBOutlet var tableView:UITableView!
+    @IBOutlet var searchTextField:UITextField!
+    @IBOutlet var searchView:UIView!
+    let highlightSelectedRow = true
+    let animatedScroll = false
+    var selectedRow = -1
+    var selectedId = -1
     
     func countForUnit(unit: Int) -> Int {
         let moc = self.fetchedResultsController.managedObjectContext
@@ -24,6 +31,7 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
             
             do {
                 entitiesCount = try moc.count(for: fetchRequest)
+                print("count: \(entitiesCount)")
             }
             catch {
                 print("error executing fetch request: \(error)")
@@ -48,7 +56,6 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
         }
     }
     
-    
     @objc func sortTogglePressed(_ sender: UIBarButtonItem ) {
         self.dismiss(animated: true, completion: nil)
         sortAlpha = !sortAlpha
@@ -60,6 +67,41 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        searchTextField.autocapitalizationType = .none
+        searchTextField.autocorrectionType = .no
+        searchTextField.clearButtonMode = .always
+        searchTextField.contentVerticalAlignment = .center
+        searchTextField.placeholder = "Search: "
+        
+        searchView.layer.borderColor = UIColor.black.cgColor
+        searchView.layer.borderWidth = 2.0
+        searchView.layer.cornerRadius = 20
+        
+        let searchFont = UIFont(name: "HelveticaNeue", size: 20.0)
+        if #available(iOS 11.0, *) {
+            //dynamic type
+            let fontMetrics = UIFontMetrics(forTextStyle: .body)
+            searchTextField?.font = fontMetrics.scaledFont(for: searchFont!)
+            searchTextField?.adjustsFontForContentSizeCategory = true
+        }
+        else
+        {
+            searchTextField?.font = searchFont
+        }
+        
+        //searchTextField?.inputView = kb?.inputView
+        //searchTextField?.delegate = self
+        
+        //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
+        if #available(iOS 9.0, *)
+        {
+            let item: UITextInputAssistantItem = searchTextField!.inputAssistantItem
+            item.leadingBarButtonGroups = []
+            item.trailingBarButtonGroups = []
+        }
         
         let delegate = UIApplication.shared.delegate as! AppDelegate
         delegate.datasync()
@@ -77,9 +119,21 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
             wordsPerUnit[u] = countForUnit(unit: u+1)
             //NSLog("words per: \(u), \(wordsPerUnit[u])")
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    @objc func textDidChange(_ notification: Notification) {
+        //guard let textView = notification.object as? UITextField else { return }
+        //print(textView.text ?? "abc")
+        //scrollToWord()
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchTextField?.resignFirstResponder()
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if !sortAlpha
         {
@@ -96,7 +150,7 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
         }
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if !sortAlpha
         {
             return 34
@@ -119,7 +173,7 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         if !sortAlpha
         {
@@ -131,7 +185,7 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
         }
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         //let sectionInfo = fetchedResultsController.sections![section]
         //NSLog("FRC Count: \(sectionInfo.numberOfObjects)")
@@ -196,7 +250,7 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
     var _fetchedResultsController: NSFetchedResultsController<HQWords>? = nil
     
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let event = fetchedResultsController.object(at: indexPath)
         configureCell(cell, withEvent: event)
@@ -226,11 +280,11 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
         cell.selectedBackgroundView = bgColorView
     }
  
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let btn = UIButton(type: UIButtonType.custom)
-        //btn.tag = indexPath.row
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let btn = UIButton(type: UIButtonType.custom)
+        btn.tag = indexPath.row
         
-        //performSegue(withIdentifier: "ShowVocabDetail", sender: self)
+        performSegue(withIdentifier: "ShowVocabDetail", sender: self)
     }
     
     /*
@@ -273,6 +327,7 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        searchTextField?.resignFirstResponder() //works for pad and phone
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         let indexPath = tableView.indexPathForSelectedRow
@@ -280,6 +335,94 @@ class VocabTableViewController: UITableViewController, NSFetchedResultsControlle
         let wordid = Int(object.hqid)
         let vd = segue.destination as! VocabDetailViewController
         vd.hqid = wordid
+    }
+    
+    func scrollToWord()
+    {
+        let rowCount = tableView.numberOfRows(inSection: 0)
+        
+        //There are zero rows
+        if rowCount < 1
+        {
+            return;
+        }
+        
+        let searchText = searchTextField?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
+        
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        var vc:NSManagedObjectContext
+        if #available(iOS 10.0, *) {
+            vc = delegate.persistentContainer.viewContext
+        } else {
+            vc = delegate.managedObjectContext
+        }
+        
+        var seq = -1
+        
+        let request: NSFetchRequest<HQWords> = HQWords.fetchRequest()
+        if #available(iOS 10.0, *) {
+            request.entity = HQWords.entity()
+        } else {
+            request.entity = NSEntityDescription.entity(forEntityName: "HQWords", in: delegate.managedObjectContext)
+        }
+        
+        let pred = NSPredicate(format: "(unaccentedWord >= %@)", searchText!)
+        request.predicate = pred
+        
+        let sortDescriptor = NSSortDescriptor(key: "unaccentedWord", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+        request.fetchLimit = 1
+        var results: [HQWords]? = nil
+        do {
+            results =
+                try vc.fetch(request as!
+                    NSFetchRequest<NSFetchRequestResult>) as? [HQWords]
+            
+        } catch let error {
+            // Handle error
+            NSLog("Error: %@", error.localizedDescription)
+            return
+        }
+        
+        if results != nil && results!.count > 0
+        {
+            //let match = results?[0]
+            seq = Int((results?[0].seq)!)
+        }
+        else
+        {
+            selectedRow = -1
+            selectedId = -1
+            NSLog("Error: Word not found by id.");
+        }
+
+        
+        if seq < 1 || seq > rowCount
+        {
+            //NSLog("Scroll out of bounds: %d", seq);
+            seq = rowCount;
+        }
+        
+        let scrollIndexPath = NSIndexPath(row: (seq - 1), section: 0) as IndexPath
+        //NSLog("scroll to: \(highlightSelectedRow)")
+        if highlightSelectedRow
+        {
+            if seq == 1
+            {
+                tableView.scrollToRow(at: scrollIndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
+                if let indexPath = tableView.indexPathForSelectedRow {
+                    tableView.deselectRow(at: indexPath, animated: animatedScroll)
+                }
+            }
+            else
+            {
+                tableView.selectRow(at: scrollIndexPath, animated: animatedScroll, scrollPosition: UITableViewScrollPosition.middle)
+            }
+        }
+        else
+        {
+            tableView.scrollToRow(at: scrollIndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
+        }
     }
 }
 
