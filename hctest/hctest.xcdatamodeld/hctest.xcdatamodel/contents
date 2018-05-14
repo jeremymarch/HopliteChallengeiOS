@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="17B1003" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="HQWords" representedClassName="HQWords" syncable="YES" codeGenerationType="class">
         <attribute name="aorist" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="aoristpass" optional="YES" attributeType="String" syncable="YES"/>
@@ -16,6 +16,7 @@
         <attribute name="pos" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="present" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="seq" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sortkey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unit" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -24,6 +25,6 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="HQWords" positionX="-63" positionY="-18" width="128" height="285"/>
+        <element name="HQWords" positionX="-63" positionY="-18" width="128" height="300"/>
     </elements>
 </model>

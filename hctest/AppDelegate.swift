@@ -76,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+        print(stripAccent(lemma:"aaa-, -, ba"))
         datasync()
         
         return true
@@ -194,8 +194,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func stripAccent(lemma:String) -> String
     {
-        let stripped = lemma.folding(options: .diacriticInsensitive, locale: .current)
-        return stripped
+        var stripped = lemma.folding(options: .diacriticInsensitive, locale: .current)
+        /*
+        stripped = stripped.replacingOccurrences(of: "\u{2014}", with: "", options: NSString.CompareOptions.literal, range:nil)
+        stripped = stripped.replacingOccurrences(of: "-", with: "", options: NSString.CompareOptions.literal, range:nil)
+        stripped = stripped.replacingOccurrences(of: ",", with: "", options: NSString.CompareOptions.literal, range:nil)
+        stripped = stripped.replacingOccurrences(of: " ", with: "", options: NSString.CompareOptions.literal, range:nil)
+         */
+        stripped = stripped.trimmingCharacters(in: CharacterSet(charactersIn: "\u{2014} -,") as CharacterSet)
+        return stripped.lowercased()
         /*
         var ret = ""
         let alphas       = ["α", "ά", "ὰ", "ᾶ", "ἀ", "ἄ", "ἂ", "ἆ", "ἁ", "ἅ", "ἃ", "ἇ"]
@@ -345,7 +352,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         let newWord = self.getWordObjectOrNew(hqid:row.id, context:backgroundContext)
                                         
                                         
-                                        //newWord.setValue(stripAccent(lemma: row.lemma), forKey: "sortkey")
+                                        newWord.setValue(self.stripAccent(lemma: row.lemma), forKey: "sortkey")
                                         
                                         newWord.setValue(row.id, forKey: "hqid")
                                         newWord.setValue(row.unit, forKey: "unit")

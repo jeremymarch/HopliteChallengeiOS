@@ -389,10 +389,10 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             request.entity = NSEntityDescription.entity(forEntityName: "HQWords", in: delegate.managedObjectContext)
         }
         
-        let pred = NSPredicate(format: "(lemma >= %@)", searchText!)
+        let pred = NSPredicate(format: "(sortkey >= %@)", searchText!)
         request.predicate = pred
         
-        let sortDescriptor = NSSortDescriptor(key: "lemma", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "sortkey", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         request.fetchLimit = 1
         var results: [HQWords]? = nil
