@@ -78,6 +78,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             searchTextField.inputView = nil
             searchTextField.keyboardType = .numberPad
         }
+        searchTextField.becomeFirstResponder()
     }
     
     override func viewDidLoad() {
