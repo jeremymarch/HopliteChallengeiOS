@@ -62,10 +62,22 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     @objc func sortTogglePressed(_ sender: UIBarButtonItem ) {
         self.dismiss(animated: true, completion: nil)
         sortAlpha = !sortAlpha
+        searchTextField.text = ""
         _fetchedResultsController = nil
         tableView.reloadData()
         let indexPath = IndexPath(row: 0, section: 0)
         self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
+        
+        searchTextField.resignFirstResponder()
+        if sortAlpha
+        {
+            searchTextField.inputView = kb?.inputView
+        }
+        else
+        {
+            searchTextField.inputView = nil
+            searchTextField.keyboardType = .numberPad
+        }
     }
     
     override func viewDidLoad() {
@@ -332,7 +344,8 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         }
         else
         {
-            cell.textLabel!.text = gw.lemma!.description + " (" + gw.unit.description + ")"
+            //cell.textLabel!.text = "\(gw.lemma!.description) : \(gw.sortkey!.description) (\(gw.unit.description))"
+            cell.textLabel!.text = "\(gw.lemma!.description) (\(gw.unit.description))"
         }
         
         let greekFont = UIFont(name: "NewAthenaUnicode", size: 24.0)
@@ -412,64 +425,94 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         }
         
         let searchText = searchTextField?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
-        
-        let delegate = UIApplication.shared.delegate as! AppDelegate
-        var vc:NSManagedObjectContext
-        if #available(iOS 10.0, *) {
-            vc = delegate.persistentContainer.viewContext
-        } else {
-            vc = delegate.managedObjectContext
-        }
-
-        var seq = -1
-        
-        let request: NSFetchRequest<HQWords> = HQWords.fetchRequest()
-        if #available(iOS 10.0, *) {
-            request.entity = HQWords.entity()
-        } else {
-            request.entity = NSEntityDescription.entity(forEntityName: "HQWords", in: delegate.managedObjectContext)
-        }
-        
-        let pred = NSPredicate(format: "(sortkey >= %@)", searchText!)
-        request.predicate = pred
-        
-        let sortDescriptor = NSSortDescriptor(key: "sortkey", ascending: true)
-        request.sortDescriptors = [sortDescriptor]
-        request.fetchLimit = 1
-        var results: [HQWords]? = nil
-        do {
-            results =
-                try vc.fetch(request as!
-                    NSFetchRequest<NSFetchRequestResult>) as? [HQWords]
-            
-        } catch let error {
-            // Handle error
-            NSLog("Error: %@", error.localizedDescription)
-            return
-        }
-        if results != nil && results!.count > 0
+        var seq = 0 //zero-indexed
+        var unit = 0 //zero-indexed
+        if sortAlpha
         {
-            //let match = results?[0]
-            seq = Int((results?[0].seq)!)
+            let delegate = UIApplication.shared.delegate as! AppDelegate
+            var vc:NSManagedObjectContext
+            if #available(iOS 10.0, *) {
+                vc = delegate.persistentContainer.viewContext
+            } else {
+                vc = delegate.managedObjectContext
+            }
+            
+            let request: NSFetchRequest<HQWords> = HQWords.fetchRequest()
+            if #available(iOS 10.0, *) {
+                request.entity = HQWords.entity()
+            } else {
+                request.entity = NSEntityDescription.entity(forEntityName: "HQWords", in: delegate.managedObjectContext)
+            }
+            
+            let pred = NSPredicate(format: "(sortkey >= %@)", searchText!)
+            request.predicate = pred
+            
+            let sortDescriptor = NSSortDescriptor(key: "sortkey", ascending: true)
+            request.sortDescriptors = [sortDescriptor]
+            request.fetchLimit = 1
+            var results: [HQWords]? = nil
+            do {
+                results =
+                    try vc.fetch(request as!
+                        NSFetchRequest<NSFetchRequestResult>) as? [HQWords]
+                
+            } catch let error {
+                // Handle error
+                NSLog("Error: %@", error.localizedDescription)
+                return
+            }
+            if results != nil && results!.count > 0
+            {
+                //let match = results?[0]
+                seq = Int((results?[0].seq)!) - 1
+                unit = 0
+            }
+            else
+            {
+                selectedRow = -1
+                selectedId = -1
+                seq = rowCount - 1
+                NSLog("Error: Word not found by id.");
+            }
         }
         else
         {
-            selectedRow = -1
-            selectedId = -1
-            NSLog("Error: Word not found by id.");
+            if searchText != nil && searchText! != ""
+            {
+                seq = 0
+                unit = Int(searchText!)! - 1
+                if unit > 19
+                {
+                    unit = 19
+                }
+            }
+            else
+            {
+                unit = 0
+                seq = 0
+            }
+            print("unit seq: \(seq), \(unit)")
         }
-        
-        if seq < 1 || seq > rowCount
+
+        if seq < 0
         {
-            //NSLog("Scroll out of bounds: %d", seq);
-            seq = rowCount;
+            NSLog("Scroll out of bounds: %d", seq)
+            seq = 0
         }
-        
-        let scrollIndexPath = NSIndexPath(row: (seq - 1), section: 0) as IndexPath
+        if seq >= rowCount
+        {
+            NSLog("Scroll out of bounds: %d", seq)
+            seq = rowCount - 1
+        }
+        if unit < 0
+        {
+            unit = 0
+        }
+        let scrollIndexPath = NSIndexPath(row: seq, section: unit) as IndexPath
         //NSLog("scroll to: \(highlightSelectedRow)")
-        if highlightSelectedRow
+        if highlightSelectedRow && sortAlpha
         {
-            if seq == 1
+            if seq == 0
             {
                 tableView.scrollToRow(at: scrollIndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
                 if let indexPath = tableView.indexPathForSelectedRow {
@@ -483,7 +526,15 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         }
         else
         {
-            tableView.scrollToRow(at: scrollIndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
+            if sortAlpha
+            {
+                tableView.scrollToRow(at: scrollIndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
+            }
+            else
+            {
+                tableView.scrollToRow(at: scrollIndexPath, at: UITableViewScrollPosition.top, animated: animatedScroll)
+            }
+            
         }
     }
 }

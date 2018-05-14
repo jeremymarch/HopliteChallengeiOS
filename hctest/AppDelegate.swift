@@ -196,7 +196,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         var stripped = lemma.folding(options: .diacriticInsensitive, locale: .current)
         stripped = stripped.replacingOccurrences(of: "ς", with: "σ", options: NSString.CompareOptions.literal, range:nil)
-        stripped = stripped.trimmingCharacters(in: CharacterSet(charactersIn: "\u{2014} -,") as CharacterSet)
+        stripped = stripped.trimmingCharacters(in: CharacterSet(charactersIn: "\u{0304}\u{0301}\u{EB00}\u{2014} -,") as CharacterSet)
         return stripped.lowercased()
     }
     
