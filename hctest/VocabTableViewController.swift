@@ -93,7 +93,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         }
         
         //searchTextField?.inputView = kb?.inputView
-        //searchTextField?.delegate = self
+        searchTextField?.delegate = self
         
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
@@ -121,12 +121,35 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
+        
+        //move bottom of table up when keyboard shows, so we can access bottom rows and
+        //also so selected row is in middle of screen - keyboard height.
+        //https://stackoverflow.com/questions/594181/making-a-uitableview-scroll-when-text-field-is-selected/41040630#41040630
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     }
     
     @objc func textDidChange(_ notification: Notification) {
-        //guard let textView = notification.object as? UITextField else { return }
-        //print(textView.text ?? "abc")
-        //scrollToWord()
+        guard let textView = notification.object as? UITextField else { return }
+        print(textView.text ?? "abc")
+        scrollToWord()
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardHeight = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as?
+            NSValue)?.cgRectValue.height {
+            //the above doesn't work on ipad because we change the kb height later
+            //let keyboardHeight = (kb?.portraitHeight)! //this works
+            tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardHeight, 0)
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        UIView.animate(withDuration: 0.2, animations: {
+            // For some reason adding inset in keyboardWillShow is animated by itself but removing is not, that's why we have to use animateWithDuration here
+            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        })
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -356,7 +379,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         } else {
             vc = delegate.managedObjectContext
         }
-        
+
         var seq = -1
         
         let request: NSFetchRequest<HQWords> = HQWords.fetchRequest()
@@ -366,10 +389,10 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             request.entity = NSEntityDescription.entity(forEntityName: "HQWords", in: delegate.managedObjectContext)
         }
         
-        let pred = NSPredicate(format: "(unaccentedWord >= %@)", searchText!)
+        let pred = NSPredicate(format: "(lemma >= %@)", searchText!)
         request.predicate = pred
         
-        let sortDescriptor = NSSortDescriptor(key: "unaccentedWord", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "lemma", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         request.fetchLimit = 1
         var results: [HQWords]? = nil
@@ -383,7 +406,6 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             NSLog("Error: %@", error.localizedDescription)
             return
         }
-        
         if results != nil && results!.count > 0
         {
             //let match = results?[0]
@@ -395,7 +417,6 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             selectedId = -1
             NSLog("Error: Word not found by id.");
         }
-
         
         if seq < 1 || seq > rowCount
         {

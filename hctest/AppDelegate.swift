@@ -192,6 +192,77 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func stripAccent(lemma:String) -> String
+    {
+        let stripped = lemma.folding(options: .diacriticInsensitive, locale: .current)
+        return stripped
+        /*
+        var ret = ""
+        let alphas       = ["α", "ά", "ὰ", "ᾶ", "ἀ", "ἄ", "ἂ", "ἆ", "ἁ", "ἅ", "ἃ", "ἇ"]
+        let alphas_cap   = ["Α", "Ά", "Ὰ", "Α", "Ἀ", "Ἄ", "Ἂ", "Ἆ", "Ἁ", "Ἅ", "Ἃ", "Ἇ"]
+        let epsilons     = ["ε", "έ", "ὲ", "ε", "ἐ", "ἔ", "ἒ", "ἐ", "ἑ", "ἕ", "ἓ", "ἑ"]
+        let epsilons_cap = ["Ε", "Έ", "Ὲ", "Ε", "Ἐ", "Ἔ", "Ἒ", "Ἐ", "Ἑ", "Ἕ", "Ἓ", "Ἑ"]
+        let etas         = ["η", "ή", "ὴ", "ῆ", "ἠ", "ἤ", "ἢ", "ἦ", "ἡ", "ἥ", "ἣ", "ἧ"]
+        let etas_cap     = ["Η", "Ή", "Ὴ", "Η", "Ἠ", "Ἤ", "Ἢ", "Ἦ", "Ἡ", "Ἥ", "Ἣ", "Ἧ"]
+        let iotas        = ["ι", "ί", "ὶ", "ῖ", "ἰ", "ἴ", "ἲ", "ἶ", "ἱ", "ἵ", "ἳ", "ἷ"]
+        let iotas_cap    = ["Ι", "Ί", "Ὶ", "Ι", "Ἰ", "Ἴ", "Ἲ", "Ἶ", "Ἱ", "Ἵ", "Ἳ", "Ἷ"]
+        let omicrons     = ["ο", "ό", "ὸ", "ο", "ὀ", "ὄ", "ὂ", "ὀ", "ὁ", "ὅ", "ὃ", "ὁ"]
+        let omicrons_cap = ["Ο", "Ό", "Ὸ", "Ο", "Ὀ", "Ὄ", "Ὂ", "Ὀ", "Ὁ", "Ὅ", "Ὃ", "Ὁ"]
+        let upsilons     = ["υ", "ύ", "ὺ", "ῦ", "ὐ", "ὔ", "ὒ", "ὖ", "ὑ", "ὕ", "ὓ", "ὗ"]
+        let upsilons_cap = ["Υ", "Ύ", "Ὺ", "Υ", "Υ", "Ύ", "Ὺ", "Υ", "Ὑ", "Ὕ", "Ὓ", "Ὗ"]
+        let omegas       = ["ω", "ώ", "ὼ", "ῶ", "ὠ", "ὤ", "ὢ", "ὦ", "ὡ", "ὥ", "ὣ", "ὧ"]
+        let omegas_cap   = ["Ω", "Ώ", "Ὼ", "Ω", "Ὠ", "Ὤ", "Ὢ", "Ὦ", "Ὡ", "Ὥ", "Ὣ", "Ὧ"]
+        let rhos         = ["ρ", "ῤ", "ῥ", "Ῥ", "Ρ"]
+        let sigmas       = ["σ", "ς", "Σ"]
+        let ignore       = ["̄", "̀", "́", ""]
+        
+        for c in lemma {
+            
+            if alphas.contains(String(c)) || alphas_cap.contains(String(c))
+            {
+                ret += alphas[0]
+            }
+            else if epsilons.contains(String(c)) || epsilons_cap.contains(String(c))
+            {
+                ret += epsilons[0]
+            }
+            else if etas.contains(String(c)) || etas_cap.contains(String(c))
+            {
+                ret += etas[0]
+            }
+            else if iotas.contains(String(c)) || iotas_cap.contains(String(c))
+            {
+                ret += iotas[0]
+            }
+            else if omicrons.contains(String(c)) || omicrons_cap.contains(String(c))
+            {
+                ret += omicrons[0]
+            }
+            else if upsilons.contains(String(c)) || upsilons_cap.contains(String(c))
+            {
+                ret += upsilons[0]
+            }
+            else if omegas.contains(String(c)) || omegas_cap.contains(String(c))
+            {
+                ret += omegas[0]
+            }
+            else if sigmas.contains(String(c))
+            {
+                ret += sigmas[0]
+            }
+            else if rhos.contains(String(c))
+            {
+                ret += rhos[0]
+            }
+            else
+            {
+                ret += String(c).lowercased()
+            }
+        }
+        return ret
+ */
+    }
+    
     func datasync()
     {
         //let time = NSDate.init()
@@ -272,6 +343,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         }
                                         
                                         let newWord = self.getWordObjectOrNew(hqid:row.id, context:backgroundContext)
+                                        
+                                        
+                                        //newWord.setValue(stripAccent(lemma: row.lemma), forKey: "sortkey")
                                         
                                         newWord.setValue(row.id, forKey: "hqid")
                                         newWord.setValue(row.unit, forKey: "unit")
