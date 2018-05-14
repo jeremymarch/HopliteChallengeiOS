@@ -468,7 +468,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
                 seq = Int((results?[0].seq)!) - 1
                 unit = 0
             }
-            else
+            else //past end, select last item
             {
                 selectedRow = -1
                 selectedId = -1
@@ -482,10 +482,6 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             {
                 seq = 0
                 unit = Int(searchText!)! - 1
-                if unit > 19
-                {
-                    unit = 19
-                }
             }
             else
             {
@@ -500,7 +496,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             NSLog("Scroll out of bounds: %d", seq)
             seq = 0
         }
-        if seq >= rowCount
+        else if seq >= rowCount
         {
             NSLog("Scroll out of bounds: %d", seq)
             seq = rowCount - 1
@@ -509,11 +505,16 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         {
             unit = 0
         }
+        else if unit > 19
+        {
+            unit = 19
+        }
+        
         let scrollIndexPath = NSIndexPath(row: seq, section: unit) as IndexPath
         //NSLog("scroll to: \(highlightSelectedRow)")
         if highlightSelectedRow && sortAlpha
         {
-            if seq == 0
+            if seq == 0 && searchText == ""
             {
                 tableView.scrollToRow(at: scrollIndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
                 if let indexPath = tableView.indexPathForSelectedRow {
