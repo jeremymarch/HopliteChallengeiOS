@@ -132,7 +132,6 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     
     @objc func textDidChange(_ notification: Notification) {
         guard let textView = notification.object as? UITextField else { return }
-        print(textView.text ?? "abc")
         scrollToWord()
     }
     
