@@ -46,6 +46,8 @@ enum {
     PRECOMPOSED_HC_MODE //this is legacy for the hoplite challenge app which uses combining macron even if no other diacritics
 };
 
+void allowSpacingDiacritics(bool val);
+
 void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool toggleOff, int unicodeMode);
 
 int analyzeLetter(UCS2 *ucs2String, int i, int len, int *letterCode, int *accentBitMask);

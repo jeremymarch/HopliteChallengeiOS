@@ -7,20 +7,20 @@
 //
 
 import UIKit
-
+/*
 //http://norbertlindenberg.com/2014/12/developing-keyboards-for-ios/
 extension UIInputView: UIInputViewAudioFeedback {
     
     public var enableInputClicksWhenVisible: Bool { get { return true } }
 }
+*/
+let orange2 = UIColor.init(red: 255/255.0, green: 96/255.0, blue: 70/255.0, alpha: 1.0)
+let green2 = UIColor.init(red: 102/255.0, green: 200/255.0, blue: 255/255.0, alpha: 1.0)
+let darkBlue2 = UIColor.init(red: 50/255.0, green: 90/255.0, blue: 139/255.0, alpha: 1.0)
+let green22 = UIColor.init(red: 76/255.0, green: 166/255.0, blue: 75/255.0, alpha: 1.0)
+let green32 = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
 
-let orange = UIColor.init(red: 255/255.0, green: 96/255.0, blue: 70/255.0, alpha: 1.0)
-let green = UIColor.init(red: 102/255.0, green: 200/255.0, blue: 255/255.0, alpha: 1.0)
-let darkBlue = UIColor.init(red: 50/255.0, green: 90/255.0, blue: 139/255.0, alpha: 1.0)
-let green2 = UIColor.init(red: 76/255.0, green: 166/255.0, blue: 75/255.0, alpha: 1.0)
-let green3 = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
-
-public struct HopliteConstants{
+public struct HopliteConstants2{
     
     static let enterBGColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
     static let enterTextColor = UIColor.white
@@ -32,7 +32,7 @@ public struct HopliteConstants{
     static let keyBGColorDown = UIColor.black
     static let keyTextColorDown = UIColor.white
     
-    static let accentBGColor = green3 //orange//UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+    static let accentBGColor = green32 //orange//UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
     static let accentTextColor = UIColor.white
     static let accentBGColorDown = UIColor.black
     static let accentTextColorDown = UIColor.white
@@ -58,7 +58,7 @@ public struct HopliteConstants{
     static let ipadRadius:CGFloat = 6.0
 }
 
-public struct HopliteConstants1{
+public struct HopliteConstants22{
     static let constX=1;
     
     static let enterBGColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
@@ -95,14 +95,14 @@ public struct HopliteConstants1{
     static let deleteXColorDown = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
 }
 
-public enum UnicodeMode:Int32 {
+public enum UnicodeMode2:Int32 {
     case PreComposedNoPUA = 0
     case PreComposedPUA = 1
     case CombiningOnly = 2
     case PreComposedHC = 3
 }
 
-class KeyboardViewController: UIInputViewController {
+class KeyboardViewControllerold: UIInputViewController {
 
     let playClick:Bool = true
     var capsLockOn:Bool = false
@@ -140,7 +140,7 @@ class KeyboardViewController: UIInputViewController {
     var buttons: Array<UIButton> = []
     var bCount:Int = 0
     
-    var unicodeMode:Int32 = UnicodeMode.PreComposedHC.rawValue
+    var unicodeMode:Int32 = UnicodeMode2.PreComposedHC.rawValue
     
     /*
      //best to update constraint in place rather than in updateConstraints() if possible, see:
@@ -320,7 +320,7 @@ class KeyboardViewController: UIInputViewController {
                 b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple * 1.26).isActive = true
                 b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true
             }
-            else if b is HCDeleteButton
+            else if b is HCDeleteButton2
             {
                 b.widthAnchor.constraint(equalTo: stackViewV.widthAnchor, multiplier: widthMultiple).isActive = true
                 b.heightAnchor.constraint(equalTo: stackViewV.heightAnchor, multiplier: buttonHeightMultiplier).isActive = true

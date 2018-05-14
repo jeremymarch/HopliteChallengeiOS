@@ -15,7 +15,12 @@
 #define MAX_COMBINING 5 //macron, breathing, accent, iota subscript || diaeresis, macron, accent
 
 char unicode_mode = PRECOMPOSED_MODE; //set default
+bool addSpacingDiacriticIfNotLegal = true;
 
+void allowSpacingDiacritics(bool val)
+{
+    addSpacingDiacriticIfNotLegal = val;
+}
 #define NUM_COMBINING_ACCENTS 8
 //this is the order they will be added to a vowel
 unsigned short combiningAccents[NUM_COMBINING_ACCENTS] = { COMBINING_MACRON, COMBINING_DIAERESIS, COMBINING_ROUGH_BREATHING, COMBINING_SMOOTH_BREATHING, COMBINING_ACUTE, COMBINING_GRAVE, COMBINING_CIRCUMFLEX                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        , COMBINING_IOTA_SUBSCRIPT };

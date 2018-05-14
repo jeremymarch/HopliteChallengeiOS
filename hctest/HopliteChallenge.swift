@@ -334,7 +334,34 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb?.appExt = false
+        var portraitHeight:CGFloat = 222.0
+        var landscapeHeight:CGFloat = 157.0
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            portraitHeight = 340.0
+            landscapeHeight = 290.0
+        }
+        else
+        {
+            //for iphone 5s and narrower
+            if UIScreen.main.nativeBounds.width < 641
+            {
+                portraitHeight = 200.0
+                landscapeHeight = 186.0
+            }
+            else //larger iPhones
+            {
+                portraitHeight = 222.0
+                landscapeHeight = 157.0
+            }
+        }
+        kb?.heightOverride = portraitHeight
         textView.inputView = kb?.view
+        let keys: [[String]] = [["MF", "῾", "᾿", "´", "˜", "¯", "ͺ", "enter"],
+                                ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
+                                ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
+                                ["ζ", "χ", "ψ", "ω", "β", "ν", "μ" , "( )", "BK" ]]
+        kb?.setButtons(keys: keys) //has to be after set as inputView
         
         continueButton.addTarget(self, action: #selector(continuePressed(button:)), for: .touchUpInside)
         
@@ -805,7 +832,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
                 //1.5 x the time
                 let halfTime = timerLabel.countDownTime / 2
                 timerLabel.startTime += halfTime
-                kb?.mfButton?.setTitle(",", for: [])
+                // FIX ME NOW kb?.mfButton?.setTitle(",", for: [])
             }
         }
     }

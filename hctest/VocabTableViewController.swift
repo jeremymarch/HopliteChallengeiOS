@@ -19,6 +19,9 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     let animatedScroll = false
     var selectedRow = -1
     var selectedId = -1
+    var kb:KeyboardViewController? = nil
+    
+    let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
     
     func countForUnit(unit: Int) -> Int {
         let moc = self.fetchedResultsController.managedObjectContext
@@ -92,8 +95,47 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             searchTextField?.font = searchFont
         }
         
-        //searchTextField?.inputView = kb?.inputView
+        let greekKeys = [["ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
+                         ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
+                         ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "BK"]]
+        
+        kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
+        kb?.appExt = false
+        var portraitHeight:CGFloat = 250.0
+        var landscapeHeight:CGFloat = 250.0
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            portraitHeight = 266.0
+            landscapeHeight = 266.0
+        }
+        else
+        {
+            //iPhone X
+            if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
+            {
+                portraitHeight = 214.0
+                landscapeHeight = portraitHeight
+            }
+            else if UIScreen.main.nativeBounds.width < 641
+            {
+                //for iphone 5s and narrower
+                portraitHeight = 174.0
+                landscapeHeight = portraitHeight
+            }
+            else //larger iPhones
+            {
+                portraitHeight = 174.0
+                landscapeHeight = portraitHeight
+            }
+        }
+        kb?.heightOverride = portraitHeight
+        kb?.forceLowercase = true
+        
+        searchTextField?.inputView = kb?.inputView
+        kb?.setButtons(keys: greekKeys) //has to be after set as inputView
         searchTextField?.delegate = self
+        
+
         
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
@@ -298,7 +340,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         //cell.tag = Int(gw.wordid)
         
         let bgColorView = UIView()
-        bgColorView.backgroundColor = UIColor.init(red: 136/255.0, green: 153/255.0, blue: 238/255.0, alpha: 1.0)
+        bgColorView.backgroundColor = highlightedRowBGColor
         cell.selectedBackgroundView = bgColorView
     }
  
