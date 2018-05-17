@@ -334,6 +334,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb?.appExt = false
+        
         var portraitHeight:CGFloat = 222.0
         var landscapeHeight:CGFloat = 157.0
         if UIDevice.current.userInterfaceIdiom == .pad
@@ -356,11 +357,16 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
             }
         }
         kb?.heightOverride = portraitHeight
+        kb?.unicodeMode = 3 //hc mode
         textView.inputView = kb?.view
         let keys: [[String]] = [["MF", "῾", "᾿", "´", "˜", "¯", "ͺ", "enter"],
                                 ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                                 ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
                                 ["ζ", "χ", "ψ", "ω", "β", "ν", "μ" , "( )", "BK" ]]
+        kb?.accentBGColor = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
+        kb?.accentBGColorDown = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
+        kb?.accentTextColor = UIColor.black
+        kb?.accentTextColorDown = UIColor.black
         kb?.setButtons(keys: keys) //has to be after set as inputView
         
         continueButton.addTarget(self, action: #selector(continuePressed(button:)), for: .touchUpInside)
