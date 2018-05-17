@@ -15,6 +15,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet var tableView:UITableView!
     @IBOutlet var searchTextField:UITextField!
     @IBOutlet var searchView:UIView!
+    @IBOutlet var searchToggleButton:UIButton!
     let highlightSelectedRow = true
     let animatedScroll = false
     var selectedRow = -1
@@ -72,11 +73,13 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         if sortAlpha
         {
             searchTextField.inputView = kb?.inputView
+            searchToggleButton.setTitle("Word: ", for: [])
         }
         else
         {
             searchTextField.inputView = nil
             searchTextField.keyboardType = .numberPad
+            searchToggleButton.setTitle("Unit: ", for: [])
         }
         searchTextField.becomeFirstResponder()
     }
@@ -86,11 +89,34 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         tableView.delegate = self
         tableView.dataSource = self
         
+        self.navigationItem.title = "H&Q Vocabulary"
+        
+        searchToggleButton.backgroundColor = UIColor.clear
+        searchToggleButton.clipsToBounds = true
+        searchToggleButton.setTitleColor(UIColor.black, for: .normal)
+        searchToggleButton.titleLabel?.textAlignment = .right
+        searchToggleButton.setTitle("Word: ", for: .normal)
+        let titleFont = UIFont(name: "Helvetica-Bold", size: 18.0)
+        if #available(iOS 11.0, *) {
+            //dynamic type
+            let fontMetrics = UIFontMetrics(forTextStyle: .body)
+            searchToggleButton.titleLabel?.font = fontMetrics.scaledFont(for: titleFont!)
+            searchToggleButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        }
+        else
+        {
+            searchToggleButton.titleLabel?.font = titleFont
+        }
+        searchToggleButton.addTarget(self, action: #selector(sortTogglePressed(_:)), for: .touchDown)
+        
+        //add padding around button label
+        searchToggleButton.contentEdgeInsets = UIEdgeInsets(top: 13.0, left: 8.0, bottom: 13.0, right: 2.0)
+        
         searchTextField.autocapitalizationType = .none
         searchTextField.autocorrectionType = .no
         searchTextField.clearButtonMode = .always
         searchTextField.contentVerticalAlignment = .center
-        searchTextField.placeholder = "Search: "
+        //searchTextField.placeholder = "Search: "
         
         searchView.layer.borderColor = UIColor.black.cgColor
         searchView.layer.borderWidth = 2.0
@@ -160,9 +186,6 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         
         let delegate = UIApplication.shared.delegate as! AppDelegate
         delegate.datasync()
-        
-        let sortToggleBarButton = UIBarButtonItem(title: "Toggle Sort", style: .done, target: self, action: #selector(sortTogglePressed(_:)))
-        self.navigationItem.rightBarButtonItem = sortToggleBarButton
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
