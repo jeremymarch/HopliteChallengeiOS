@@ -110,6 +110,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         searchToggleButton.addTarget(self, action: #selector(sortTogglePressed(_:)), for: .touchDown)
         
         //add padding around button label
+
         searchToggleButton.contentEdgeInsets = UIEdgeInsets(top: 13.0, left: 8.0, bottom: 13.0, right: 2.0)
         
         searchTextField.autocapitalizationType = .none

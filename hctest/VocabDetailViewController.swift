@@ -18,6 +18,7 @@ class VocabDetailViewController: UIViewController {
     @IBOutlet var noteLabel:UITextView?
     @IBOutlet var scrollView:UIScrollView?
     @IBOutlet var contentView:UIView?
+    var kb:KeyboardViewController? = nil
     
     var hqid:Int = 0
     override func viewDidLoad() {
@@ -25,6 +26,12 @@ class VocabDetailViewController: UIViewController {
         //https://www.natashatherobot.com/ios-autolayout-scrollview/
         scrollView!.contentSize = contentView!.frame.size;
         // Do any additional setup after loading the view.
+        
+        kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
+        kb?.appExt = false
+        
+        noteLabel?.inputView = kb?.inputView
+        noteLabel?.isEditable = true
     }
 
     override func didReceiveMemoryWarning() {
