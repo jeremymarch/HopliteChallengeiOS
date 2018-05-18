@@ -20,7 +20,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     let animatedScroll = false
     var selectedRow = -1
     var selectedId = -1
-    var kb:KeyboardViewController? = nil
+    var kb:KeyboardViewController? = nil 
     
     let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
     
