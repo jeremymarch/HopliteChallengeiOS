@@ -58,10 +58,8 @@
 		3F85625520A9318900FE3EE1 /* HCGlobeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85624520A9318900FE3EE1 /* HCGlobeButton.swift */; };
 		3F85625620A9318900FE3EE1 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85624720A9318900FE3EE1 /* KeyboardViewController.swift */; };
 		3F85625720A9318900FE3EE1 /* HCSpaceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85624820A9318900FE3EE1 /* HCSpaceButton.swift */; };
-		3F85625820A9318900FE3EE1 /* HCAccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85624920A9318900FE3EE1 /* HCAccentButton.swift */; };
 		3F85625920A9318900FE3EE1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F85624A20A9318900FE3EE1 /* Info.plist */; };
 		3F85625A20A9318900FE3EE1 /* HCDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85624B20A9318900FE3EE1 /* HCDeleteButton.swift */; };
-		3F85625B20A9318900FE3EE1 /* HCPunctuationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85624C20A9318900FE3EE1 /* HCPunctuationButton.swift */; };
 		3F85625C20A9318900FE3EE1 /* HCKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85624D20A9318900FE3EE1 /* HCKeyboardView.swift */; };
 		3F85625E20A93FCC00FE3EE1 /* HCMFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85625D20A93FCC00FE3EE1 /* HCMFButton.swift */; };
 		3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FAA8D2E1E6D046300254E97 /* Life4X.png */; };
@@ -152,10 +150,8 @@
 		3F85624620A9318900FE3EE1 /* HCPolytonicGreekKB.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = HCPolytonicGreekKB.entitlements; sourceTree = "<group>"; };
 		3F85624720A9318900FE3EE1 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		3F85624820A9318900FE3EE1 /* HCSpaceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCSpaceButton.swift; sourceTree = "<group>"; };
-		3F85624920A9318900FE3EE1 /* HCAccentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCAccentButton.swift; sourceTree = "<group>"; };
 		3F85624A20A9318900FE3EE1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F85624B20A9318900FE3EE1 /* HCDeleteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCDeleteButton.swift; sourceTree = "<group>"; };
-		3F85624C20A9318900FE3EE1 /* HCPunctuationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCPunctuationButton.swift; sourceTree = "<group>"; };
 		3F85624D20A9318900FE3EE1 /* HCKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCKeyboardView.swift; sourceTree = "<group>"; };
 		3F85625D20A93FCC00FE3EE1 /* HCMFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCMFButton.swift; sourceTree = "<group>"; };
 		3FAA8D2E1E6D046300254E97 /* Life4X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Life4X.png; sourceTree = "<group>"; };
@@ -304,10 +300,8 @@
 				3F85624620A9318900FE3EE1 /* HCPolytonicGreekKB.entitlements */,
 				3F85624720A9318900FE3EE1 /* KeyboardViewController.swift */,
 				3F85624820A9318900FE3EE1 /* HCSpaceButton.swift */,
-				3F85624920A9318900FE3EE1 /* HCAccentButton.swift */,
 				3F85624A20A9318900FE3EE1 /* Info.plist */,
 				3F85624B20A9318900FE3EE1 /* HCDeleteButton.swift */,
-				3F85624C20A9318900FE3EE1 /* HCPunctuationButton.swift */,
 				3F85624D20A9318900FE3EE1 /* HCKeyboardView.swift */,
 				3F85625D20A93FCC00FE3EE1 /* HCMFButton.swift */,
 			);
@@ -540,7 +534,6 @@
 				3FF71B471E79EF5600144F7D /* VerbList.swift in Sources */,
 				3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */,
 				3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */,
-				3F85625B20A9318900FE3EE1 /* HCPunctuationButton.swift in Sources */,
 				3F3443C71E6BB2BF00FFAD04 /* utilities.c in Sources */,
 				3F3443BA1E6BB27A00FFAD04 /* libmorph.c in Sources */,
 				3F0EC6371E7784AE0084347F /* TypeTextView.swift in Sources */,
@@ -553,7 +546,6 @@
 				3F3443A31E6BB17700FFAD04 /* AppDelegate.swift in Sources */,
 				3F3443C41E6BB2B000FFAD04 /* accent.c in Sources */,
 				3F85625620A9318900FE3EE1 /* KeyboardViewController.swift in Sources */,
-				3F85625820A9318900FE3EE1 /* HCAccentButton.swift in Sources */,
 				3F195A271E7610050025EF00 /* TypeLabel.swift in Sources */,
 				3F3443C91E6BB2CD00FFAD04 /* GreekForms.c in Sources */,
 				3F85625C20A9318900FE3EE1 /* HCKeyboardView.swift in Sources */,
