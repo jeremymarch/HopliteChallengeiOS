@@ -23,6 +23,8 @@
 		3F15E1861E85A893009760A0 /* hamburger.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F15E1851E85A893009760A0 /* hamburger.png */; };
 		3F195A271E7610050025EF00 /* TypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195A261E7610050025EF00 /* TypeLabel.swift */; };
 		3F1A64721FDA22BE00D38351 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3F1A64711FDA22BE00D38351 /* Podfile */; };
+		3F286B9F20B3314300F580E6 /* Exercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F286B9E20B3314300F580E6 /* Exercises.swift */; };
+		3F286BA120B3F3E800F580E6 /* HQEx.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3F286BA020B3F3E700F580E6 /* HQEx.xml */; };
 		3F28F7F21FD0C1D4008A69D9 /* VocabDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */; };
 		3F2BF3C51E6DC8E200884CDC /* greencheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C41E6DC8E200884CDC /* greencheck.png */; };
 		3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C61E6DC8EC00884CDC /* redx.png */; };
@@ -96,6 +98,8 @@
 		3F15E1851E85A893009760A0 /* hamburger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hamburger.png; sourceTree = "<group>"; };
 		3F195A261E7610050025EF00 /* TypeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeLabel.swift; sourceTree = "<group>"; };
 		3F1A64711FDA22BE00D38351 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		3F286B9E20B3314300F580E6 /* Exercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercises.swift; sourceTree = "<group>"; };
+		3F286BA020B3F3E700F580E6 /* HQEx.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HQEx.xml; sourceTree = "<group>"; };
 		3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabDetailViewController.swift; sourceTree = "<group>"; };
 		3F2BF3C41E6DC8E200884CDC /* greencheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greencheck.png; sourceTree = "<group>"; };
 		3F2BF3C61E6DC8EC00884CDC /* redx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redx.png; sourceTree = "<group>"; };
@@ -223,6 +227,7 @@
 			children = (
 				3F3443B71E6BB25C00FFAD04 /* libmorph */,
 				3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */,
+				3F286BA020B3F3E700F580E6 /* HQEx.xml */,
 				3F3443A41E6BB17700FFAD04 /* HopliteChallenge.swift */,
 				3F195A261E7610050025EF00 /* TypeLabel.swift */,
 				3F0EC6361E7784AE0084347F /* TypeTextView.swift */,
@@ -254,6 +259,7 @@
 				3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */,
 				3F74B2D81FDA55580044B0FC /* CardView.swift */,
 				3F4205351FDDA57200BCA548 /* CardController.swift */,
+				3F286B9E20B3314300F580E6 /* Exercises.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -440,6 +446,7 @@
 				3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */,
 				3F85625020A9318900FE3EE1 /* LICENSE in Resources */,
 				3F85625120A9318900FE3EE1 /* newathu5.ttf in Resources */,
+				3F286BA120B3F3E800F580E6 /* HQEx.xml in Resources */,
 				3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */,
 				3F15E1861E85A893009760A0 /* hamburger.png in Resources */,
 				3F85625920A9318900FE3EE1 /* Info.plist in Resources */,
@@ -562,6 +569,7 @@
 				3F3443C01E6BB2A100FFAD04 /* ending.c in Sources */,
 				3F85625220A9318900FE3EE1 /* HCCapsLockButton.swift in Sources */,
 				3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */,
+				3F286B9F20B3314300F580E6 /* Exercises.swift in Sources */,
 				3F3443CB1E6BB2D700FFAD04 /* VerbSequence.c in Sources */,
 				3F85625A20A9318900FE3EE1 /* HCDeleteButton.swift in Sources */,
 				3F85624F20A9318900FE3EE1 /* HCbutton.swift in Sources */,

@@ -221,6 +221,42 @@
             </objects>
             <point key="canvasLocation" x="-2663" y="937"/>
         </scene>
+        <!--Exercises View Controller-->
+        <scene sceneID="YqE-Mb-QdH">
+            <objects>
+                <viewController storyboardIdentifier="ExercisesView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vz5-j1-jgh" customClass="ExercisesViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="D2c-eZ-UxQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="a9q-KD-h9O"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zXf-Lg-G5Z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gKg-PY-myx">
+                                <rect key="frame" x="16" y="20" width="359" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="a9q-KD-h9O" firstAttribute="top" secondItem="gKg-PY-myx" secondAttribute="bottom" id="82d-g3-nIc"/>
+                            <constraint firstItem="gKg-PY-myx" firstAttribute="trailing" secondItem="zXf-Lg-G5Z" secondAttribute="trailingMargin" id="Mrc-vE-gi5"/>
+                            <constraint firstItem="gKg-PY-myx" firstAttribute="leading" secondItem="zXf-Lg-G5Z" secondAttribute="leadingMargin" id="YgY-dx-ejT"/>
+                            <constraint firstItem="gKg-PY-myx" firstAttribute="top" secondItem="D2c-eZ-UxQ" secondAttribute="bottom" id="dl8-CJ-dx8"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="gKg-PY-myx" id="O64-oK-uaD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ldh-SN-j5Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3708" y="64.31784107946028"/>
+        </scene>
         <!--Settings View Controller-->
         <scene sceneID="nE1-BW-kH1">
             <objects>
@@ -279,6 +315,7 @@
                         <segue destination="VdO-38-HhR" kind="show" id="BKi-BD-RsX"/>
                         <segue destination="2cT-w5-LZV" kind="show" identifier="showVocabTableSegue" id="SnT-bn-xCC"/>
                         <segue destination="Cm6-I9-NPQ" kind="show" identifier="SegueToVerbList" id="vug-0X-bAJ"/>
+                        <segue destination="vz5-j1-jgh" kind="show" identifier="ExercisesSegue" id="DIl-yQ-Wde"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UiL-SM-4y8" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -40,6 +40,8 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             self.openViewControllerBasedOnIdentifier("Vocabulary")
         case 7:
             self.openViewControllerBasedOnIdentifier("CardView")
+        case 8:
+            self.openViewControllerBasedOnIdentifier("ExercisesView")
         default:
             //NSLog("default")
             break
