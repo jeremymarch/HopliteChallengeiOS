@@ -58,6 +58,7 @@ class ExercisesViewController: UIViewController, XMLParserDelegate {
                 parser.parse()
             }
         }
+/*
         else
         {
             let xmlData = xmlString.data(using: String.Encoding.utf8)!
@@ -65,6 +66,7 @@ class ExercisesViewController: UIViewController, XMLParserDelegate {
             parser.delegate = self
             parser.parse()
         }
+ */
         let greekFont = UIFont(name: "NewAthenaUnicode", size: 24.0)
         textView.font = greekFont
         textView.isEditable = false
@@ -106,15 +108,12 @@ class ExercisesViewController: UIViewController, XMLParserDelegate {
         self.foundCharacters += string;
     }
     
-    //saint dynphanas
-    //dicks bar
-    //even briars
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "author" {
             self.item.author = self.foundCharacters;
         }
         
-        if elementName == "description" {
+        else if elementName == "description" {
             self.item.desc = self.foundCharacters;
         }
         /*
@@ -122,7 +121,7 @@ class ExercisesViewController: UIViewController, XMLParserDelegate {
             self.item.desc = self.foundCharacters;
         }
         */
-        if elementName == "g" {
+        else if elementName == "g" {
             self.sentence.text = self.foundCharacters
             
             let tempSentence = Sentence()
@@ -133,7 +132,7 @@ class ExercisesViewController: UIViewController, XMLParserDelegate {
             
             self.unit.greek.append(tempSentence)
         }
-        if elementName == "e" {
+        else if elementName == "e" {
             self.sentence.text = self.foundCharacters
             
             let tempSentence = Sentence()
@@ -144,7 +143,7 @@ class ExercisesViewController: UIViewController, XMLParserDelegate {
             
             self.unit.greek.append(tempSentence)
         }
-        if elementName == "item" {
+        else  if elementName == "item" {
             let tempItem = Item();
             tempItem.author = self.item.author;
             tempItem.desc = self.item.desc;
@@ -157,21 +156,6 @@ class ExercisesViewController: UIViewController, XMLParserDelegate {
     }
     
     func parserDidEndDocument(_ parser: XMLParser) {
-        /*
-        var s = ""
-        for item in self.items {
-            s += "\(item.author)\n\(item.desc)"
-            for tags in item.tag {
-                if let count = tags.count {
-                    s += "\(tags.name), \(count)"
-                } else {
-                    s += "\(tags.name)"
-                }
-            }
-            s += "\n"
-            print(s)
-        }
-         */
         var s = ""
         for se in self.unit.greek
         {

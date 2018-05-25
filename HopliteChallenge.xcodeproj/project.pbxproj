@@ -52,6 +52,7 @@
 		3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20551FB8E4EA0000615B /* AccentTextField.swift */; };
 		3F74B2D71FDA34EC0044B0FC /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */; };
 		3F74B2D91FDA55580044B0FC /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74B2D81FDA55580044B0FC /* CardView.swift */; };
+		3F7A63D020B79D9A003D483C /* HCGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A63CF20B79D9A003D483C /* HCGame.swift */; };
 		3F85624E20A9318900FE3EE1 /* HCEnterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85623920A9318900FE3EE1 /* HCEnterButton.swift */; };
 		3F85624F20A9318900FE3EE1 /* HCbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85623B20A9318900FE3EE1 /* HCbutton.swift */; };
 		3F85625020A9318900FE3EE1 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F85623C20A9318900FE3EE1 /* LICENSE */; };
@@ -139,6 +140,7 @@
 		3F6D20551FB8E4EA0000615B /* AccentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentTextField.swift; sourceTree = "<group>"; };
 		3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		3F74B2D81FDA55580044B0FC /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		3F7A63CF20B79D9A003D483C /* HCGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCGame.swift; sourceTree = "<group>"; };
 		3F85623920A9318900FE3EE1 /* HCEnterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCEnterButton.swift; sourceTree = "<group>"; };
 		3F85623A20A9318900FE3EE1 /* HCPolytonicGreekKB-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HCPolytonicGreekKB-Bridging-Header.h"; sourceTree = "<group>"; };
 		3F85623B20A9318900FE3EE1 /* HCbutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCbutton.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				3F74B2D81FDA55580044B0FC /* CardView.swift */,
 				3F4205351FDDA57200BCA548 /* CardController.swift */,
 				3F286B9E20B3314300F580E6 /* Exercises.swift */,
+				3F7A63CF20B79D9A003D483C /* HCGame.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -568,6 +571,7 @@
 				3FF71B491E79EF6900144F7D /* VerbDetail.swift in Sources */,
 				3F3443C01E6BB2A100FFAD04 /* ending.c in Sources */,
 				3F85625220A9318900FE3EE1 /* HCCapsLockButton.swift in Sources */,
+				3F7A63D020B79D9A003D483C /* HCGame.swift in Sources */,
 				3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */,
 				3F286B9F20B3314300F580E6 /* Exercises.swift in Sources */,
 				3F3443CB1E6BB2D700FFAD04 /* VerbSequence.c in Sources */,

@@ -221,6 +221,24 @@
             </objects>
             <point key="canvasLocation" x="-2663" y="937"/>
         </scene>
+        <!--Game View Controller-->
+        <scene sceneID="OX1-Is-INc">
+            <objects>
+                <viewController storyboardIdentifier="HCGame" useStoryboardIdentifierAsRestorationIdentifier="YES" id="R4j-bh-BrZ" customClass="HCGameViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OG8-XF-iVe"/>
+                        <viewControllerLayoutGuide type="bottom" id="Sym-Jd-Zvk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Xx6-Va-1hL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tsl-FS-zJW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4892" y="95"/>
+        </scene>
         <!--Exercises View Controller-->
         <scene sceneID="YqE-Mb-QdH">
             <objects>
@@ -316,6 +334,7 @@
                         <segue destination="2cT-w5-LZV" kind="show" identifier="showVocabTableSegue" id="SnT-bn-xCC"/>
                         <segue destination="Cm6-I9-NPQ" kind="show" identifier="SegueToVerbList" id="vug-0X-bAJ"/>
                         <segue destination="vz5-j1-jgh" kind="show" identifier="ExercisesSegue" id="DIl-yQ-Wde"/>
+                        <segue destination="R4j-bh-BrZ" kind="show" identifier="ShowHCGame" id="KEO-eF-0Hf"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UiL-SM-4y8" userLabel="First Responder" sceneMemberID="firstResponder"/>
