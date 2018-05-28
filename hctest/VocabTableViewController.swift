@@ -9,7 +9,8 @@ import UIKit
 import CoreData
 
 class VocabTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate,UITextFieldDelegate {
-    var wordsPerUnit = [Int](repeating: 0, count: 20)
+    var wordsPerUnit:[Int] = [] //[Int](repeating: 0, count: 20)
+    var unitSections:[Int] = []
     var sortAlpha = true
     @IBOutlet var tableView:UITableView!
     @IBOutlet var searchTextField:UITextField!
@@ -20,7 +21,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     let animatedScroll = false
     var selectedRow = -1
     var selectedId = -1
-    var usePrediate = true
+    var usePredicate = false
     var kb:KeyboardViewController? = nil 
     
     let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
@@ -29,7 +30,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         let moc = self.fetchedResultsController.managedObjectContext
         if #available(iOS 10.0, *) {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HQWords")
-            if usePrediate
+            if usePredicate
             {
                 fetchRequest.predicate = NSPredicate(format: "unit = %d AND pos='Verb'", unit)
             }
@@ -54,7 +55,14 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         else
         {
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "HQWords")
-            fetchRequest.predicate = NSPredicate(format: "unit = %d", unit)
+            if usePredicate
+            {
+                fetchRequest.predicate = NSPredicate(format: "unit = %d AND pos='Verb'", unit)
+            }
+            else
+            {
+                fetchRequest.predicate = NSPredicate(format: "unit = %d", unit)
+            }
             
             var results: [NSManagedObject] = []
             
@@ -200,11 +208,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        for (u, _) in wordsPerUnit.enumerated()
-        {
-            wordsPerUnit[u] = countForUnit(unit: u+1)
-            //NSLog("words per: \(u), \(wordsPerUnit[u])")
-        }
+        setWordsPerUnit()
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
         
@@ -214,6 +218,23 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+    }
+    
+    func setWordsPerUnit()
+    {
+        //for (u, _) in wordsPerUnit.enumerated()
+        wordsPerUnit = []
+        unitSections = []
+        for u in 0...19
+        {
+            let c = countForUnit(unit: u+1)
+            if c > 0
+            {
+                wordsPerUnit.append(c)
+                unitSections.append(u+1)
+            }
+            //NSLog("words per: \(u), \(wordsPerUnit[u])")
+        }
     }
     
     @objc func textDidChange(_ notification: Notification) {
@@ -246,7 +267,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         if !sortAlpha
         {
             let label = UILabel()
-            label.text = "  Unit \(section + 1)"
+            label.text = "  Unit \(unitSections[section])"
             
             label.backgroundColor = UIColor.init(red: 0, green: 0, blue: 110.0/255.0, alpha: 1.0)
             label.textColor = UIColor.white
@@ -285,14 +306,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         // #warning Incomplete implementation, return the number of sections
         if !sortAlpha
         {
-            if usePrediate
-            {
-                return 19
-            }
-            else
-            {
-                return 20
-            }
+            return wordsPerUnit.count
         }
         else
         {
@@ -306,14 +320,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         //NSLog("FRC Count: \(sectionInfo.numberOfObjects)")
         if !sortAlpha
         {
-            if usePrediate
-            {
-                return wordsPerUnit[section + 1]
-            }
-            else
-            {
-                return wordsPerUnit[section]
-            }
+            return wordsPerUnit[section]
         }
         else
         {
@@ -343,7 +350,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         if sortAlpha
         {
             sectionField = nil
-            sortField = "sortkey"
+            sortField = "seq"
         }
         else
         {
@@ -351,7 +358,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             sectionField = "unit"
         }
         
-        if usePrediate
+        if usePredicate
         {
             let pred = NSPredicate(format: "pos=='Verb'")
             fetchRequest.predicate = pred
@@ -498,7 +505,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             request.sortDescriptors = [sortDescriptor]
             
             var pred:NSPredicate?
-            if usePrediate
+            if usePredicate
             {
                 pred = NSPredicate(format: "(sortkey < %@ AND pos=='Verb')", searchText!)
                 request.predicate = pred
@@ -543,12 +550,20 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
                 }
             }
         }
-        else //sort by unit
+        else //scroll to unit
         {
             if searchText != nil && searchText! != ""
             {
                 seq = 0
-                unit = Int(searchText!)! - 1
+                let findUnit = Int(searchText!)!
+                for (index, val) in unitSections.enumerated()
+                {
+                    if val >= findUnit
+                    {
+                        unit = index
+                        break
+                    }
+                }
             }
             else
             {
@@ -572,9 +587,9 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         {
             unit = 0
         }
-        else if unit > 19
+        else if unit > unitSections.last!
         {
-            unit = 19
+            unit = unitSections.last!
         }
         
         let scrollIndexPath = NSIndexPath(row: seq, section: unit) as IndexPath
