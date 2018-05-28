@@ -54,6 +54,7 @@
 		3F74B2D91FDA55580044B0FC /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74B2D81FDA55580044B0FC /* CardView.swift */; };
 		3F7A63D020B79D9A003D483C /* HCGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A63CF20B79D9A003D483C /* HCGame.swift */; };
 		3F7A63D220B7BD26003D483C /* HCVerbFormPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */; };
+		3F7A63D420B7DCB5003D483C /* HCStemLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */; };
 		3F85624E20A9318900FE3EE1 /* HCEnterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85623920A9318900FE3EE1 /* HCEnterButton.swift */; };
 		3F85624F20A9318900FE3EE1 /* HCbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85623B20A9318900FE3EE1 /* HCbutton.swift */; };
 		3F85625020A9318900FE3EE1 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F85623C20A9318900FE3EE1 /* LICENSE */; };
@@ -143,6 +144,7 @@
 		3F74B2D81FDA55580044B0FC /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		3F7A63CF20B79D9A003D483C /* HCGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCGame.swift; sourceTree = "<group>"; };
 		3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCVerbFormPicker.swift; sourceTree = "<group>"; };
+		3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCStemLabel.swift; sourceTree = "<group>"; };
 		3F85623920A9318900FE3EE1 /* HCEnterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCEnterButton.swift; sourceTree = "<group>"; };
 		3F85623A20A9318900FE3EE1 /* HCPolytonicGreekKB-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HCPolytonicGreekKB-Bridging-Header.h"; sourceTree = "<group>"; };
 		3F85623B20A9318900FE3EE1 /* HCbutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCbutton.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				3F286B9E20B3314300F580E6 /* Exercises.swift */,
 				3F7A63CF20B79D9A003D483C /* HCGame.swift */,
 				3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */,
+				3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -552,6 +555,7 @@
 				3F0EC6371E7784AE0084347F /* TypeTextView.swift in Sources */,
 				3F0541641E7A688800DEB439 /* GameResults.swift in Sources */,
 				3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */,
+				3F7A63D420B7DCB5003D483C /* HCStemLabel.swift in Sources */,
 				3FF71B431E78EF3600144F7D /* BaseViewController.swift in Sources */,
 				3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */,
 				3F3443C11E6BB2A100FFAD04 /* augment.c in Sources */,

@@ -16,47 +16,64 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet var searchTextField:UITextField!
     @IBOutlet var searchView:UIView!
     @IBOutlet var searchToggleButton:UIButton!
+    var predicateWords:[(Int,Int,Int,String,String)] = []
     let highlightSelectedRow = true
     let animatedScroll = false
     var selectedRow = -1
     var selectedId = -1
+    var usePrediate = true
     var kb:KeyboardViewController? = nil 
     
     let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
     
     func countForUnit(unit: Int) -> Int {
-        let moc = self.fetchedResultsController.managedObjectContext
-        if #available(iOS 10.0, *) {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HQWords")
-            fetchRequest.predicate = NSPredicate(format: "unit = %d", unit)
-            fetchRequest.includesSubentities = false
-            
-            var entitiesCount = 0
-            
-            do {
-                entitiesCount = try moc.count(for: fetchRequest)
-                print("count: \(entitiesCount)")
+        if usePrediate
+        {
+            var count = 0
+            for i in predicateWords
+            {
+                if i.2 - 1 == unit
+                {
+                    count += 1
+                }
             }
-            catch {
-                print("error executing fetch request: \(error)")
-            }
-            
-            return entitiesCount
+            return count
         }
         else
         {
-            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "HQWords")
-            fetchRequest.predicate = NSPredicate(format: "unit = %d", unit)
-            
-            var results: [NSManagedObject] = []
-            
-            do {
-                results = try moc.fetch(fetchRequest)
+            let moc = self.fetchedResultsController.managedObjectContext
+            if #available(iOS 10.0, *) {
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HQWords")
+                fetchRequest.predicate = NSPredicate(format: "unit = %d", unit)
+                fetchRequest.includesSubentities = false
+                
+                var entitiesCount = 0
+                
+                do {
+                    entitiesCount = try moc.count(for: fetchRequest)
+                    print("count: \(entitiesCount)")
+                }
+                catch {
+                    print("error executing fetch request: \(error)")
+                }
+                
+                return entitiesCount
             }
-            catch {
-                print("error executing fetch request: \(error)")
+            else
+            {
+                let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "HQWords")
+                fetchRequest.predicate = NSPredicate(format: "unit = %d", unit)
+                
+                var results: [NSManagedObject] = []
+                
+                do {
+                    results = try moc.fetch(fetchRequest)
+                }
+                catch {
+                    print("error executing fetch request: \(error)")
+                }
+                return results.count
             }
-            return results.count
         }
     }
     
@@ -86,6 +103,11 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if usePrediate
+        {
+            fetchWithPredicate()
+        }
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -174,9 +196,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         searchTextField?.inputView = kb?.inputView
         kb?.setButtons(keys: greekKeys) //has to be after set as inputView
         searchTextField?.delegate = self
-        
 
-        
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
         {
@@ -290,16 +310,96 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         // #warning Incomplete implementation, return the number of rows
         //let sectionInfo = fetchedResultsController.sections![section]
         //NSLog("FRC Count: \(sectionInfo.numberOfObjects)")
-        if !sortAlpha
+        if usePrediate
         {
-            return wordsPerUnit[section]
+            if !sortAlpha
+            {
+                return wordsPerUnit[section]
+            }
+            else
+            {
+                return predicateWords.count
+            }
         }
         else
         {
-            return 527
+            if !sortAlpha
+            {
+                return wordsPerUnit[section]
+            }
+            else
+            {
+                return 527
+            }
         }
     }
+
+    func fetchWithPredicate()
+    {
+        let fetchRequest: NSFetchRequest<HQWords> = HQWords.fetchRequest()
+        
+        // Set the batch size to a suitable number.
+        //fetchRequest.fetchBatchSize = 20
+        
+        // Edit the sort key as appropriate.
+        
+        
+        // Edit the section name key path and cache name if appropriate.
+        // nil for section name key path means "no sections".
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        var vc:NSManagedObjectContext
+        if #available(iOS 10.0, *) {
+            vc = delegate.persistentContainer.viewContext
+        } else {
+            vc = delegate.managedObjectContext
+        }
+        
+        //var sectionField:String?
+        var sortField:[String] = []
+        if sortAlpha
+        {
+            //sectionField = nil
+            sortField.append("sortkey")
+        }
+        else
+        {
+            sortField.append("unit")
+            sortField.append("hqid")
+            //sectionField = "unit"
+        }
+        
+        let pred = NSPredicate(format: "pos=='Verb'") // = and == are same
+        fetchRequest.predicate = pred
  
+        var sortD:[NSSortDescriptor] = []
+        for x in sortField
+        {
+            sortD.append(NSSortDescriptor(key: x, ascending: true))
+        }
+        fetchRequest.sortDescriptors = sortD
+        
+        var results: [HQWords]? = nil
+        do {
+            results =
+                try vc.fetch(fetchRequest as!
+                    NSFetchRequest<NSFetchRequestResult>) as? [HQWords]
+            
+        } catch let error {
+            // Handle error
+            NSLog("Error: %@", error.localizedDescription)
+            return
+        }
+        
+        if results != nil && results!.count > 0
+        {
+            var j = 1
+            for i in results! {
+                predicateWords.append((Int(i.hqid),j,Int(i.unit),i.lemma!,i.sortkey!))
+                j += 1
+            }
+        }
+    }
+    
     var fetchedResultsController: NSFetchedResultsController<HQWords> {
         if _fetchedResultsController != nil {
             return _fetchedResultsController!
@@ -329,7 +429,10 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             sortField = "hqid"
             sectionField = "unit"
         }
-        
+        /*
+        let pred = NSPredicate(format: "pos=='Verb'")
+        fetchRequest.predicate = pred
+        */
         let sortDescriptor = NSSortDescriptor(key: sortField, ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
@@ -350,27 +453,31 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     }
     var _fetchedResultsController: NSFetchedResultsController<HQWords>? = nil
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let event = fetchedResultsController.object(at: indexPath)
-        configureCell(cell, withEvent: event)
-        // Configure the cell...
-
+        if usePrediate
+        {
+            configureCell(cell, lemma: predicateWords[indexPath.row].3, unit: String(predicateWords[indexPath.row].2))
+        }
+        else
+        {
+            let gw = fetchedResultsController.object(at: indexPath)
+            configureCell(cell, lemma: gw.lemma!.description, unit: gw.unit.description)
+        }
         return cell
     }
     
-    func configureCell(_ cell: UITableViewCell, withEvent gw: HQWords) {
+    func configureCell(_ cell: UITableViewCell, lemma:String, unit:String) {
         //cell.textLabel!.text = event.timestamp!.description
         //cell.textLabel!.text = "\(gw.hqid.description) \(gw.lemma!.description)"
         if !sortAlpha
         {
-            cell.textLabel!.text = gw.lemma!.description
+            cell.textLabel!.text = lemma
         }
         else
         {
             //cell.textLabel!.text = "\(gw.lemma!.description) : \(gw.sortkey!.description) (\(gw.unit.description))"
-            cell.textLabel!.text = "\(gw.lemma!.description) (\(gw.unit.description))"
+            cell.textLabel!.text = "\(lemma) (\(unit))"
         }
         
         let greekFont = UIFont(name: "NewAthenaUnicode", size: 24.0)
@@ -452,6 +559,19 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         let searchText = searchTextField?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
         var seq = 0 //zero-indexed
         var unit = 0 //zero-indexed
+        
+        if usePrediate
+        {
+            for i in predicateWords
+            {
+                if searchText! >= i.3
+                {
+                    seq = i.1
+                }
+            }
+        }
+        else
+        {
         if sortAlpha
         {
             let delegate = UIApplication.shared.delegate as! AppDelegate
@@ -469,6 +589,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
                 request.entity = NSEntityDescription.entity(forEntityName: "HQWords", in: delegate.managedObjectContext)
             }
             
+            // AND (pos == 'Verb')
             let pred = NSPredicate(format: "(sortkey >= %@)", searchText!)
             request.predicate = pred
             
@@ -515,6 +636,8 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             print("unit seq: \(seq), \(unit)")
         }
 
+
+    }
         if seq < 0
         {
             NSLog("Scroll out of bounds: %d", seq)
