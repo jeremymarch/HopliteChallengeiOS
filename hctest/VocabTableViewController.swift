@@ -16,7 +16,11 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet var searchTextField:UITextField!
     @IBOutlet var searchView:UIView!
     @IBOutlet var searchToggleButton:UIButton!
-    //var predicateWords:[(Int,Int,Int,String,String)] = []
+    @IBOutlet var allButton:UIButton!
+    @IBOutlet var verbButton:UIButton!
+    @IBOutlet var nounButton:UIButton!
+    @IBOutlet var adjectiveButton:UIButton!
+    @IBOutlet var otherButton:UIButton!
     let highlightSelectedRow = true
     let animatedScroll = false
     var selectedRow = -1
@@ -76,12 +80,42 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    @objc func sortTogglePressed(_ sender: UIBarButtonItem ) {
+    @objc func allButtonPressed(_ sender: UIButton ) {
+        self.dismiss(animated: true, completion: nil)
+        print("all")
+        //searchTextField.resignFirstResponder()
+        usePredicate = false
+        setWordsPerUnit()
+        NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: "VocabMaster")
+        _fetchedResultsController = nil
+        
+        self.tableView.reloadData()
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
+    }
+    
+    @objc func verbButtonPressed(_ sender: UIButton ) {
+        self.dismiss(animated: true, completion: nil)
+        print("verb pressed")
+        //searchTextField.resignFirstResponder()
+        usePredicate = true
+        setWordsPerUnit()
+        NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: "VocabMaster")
+        _fetchedResultsController = nil
+        
+        self.tableView.reloadData()
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
+        
+    }
+    
+    @objc func sortTogglePressed(_ sender: UIButton ) {
         self.dismiss(animated: true, completion: nil)
         sortAlpha = !sortAlpha
         searchTextField.text = ""
+        NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: "VocabMaster")
         _fetchedResultsController = nil
-        tableView.reloadData()
+        self.tableView.reloadData()
         let indexPath = IndexPath(row: 0, section: 0)
         self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
         
@@ -125,6 +159,8 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             searchToggleButton.titleLabel?.font = titleFont
         }
         searchToggleButton.addTarget(self, action: #selector(sortTogglePressed(_:)), for: .touchDown)
+        allButton.addTarget(self, action: #selector(allButtonPressed(_:)), for: .touchDown)
+        verbButton.addTarget(self, action: #selector(verbButtonPressed(_:)), for: .touchDown)
         
         //add padding around button label
 
@@ -332,7 +368,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         if _fetchedResultsController != nil {
             return _fetchedResultsController!
         }
-        
+        print("new frc")
         let fetchRequest: NSFetchRequest<HQWords> = HQWords.fetchRequest()
         
         // Set the batch size to a suitable number.
