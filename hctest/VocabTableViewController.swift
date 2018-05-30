@@ -80,33 +80,34 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    @objc func allButtonPressed(_ sender: UIButton ) {
-        self.dismiss(animated: true, completion: nil)
-        print("all")
-        //searchTextField.resignFirstResponder()
-        usePredicate = false
-        setWordsPerUnit()
-        NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: "VocabMaster")
-        _fetchedResultsController = nil
-        
-        self.tableView.reloadData()
-        let indexPath = IndexPath(row: 0, section: 0)
-        self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
-    }
-    
     @objc func verbButtonPressed(_ sender: UIButton ) {
         self.dismiss(animated: true, completion: nil)
-        print("verb pressed")
-        //searchTextField.resignFirstResponder()
-        usePredicate = true
-        setWordsPerUnit()
+
         NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: "VocabMaster")
-        _fetchedResultsController = nil
+
+        if sender.titleLabel?.text == "Verb"
+        {
+            usePredicate = true
+            let pred = NSPredicate(format: "pos=='Verb'")
+            _fetchedResultsController?.fetchRequest.predicate = pred
+        }
+        else if sender.titleLabel?.text == "All"
+        {
+            usePredicate = false
+            _fetchedResultsController?.fetchRequest.predicate = nil
+        }
         
+        setWordsPerUnit()
+        
+        do {
+            try _fetchedResultsController?.performFetch()
+        } catch let error {
+            NSLog(error.localizedDescription)
+            return
+        }
         self.tableView.reloadData()
         let indexPath = IndexPath(row: 0, section: 0)
         self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
-        
     }
     
     @objc func sortTogglePressed(_ sender: UIButton ) {
@@ -159,7 +160,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             searchToggleButton.titleLabel?.font = titleFont
         }
         searchToggleButton.addTarget(self, action: #selector(sortTogglePressed(_:)), for: .touchDown)
-        allButton.addTarget(self, action: #selector(allButtonPressed(_:)), for: .touchDown)
+        allButton.addTarget(self, action: #selector(verbButtonPressed(_:)), for: .touchDown)
         verbButton.addTarget(self, action: #selector(verbButtonPressed(_:)), for: .touchDown)
         
         //add padding around button label
