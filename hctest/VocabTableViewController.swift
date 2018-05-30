@@ -25,7 +25,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     let animatedScroll = false
     var selectedRow = -1
     var selectedId = -1
-    var usePredicate = false
+    var predicate = ""
     var kb:KeyboardViewController? = nil 
     
     let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
@@ -34,9 +34,9 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         let moc = self.fetchedResultsController.managedObjectContext
         if #available(iOS 10.0, *) {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HQWords")
-            if usePredicate
+            if predicate != ""
             {
-                fetchRequest.predicate = NSPredicate(format: "unit = %d AND pos='Verb'", unit)
+                fetchRequest.predicate = NSPredicate(format: "unit = %d AND \(predicate)", unit)
             }
             else
             {
@@ -59,9 +59,9 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         else
         {
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "HQWords")
-            if usePredicate
+            if predicate != ""
             {
-                fetchRequest.predicate = NSPredicate(format: "unit = %d AND pos='Verb'", unit)
+                fetchRequest.predicate = NSPredicate(format: "unit = %d AND \(predicate)", unit)
             }
             else
             {
@@ -80,20 +80,39 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    @objc func verbButtonPressed(_ sender: UIButton ) {
+    @objc func filterButtonPressed(_ sender: UIButton ) {
         self.dismiss(animated: true, completion: nil)
 
         NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: "VocabMaster")
 
         if sender.titleLabel?.text == "Verb"
         {
-            usePredicate = true
-            let pred = NSPredicate(format: "pos=='Verb'")
-            _fetchedResultsController?.fetchRequest.predicate = pred
+            predicate = "pos=='Verb'"
+        }
+        else if sender.titleLabel?.text == "Noun"
+        {
+            predicate = "pos=='Noun'"
+        }
+        else if sender.titleLabel?.text == "Adjective"
+        {
+            predicate = "pos=='Adjective'"
+        }
+        else if sender.titleLabel?.text == "Other"
+        {
+            predicate = "pos!='Adjective' AND pos!='Noun' AND pos!='Verb'"
         }
         else if sender.titleLabel?.text == "All"
         {
-            usePredicate = false
+            predicate = ""
+        }
+        
+        if predicate != ""
+        {
+            let pred = NSPredicate(format: predicate)
+            _fetchedResultsController?.fetchRequest.predicate = pred
+        }
+        else
+        {
             _fetchedResultsController?.fetchRequest.predicate = nil
         }
         
@@ -160,8 +179,11 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             searchToggleButton.titleLabel?.font = titleFont
         }
         searchToggleButton.addTarget(self, action: #selector(sortTogglePressed(_:)), for: .touchDown)
-        allButton.addTarget(self, action: #selector(verbButtonPressed(_:)), for: .touchDown)
-        verbButton.addTarget(self, action: #selector(verbButtonPressed(_:)), for: .touchDown)
+        allButton.addTarget(self, action: #selector(filterButtonPressed(_:)), for: .touchDown)
+        verbButton.addTarget(self, action: #selector(filterButtonPressed(_:)), for: .touchDown)
+        nounButton.addTarget(self, action: #selector(filterButtonPressed(_:)), for: .touchDown)
+        adjectiveButton.addTarget(self, action: #selector(filterButtonPressed(_:)), for: .touchDown)
+        otherButton.addTarget(self, action: #selector(filterButtonPressed(_:)), for: .touchDown)
         
         //add padding around button label
 
@@ -395,9 +417,9 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             sectionField = "unit"
         }
         
-        if usePredicate
+        if predicate != ""
         {
-            let pred = NSPredicate(format: "pos=='Verb'")
+            let pred = NSPredicate(format: predicate)
             fetchRequest.predicate = pred
         }
         let sortDescriptor = NSSortDescriptor(key: sortField, ascending: true)
@@ -542,9 +564,9 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             request.sortDescriptors = [sortDescriptor]
             
             var pred:NSPredicate?
-            if usePredicate
+            if predicate != ""
             {
-                pred = NSPredicate(format: "(sortkey < %@ AND pos=='Verb')", searchText!)
+                pred = NSPredicate(format: "(sortkey < %@ AND \(predicate))", searchText!)
                 request.predicate = pred
                 do {
                     seq = try vc.count(for: request)
