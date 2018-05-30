@@ -9,9 +9,13 @@ import UIKit
 import CoreData
 
 class VocabTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate,UITextFieldDelegate {
+    let hcblue:UIColor = UIColor(red: 0.0, green: 0.47, blue: 1.0, alpha: 1.0)
+    let hcLightBlue:UIColor = UIColor(red: 140/255.0, green: 220/255.0, blue: 255/255.0, alpha: 1.0)
+    let hcDarkBlue:UIColor = UIColor.init(red: 0, green: 0, blue: 110.0/255.0, alpha: 1.0)
     var wordsPerUnit:[Int] = [] //[Int](repeating: 0, count: 20)
     var unitSections:[Int] = []
-    var sortAlpha = true
+    var filterButtons:[UIButton] = []
+    var selectedButtonIndex = 0
     @IBOutlet var tableView:UITableView!
     @IBOutlet var searchTextField:UITextField!
     @IBOutlet var searchView:UIView!
@@ -26,6 +30,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     var selectedRow = -1
     var selectedId = -1
     var predicate = ""
+    var sortAlpha = true
     var kb:KeyboardViewController? = nil 
     
     let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
@@ -87,22 +92,27 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
 
         if sender.titleLabel?.text == "Verb"
         {
+            selectedButtonIndex = 1
             predicate = "pos=='Verb'"
         }
         else if sender.titleLabel?.text == "Noun"
         {
+            selectedButtonIndex = 2
             predicate = "pos=='Noun'"
         }
         else if sender.titleLabel?.text == "Adjective"
         {
+            selectedButtonIndex = 3
             predicate = "pos=='Adjective'"
         }
         else if sender.titleLabel?.text == "Other"
         {
+            selectedButtonIndex = 4
             predicate = "pos!='Adjective' AND pos!='Noun' AND pos!='Verb'"
         }
         else if sender.titleLabel?.text == "All"
         {
+            selectedButtonIndex = 0
             predicate = ""
         }
         
@@ -127,6 +137,8 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         self.tableView.reloadData()
         let indexPath = IndexPath(row: 0, section: 0)
         self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
+        
+        setFilterButtons()
     }
     
     @objc func sortTogglePressed(_ sender: UIButton ) {
@@ -135,6 +147,11 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         searchTextField.text = ""
         NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: "VocabMaster")
         _fetchedResultsController = nil
+        /*
+        let sortDescriptor = NSSortDescriptor(key: sortField, ascending: true)
+        _fetchedResultsController?.fetchRequest.sortDescriptors = [sortDescriptor]
+        _fetchedResultsController?.sectionNameKeyPath = ""
+        */
         self.tableView.reloadData()
         let indexPath = IndexPath(row: 0, section: 0)
         self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
@@ -161,6 +178,14 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         tableView.dataSource = self
         
         self.navigationItem.title = "H&Q Vocabulary"
+        
+        filterButtons.append(allButton)
+        filterButtons.append(verbButton)
+        filterButtons.append(nounButton)
+        filterButtons.append(adjectiveButton)
+        filterButtons.append(otherButton)
+        
+        setFilterButtons()
         
         searchToggleButton.backgroundColor = UIColor.clear
         searchToggleButton.clipsToBounds = true
@@ -279,6 +304,27 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     }
     
+    func setFilterButtons()
+    {
+        for i in 0...filterButtons.count - 1
+        {
+            if i == selectedButtonIndex
+            {
+                filterButtons[i].backgroundColor = hcDarkBlue
+                filterButtons[i].layer.borderColor = hcDarkBlue.cgColor
+                filterButtons[i].layer.borderWidth = 0.5
+                filterButtons[i].setTitleColor(UIColor.white, for: [])
+            }
+            else
+            {
+                filterButtons[i].backgroundColor = hcLightBlue
+                filterButtons[i].layer.borderColor = hcDarkBlue.cgColor
+                filterButtons[i].layer.borderWidth = 0.5
+                filterButtons[i].setTitleColor(hcDarkBlue, for: [])
+            }
+        }
+    }
+    
     func setWordsPerUnit()
     {
         //for (u, _) in wordsPerUnit.enumerated()
@@ -328,7 +374,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             let label = UILabel()
             label.text = "  Unit \(unitSections[section])"
             
-            label.backgroundColor = UIColor.init(red: 0, green: 0, blue: 110.0/255.0, alpha: 1.0)
+            label.backgroundColor = hcDarkBlue
             label.textColor = UIColor.white
             return label
         }
@@ -391,7 +437,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         if _fetchedResultsController != nil {
             return _fetchedResultsController!
         }
-        print("new frc")
+
         let fetchRequest: NSFetchRequest<HQWords> = HQWords.fetchRequest()
         
         // Set the batch size to a suitable number.

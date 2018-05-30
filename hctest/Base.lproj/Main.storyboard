@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3b4-Ch-zZ1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3b4-Ch-zZ1">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -749,26 +749,26 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vWG-g2-HB3">
-                                <rect key="frame" x="6" y="624" width="363" height="43"/>
+                                <rect key="frame" x="0.0" y="624" width="375" height="43"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFh-Gk-1O8">
-                                        <rect key="frame" x="0.0" y="0.0" width="72.5" height="43"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFh-Gk-1O8">
+                                        <rect key="frame" x="0.0" y="0.0" width="74.5" height="43"/>
                                         <state key="normal" title="All"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B1a-hL-93B">
-                                        <rect key="frame" x="145" y="0.0" width="73" height="43"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B1a-hL-93B">
+                                        <rect key="frame" x="150" y="0.0" width="75" height="43"/>
                                         <state key="normal" title="Noun"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hi-5b-Tp2">
-                                        <rect key="frame" x="218" y="0.0" width="72.5" height="43"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hi-5b-Tp2">
+                                        <rect key="frame" x="225" y="0.0" width="75.5" height="43"/>
                                         <state key="normal" title="Adjective"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uvf-iL-zh4">
-                                        <rect key="frame" x="290.5" y="0.0" width="72.5" height="43"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uvf-iL-zh4">
+                                        <rect key="frame" x="300.5" y="0.0" width="74.5" height="43"/>
                                         <state key="normal" title="Other"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dG9-DJ-9DR">
-                                        <rect key="frame" x="72.5" y="0.0" width="72.5" height="43"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dG9-DJ-9DR">
+                                        <rect key="frame" x="74.5" y="0.0" width="75.5" height="43"/>
                                         <state key="normal" title="Verb"/>
                                     </button>
                                 </subviews>
@@ -806,12 +806,12 @@
                         <constraints>
                             <constraint firstItem="jeZ-vi-Fwg" firstAttribute="leading" secondItem="Q7Y-Yc-eDh" secondAttribute="leading" id="1ku-YA-PCk"/>
                             <constraint firstAttribute="trailing" secondItem="jeZ-vi-Fwg" secondAttribute="trailing" id="4Es-jD-QIe"/>
-                            <constraint firstItem="vWG-g2-HB3" firstAttribute="leading" secondItem="Q7Y-Yc-eDh" secondAttribute="leading" constant="6" id="6ij-pk-90k"/>
+                            <constraint firstItem="vWG-g2-HB3" firstAttribute="leading" secondItem="Q7Y-Yc-eDh" secondAttribute="leading" id="6ij-pk-90k"/>
                             <constraint firstItem="vWG-g2-HB3" firstAttribute="top" secondItem="jeZ-vi-Fwg" secondAttribute="bottom" id="CUB-f4-7jQ"/>
                             <constraint firstItem="jeZ-vi-Fwg" firstAttribute="top" secondItem="0m8-xp-4q5" secondAttribute="bottom" id="ERc-mb-KCT"/>
                             <constraint firstItem="0m8-xp-4q5" firstAttribute="leading" secondItem="Q7Y-Yc-eDh" secondAttribute="leading" constant="6" id="IHg-9v-Nuu"/>
                             <constraint firstItem="0m8-xp-4q5" firstAttribute="top" secondItem="hpV-jr-EPO" secondAttribute="bottom" id="LHa-r6-4p2"/>
-                            <constraint firstAttribute="trailing" secondItem="vWG-g2-HB3" secondAttribute="trailing" constant="6" id="Pig-ck-McN"/>
+                            <constraint firstAttribute="trailing" secondItem="vWG-g2-HB3" secondAttribute="trailing" id="Pig-ck-McN"/>
                             <constraint firstItem="Vuz-Jy-Nog" firstAttribute="top" secondItem="vWG-g2-HB3" secondAttribute="bottom" id="UcR-yo-Don"/>
                             <constraint firstItem="vWG-g2-HB3" firstAttribute="top" secondItem="jeZ-vi-Fwg" secondAttribute="bottom" id="cDe-sx-HmK"/>
                             <constraint firstAttribute="trailing" secondItem="0m8-xp-4q5" secondAttribute="trailing" constant="6" id="dRL-KY-4nW"/>
