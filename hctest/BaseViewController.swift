@@ -59,7 +59,23 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         }
         else
         {
-            self.navigationController!.pushViewController(destViewController, animated: true)
+            if strIdentifier == "Vocabulary"
+            {
+                let dest = destViewController as! VocabTableViewController
+/*
+                 //we can set these values before showing
+                dest.sortAlpha = false
+                dest.predicate = "pos=='Adjective'"
+                dest.selectedButtonIndex = 3
+                dest.filterViewHeightValue = 0.0
+                dest.navTitle = "Verbs"
+ */
+                self.navigationController!.pushViewController(dest, animated: true)
+            }
+            else
+            {
+                self.navigationController!.pushViewController(destViewController, animated: true)
+            }
         }
     }
     

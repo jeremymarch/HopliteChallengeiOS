@@ -752,7 +752,7 @@
                                 <rect key="frame" x="0.0" y="624" width="375" height="43"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFh-Gk-1O8">
-                                        <rect key="frame" x="0.0" y="0.0" width="74.5" height="43"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="75" height="43"/>
                                         <state key="normal" title="All"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B1a-hL-93B">
@@ -760,15 +760,15 @@
                                         <state key="normal" title="Noun"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hi-5b-Tp2">
-                                        <rect key="frame" x="225" y="0.0" width="75.5" height="43"/>
+                                        <rect key="frame" x="225" y="0.0" width="75" height="43"/>
                                         <state key="normal" title="Adjective"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uvf-iL-zh4">
-                                        <rect key="frame" x="300.5" y="0.0" width="74.5" height="43"/>
+                                        <rect key="frame" x="300" y="0.0" width="75" height="43"/>
                                         <state key="normal" title="Other"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dG9-DJ-9DR">
-                                        <rect key="frame" x="74.5" y="0.0" width="75.5" height="43"/>
+                                        <rect key="frame" x="75" y="0.0" width="75" height="43"/>
                                         <state key="normal" title="Verb"/>
                                     </button>
                                 </subviews>
@@ -822,6 +822,8 @@
                     <connections>
                         <outlet property="adjectiveButton" destination="9hi-5b-Tp2" id="yIZ-h6-xwx"/>
                         <outlet property="allButton" destination="gFh-Gk-1O8" id="rHl-qT-nHF"/>
+                        <outlet property="filterButtonView" destination="vWG-g2-HB3" id="MfG-AT-0GR"/>
+                        <outlet property="filterViewHeight" destination="Oo1-Lu-jk6" id="GuF-e2-y5c"/>
                         <outlet property="nounButton" destination="B1a-hL-93B" id="zzG-Bf-n6Z"/>
                         <outlet property="otherButton" destination="Uvf-iL-zh4" id="oFa-R2-ejf"/>
                         <outlet property="searchTextField" destination="Nzl-XT-zWx" id="lmG-Za-eDv"/>

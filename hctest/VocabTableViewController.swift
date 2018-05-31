@@ -16,6 +16,8 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     var unitSections:[Int] = []
     var filterButtons:[UIButton] = []
     var selectedButtonIndex = 0
+    var navTitle = "H&Q Vocabulary"
+    @IBOutlet var filterButtonView:UIView!
     @IBOutlet var tableView:UITableView!
     @IBOutlet var searchTextField:UITextField!
     @IBOutlet var searchView:UIView!
@@ -25,6 +27,8 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet var nounButton:UIButton!
     @IBOutlet var adjectiveButton:UIButton!
     @IBOutlet var otherButton:UIButton!
+    @IBOutlet var filterViewHeight:NSLayoutConstraint!
+    var filterViewHeightValue:CGFloat = 43.0
     let highlightSelectedRow = true
     let animatedScroll = false
     var selectedRow = -1
@@ -86,7 +90,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     @objc func filterButtonPressed(_ sender: UIButton ) {
-        self.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
 
         NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: "VocabMaster")
 
@@ -142,7 +146,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     @objc func sortTogglePressed(_ sender: UIButton ) {
-        self.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
         sortAlpha = !sortAlpha
         searchTextField.text = ""
         NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: "VocabMaster")
@@ -157,6 +161,12 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
         
         searchTextField.resignFirstResponder()
+        setSortToggleButton()
+        searchTextField.becomeFirstResponder()
+    }
+    
+    func setSortToggleButton()
+    {
         if sortAlpha
         {
             searchTextField.inputView = kb?.inputView
@@ -168,7 +178,6 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             searchTextField.keyboardType = .numberPad
             searchToggleButton.setTitle("Unit: ", for: [])
         }
-        searchTextField.becomeFirstResponder()
     }
     
     override func viewDidLoad() {
@@ -177,7 +186,13 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         tableView.delegate = self
         tableView.dataSource = self
         
-        self.navigationItem.title = "H&Q Vocabulary"
+        filterViewHeight.constant = filterViewHeightValue
+        if filterViewHeightValue == 0.0
+        {
+            filterButtonView.isHidden = true
+        }
+        
+        self.navigationItem.title = navTitle
         
         filterButtons.append(allButton)
         filterButtons.append(verbButton)
@@ -302,6 +317,9 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+        
+        setSortToggleButton()
+        setFilterButtons()
     }
     
     func setFilterButtons()
@@ -660,7 +678,11 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             if searchText != nil && searchText! != ""
             {
                 seq = 0
-                let findUnit = Int(searchText!)!
+                guard let findUnit = Int(searchText!)
+                else
+                {
+                    return
+                }
                 for (index, val) in unitSections.enumerated()
                 {
                     if val >= findUnit
