@@ -69,6 +69,8 @@
 		3F85625E20A93FCC00FE3EE1 /* HCMFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85625D20A93FCC00FE3EE1 /* HCMFButton.swift */; };
 		3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FAA8D2E1E6D046300254E97 /* Life4X.png */; };
 		3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAA8D301E6D212900254E97 /* HCTimer.swift */; };
+		3FCB495820C47A5400FFD266 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCB495720C47A5400FFD266 /* NetworkManager.swift */; };
+		3FCB495A20C47F9F00FFD266 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCB495920C47F9F00FFD266 /* DataManager.swift */; };
 		3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B401E78EF0700144F7D /* MenuViewController.swift */; };
 		3FF71B431E78EF3600144F7D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B421E78EF3600144F7D /* BaseViewController.swift */; };
 		3FF71B451E79EC4700144F7D /* GameHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B441E79EC4700144F7D /* GameHistory.swift */; };
@@ -166,6 +168,9 @@
 		3F85625D20A93FCC00FE3EE1 /* HCMFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCMFButton.swift; sourceTree = "<group>"; };
 		3FAA8D2E1E6D046300254E97 /* Life4X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Life4X.png; sourceTree = "<group>"; };
 		3FAA8D301E6D212900254E97 /* HCTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCTimer.swift; sourceTree = "<group>"; };
+		3FCB495720C47A5400FFD266 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		3FCB495920C47F9F00FFD266 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		3FDA3E4720C62703003BAC74 /* HopliteChallenge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HopliteChallenge.entitlements; sourceTree = SOURCE_ROOT; };
 		3FF71B401E78EF0700144F7D /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		3FF71B421E78EF3600144F7D /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		3FF71B441E79EC4700144F7D /* GameHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHistory.swift; sourceTree = "<group>"; };
@@ -231,6 +236,7 @@
 		3F3443A11E6BB17700FFAD04 /* HopliteChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				3FDA3E4720C62703003BAC74 /* HopliteChallenge.entitlements */,
 				3F3443B71E6BB25C00FFAD04 /* libmorph */,
 				3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */,
 				3F286BA020B3F3E700F580E6 /* HQEx.xml */,
@@ -269,6 +275,8 @@
 				3F7A63CF20B79D9A003D483C /* HCGame.swift */,
 				3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */,
 				3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */,
+				3FCB495720C47A5400FFD266 /* NetworkManager.swift */,
+				3FCB495920C47F9F00FFD266 /* DataManager.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -400,7 +408,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Jeremy March";
 				TargetAttributes = {
 					3F15E16F1E8450A0009760A0 = {
@@ -415,6 +423,11 @@
 						DevelopmentTeam = EFHC4XFZ38;
 						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -547,9 +560,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FCB495820C47A5400FFD266 /* NetworkManager.swift in Sources */,
 				3FF71B471E79EF5600144F7D /* VerbList.swift in Sources */,
 				3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */,
 				3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */,
+				3FCB495A20C47F9F00FFD266 /* DataManager.swift in Sources */,
 				3F3443C71E6BB2BF00FFAD04 /* utilities.c in Sources */,
 				3F3443BA1E6BB27A00FFAD04 /* libmorph.c in Sources */,
 				3F0EC6371E7784AE0084347F /* TypeTextView.swift in Sources */,
@@ -672,6 +687,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -679,6 +695,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -730,6 +747,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -737,6 +755,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -774,6 +793,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HopliteChallenge.entitlements;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = hctest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -793,6 +813,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HopliteChallenge.entitlements;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				INFOPLIST_FILE = hctest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

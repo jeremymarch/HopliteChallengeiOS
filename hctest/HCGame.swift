@@ -8,8 +8,30 @@
 
 import UIKit
 
-class HCGameViewController: UIViewController, UITextViewDelegate  {
+enum gameStates {
+    case start
+    case readyToSelectInitialForm
+    case readyToSendInitialForm
+    case waitingForForm
+    case readyToSeeOpponentsAnswer
+    case readyToAnswerRequest
+    case verbSelected
+    case middle
+    case over
+}
+
+enum gameTypes {
+    case practice
+    case oldgame
+    case hcgame
+}
+
+class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDelegate  {
+    let idTranslation:[Int] = [43, 45, 36, 37]
+    var gameState:gameStates = .start
     var kb:KeyboardViewController? = nil
+    var selectedVerb = -1
+    var oldSelectedVerb = -1
     var gameOverLabel = UILabel()
     var label1 = TypeLabel()
     var label2 = TypeLabel()
@@ -55,6 +77,30 @@ class HCGameViewController: UIViewController, UITextViewDelegate  {
     var isExpanded:Bool = false
     
     let vs:VerbSequence = VerbSequence()
+    
+    func setSelectedVerb(verbID: Int) {
+        selectedVerb = verbID
+    }
+    
+    func onDismissVerbChooser()
+    {
+        if selectedVerb > -1
+        {
+            for (index, val) in idTranslation.enumerated()
+            {
+                if val == selectedVerb
+                {
+                    oldSelectedVerb = index
+                    label1.type(newText: Verb2.init(verbid: index).present, duration: typingDelay)
+                    break
+                }
+            }
+        }
+        let mesg = "Select a form and press Send."
+        label2.type(newText: mesg, duration: typingDelay)
+        continueButton.setTitle("Send", for: [])
+        print("appeared")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,7 +178,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate  {
         
         let greekFont = UIFont(name: "NewAthenaUnicode", size: greekFontSize)
         let headerFont = UIFont(name: "HelveticaNeue-Light", size: timeFontSize)
-        let stemFont = UIFont(name: "HelveticaNeue-Light", size: fontSize)
+        //let stemFont = UIFont(name: "HelveticaNeue-Light", size: fontSize)
         let continueFont = UIFont(name: "HelveticaNeue", size: fontSize)
         
         view.addSubview(headerView)
@@ -332,7 +378,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate  {
         view.addConstraint(checkXXOffset!)
         checkXView.isHidden = true
         
-        kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
+        kb = KeyboardViewController() //kb needs to be member variable of vc
         kb?.appExt = false
         
         var portraitHeight:CGFloat = 222.0
@@ -371,7 +417,11 @@ class HCGameViewController: UIViewController, UITextViewDelegate  {
         
         continueButton.addTarget(self, action: #selector(continuePressed(button:)), for: .touchUpInside)
         
-        if isGame == false
+        if gameState == .start
+        {
+            
+        }
+        else if isGame == false
         {
             scoreLabel.isHidden = true
             life1.isHidden = true
@@ -764,12 +814,37 @@ class HCGameViewController: UIViewController, UITextViewDelegate  {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let verbChooser = segue.destination as! VocabTableViewController
+        //vd.verbIndex = verbIndex
+        verbChooser.sortAlpha = false
+        verbChooser.predicate = "pos=='Verb' AND unit < 3"
+        verbChooser.selectedButtonIndex = 1
+        verbChooser.filterViewHeightValue = 0.0
+        verbChooser.navTitle = "Choose a verb"
+        verbChooser.delegate = self
+        label1.text = ""
+    }
+ 
     @objc func continuePressed(button: UIButton) {
-        continueButton.isEnabled = false
+        //continueButton.isEnabled = false
         
-        if continueButton.titleLabel?.text == "Play"
+        if gameState == .start && button.titleLabel?.text != "Send"
         {
-            start()
+            performSegue(withIdentifier: "ShowVerbChooser", sender: self)
+            //start()
+            return
+        }
+        else if button.titleLabel?.text == "Send"
+        {
+            let url = "https://philolog.us/hc.php"
+            
+            let parameters:Dictionary<String, String> = ["type":"newgame","askPlayerID": String(1), "answerPlayerID": String(2), "verbID":String(oldSelectedVerb), "person":String(stemLabel.pickerSelected[0]), "number":String(stemLabel.pickerSelected[1]), "tense":String(stemLabel.pickerSelected[2]), "voice":String(stemLabel.pickerSelected[3]), "mood":String(stemLabel.pickerSelected[4]),"topUnit":String(10),"timeLimit":String(30), "gameState":String(0)]
+            
+            NetworkManager.shared.sendReq(urlstr: url, requestData: parameters)
+            
+            //get result save global gameid/first move data to db
+            //send push notification from server to opponent
             return
         }
         

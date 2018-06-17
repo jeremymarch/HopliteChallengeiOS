@@ -118,10 +118,18 @@ class VocabDetailViewController: UIViewController {
             let pos:String = match!.pos!
             let note:String = match!.note!
             let pp:String = principalParts(present:match!.present!, future:match!.future!, aorist:match!.aorist!,perfect:match!.perfect!,perfectmid:match!.perfectmid!, aoristpass:match!.aoristpass!,seperator: " or")
-            
+
             if let w = defLabel
             {
                 w.text = def
+                /*
+                let maxHeight = CGFloat.infinity
+                let rect = w.text.boundingRect(with: CGSize(width:w.frame.size.width, height:maxHeight), options: .usesLineFragmentOrigin, context: nil)
+                var frame = w.frame
+                frame.size.height = rect.size.height
+                w.frame = frame
+ */
+                //w.sizeToFit()
             }
             if let w = lemmaLabel
             {

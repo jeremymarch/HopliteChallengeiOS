@@ -7,6 +7,9 @@
 //
 
 import UIKit
+//to disable certain component
+//https://stackoverflow.com/questions/33860778/how-to-properly-disable-uipickerview-component-scrolling/33860779
+
 
 class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate {
     var pickerEnabled = true

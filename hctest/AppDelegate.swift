@@ -18,6 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+        
+        print("Device token: \(deviceTokenString)")
+        
+    }
+    
     //http://stackoverflow.com/questions/34037274/shouldautorotate-not-working-with-navigation-controllar-swift-2
     //var shouldSupportAllOrientation = false
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
@@ -77,6 +85,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         datasync()
+        
+        if #available(iOS 10.0, *) {
+            DataManager.shared.backgroundContext = self.persistentContainer.newBackgroundContext()
+            DataManager.shared.mainContext = self.persistentContainer.viewContext
+        }
+        else
+        {
+            DataManager.shared.backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+            DataManager.shared.backgroundContext?.persistentStoreCoordinator = managedObjectContext.persistentStoreCoordinator
+            DataManager.shared.mainContext = managedObjectContext
+        }
         
         return true
     }

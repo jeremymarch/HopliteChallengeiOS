@@ -8,6 +8,11 @@
 import UIKit
 import CoreData
 
+protocol VerbChooserDelegate {
+    func setSelectedVerb(verbID: Int)
+    func onDismissVerbChooser()
+}
+
 class VocabTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate,UITextFieldDelegate {
     let hcblue:UIColor = UIColor(red: 0.0, green: 0.47, blue: 1.0, alpha: 1.0)
     let hcLightBlue:UIColor = UIColor(red: 140/255.0, green: 220/255.0, blue: 255/255.0, alpha: 1.0)
@@ -17,6 +22,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     var filterButtons:[UIButton] = []
     var selectedButtonIndex = 0
     var navTitle = "H&Q Vocabulary"
+    var delegate:VerbChooserDelegate?
     @IBOutlet var filterButtonView:UIView!
     @IBOutlet var tableView:UITableView!
     @IBOutlet var searchTextField:UITextField!
@@ -537,10 +543,21 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     }
  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.tag = indexPath.row
+        //let btn = UIButton(type: UIButtonType.custom)
+        //btn.tag = indexPath.row
         
-        performSegue(withIdentifier: "ShowVocabDetail", sender: self)
+        if delegate != nil
+        {
+            let object = fetchedResultsController.object(at: indexPath)
+            let wordid = Int(object.hqid)
+            delegate?.setSelectedVerb(verbID: wordid)
+            //close
+            self.presentingViewController?.dismiss(animated: true, completion:delegate?.onDismissVerbChooser)
+        }
+        else
+        {
+            performSegue(withIdentifier: "ShowVocabDetail", sender: self)
+        }
     }
     
     /*
