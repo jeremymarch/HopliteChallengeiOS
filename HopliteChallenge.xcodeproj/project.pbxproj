@@ -45,6 +45,7 @@
 		3F3443D31E6BB41D00FFAD04 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CF1E6BB41D00FFAD04 /* sqlite3.c */; };
 		3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */; };
 		3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443D61E6C814200FFAD04 /* newathu5.ttf */; };
+		3F3B30EE20D7033700EEB1E7 /* HCGameList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */; };
 		3F4205361FDDA57200BCA548 /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4205351FDDA57200BCA548 /* CardController.swift */; };
 		3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4869CD1E7C9A020051B46A /* HCSettings.swift */; };
 		3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */; };
@@ -137,6 +138,7 @@
 		3F3443D21E6BB41D00FFAD04 /* GreekUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreekUnicode.h; path = libmorph/GreekUnicode.h; sourceTree = "<group>"; };
 		3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerbSequence.swift; sourceTree = "<group>"; };
 		3F3443D61E6C814200FFAD04 /* newathu5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newathu5.ttf; sourceTree = "<group>"; };
+		3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCGameList.swift; sourceTree = "<group>"; };
 		3F4205351FDDA57200BCA548 /* CardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
 		3F4869CD1E7C9A020051B46A /* HCSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCSettings.swift; sourceTree = "<group>"; };
 		3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabTableViewController.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */,
 				3FCB495720C47A5400FFD266 /* NetworkManager.swift */,
 				3FCB495920C47F9F00FFD266 /* DataManager.swift */,
+				3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -604,6 +607,7 @@
 				3FF71B451E79EC4700144F7D /* GameHistory.swift in Sources */,
 				3F85625E20A93FCC00FE3EE1 /* HCMFButton.swift in Sources */,
 				3F6D20541FB7B8DA0000615B /* AccentsViewController.swift in Sources */,
+				3F3B30EE20D7033700EEB1E7 /* HCGameList.swift in Sources */,
 				3F85625520A9318900FE3EE1 /* HCGlobeButton.swift in Sources */,
 				3FFE2C081FAE7CA50013A92E /* swiftVSeqLayer.c in Sources */,
 				3F85625720A9318900FE3EE1 /* HCSpaceButton.swift in Sources */,

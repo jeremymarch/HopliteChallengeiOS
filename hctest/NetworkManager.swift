@@ -136,7 +136,8 @@ class NetworkManager {
                             {
                                 if let id:Int = json["gameID"] as? Int
                                 {
-                                    print("grame created.  id: " + String(id))
+                                    print("game created.  id: " + String(id))
+                                    self.addGame(game:newDict, gameID:id)
                                 }
                                 self.clearQueue()
                             }
@@ -167,19 +168,51 @@ class NetworkManager {
             addToRequestQueue(req:poststr)
         }
     }
-    /*
-     func getQueueCount() -> Int
-     {
-     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "RequestQueue")
-     do {
-     let count = try DataManager.shared.mainContext?.count(for:fetchRequest)
-     return count!
-     } catch let error as NSError {
-     print("Error: \(error.localizedDescription)")
-     return 0
-     }
-     }
-     */
+    
+    func addGame(game:Dictionary<String, String>, gameID:Int)
+    {
+        let moc = DataManager.shared.backgroundContext!
+        
+        let object = NSEntityDescription.insertNewObject(forEntityName: "HCGame", into: moc) as! HCGame
+        object.gameID = Int32(gameID)
+        object.topUnit = Int16(game["topUnit"]!)!
+        object.timeLimit = Int16(game["timeLimit"]!)!
+        object.player1ID = Int32(game["askPlayerID"]!)!
+        object.player2ID = Int32(game["answerPlayerID"]!)!
+        object.gameState = 1
+        
+        let move = NSEntityDescription.insertNewObject(forEntityName: "HCMoves", into: moc) as! HCMoves
+        move.gameID = Int32(gameID)
+        move.moveID = 1 //first move in new game
+        move.verbID = Int32(game["verbID"]!)!
+        move.person = Int16(game["person"]!)!
+        move.number = Int16(game["number"]!)!
+        move.tense = Int16(game["tense"]!)!
+        move.voice = Int16(game["voice"]!)!
+        move.mood = Int16(game["mood"]!)!
+        
+        do {
+            try moc.save()
+            print("saved moc")
+        } catch {
+            print("couldn't save game")
+        }
+        
+        print("count: \(getGameCount())")
+    }
+    
+    func getGameCount() -> Int
+    {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HCGame")
+        do {
+            let count = try DataManager.shared.mainContext?.count(for:fetchRequest)
+            return count!
+        } catch let error as NSError {
+            print("Error: \(error.localizedDescription)")
+            return 0
+        }
+    }
+ 
     func clearQueue() {
         let context = DataManager.shared.backgroundContext
         

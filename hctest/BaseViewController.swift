@@ -44,6 +44,8 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             self.openViewControllerBasedOnIdentifier("ExercisesView")
         case 9:
             self.openViewControllerBasedOnIdentifier("HCGame")
+        case 10:
+            self.openViewControllerBasedOnIdentifier("HCGameList")
         default:
             //NSLog("default")
             break

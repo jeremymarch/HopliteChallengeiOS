@@ -589,7 +589,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         //http://stackoverflow.com/questions/12591192/center-text-vertically-in-a-uitextview
         //see below
         textView.addObserver(self, forKeyPath: "contentSize", options: [.new], context: nil)
-        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = false
         
         reloadSettings()
         vs.reset()

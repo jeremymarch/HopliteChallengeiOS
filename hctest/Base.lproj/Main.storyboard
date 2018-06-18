@@ -151,6 +151,49 @@
             </objects>
             <point key="canvasLocation" x="-4366" y="1819"/>
         </scene>
+        <!--Game List View Controller-->
+        <scene sceneID="3wZ-dl-N3I">
+            <objects>
+                <viewController storyboardIdentifier="HCGameList" useStoryboardIdentifierAsRestorationIdentifier="YES" id="22b-2c-Mgt" customClass="HCGameListViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7YV-9Z-Kkg"/>
+                        <viewControllerLayoutGuide type="bottom" id="MtM-8Y-hUh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vjs-uc-Eox">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mZt-cn-xM8">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="E2B-og-h4x">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E2B-og-h4x" id="AMj-Oh-7Ri">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="mZt-cn-xM8" secondAttribute="trailing" id="K0e-Ov-EE8"/>
+                            <constraint firstItem="mZt-cn-xM8" firstAttribute="leading" secondItem="vjs-uc-Eox" secondAttribute="leading" id="QjQ-51-C2E"/>
+                            <constraint firstItem="mZt-cn-xM8" firstAttribute="top" secondItem="vjs-uc-Eox" secondAttribute="top" id="g2w-hF-LGo"/>
+                            <constraint firstItem="MtM-8Y-hUh" firstAttribute="top" secondItem="mZt-cn-xM8" secondAttribute="bottom" id="uti-9c-4Az"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="mZt-cn-xM8" id="rzU-bM-M6Q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gdu-QF-jRC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3338.4000000000001" y="1642.128935532234"/>
+        </scene>
         <!--Accents View Controller-->
         <scene sceneID="eBI-W1-AhH">
             <objects>
@@ -338,6 +381,7 @@
                         <segue destination="Cm6-I9-NPQ" kind="show" identifier="SegueToVerbList" id="vug-0X-bAJ"/>
                         <segue destination="vz5-j1-jgh" kind="show" identifier="ExercisesSegue" id="DIl-yQ-Wde"/>
                         <segue destination="R4j-bh-BrZ" kind="show" identifier="ShowHCGame" id="KEO-eF-0Hf"/>
+                        <segue destination="22b-2c-Mgt" kind="show" identifier="showHCGames" id="Ozt-cc-fkV"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UiL-SM-4y8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -844,7 +888,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="geA-F4-lDG"/>
+        <segue reference="SnT-bn-xCC"/>
         <segue reference="USx-nv-zQl"/>
     </inferredMetricsTieBreakers>
 </document>
