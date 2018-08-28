@@ -931,9 +931,9 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         if (isGame)
         {
             scoreLabel.text = String(0)
-            life1.isHidden = false;
-            life2.isHidden = false;
-            life3.isHidden = false;
+            life1.isHidden = false
+            life2.isHidden = false
+            life3.isHidden = false
         }
     }
     

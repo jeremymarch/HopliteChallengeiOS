@@ -2683,6 +2683,13 @@ int deponentType2(int verbid)
     return deponentType(v);
 }
 
+/*
+ gignomai
+ hepomai
+ metanistamai
+ epanistamai
+ 
+ */
 //page 316 in h&q
 int deponentType(Verb *v)
 {
@@ -2690,7 +2697,7 @@ int deponentType(Verb *v)
     {
         return DEPONENT_GIGNOMAI; //see H&Q page 382. fix me, there may be a better way to do this without separate case
     }
-    else if ( utf8HasSuffix(v->present, "μαι") && utf8HasSuffix(v->future, "μαι") && utf8HasSuffix(v->aorist, "μην") && v->perf[0] == '\0' && utf8HasSuffix(v->perfmid, "μαι") && v->aoristpass[0] == '\0')
+    else if ( utf8HasSuffix(v->present, "μαι") && utf8HasSuffix(v->future, "μαι") && utf8HasSuffix(v->aorist, "μην") && v->perf[0] == '\0' /* && utf8HasSuffix(v->perfmid, "μαι") */ && v->aoristpass[0] == '\0')
     {
         return MIDDLE_DEPONENT;
     }

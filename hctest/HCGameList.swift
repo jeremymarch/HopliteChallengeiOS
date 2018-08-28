@@ -36,6 +36,151 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         
         self.navigationItem.title = navTitle
         login()
+        
+        hcsync()
+    }
+    
+    func hcsync()
+    {
+        let url = "https://philolog.us/hcsync.php"
+        
+        let parameters:Dictionary<String, String> = ["type":"sync","playerID": String(vUserID)]
+        
+        NetworkManager.shared.sendReq(urlstr: url, requestData: parameters)
+    }
+    
+    func datasync()
+    {
+        //let time = NSDate.init()
+        var timestamp = 0 //time.timeIntervalSince1970
+        
+        let d = UserDefaults.standard
+        let time = d.object(forKey: "LastUpdated")
+        if time != nil
+        {
+            timestamp = time as! Int
+        }
+        else
+        {
+            d.set(timestamp, forKey: "LastUpdated")
+            d.synchronize()
+        }
+        NSLog("Time: \(timestamp)")
+        
+        NSLog("START REQUEST")
+        //http://benscheirman.com/2017/06/ultimate-guide-to-json-parsing-with-swift-4/
+        //https://stackoverflow.com/questions/32631184/the-resource-could-not-be-loaded-because-the-app-transport-security-policy-requi
+        
+        //with password:https://gist.github.com/n8armstrong/5c5c828f1b82b0315e24
+        let urlString = URL(string: "https://philolog.us/hqjson.php?lastupdated=\(timestamp)")//https://philolog.us/hqvocab.php?unit=20&AndUnder=on&sort=alpha")
+        NSLog("Start timestamp: \(timestamp)")
+        if let url = urlString {
+            //let session = NSURLSession(configuration: .defaultSessionConfiguration(), delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    NSLog("boo")
+                    NSLog(error!.localizedDescription)
+                } else {
+                    if let usableData = data {
+                        NSLog("yay")
+                        if let stringData = String(data: usableData, encoding: String.Encoding.utf8) {
+                            print(stringData) //JSONSerialization
+                            do {
+                                let decoder = JSONDecoder()
+                                let rows = try decoder.decode(HQResponse.self, from: usableData)
+                                
+                                NSLog("Updated: \(rows.meta.updated)")
+                                
+                                DispatchQueue.main.sync {
+                                    //https://stackoverflow.com/questions/46956921/main-thread-checker-ui-api-called-on-a-background-thread-uiapplication-deleg
+                                    let backgroundContext = NSManagedObjectContext(concurrencyType:.privateQueueConcurrencyType)
+                                    //backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+                                    //let backgroundContext = self.managedObjectContext
+                                    backgroundContext.mergePolicy = NSRollbackMergePolicy //needed or duplicates x2
+                                    if #available(iOS 10.0, *) {
+                                        backgroundContext.persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator
+                                    }
+                                    else
+                                    {
+                                        backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator
+                                    }
+                                    let entity = NSEntityDescription.entity(forEntityName: "HQWords", in: backgroundContext)
+                                    /*
+                                     let countFetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
+                                     do {
+                                     let newCount = try backgroundContext.count(for: countFetch)
+                                     NSLog("count1 \(newCount)")
+                                     } catch { }
+                                     */
+                                    //var count = 0
+                                    var highestTimestamp = 0;
+                                    for row in rows.rows {
+                                        //print("Row: \(row.id), \(row.lemma), \(row.unit)")
+                                        /*
+                                         if self.hqWordExists(id:row.id)
+                                         {
+                                         NSLog("duplicate \(row.id)")
+                                         continue
+                                         }
+                                         */
+                                        if row.lastupdated > highestTimestamp
+                                        {
+                                            highestTimestamp = row.lastupdated
+                                        }
+                                        
+                                        let newWord = self.getWordObjectOrNew(hqid:row.id, context:backgroundContext)
+                                        
+                                        
+                                        newWord.setValue(self.stripAccent(lemma: row.lemma), forKey: "sortkey")
+                                        
+                                        newWord.setValue(row.id, forKey: "hqid")
+                                        newWord.setValue(row.unit, forKey: "unit")
+                                        newWord.setValue(row.lemma, forKey: "lemma")
+                                        newWord.setValue(row.def, forKey: "def")
+                                        newWord.setValue(row.pos, forKey: "pos")
+                                        newWord.setValue(row.present, forKey: "present")
+                                        newWord.setValue(row.future, forKey: "future")
+                                        newWord.setValue(row.aorist, forKey: "aorist")
+                                        newWord.setValue(row.perfect, forKey: "perfect")
+                                        newWord.setValue(row.perfectmid, forKey: "perfectmid")
+                                        newWord.setValue(row.aoristpass, forKey: "aoristpass")
+                                        newWord.setValue(row.note, forKey: "note")
+                                        newWord.setValue(row.lastupdated, forKey: "lastupdated")
+                                        newWord.setValue(row.seq, forKey: "seq")
+                                    }
+                                    do {
+                                        if backgroundContext.hasChanges
+                                        {
+                                            NSLog("has changes!")
+                                            try backgroundContext.save()
+                                            //NSLog("Count: \(count)")
+                                            if highestTimestamp > timestamp
+                                            {
+                                                UserDefaults.standard.set(highestTimestamp, forKey: "LastUpdated")
+                                                NSLog("New timestamp: \(highestTimestamp)")
+                                            }
+                                        }
+                                    } catch let error as NSError {
+                                        print("failed saving: \(error.localizedDescription)")
+                                    }
+                                    
+                                    let countFetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
+                                    do {
+                                        let newCount = try backgroundContext.count(for: countFetch)
+                                        NSLog("count2 \(newCount)")
+                                    } catch { }
+                                }
+                                
+                            } catch let error as NSError {
+                                print(error.localizedDescription)
+                            }
+                        }
+                    }
+                }
+            }
+            task.resume()
+        }
+        NSLog("End REQUEST")
     }
     
     func login()
