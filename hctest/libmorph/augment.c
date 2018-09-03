@@ -78,8 +78,20 @@ void augmentStem(VerbFormC *vf, UCS2 *ucs2, int *len, bool decompose, int stem)
         UCS2 pro[] = { GREEK_SMALL_LETTER_PI, GREEK_SMALL_LETTER_RHO, GREEK_SMALL_LETTER_OMICRON };
         UCS2 para[] = { GREEK_SMALL_LETTER_PI, GREEK_SMALL_LETTER_ALPHA, GREEK_SMALL_LETTER_RHO, GREEK_SMALL_LETTER_ALPHA };
         UCS2 up[] = { GREEK_SMALL_LETTER_UPSILON_WITH_DASIA, GREEK_SMALL_LETTER_PI };
+        UCS2 upo[] = { GREEK_SMALL_LETTER_UPSILON_WITH_DASIA, GREEK_SMALL_LETTER_PI,GREEK_SMALL_LETTER_OMICRON };
         
-        if (hasPrefix(ucs2, *len, up, 2))
+        if (hasPrefix(ucs2, *len, upo, 3))
+        {
+            if ( decompose)
+            {
+                splice(ucs2, len, BUFFER_LEN, 3, 0, (UCS2[]){SPACE,HYPHEN,SPACE,DECOMPOSED_AUGMENT_CHAR,SPACE,HYPHEN,SPACE}, 7);
+            }
+            else if (vf->tense == IMPERFECT || vf->tense == PLUPERFECT)
+            {
+                splice(ucs2, len, BUFFER_LEN, 2, 1, (UCS2[]){GREEK_SMALL_LETTER_EPSILON}, 1);
+            }
+        }
+        else if (hasPrefix(ucs2, *len, up, 2))
         {
             if ( decompose)
             {
@@ -681,8 +693,31 @@ void stripAugmentFromPrincipalPart(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 pre
         UCS2 pro[] = { GREEK_SMALL_LETTER_PI, GREEK_SMALL_LETTER_RHO, GREEK_SMALL_LETTER_OMICRON };
         UCS2 par[] = { GREEK_SMALL_LETTER_PI, GREEK_SMALL_LETTER_ALPHA, GREEK_SMALL_LETTER_RHO };
         UCS2 up[] = { GREEK_SMALL_LETTER_UPSILON_WITH_DASIA, GREEK_SMALL_LETTER_PI };
+        UCS2 upe[] = { GREEK_SMALL_LETTER_UPSILON_WITH_DASIA, GREEK_SMALL_LETTER_PI,GREEK_SMALL_LETTER_EPSILON };
         
-        if (hasPrefix(ucs2, *len, up, 2))
+        if (hasPrefix(ucs2, *len, upe, 3))
+        {
+            if (decompose)
+            {
+                if (vf->tense == AORIST)
+                {
+                    splice(ucs2, len, BUFFER_LEN, 2, 1, (UCS2[]){GREEK_SMALL_LETTER_OMICRON,SPACE,HYPHEN,SPACE}, 4);
+                    if (vf->mood == INDICATIVE)
+                    {
+                        splice(ucs2, len, BUFFER_LEN, 6, 0, (UCS2[]){DECOMPOSED_AUGMENT_CHAR,SPACE,HYPHEN,SPACE}, 4);
+                    }
+                }
+                else if (vf->tense == FUTURE && vf->voice == PASSIVE)
+                {
+                    splice(ucs2, len, BUFFER_LEN, 2, 1, (UCS2[]){GREEK_SMALL_LETTER_OMICRON,SPACE,HYPHEN,SPACE}, 4);
+                }
+            }
+            else if ((vf->tense == AORIST && vf->mood != INDICATIVE) || (vf->tense == FUTURE && vf->voice == PASSIVE))
+            {
+                splice(ucs2, len, BUFFER_LEN, 2, 1, (UCS2[]){GREEK_SMALL_LETTER_OMICRON}, 1);
+            }
+        }
+        else if (hasPrefix(ucs2, *len, up, 2))
         {
             if (decompose)
             {
@@ -1351,9 +1386,14 @@ void decomposePrefixes(VerbFormC *vf, UCS2 *ucs2, int *len)
     UCS2 epi[] = { GREEK_SMALL_LETTER_EPSILON_WITH_PSILI, GREEK_SMALL_LETTER_PI, GREEK_SMALL_LETTER_IOTA };
     UCS2 pro[] = { GREEK_SMALL_LETTER_PI, GREEK_SMALL_LETTER_RHO, GREEK_SMALL_LETTER_OMICRON };
     UCS2 para[] = { GREEK_SMALL_LETTER_PI, GREEK_SMALL_LETTER_ALPHA, GREEK_SMALL_LETTER_RHO, GREEK_SMALL_LETTER_ALPHA };
+    UCS2 upo[] = { GREEK_SMALL_LETTER_UPSILON_WITH_DASIA, GREEK_SMALL_LETTER_PI,GREEK_SMALL_LETTER_OMICRON };
     UCS2 up[] = { GREEK_SMALL_LETTER_UPSILON_WITH_DASIA, GREEK_SMALL_LETTER_PI };
     
-    if (hasPrefix(ucs2, *len, up, 2))
+    if (hasPrefix(ucs2, *len, upo, 3))
+    {
+        splice(ucs2, len, BUFFER_LEN, 3, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
+    }
+    else if (hasPrefix(ucs2, *len, up, 2))
     {
         splice(ucs2, len, BUFFER_LEN, 2, 0, (UCS2[]){GREEK_SMALL_LETTER_OMICRON, SPACE,HYPHEN,SPACE}, 4);
     }
