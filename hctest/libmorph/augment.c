@@ -681,8 +681,12 @@ void stripAugmentFromPrincipalPart(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 pre
                         splice(ucs2, len, BUFFER_LEN, 7, 0, (UCS2[]){DECOMPOSED_AUGMENT_CHAR,SPACE,HYPHEN,SPACE}, 4);
                     }
                 }
+                else if (vf->tense == FUTURE && vf->voice == PASSIVE)
+                {
+                    splice(ucs2, len, BUFFER_LEN, 3, 1, (UCS2[]){GREEK_SMALL_LETTER_ALPHA,SPACE,HYPHEN,SPACE}, 4);
+                }
             }
-            else if (vf->tense == AORIST && vf->mood != INDICATIVE)
+            else if ((vf->tense == AORIST && vf->mood != INDICATIVE) || (vf->tense == FUTURE && vf->voice == PASSIVE))
             {
                 splice(ucs2, len, BUFFER_LEN, 3, 1, (UCS2[]){GREEK_SMALL_LETTER_ALPHA}, 1);
             }
