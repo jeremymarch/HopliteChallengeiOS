@@ -167,12 +167,12 @@ void augmentStem(VerbFormC *vf, UCS2 *ucs2, int *len, bool decompose, int stem)
             if ( decompose)
             {
                 splice(ucs2, len, BUFFER_LEN, 2, 1, (UCS2[]){GREEK_SMALL_LETTER_NU,SPACE,HYPHEN,SPACE}, 4);
-                if (vf->tense == AORIST || vf->tense == IMPERFECT)
+                if (vf->tense == PLUPERFECT || vf->tense == IMPERFECT)
                 {
                     splice(ucs2, len, BUFFER_LEN, 6, 0, (UCS2[]){DECOMPOSED_AUGMENT_CHAR,SPACE,HYPHEN,SPACE}, 4);
                 }
             }
-            else if (vf->tense == IMPERFECT)
+            else if (vf->tense == IMPERFECT || vf->tense == PLUPERFECT)
             {
                 rightShiftFromOffsetSteps(ucs2, 3, 1, len);
                 ucs2[2] = GREEK_SMALL_LETTER_NU;
@@ -890,7 +890,12 @@ void stripAugmentFromPrincipalPart(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 pre
                 if (vf->tense == AORIST)
                 {
                     splice(ucs2, len, BUFFER_LEN, 2, 1, (UCS2[]){GREEK_SMALL_LETTER_NU,SPACE,HYPHEN,SPACE}, 4);
-                    if (vf->mood == INDICATIVE && !(ucs2[6] == GREEK_SMALL_LETTER_ETA && ucs2[7] == GREEK_SMALL_LETTER_KAPPA && (vf->number == SINGULAR || vf->voice == MIDDLE)))
+                    
+                    if (utf8HasSuffix(vf->verb->present, "συμβουλεύω") && vf->mood == INDICATIVE)
+                    {
+                        splice(ucs2, len, BUFFER_LEN, 6, 1, (UCS2[]){DECOMPOSED_AUGMENT_CHAR,SPACE,HYPHEN,SPACE}, 4);
+                    }
+                    else if (vf->mood == INDICATIVE && !(ucs2[6] == GREEK_SMALL_LETTER_ETA && ucs2[7] == GREEK_SMALL_LETTER_KAPPA && (vf->number == SINGULAR || vf->voice == MIDDLE)))
                     {
                         splice(ucs2, len, BUFFER_LEN, 6, 1, (UCS2[]){DECOMPOSED_AUGMENT_CHAR,SPACE,HYPHEN,SPACE,GREEK_SMALL_LETTER_EPSILON}, 5);
                         
@@ -900,23 +905,28 @@ void stripAugmentFromPrincipalPart(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 pre
                             ucs2[10] = GREEK_SMALL_LETTER_EPSILON_WITH_DASIA;
                         }
                     }
-                    else if (vf->tense == AORIST || vf->tense == FUTURE)
+                    else if (ucs2[6] == GREEK_SMALL_LETTER_EPSILON && ucs2[7] == GREEK_SMALL_LETTER_IOTA) //sunihmi
                     {
-                        if (ucs2[6] == GREEK_SMALL_LETTER_EPSILON && ucs2[7] == GREEK_SMALL_LETTER_IOTA)
-                        {
-                            leftShiftFromOffsetSteps(ucs2, 7, 1, len);
-                            ucs2[6] = GREEK_SMALL_LETTER_EPSILON_WITH_DASIA;
-                        }
-                        else
-                        {
-                            ucs2[6] = GREEK_SMALL_LETTER_EPSILON;
-                        }
+                        leftShiftFromOffsetSteps(ucs2, 7, 1, len);
+                        ucs2[6] = GREEK_SMALL_LETTER_EPSILON_WITH_DASIA;
+                    }
+                    else if (ucs2[6] == GREEK_SMALL_LETTER_ETA) //sunferw
+                    {
+                        ucs2[6] = GREEK_SMALL_LETTER_EPSILON;
+                    }
+                    else
+                    {
+                        splice(ucs2, len, BUFFER_LEN, 6, 1, NULL, 0); //remove augment
                     }
                 }
                 else
                 {
                     splice(ucs2, len, BUFFER_LEN, 3, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
-                    if (ucs2[6] == GREEK_SMALL_LETTER_EPSILON && ucs2[7] == GREEK_SMALL_LETTER_IOTA)
+                    if (utf8HasSuffix(vf->verb->present, "συμβουλεύω") && vf->tense == FUTURE)
+                    {
+                        splice(ucs2, len, BUFFER_LEN, 6, 1, NULL, 0);
+                    }
+                    else if (ucs2[6] == GREEK_SMALL_LETTER_EPSILON && ucs2[7] == GREEK_SMALL_LETTER_IOTA)
                     {
                         leftShiftFromOffsetSteps(ucs2, 7, 1, len);
                         ucs2[6] = GREEK_SMALL_LETTER_EPSILON_WITH_DASIA;
@@ -938,9 +948,17 @@ void stripAugmentFromPrincipalPart(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 pre
                 {
                     leftShiftFromOffsetSteps(ucs2, 4, 1, len);
                 }
-                else
+                else if (ucs2[3] == GREEK_SMALL_LETTER_ETA) //sunferw
                 {
                     ucs2[3] = GREEK_SMALL_LETTER_EPSILON;
+                }
+                else if (ucs2[3] == GREEK_SMALL_LETTER_EPSILON && ucs2[4] == GREEK_SMALL_LETTER_BETA) //SUMBOYLEYW
+                {
+                    splice(ucs2, len, BUFFER_LEN, 2, 2, (UCS2[]){GREEK_SMALL_LETTER_MU}, 1);
+                }
+                else
+                {
+                    splice(ucs2, len, BUFFER_LEN, 3, 1, NULL, 0);
                 }
             }
         }
