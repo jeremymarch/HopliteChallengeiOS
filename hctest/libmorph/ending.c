@@ -32,8 +32,7 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
     }
     else if(decompose && ADD_EPSILON_TO_AORIST_PASSIVE_SUBJUNCTIVE_STEM && vf->tense == AORIST && vf->voice == PASSIVE && vf->mood == SUBJUNCTIVE)
     {
-        ucs2[*len] = GREEK_SMALL_LETTER_EPSILON;
-        ++(*len);
+        splice(ucs2, len, BUFFER_LEN, *len, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON}, 1);
     }
     /* start consonant stem perfect and pluperfect */
     else if ((vf->tense == PERFECT || vf->tense == PLUPERFECT) && (vf->voice == MIDDLE || vf->voice == PASSIVE))
@@ -69,8 +68,8 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
                 }
                 else
                 {
-                    ucs2[*len - 1] = GREEK_SMALL_LETTER_PSI;
-                    leftShiftFromOffsetSteps(ending, 0, 1, &elen);
+                    splice(ucs2, len, BUFFER_LEN, *len -1, 1, (UCS2[]){GREEK_SMALL_LETTER_PSI}, 1);
+                    splice(ending, &elen, BUFFER_LEN, 0, 1, NULL, 0);
                 }
             }
             else if (vf->person == THIRD && vf->number == SINGULAR)
@@ -339,17 +338,9 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
     {
         if (decompose)
         {
-            ucs2[*len] = SPACE;
-            ++(*len);
-            ucs2[*len] = HYPHEN;
-            ++(*len);
-            ucs2[*len] = SPACE;
-            ++(*len);
+            splice(ucs2, len, BUFFER_LEN, *len, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
         }
-        
-        ucs2[*len] = GREEK_SMALL_LETTER_ETA;
-        ucs2[(*len) + 1] = GREEK_SMALL_LETTER_SIGMA;
-        (*len) += 2; //parens required here fyi
+        splice(ucs2, len, BUFFER_LEN, *len, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA,GREEK_SMALL_LETTER_SIGMA}, 2);
     }
     /* start mi verbs present tense */
     else if (vf->tense == PRESENT &&
@@ -361,29 +352,28 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
         if (vf->voice != ACTIVE || vf->number == PLURAL || vf->mood == OPTATIVE || vf->mood == IMPERATIVE || vf->mood == SUBJUNCTIVE)
         {
             if (ucs2[*len - 1] == GREEK_SMALL_LETTER_OMEGA)
-                ucs2[*len - 1] = GREEK_SMALL_LETTER_OMICRON;
+                splice(ucs2, len, BUFFER_LEN, *len - 1, 1, (UCS2[]){GREEK_SMALL_LETTER_OMICRON}, 1);
             else if (ucs2[*len - 1] == GREEK_SMALL_LETTER_ETA && (ucs2[*len - 2] == GREEK_SMALL_LETTER_TAU || ucs2[*len - 2] == GREEK_SMALL_LETTER_PHI))
-                ucs2[*len - 1] = GREEK_SMALL_LETTER_ALPHA;
+                splice(ucs2, len, BUFFER_LEN, *len - 1, 1, (UCS2[]){GREEK_SMALL_LETTER_ALPHA}, 1);
             else if (ucs2[*len - 1] == GREEK_SMALL_LETTER_ETA)
-                ucs2[*len - 1] = GREEK_SMALL_LETTER_EPSILON;
+                splice(ucs2, len, BUFFER_LEN, *len - 1, 1, (UCS2[]){GREEK_SMALL_LETTER_EPSILON}, 1);
             else if (ucs2[*len - 1] == COMBINING_MACRON) //deiknumi
-                --(*len);
+                splice(ucs2, len, BUFFER_LEN, *len - 1, 1, NULL, 0); //remove one (macron) --(*len);
         }
         //contract third plural indicative of isthmi
         if (vf->person == THIRD && vf->number == PLURAL && vf->mood == INDICATIVE && vf->voice == ACTIVE && (utf8HasSuffix(vf->verb->present, "στημι") || utf8HasSuffix(vf->verb->present, "ῑ̔́ημι") || utf8HasSuffix(vf->verb->present, "ῑ́ημι")))
         {
             if (!decompose)
             {
-                --(*len);
-                leftShiftFromOffsetSteps(ending, 0, 1, &elen);
-                ending[0] = GREEK_SMALL_LETTER_ALPHA_WITH_PERISPOMENI;
+                splice(ucs2, len, BUFFER_LEN, *len - 1, 1, NULL, 0);
+                splice(ending, &elen, elen, 0, 2, (UCS2[]){GREEK_SMALL_LETTER_ALPHA_WITH_PERISPOMENI}, 1);
             }
         }
         else if (vf->person == THIRD && vf->number == PLURAL && vf->mood == INDICATIVE && vf->voice == ACTIVE && utf8HasSuffix(vf->verb->present, "φημί"))
         {
             if (!decompose)
             {
-                --(*len);
+                splice(ucs2, len, BUFFER_LEN, *len - 1, 1, NULL, 0); //--(*len);
             }
         }
         else if (vf->person == SECOND && vf->number == SINGULAR && vf->mood == INDICATIVE && vf->voice == ACTIVE &&
@@ -401,13 +391,12 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
         {
             if (vf->person == SECOND && vf->number == SINGULAR && vf->mood == INDICATIVE)
             {
-                ucs2[1] = GREEK_SMALL_LETTER_IOTA_WITH_PSILI_AND_PERISPOMENI;
-                *len = 2;
+                splice(ucs2, len, BUFFER_LEN, 1, 1, (UCS2[]){GREEK_SMALL_LETTER_IOTA_WITH_PSILI_AND_PERISPOMENI}, 1);
                 elen = 0;
             }
             else if (vf->number == PLURAL && vf->mood == INDICATIVE)
             {
-                leftShiftFromOffsetSteps(ucs2, 0, 1, len);
+                splice(ucs2, len, BUFFER_LEN, 0, 1, NULL, 0);
             }
         }
         
@@ -558,7 +547,6 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
                         elen = 0;
                         ++(*len);
                         ucs2[*len - 1] = COMBINING_MACRON;
-                        
                     }
                     else
                     {
@@ -1502,7 +1490,9 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
     else if (utf8HasSuffix(vf->verb->present, "κεῖμαι"))
     {
         if (vf->mood == SUBJUNCTIVE || vf->mood == OPTATIVE)
+        {
             leftShiftFromOffsetSteps(ucs2, *len - 1, 1, len);
+        }
         if (vf->mood == IMPERATIVE && vf->person == SECOND && vf->number == SINGULAR)
         {
             ending[0] = GREEK_SMALL_LETTER_SIGMA;
@@ -1511,7 +1501,7 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
         }
     }
     
-    
+    //Aorist passive imperative 2nd sing.
     if (vf->person == SECOND && vf->number == SINGULAR && vf->tense == AORIST && vf->voice == PASSIVE && vf->mood == IMPERATIVE && !decompose)
     {
         //determine which aorist passive imperative ending
@@ -1528,19 +1518,9 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
     //add the ending to the stem, decompose if necessary
     if (decompose && *len > 0 && !(*len == 1 && ucs2[0] == '-'))
     {
-        ucs2[*len] = SPACE;
-        ++(*len);
-        ucs2[*len] = HYPHEN;
-        ++(*len);
-        ucs2[*len] = SPACE;
-        ++(*len);
+        splice(ucs2, len, BUFFER_LEN, *len, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
     }
     
-    int i = 0;
-    int j = 0;
-    for (i = *len; j < elen; i++, j++)
-    {
-        ucs2[i] = ending[j];
-        ++(*len);
-    }
+    //add the ending
+    splice(ucs2, len, BUFFER_LEN, *len, 0, ending, elen);
 }

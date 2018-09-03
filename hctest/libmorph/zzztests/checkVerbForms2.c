@@ -16,7 +16,7 @@ extern char *tenses[];
 extern char *moods[];
 extern char *voices[];
 
-int numVerbs = 114;//114 is all 20 units
+int numVerbs = 116;//114 is all 20 units
 
 void getCurrentTime(char *buffer, int bufferLen)
 {
@@ -30,7 +30,7 @@ int main(int argc, char **argv)
     char fileBuffer[fileBufferLen];
 
     getCurrentTime(fileBuffer, fileBufferLen);
-    FILE *fp = fopen(fileBuffer, "wb");
+    FILE *fp = fopen("new.txt"/*fileBuffer*/, "wb");
 
     VerbFormC vf;
     VerbFormC longestVF;
@@ -106,11 +106,11 @@ int main(int argc, char **argv)
                                         //FIX ME, is this right?? how do we label these?
                                         if ( deponentType(vf.verb) == MIDDLE_DEPONENT || deponentType(vf.verb) == PASSIVE_DEPONENT)
                                         {
-                                            fprintf(fp, "\n%s %s %s\n", tenses[g1], "middle", moods[m]);
+                                            fprintf(fp, "\n%s %s %s\n", tenses[g1], "Middle", moods[m]);
                                         }
                                         else
                                         {
-                                            fprintf(fp, "\n%s %s %s\n", tenses[g1], "middle/passive", moods[m]);
+                                            fprintf(fp, "\n%s %s %s\n", tenses[g1], "Middle/Passive", moods[m]);
                                         }
                                     }
                                     else

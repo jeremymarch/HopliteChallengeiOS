@@ -51,6 +51,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     
     func datasync()
     {
+        /*
         //let time = NSDate.init()
         var timestamp = 0 //time.timeIntervalSince1970
         
@@ -181,6 +182,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
             task.resume()
         }
         NSLog("End REQUEST")
+ */
     }
     
     func login()

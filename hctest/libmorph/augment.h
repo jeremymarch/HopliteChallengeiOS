@@ -15,7 +15,7 @@
 #include "libmorph.h"
 #include "GreekUnicode.h"
 
-void augmentStem(VerbFormC *vf, UCS2 *ucs2, int *len, bool decompose);
+void augmentStem(VerbFormC *vf, UCS2 *ucs2, int *len, bool decompose, int stem);
 
 void stripAugmentFromPrincipalPart(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 presentStemInitial, bool decompose);
 

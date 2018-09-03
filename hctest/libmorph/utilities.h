@@ -9,9 +9,14 @@
 #ifndef utilities_h
 #define utilities_h
 
+#include <stdbool.h>
 #include <stdio.h>
 
+#define BUFFER_LEN 1024
+
 typedef unsigned short UCS2;
+
+bool splice(UCS2 *string, int *len, int buffer_len, int offset, int replacing, UCS2 *insert, int insert_len);
 
 int ucs2_to_utf8 (UCS2 ucs2, unsigned char * utf8);
 UCS2 utf8_to_ucs2 (const unsigned char * input, const unsigned char ** end_ptr);
