@@ -16,7 +16,7 @@ extern char *tenses[];
 extern char *moods[];
 extern char *voices[];
 
-int numVerbs = 117;//114 is all 20 units
+int numVerbs = 118;//114 is all 20 units
 
 void getCurrentTime(char *buffer, int bufferLen)
 {
