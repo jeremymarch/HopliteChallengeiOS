@@ -2484,8 +2484,9 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
             {
                 augmentStem(vf, &ucs2Buffer[stemStartInBuffer], &tempStemLen, decompose, stem);
             }
-            else if (decompose && (vf->verb->verbclass & PREFIXED) == PREFIXED && vf->tense != AORIST)
+            else if (decompose && (vf->verb->verbclass & PREFIXED) == PREFIXED && vf->tense != AORIST && !(vf->tense == FUTURE && vf->voice == PASSIVE))
             {
+                //FIX ME, this should also exclude future passive which is handled in stripAugmentFromPrincipalPart
                 decomposePrefixes(vf, &ucs2Buffer[stemStartInBuffer], &tempStemLen);
             }
             

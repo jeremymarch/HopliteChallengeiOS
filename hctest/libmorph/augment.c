@@ -663,7 +663,8 @@ void stripAugmentFromPrincipalPart(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 pre
                 else
                 {
                     //ucs2[6] = GREEK_SMALL_LETTER_EPSILON;
-                    splice(ucs2, len, BUFFER_LEN, 6, 1, NULL, 0);
+                    splice(ucs2, len, BUFFER_LEN, 3, 1, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
+                    //splice(ucs2, len, BUFFER_LEN, 6, 1, NULL, 0);
                 }
             }
             else if ((vf->tense == AORIST && vf->mood != INDICATIVE) || vf->tense == FUTURE)
@@ -709,7 +710,7 @@ void stripAugmentFromPrincipalPart(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 pre
                 }
                 else
                 {
-                    ucs2[6] = GREEK_SMALL_LETTER_EPSILON;
+                    splice(ucs2, len, BUFFER_LEN, 2, 1, (UCS2[]){GREEK_SMALL_LETTER_ALPHA,SPACE,HYPHEN,SPACE}, 4);
                 }
             }
             else if ((vf->tense == AORIST && vf->mood != INDICATIVE) || vf->tense == FUTURE)
@@ -797,6 +798,7 @@ void stripAugmentFromPrincipalPart(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 pre
                 }
                 else
                 {
+                    splice(ucs2, len, BUFFER_LEN, 3, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
                     if (ucs2[6] == GREEK_SMALL_LETTER_EPSILON && ucs2[7] == GREEK_SMALL_LETTER_IOTA)
                     {
                         leftShiftFromOffsetSteps(ucs2, 7, 1, len);

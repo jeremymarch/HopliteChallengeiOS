@@ -29,7 +29,7 @@
 typedef unsigned short UCS2;
 //typedef uint16_t UCS2; //UINT16_MAX
 
-#define NUM_VERBS 116
+#define NUM_VERBS 117
 
 #define MAX_MULTIPLE_FORMS 5 //there are no more than 4 in H&Q, but one more for good measure.
 
