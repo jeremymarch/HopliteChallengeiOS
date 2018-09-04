@@ -2708,6 +2708,14 @@ int deponentType(Verb *v)
     {
         return PASSIVE_DEPONENT;
     }
+    else if ( utf8HasSuffix(v->present, "ἐπίσταμαι") )
+    {
+        return PASSIVE_DEPONENT; //close enough
+    }
+    else if ( utf8HasSuffix(v->present, "ἡγέομαι") )//doesn't seem to have future passive, though?
+    {
+        return PASSIVE_DEPONENT; //close enough
+    }
     else if (utf8HasSuffix(v->present, "μαι") || utf8HasSuffix(v->future, "μαι") || utf8HasSuffix(v->aorist, "μην") )
     {
         return PARTIAL_DEPONENT;
