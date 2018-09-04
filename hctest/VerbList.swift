@@ -17,7 +17,7 @@ class VerbListViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet var searchToggleButton:UIButton!
     var kb:KeyboardViewController? = nil
     var items = [String]()
-    let verbsPerSection:[Int] = [2,2,4,4,4,4,3,2,4,6,7,8,8,8,8,8,7,9,9,7]
+    let verbsPerSection:[Int] = [2,2,4,4,4,4,3,2,4,6,7,10,8,13,8,9,7,11,10,7]
     
     @objc func sortTogglePressed(_ sender: UIBarButtonItem ) {
         self.dismiss(animated: true, completion: nil)
