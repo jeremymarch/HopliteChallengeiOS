@@ -2486,7 +2486,6 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
             }
             else if (decompose && (vf->verb->verbclass & PREFIXED) == PREFIXED && vf->tense != AORIST && !(vf->tense == FUTURE && vf->voice == PASSIVE))
             {
-                //FIX ME, this should also exclude future passive which is handled in stripAugmentFromPrincipalPart
                 decomposePrefixes(vf, &ucs2Buffer[stemStartInBuffer], &tempStemLen);
             }
             
@@ -2524,6 +2523,12 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
                 ucs2Buffer[3] = GREEK_SMALL_LETTER_EPSILON_WITH_OXIA;
             }
             //exception h&q page 376, dos when compounded is paroxytone
+            UCS2 anathes[] = { GREEK_SMALL_LETTER_ALPHA_WITH_PSILI, GREEK_SMALL_LETTER_NU, GREEK_SMALL_LETTER_ALPHA, GREEK_SMALL_LETTER_THETA, GREEK_SMALL_LETTER_EPSILON, GREEK_SMALL_LETTER_FINAL_SIGMA } ;
+            if (vf->tense == AORIST && vf->mood == IMPERATIVE && vf->number == SINGULAR && vf->voice == ACTIVE && (hasPrefix(&ucs2Buffer[stemStartInBuffer], tempStemLen, anathes, 6) ))
+            {
+                ucs2Buffer[2] = GREEK_SMALL_LETTER_ALPHA_WITH_OXIA;
+            }
+            //exception h&q page 376, dos when compounded is paroxytone
             UCS2 apodos[] = { GREEK_SMALL_LETTER_ALPHA_WITH_PSILI, GREEK_SMALL_LETTER_PI, GREEK_SMALL_LETTER_OMICRON, GREEK_SMALL_LETTER_DELTA, GREEK_SMALL_LETTER_OMICRON, GREEK_SMALL_LETTER_FINAL_SIGMA } ;
             if (vf->tense == AORIST && vf->mood == IMPERATIVE && vf->number == SINGULAR && vf->voice == ACTIVE && (hasPrefix(&ucs2Buffer[stemStartInBuffer], tempStemLen, apodos, 6) ))
             {
@@ -2532,6 +2537,12 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
             //exception h&q page 376, dos when compounded is paroxytone
             UCS2 metados[] = { GREEK_SMALL_LETTER_MU, GREEK_SMALL_LETTER_EPSILON, GREEK_SMALL_LETTER_TAU, GREEK_SMALL_LETTER_ALPHA, GREEK_SMALL_LETTER_DELTA, GREEK_SMALL_LETTER_OMICRON, GREEK_SMALL_LETTER_FINAL_SIGMA } ;
             if (vf->tense == AORIST && vf->mood == IMPERATIVE && vf->number == SINGULAR && vf->voice == ACTIVE && (hasPrefix(&ucs2Buffer[stemStartInBuffer], tempStemLen, metados, 7) ))
+            {
+                ucs2Buffer[3] = GREEK_SMALL_LETTER_ALPHA_WITH_OXIA;
+            }
+            //exception h&q page 376, dos when compounded is paroxytone
+            UCS2 parados[] = { GREEK_SMALL_LETTER_PI, GREEK_SMALL_LETTER_ALPHA, GREEK_SMALL_LETTER_RHO, GREEK_SMALL_LETTER_ALPHA, GREEK_SMALL_LETTER_DELTA, GREEK_SMALL_LETTER_OMICRON, GREEK_SMALL_LETTER_FINAL_SIGMA } ;
+            if (vf->tense == AORIST && vf->mood == IMPERATIVE && vf->number == SINGULAR && vf->voice == ACTIVE && (hasPrefix(&ucs2Buffer[stemStartInBuffer], tempStemLen, parados, 7) ))
             {
                 ucs2Buffer[3] = GREEK_SMALL_LETTER_ALPHA_WITH_OXIA;
             }
@@ -2549,6 +2560,13 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
             {
                 ucs2Buffer[2] = GREEK_SMALL_LETTER_OMICRON_WITH_OXIA;
                 ucs2Buffer[5] = GREEK_SMALL_LETTER_UPSILON;
+            }
+            //exception h&q page 376, dou when compounded with polysyllablic prefix is paroxytone
+            UCS2 paradou[] = { GREEK_SMALL_LETTER_PI, GREEK_SMALL_LETTER_ALPHA, GREEK_SMALL_LETTER_RHO, GREEK_SMALL_LETTER_ALPHA, GREEK_SMALL_LETTER_DELTA, GREEK_SMALL_LETTER_OMICRON, GREEK_SMALL_LETTER_UPSILON_WITH_PERISPOMENI } ;
+            if (vf->tense == AORIST && vf->mood == IMPERATIVE && vf->number == SINGULAR && vf->voice == MIDDLE && (hasPrefix(&ucs2Buffer[stemStartInBuffer], tempStemLen, paradou, 7) ))
+            {
+                ucs2Buffer[3] = GREEK_SMALL_LETTER_ALPHA_WITH_OXIA;
+                ucs2Buffer[6] = GREEK_SMALL_LETTER_UPSILON;
             }
             
             if (vf->tense == PRESENT && vf->mood == INDICATIVE && vf->voice == ACTIVE && utf8HasSuffix(vf->verb->present, "φημί"))
@@ -2672,11 +2690,17 @@ int deponentType2(int verbid)
 //page 316 in h&q
 int deponentType(Verb *v)
 {
-    if (utf8HasSuffix(v->present, "γίγνομαι"))
+    if (utf8HasSuffix(v->present, "γίγνομαι")) //and παραγίγνομαι
     {
+        //From Hardy: "I guess γίγνομαι is technically a partial deponent, though in practice I don't think we're in the habit of calling it that.  We simply say that's a deponent (i.e. a middle deponent) with one active PP."
         return DEPONENT_GIGNOMAI; //see H&Q page 382. fix me, there may be a better way to do this without separate case
     }
     else if ( utf8HasSuffix(v->present, "μαι") && utf8HasSuffix(v->future, "μαι") && utf8HasSuffix(v->aorist, "μην") && v->perf[0] == '\0' /* && utf8HasSuffix(v->perfmid, "μαι") */ && v->aoristpass[0] == '\0')
+    {
+        return MIDDLE_DEPONENT;
+    }
+    //this gets μετανίσταμαι and ἐπανίσταμαι: middle deponents which happen to have an active perfect and root aorist
+    else if ( utf8HasSuffix(v->present, "μαι") && utf8HasSuffix(v->future, "μαι") && utf8HasSuffix(v->aorist, "ην") /* && utf8HasSuffix(v->perfmid, "μαι") */ && v->aoristpass[0] == '\0')
     {
         return MIDDLE_DEPONENT;
     }
