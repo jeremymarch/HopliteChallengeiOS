@@ -2505,8 +2505,8 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
 
             //Labe/ Accent EXCEPTION H&Q page 326
             //elthe/ accent exception h&q page 383
-            //ide/ h&q page 449
-            //them all: λαβέ ἐλθέ εἰπέ εὑρέ ἰδέ φαθί
+            //ide/ h&q page 449 and 553
+            //them all: λαβέ ἐλθέ εἰπέ εὑρέ ἰδέ
             //remember, this exception is only when verb is not prefixed.
             
             UCS2 ide[] = { GREEK_SMALL_LETTER_IOTA_WITH_PSILI, GREEK_SMALL_LETTER_DELTA, GREEK_SMALL_LETTER_EPSILON } ;
@@ -2567,6 +2567,13 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
             {
                 ucs2Buffer[3] = GREEK_SMALL_LETTER_ALPHA_WITH_OXIA;
                 ucs2Buffer[6] = GREEK_SMALL_LETTER_UPSILON;
+            }
+            //exception h&q page 376, dou when compounded with polysyllablic prefix is paroxytone
+            UCS2 anathou[] = { GREEK_SMALL_LETTER_ALPHA_WITH_PSILI, GREEK_SMALL_LETTER_NU, GREEK_SMALL_LETTER_ALPHA, GREEK_SMALL_LETTER_THETA, GREEK_SMALL_LETTER_OMICRON, GREEK_SMALL_LETTER_UPSILON_WITH_PERISPOMENI } ;
+            if (vf->tense == AORIST && vf->mood == IMPERATIVE && vf->number == SINGULAR && vf->voice == MIDDLE && (hasPrefix(&ucs2Buffer[stemStartInBuffer], tempStemLen, anathou, 6) ))
+            {
+                ucs2Buffer[2] = GREEK_SMALL_LETTER_ALPHA_WITH_OXIA;
+                ucs2Buffer[5] = GREEK_SMALL_LETTER_UPSILON;
             }
             
             if (vf->tense == PRESENT && vf->mood == INDICATIVE && vf->voice == ACTIVE && utf8HasSuffix(vf->verb->present, "φημί"))
