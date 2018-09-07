@@ -53,11 +53,13 @@ typedef struct so {
     int numTense;
     int numVoice;
     int numMood;
+    int numVerbs;
     int persons[3];
     int numbers[2];
-    int tenses[5];
+    int tenses[6];
     int voices[3];
     int moods[4];
+    int verbs[10];
 } SeqOptions;
 
 typedef struct vso {

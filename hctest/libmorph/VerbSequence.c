@@ -11,6 +11,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
+#include <sys/time.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include "utilities.h"
@@ -404,6 +405,8 @@ static void shuffle2(void *array, size_t n, size_t size) {
     char tmp[size];
     char *arr = array;
     size_t stride = size * sizeof(char);
+    time_t t;
+    srand((unsigned) time(&t));
     
     if (n > 1) {
         size_t i;
@@ -411,12 +414,53 @@ static void shuffle2(void *array, size_t n, size_t size) {
             size_t rnd = (size_t) rand();
             size_t j = i + rnd / (RAND_MAX / (n - i) + 1);
             
-            memcpy(tmp, arr + j * stride, size);
-            memcpy(arr + j * stride, arr + i * stride, size);
-            memcpy(arr + i * stride, tmp, size);
+            memmove(tmp, arr + j * stride, size);
+            memmove(arr + j * stride, arr + i * stride, size);
+            memmove(arr + i * stride, tmp, size);
         }
     }
 }
+
+//https://stackoverflow.com/questions/6127503/shuffle-array-in-c
+void shuffle4(VerbFormD *array, size_t n, size_t size) {
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    int usec = tv.tv_usec;
+    srand48(usec);
+    
+    if (n > 1) {
+        size_t i;
+        for (i = n - 1; i > 0; i--) {
+            size_t j = (unsigned int) (drand48()*(i+1));
+            VerbFormD temp;
+            memmove(&temp, &array[j], size);
+            memmove(&array[j], &array[i], size);
+            memmove(&array[i], &temp, size);
+            //int t = array[j];
+            //array[j] = array[i];
+            //array[i] = t;
+        }
+    }
+}
+/*
+void shuffle3(int *array, size_t n) {
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    int usec = tv.tv_usec;
+    srand48(usec);
+    
+    
+    if (n > 1) {
+        size_t i;
+        for (i = n - 1; i > 0; i--) {
+            size_t j = (unsigned int) (drand48()*(i+1));
+            int t = array[j];
+            array[j] = array[i];
+            array[i] = t;
+        }
+    }
+}
+*/
 /*
 static void shuffle1(void *array, size_t n, size_t size) {
     // This if() is not needed functionally, but left per OP's style
@@ -464,46 +508,44 @@ void swap(void * a, void * b, size_t size)
 bool buildSequence(VerbSeqOptions *vso)
 {
     int seqNum = 0;
-    int verbid = 1;
-    
-    if (vso && vso->practiceVerbID > -1)
+    int bufferLen = 1024;
+    char buffer[bufferLen];
+
+    for (int vrb = 0; vrb < vso->seqOptions.numVerbs; vrb++)
     {
-        verbid = vso->practiceVerbID;
-    }
-    char buffer[1024];
-    
-    for (int t = 0; t < vso->seqOptions.numTense; t++)
-    {
-        for (int v = 0; v < vso->seqOptions.numVoice; v++)
+        for (int t = 0; t < vso->seqOptions.numTense; t++)
         {
-            for (int m = 0; m < vso->seqOptions.numMood; m++)
+            for (int v = 0; v < vso->seqOptions.numVoice; v++)
             {
-                for (int n = 0; n < vso->seqOptions.numNumbers; n++)
+                for (int m = 0; m < vso->seqOptions.numMood; m++)
                 {
-                    for (int p = 0; p < vso->seqOptions.numPerson; p++)
+                    for (int n = 0; n < vso->seqOptions.numNumbers; n++)
                     {
-                        VerbFormD vf;
-                        vf.verbid = verbid;
-                        vf.person = vso->seqOptions.persons[p];
-                        vf.number = vso->seqOptions.numbers[n];
-                        vf.tense = vso->seqOptions.tenses[t];
-                        vf.voice = vso->seqOptions.voices[v];
-                        vf.mood = vso->seqOptions.moods[m];
-                        
-                        
-                        if (getForm2(&vf, buffer, 1024, true, false) && strlen(buffer) > 0)
+                        for (int p = 0; p < vso->seqOptions.numPerson; p++)
                         {
-                            //memcpy(&vseq[seqNum], &vf, sizeof(vf));
-                            vseq[seqNum].person = vf.person;
-                            vseq[seqNum].number = vf.number;
-                            vseq[seqNum].tense = vf.tense;
-                            vseq[seqNum].voice = vf.voice;
-                            vseq[seqNum].mood = vf.mood;
-                            vseq[seqNum].verbid = vf.verbid;
+                            VerbFormD vf;
+                            vf.verbid = vso->seqOptions.verbs[vrb];
+                            vf.person = vso->seqOptions.persons[p];
+                            vf.number = vso->seqOptions.numbers[n];
+                            vf.tense = vso->seqOptions.tenses[t];
+                            vf.voice = vso->seqOptions.voices[v];
+                            vf.mood = vso->seqOptions.moods[m];
                             
-                            //rfprintf(stderr, "Building seq #: %d, %d, %d, %d, %d, %d, %d\n", seqNum, vseq[seqNum].person, vseq[seqNum].number, vseq[seqNum].tense, vseq[seqNum].voice, vseq[seqNum].mood, verbid);
-                            seqNum++;
-                            
+                            //fprintf(stderr, "here: Building seq #: %d, %d, %d, %d, %d, %d, %d\n", c++, vf.person, vf.number, vf.tense, vf.voice, vf.mood, vf.verbid);
+                            if (getForm2(&vf, buffer, bufferLen, true, false) && strlen(buffer) > 0)
+                            {
+                                memmove(&vseq[seqNum], &vf, sizeof(vf));
+                                /*
+                                vseq[seqNum].person = vf.person;
+                                vseq[seqNum].number = vf.number;
+                                vseq[seqNum].tense = vf.tense;
+                                vseq[seqNum].voice = vf.voice;
+                                vseq[seqNum].mood = vf.mood;
+                                vseq[seqNum].verbid = vf.verbid;
+                                */
+                                fprintf(stderr, "Building seq #: %d, %d, %d, %d, %d, %d, %d, %s\n", seqNum, vseq[seqNum].person, vseq[seqNum].number, vseq[seqNum].tense, vseq[seqNum].voice, vseq[seqNum].mood, vseq[seqNum].verbid, buffer);
+                                seqNum++;
+                            }
                         }
                     }
                 }
@@ -511,14 +553,15 @@ bool buildSequence(VerbSeqOptions *vso)
         }
     }
     
-    shuffle2(vseq, seqNum, sizeof(vseq[0]));
-    /*
-    //Shuffle(vseq, 1, seqNum);
+    fprintf(stderr, "\nshuffle\n\n");
+    shuffle4(vseq, seqNum, sizeof(vseq[0]));
+    
     for (int i = 0; i < seqNum; i++)
     {
-        fprintf(stderr, "After shuffle: %d, %d, %d, %d, %d, %d, %d\n", i, vseq[i].person, vseq[i].number, vseq[i].tense, vseq[i].voice, vseq[i].mood, verbid);
+        getForm2(&vseq[i], buffer, bufferLen, true, false);
+        fprintf(stderr, "After shuffle: %d, %d, %d, %d, %d, %d, %d, %s\n", i, vseq[i].person, vseq[i].number, vseq[i].tense, vseq[i].voice, vseq[i].mood, vseq[i].verbid, buffer);
     }
-    */
+    
     return true;
 }
 

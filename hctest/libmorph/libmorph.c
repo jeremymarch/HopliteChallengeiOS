@@ -2568,7 +2568,7 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
                 ucs2Buffer[3] = GREEK_SMALL_LETTER_ALPHA_WITH_OXIA;
                 ucs2Buffer[6] = GREEK_SMALL_LETTER_UPSILON;
             }
-            //exception h&q page 376, dou when compounded with polysyllablic prefix is paroxytone
+            //exception h&q page 376, thou when compounded with polysyllablic prefix is paroxytone
             UCS2 anathou[] = { GREEK_SMALL_LETTER_ALPHA_WITH_PSILI, GREEK_SMALL_LETTER_NU, GREEK_SMALL_LETTER_ALPHA, GREEK_SMALL_LETTER_THETA, GREEK_SMALL_LETTER_OMICRON, GREEK_SMALL_LETTER_UPSILON_WITH_PERISPOMENI } ;
             if (vf->tense == AORIST && vf->mood == IMPERATIVE && vf->number == SINGULAR && vf->voice == MIDDLE && (hasPrefix(&ucs2Buffer[stemStartInBuffer], tempStemLen, anathou, 6) ))
             {
@@ -2692,6 +2692,7 @@ int deponentType2(int verbid)
  hepomai
  metanistamai
  epanistamai
+ hgeomai = a middle deponent which happens to have a 6th pp
  
  */
 //page 316 in h&q
