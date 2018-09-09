@@ -1474,7 +1474,7 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
             }
         }
     }
-    else if (utf8HasSuffix(vf->verb->present, "εἰμί") && vf->tense == FUTURE && vf->person == THIRD && vf->number == SINGULAR)
+    else if (utf8HasSuffix(vf->verb->present, "εἰμί") && vf->tense == FUTURE && vf->person == THIRD && vf->number == SINGULAR && vf->mood == INDICATIVE)
     {
         leftShiftFromOffsetSteps(ending, 0, 1, &elen);
     }

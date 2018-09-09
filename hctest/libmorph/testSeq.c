@@ -13,45 +13,6 @@ diff -u 2017-03-23_19-23-18.txt 2017-03-23_19-25-58.txt
 #include "VerbSequence.h"
 #include "sqlite3.h"
 
-/*
-typedef struct so {
-    int numPerson;
-    int numNumbers;
-    int numTense;
-    int numVoice;
-    int numMood;
-    int persons[3];
-    int numbers[2];
-    int tenses[5];
-    int voices[3];
-    int moods[4];
-} SeqOptions;
-
-typedef struct vso {
-    bool startOnFirstSing;
-    unsigned char repsPerVerb;
-    unsigned char degreesToChange;
-    unsigned char numUnits;
-    bool askEndings;
-    bool askPrincipalParts;
-    bool isHCGame; //else is practice
-    int practiceVerbID; //to just practice on one verb
-    long gameId;
-    int score;
-    int lives;
-    int verbSeq;
-    bool firstVerbSeq;
-    bool lastAnswerCorrect;
-    int units[20];
-    SeqOptions seqOptions;
-} VerbSeqOptions;
-*/
-
-extern Verb verbs[];
-extern char *tenses[];
-extern char *moods[];
-extern char *voices[];
-
 int numVerbs = 125;
 
 int main(int argc, char **argv)
@@ -69,17 +30,49 @@ int main(int argc, char **argv)
     opt.seqOptions.numNumbers = 2;
     opt.seqOptions.numTense = 6;
     opt.seqOptions.numVoice = 3;
-    opt.seqOptions.numMood = 3;
-    opt.seqOptions.numVerbs = 2;
+    opt.seqOptions.numMood = 4;
+    opt.seqOptions.numVerbs = 125;
 
     memmove(opt.seqOptions.persons, (int[]){0,1,2}, opt.seqOptions.numPerson*sizeof(int));
     memmove(opt.seqOptions.numbers, (int[]){0,1}, opt.seqOptions.numNumbers*sizeof(int));
     memmove(opt.seqOptions.tenses, (int[]){0,1,2,3,4,5}, opt.seqOptions.numTense*sizeof(int));
     memmove(opt.seqOptions.voices, (int[]){0,1,2}, opt.seqOptions.numVoice*sizeof(int));
-    memmove(opt.seqOptions.moods, (int[]){0,1,2}, opt.seqOptions.numMood*sizeof(int));
-    memmove(opt.seqOptions.verbs, (int[]){1,2}, opt.seqOptions.numVerbs*sizeof(int));
+    memmove(opt.seqOptions.moods, (int[]){0,1,2,3}, opt.seqOptions.numMood*sizeof(int));
+    //memmove(opt.seqOptions.verbs, (int[]){3}, opt.seqOptions.numVerbs*sizeof(int));
 
-    resetVerbSeq(&opt);
+    for (int i = 0; i < numVerbs; i++)
+    {
+        opt.seqOptions.verbs[i] = i;
+    }
 
+    buildSequence(&opt);
+/*
+    char buff[] = "1,2,3,5";
+    char *aux;
+    int arr[50];
+    int length = 0;
+    aux = strtok(buff, ",");
+    while (aux)
+    {
+        arr[length] = atoi(aux);
+        length++;
+        aux = strtok(NULL, ",");
+    }
+    for (int i = 0; i < length; i++)
+    {
+        printf("%d,",arr[i]);
+    }
+    printf("\n");
+*/
     //fprintf(stdout, "\nTotal rows including -: %d\n", rowCount);
+    VerbFormD v;
+    v.person = 0;
+    v.number = 0;
+    v.tense = 2;
+    v.voice = 1;
+    v.mood = 0;
+    v.verbid = 76;
+    char buf[1024];
+    getForm2(&v, buffer, 1024, true, false);
+    printf("buffer: %s\n", buffer);
 }

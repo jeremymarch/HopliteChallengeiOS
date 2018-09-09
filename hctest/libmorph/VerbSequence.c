@@ -77,6 +77,24 @@ bool compareVF(VerbFormC *vf1, VerbFormC *vf2)
     return true;
 }
 
+//how many parameters are different
+int stepsAway(VerbFormD *vf1, VerbFormD *vf2)
+{
+    int steps = 0;
+    if (vf1->person != vf2->person)
+        steps++;
+    if (vf1->number != vf2->number)
+        steps++;
+    if (vf1->tense != vf2->tense)
+        steps++;
+    if (vf1->voice != vf2->voice)
+        steps++;
+    if (vf1->mood != vf2->mood)
+        steps++;
+
+    return steps;
+}
+
 int recentCheckCount = 0;
 bool inRecentVFArray(VerbFormC *vf)
 {
@@ -394,7 +412,7 @@ int nextVerbSeq2(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1)
     return ret;
 }
 
-VerbFormD vseq[1024];
+VerbFormD vseq[1000024];
 
 #define NELEMS(x)  (sizeof(x) / sizeof(x[0])) //this doesn't work because not using whole array
 /* arrange the N elements of ARRAY in random order.
@@ -505,31 +523,52 @@ void swap(void * a, void * b, size_t size)
     free(temp);
 }
 */
+void setOptionsxx(const int *persons, const int numPersons, const int *numbers, const int numNumbers, const int *tenses, const int numTenses, const int *voices, const int numVoices, const int *moods, const int numMoods, const int *verbs, const int numVerbs)
+{
+    VerbSeqOptions opt;
+    memmove(opt.seqOptions.persons, persons, numPersons*(sizeof(opt.seqOptions.persons[0])));
+    opt.seqOptions.numPerson = numPersons;
+    memmove(opt.seqOptions.numbers, numbers, numNumbers*(sizeof(opt.seqOptions.numbers[0])));
+    opt.seqOptions.numNumbers = numNumbers;
+    memmove(opt.seqOptions.tenses, tenses, numTenses*(sizeof(opt.seqOptions.tenses[0])));
+    opt.seqOptions.numTense = numTenses;
+    memmove(opt.seqOptions.voices, voices, numVoices*(sizeof(opt.seqOptions.voices[0])));
+    opt.seqOptions.numVoice = numVoices;
+    memmove(opt.seqOptions.moods, moods, numMoods*(sizeof(opt.seqOptions.moods[0])));
+    opt.seqOptions.numMood = numMoods;
+    memmove(opt.seqOptions.verbs, verbs, numVerbs*(sizeof(opt.seqOptions.verbs[0])));
+    opt.seqOptions.numVerbs = numVerbs;
+    
+    buildSequence(&opt);
+    
+    printf("here set options");
+}
+
 bool buildSequence(VerbSeqOptions *vso)
 {
     int seqNum = 0;
     int bufferLen = 1024;
     char buffer[bufferLen];
+    VerbFormD vf;
 
     for (int vrb = 0; vrb < vso->seqOptions.numVerbs; vrb++)
     {
+        vf.verbid = vso->seqOptions.verbs[vrb];
         for (int t = 0; t < vso->seqOptions.numTense; t++)
         {
+            vf.tense = vso->seqOptions.tenses[t];
             for (int v = 0; v < vso->seqOptions.numVoice; v++)
             {
+                vf.voice = vso->seqOptions.voices[v];
                 for (int m = 0; m < vso->seqOptions.numMood; m++)
                 {
+                    vf.mood = vso->seqOptions.moods[m];
                     for (int n = 0; n < vso->seqOptions.numNumbers; n++)
                     {
+                        vf.number = vso->seqOptions.numbers[n];
                         for (int p = 0; p < vso->seqOptions.numPerson; p++)
                         {
-                            VerbFormD vf;
-                            vf.verbid = vso->seqOptions.verbs[vrb];
                             vf.person = vso->seqOptions.persons[p];
-                            vf.number = vso->seqOptions.numbers[n];
-                            vf.tense = vso->seqOptions.tenses[t];
-                            vf.voice = vso->seqOptions.voices[v];
-                            vf.mood = vso->seqOptions.moods[m];
                             
                             //fprintf(stderr, "here: Building seq #: %d, %d, %d, %d, %d, %d, %d\n", c++, vf.person, vf.number, vf.tense, vf.voice, vf.mood, vf.verbid);
                             if (getForm2(&vf, buffer, bufferLen, true, false) && strlen(buffer) > 0)
@@ -543,7 +582,7 @@ bool buildSequence(VerbSeqOptions *vso)
                                 vseq[seqNum].mood = vf.mood;
                                 vseq[seqNum].verbid = vf.verbid;
                                 */
-                                fprintf(stderr, "Building seq #: %d, %d, %d, %d, %d, %d, %d, %s\n", seqNum, vseq[seqNum].person, vseq[seqNum].number, vseq[seqNum].tense, vseq[seqNum].voice, vseq[seqNum].mood, vseq[seqNum].verbid, buffer);
+                                fprintf(stderr, "Building seq #: %d, p%d, n%d, t%d, v%d, m%d, verbid%d, %s\n", seqNum, vseq[seqNum].person, vseq[seqNum].number, vseq[seqNum].tense, vseq[seqNum].voice, vseq[seqNum].mood, vseq[seqNum].verbid, buffer);
                                 seqNum++;
                             }
                         }
@@ -552,16 +591,37 @@ bool buildSequence(VerbSeqOptions *vso)
             }
         }
     }
-    
+    /*
     fprintf(stderr, "\nshuffle\n\n");
     shuffle4(vseq, seqNum, sizeof(vseq[0]));
     
     for (int i = 0; i < seqNum; i++)
     {
+        int steps = 0;
+        if (i > 0)
+        {
+            steps = stepsAway(&vseq[i], &vseq[i - 1]);
+        }
         getForm2(&vseq[i], buffer, bufferLen, true, false);
-        fprintf(stderr, "After shuffle: %d, %d, %d, %d, %d, %d, %d, %s\n", i, vseq[i].person, vseq[i].number, vseq[i].tense, vseq[i].voice, vseq[i].mood, vseq[i].verbid, buffer);
+        fprintf(stderr, "After shuffle: %d, %d, %d, %d, %d, %d, %d, %s (%d)\n", i, vseq[i].person, vseq[i].number, vseq[i].tense, vseq[i].voice, vseq[i].mood, vseq[i].verbid, buffer, steps);
     }
     
+    fprintf(stderr, "\n\n");
+    
+    for (int i = 0; i < seqNum; i++)
+    {
+        int steps = 0;
+        if (i > 0)
+        {
+            steps = stepsAway(&vseq[i], &vseq[i - 1]);
+        }
+        if (steps == 2 || i == 0)
+        {
+            getForm2(&vseq[i], buffer, bufferLen, true, false);
+            fprintf(stderr, "After shuffle: %d, p%d, n%d, t%d, v%d, m%d, vrb%d, %s (%d)\n", i, vseq[i].person, vseq[i].number, vseq[i].tense, vseq[i].voice, vseq[i].mood, vseq[i].verbid, buffer, steps);
+        }
+    }
+    */
     return true;
 }
 

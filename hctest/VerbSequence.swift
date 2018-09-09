@@ -7,6 +7,16 @@
 //
 
 import Foundation
+
+enum Tense:Int32 {
+    case present = 0
+    case imperfect = 1
+    case future = 2
+    case aorist = 3
+    case perfect = 4
+    case pluperfect = 5
+}
+
 //test
 class VerbSequence {
     var givenForm:VerbForm?
@@ -33,6 +43,27 @@ class VerbSequence {
         options?.units = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
         
         externalSetUnits("19,20")
+        
+        let per:[Int32] = [0,1,2]
+        let num:[Int32] = [0,1]
+        let ten:[Int32] = [Tense.imperfect.rawValue,Tense.future.rawValue,Tense.aorist.rawValue,Tense.perfect.rawValue,Tense.pluperfect.rawValue]
+        let voic:[Int32] = [0,1,2]
+        let moo:[Int32] = [3]
+        let vrbs:[Int32] = [3]
+        setOptionsxx(per, Int32(per.count), num, Int32(num.count), ten, Int32(ten.count), voic, Int32(voic.count), moo, Int32(moo.count), vrbs, Int32(vrbs.count))
+        
+        /*
+         game mode:
+         reset: set level
+         get: score, lives, verb forms, compare
+         
+         practice mode:
+         reset: set custom verb/forms
+         get: verb forms, compare
+         
+         two-player:
+         receive prompt vf, check answer
+ */
 }
     func getNext() -> Int
     {

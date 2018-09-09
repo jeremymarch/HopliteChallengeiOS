@@ -59,7 +59,7 @@ typedef struct so {
     int tenses[6];
     int voices[3];
     int moods[4];
-    int verbs[10];
+    int verbs[125];
 } SeqOptions;
 
 typedef struct vso {
@@ -101,6 +101,8 @@ Verb *getRandomVerbFromUnit(int *units, int numUnits);
 
 Ending *getRandomEnding(int *units, int numUnits);
 void getRandomEndingAsString(int *units, int numUnits, char *buffer, int bufferLen);
+
+void setOptionsxx(const int *persons, const int numPersons, const int *numbers, const int numNumbers, const int *tenses, const int numTenses, const int *voices, const int numVoices, const int *moods, const int numMoods, const int *verbs, const int numVerbs);
 
 
 #endif /* VerbSequence_h */

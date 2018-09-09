@@ -9678,7 +9678,7 @@ Aorist Active Optative
 ἀναθεῖεν, ἀναθείησαν ; ἀνα ‐ θε ‐ ιεν, ἀνα ‐ θε ‐ ιησαν
 
 Aorist Active Imperative
-ἄναθες ; ἀνα ‐ θε ‐ ς
+ἀνάθες ; ἀνα ‐ θε ‐ ς
 ἀναθέτω ; ἀνα ‐ θε ‐ τω
 ἀνάθετε ; ἀνα ‐ θε ‐ τε
 ἀναθέντων ; ἀνα ‐ θε ‐ ντων
@@ -9708,7 +9708,7 @@ Aorist Middle Optative
 ἀναθεῖντο, ἀοαθεῖντο ; ἀνα ‐ θε ‐ ιντο, ἀνα ‐ θε ‐ οιντο
 
 Aorist Middle Imperative
-ἀναθοῦ ; ἀνα ‐ θε ‐ ο
+ἀνάθου ; ἀνα ‐ θε ‐ ο
 ἀναθέσθω ; ἀνα ‐ θε ‐ σθω
 ἀνάθεσθε ; ἀνα ‐ θε ‐ σθε
 ἀναθέσθων ; ἀνα ‐ θε ‐ σθων
@@ -12647,9 +12647,9 @@ Pluperfect Middle/Passive Indicative
 μετεδέδοσθε ; μετα ‐ ε ‐ δεδο ‐ σθε
 μετεδέδοντο ; μετα ‐ ε ‐ δεδο ‐ ντο
 
-Verb 57. μετανίσταμαι (Partial Deponent)
+Verb 57. μετανίσταμαι (Middle Deponent)
 
-Present Middle/Passive Indicative
+Present Middle Indicative
 μετανίσταμαι ; μετα ‐ ανα ‐ ἱστα ‐ μαι
 μετανίστασαι ; μετα ‐ ανα ‐ ἱστα ‐ σαι
 μετανίσταται ; μετα ‐ ανα ‐ ἱστα ‐ ται
@@ -12657,7 +12657,7 @@ Present Middle/Passive Indicative
 μετανίστασθε ; μετα ‐ ανα ‐ ἱστα ‐ σθε
 μετανίστανται ; μετα ‐ ανα ‐ ἱστα ‐ νται
 
-Present Middle/Passive Subjunctive
+Present Middle Subjunctive
 μετανιστῶμαι ; μετα ‐ ανα ‐ ἱστε ‐ ωμαι
 μετανιστῇ ; μετα ‐ ανα ‐ ἱστε ‐ ῃ
 μετανιστῆται ; μετα ‐ ανα ‐ ἱστε ‐ ηται
@@ -12665,7 +12665,7 @@ Present Middle/Passive Subjunctive
 μετανιστῆσθε ; μετα ‐ ανα ‐ ἱστε ‐ ησθε
 μετανιστῶνται ; μετα ‐ ανα ‐ ἱστε ‐ ωνται
 
-Present Middle/Passive Optative
+Present Middle Optative
 μετανισταίμην ; μετα ‐ ανα ‐ ἱστα ‐ ιμην
 μετανισταῖο ; μετα ‐ ανα ‐ ἱστα ‐ ιο
 μετανισταῖτο ; μετα ‐ ανα ‐ ἱστα ‐ ιτο
@@ -12673,13 +12673,13 @@ Present Middle/Passive Optative
 μετανισταῖσθε ; μετα ‐ ανα ‐ ἱστα ‐ ισθε
 μετανισταῖντο ; μετα ‐ ανα ‐ ἱστα ‐ ιντο
 
-Present Middle/Passive Imperative
+Present Middle Imperative
 μετανίστασο ; μετα ‐ ανα ‐ ἱστα ‐ σο
 μετανιστάσθω ; μετα ‐ ανα ‐ ἱστα ‐ σθω
 μετανίστασθε ; μετα ‐ ανα ‐ ἱστα ‐ σθε
 μετανιστάσθων ; μετα ‐ ανα ‐ ἱστα ‐ σθων
 
-Imperfect Middle/Passive Indicative
+Imperfect Middle Indicative
 μετανῑστάμην ; μετα ‐ ανα ‐ ε ‐ ἱστα ‐ μην
 μετανῑ́στασο ; μετα ‐ ανα ‐ ε ‐ ἱστα ‐ σο
 μετανῑ́στατο ; μετα ‐ ανα ‐ ε ‐ ἱστα ‐ το
@@ -13269,9 +13269,9 @@ Pluperfect Middle/Passive Indicative
 ἐδέδειχθε ; ε ‐ δεδεικ ‐ σθε
 — ; —
 
-Verb 61. ἐπανίσταμαι (Partial Deponent)
+Verb 61. ἐπανίσταμαι (Middle Deponent)
 
-Present Middle/Passive Indicative
+Present Middle Indicative
 ἐπανίσταμαι ; ἐπι ‐ ανα ‐ ἱστα ‐ μαι
 ἐπανίστασαι ; ἐπι ‐ ανα ‐ ἱστα ‐ σαι
 ἐπανίσταται ; ἐπι ‐ ανα ‐ ἱστα ‐ ται
@@ -13279,7 +13279,7 @@ Present Middle/Passive Indicative
 ἐπανίστασθε ; ἐπι ‐ ανα ‐ ἱστα ‐ σθε
 ἐπανίστανται ; ἐπι ‐ ανα ‐ ἱστα ‐ νται
 
-Present Middle/Passive Subjunctive
+Present Middle Subjunctive
 ἐπανιστῶμαι ; ἐπι ‐ ανα ‐ ἱστε ‐ ωμαι
 ἐπανιστῇ ; ἐπι ‐ ανα ‐ ἱστε ‐ ῃ
 ἐπανιστῆται ; ἐπι ‐ ανα ‐ ἱστε ‐ ηται
@@ -13287,7 +13287,7 @@ Present Middle/Passive Subjunctive
 ἐπανιστῆσθε ; ἐπι ‐ ανα ‐ ἱστε ‐ ησθε
 ἐπανιστῶνται ; ἐπι ‐ ανα ‐ ἱστε ‐ ωνται
 
-Present Middle/Passive Optative
+Present Middle Optative
 ἐπανισταίμην ; ἐπι ‐ ανα ‐ ἱστα ‐ ιμην
 ἐπανισταῖο ; ἐπι ‐ ανα ‐ ἱστα ‐ ιο
 ἐπανισταῖτο ; ἐπι ‐ ανα ‐ ἱστα ‐ ιτο
@@ -13295,13 +13295,13 @@ Present Middle/Passive Optative
 ἐπανισταῖσθε ; ἐπι ‐ ανα ‐ ἱστα ‐ ισθε
 ἐπανισταῖντο ; ἐπι ‐ ανα ‐ ἱστα ‐ ιντο
 
-Present Middle/Passive Imperative
+Present Middle Imperative
 ἐπανίστασο ; ἐπι ‐ ανα ‐ ἱστα ‐ σο
 ἐπανιστάσθω ; ἐπι ‐ ανα ‐ ἱστα ‐ σθω
 ἐπανίστασθε ; ἐπι ‐ ανα ‐ ἱστα ‐ σθε
 ἐπανιστάσθων ; ἐπι ‐ ανα ‐ ἱστα ‐ σθων
 
-Imperfect Middle/Passive Indicative
+Imperfect Middle Indicative
 ἐπανῑστάμην ; ἐπι ‐ ανα ‐ ε ‐ ἱστα ‐ μην
 ἐπανῑ́στασο ; ἐπι ‐ ανα ‐ ε ‐ ἱστα ‐ σο
 ἐπανῑ́στατο ; ἐπι ‐ ανα ‐ ε ‐ ἱστα ‐ το
@@ -14176,7 +14176,7 @@ Aorist Active Optative
 παραδοῖεν, παραδοίησαν ; παρα ‐ δο ‐ ιεν, παρα ‐ δο ‐ ιησαν
 
 Aorist Active Imperative
-πάραδος ; παρα ‐ δο ‐ ς
+παράδος ; παρα ‐ δο ‐ ς
 παραδότω ; παρα ‐ δο ‐ τω
 παράδοτε ; παρα ‐ δο ‐ τε
 παραδόντων ; παρα ‐ δο ‐ ντων
@@ -14206,7 +14206,7 @@ Aorist Middle Optative
 παραδοῖντο ; παρα ‐ δο ‐ ιντο
 
 Aorist Middle Imperative
-παραδοῦ ; παρα ‐ δο ‐ ο
+παράδου ; παρα ‐ δο ‐ ο
 παραδόσθω ; παρα ‐ δο ‐ σθω
 παράδοσθε ; παρα ‐ δο ‐ σθε
 παραδόσθων ; παρα ‐ δο ‐ σθων
@@ -16006,7 +16006,7 @@ Future Middle Indicative
 Future Middle Optative
 ἐσοίμην ; ἐσ ‐ οιμην
 ἔσοιο ; ἐσ ‐ οιο
-ἔσιτο ; ἐσ ‐ ιτο
+ἔσοιτο ; ἐσ ‐ οιτο
 ἐσοίμεθα ; ἐσ ‐ οιμεθα
 ἔσοισθε ; ἐσ ‐ οισθε
 ἔσοιντο ; ἐσ ‐ οιντο
@@ -19347,9 +19347,9 @@ Pluperfect Middle/Passive Indicative
 ἐλήλασθε ; ἐληλα ‐ σθε
 ἐλήλαντο ; ἐληλα ‐ ντο
 
-Verb 95. ἐπίσταμαι (Partial Deponent)
+Verb 95. ἐπίσταμαι (Middle Deponent)
 
-Present Middle/Passive Indicative
+Present Middle Indicative
 ἐπίσταμαι ; ἐπιστα ‐ μαι
 ἐπίστασαι ; ἐπιστα ‐ σαι
 ἐπίσταται ; ἐπιστα ‐ ται
@@ -19357,7 +19357,7 @@ Present Middle/Passive Indicative
 ἐπίστασθε ; ἐπιστα ‐ σθε
 ἐπίστανται ; ἐπιστα ‐ νται
 
-Present Middle/Passive Subjunctive
+Present Middle Subjunctive
 ἐπίστωμαι ; ἐπιστ ‐ ωμαι
 ἐπίστῃ ; ἐπιστ ‐ ῃ
 ἐπίστηται ; ἐπιστ ‐ ηται
@@ -19365,7 +19365,7 @@ Present Middle/Passive Subjunctive
 ἐπίστησθε ; ἐπιστ ‐ ησθε
 ἐπίστωνται ; ἐπιστ ‐ ωνται
 
-Present Middle/Passive Optative
+Present Middle Optative
 ἐπισταίμην ; ἐπιστα ‐ ιμην
 ἐπίσταιο ; ἐπιστα ‐ ιο
 ἐπίσταιτο ; ἐπιστα ‐ ιτο
@@ -19373,13 +19373,13 @@ Present Middle/Passive Optative
 ἐπίσταισθε ; ἐπιστα ‐ ισθε
 ἐπίσταιντο ; ἐπιστα ‐ ιντο
 
-Present Middle/Passive Imperative
+Present Middle Imperative
 ἐπίστασο ; ἐπιστα ‐ σο
 ἐπιστάσθω ; ἐπιστα ‐ σθω
 ἐπίστασθε ; ἐπιστα ‐ σθε
 ἐπιστάσθων ; ἐπιστα ‐ σθων
 
-Imperfect Middle/Passive Indicative
+Imperfect Middle Indicative
 ἠπιστάμην ; ε ‐ ἐπιστα ‐ μην
 ἠπίστω ; ε ‐ ἐπιστα ‐ ο
 ἠπίστατο ; ε ‐ ἐπιστα ‐ το
@@ -22895,9 +22895,9 @@ Pluperfect Middle/Passive Indicative
 ηὕρησθε, εὕρησθε ; ηὑρη ‐ σθε, εὑρη ‐ σθε
 ηὕρηντο, εὕρηντο ; ηὑρη ‐ ντο, εὑρη ‐ ντο
 
-Verb 114. ἡγέομαι (Partial Deponent)
+Verb 114. ἡγέομαι (Middle Deponent)
 
-Present Middle/Passive Indicative
+Present Middle Indicative
 ἡγοῦμαι ; ἡγε ‐ ομαι
 ἡγεῖ, ἡγῇ ; ἡγε ‐ ει, ἡγε ‐ ῃ
 ἡγεῖται ; ἡγε ‐ εται
@@ -22905,7 +22905,7 @@ Present Middle/Passive Indicative
 ἡγεῖσθε ; ἡγε ‐ εσθε
 ἡγοῦνται ; ἡγε ‐ ονται
 
-Present Middle/Passive Subjunctive
+Present Middle Subjunctive
 ἡγῶμαι ; ἡγε ‐ ωμαι
 ἡγῇ ; ἡγε ‐ ῃ
 ἡγῆται ; ἡγε ‐ ηται
@@ -22913,7 +22913,7 @@ Present Middle/Passive Subjunctive
 ἡγῆσθε ; ἡγε ‐ ησθε
 ἡγῶνται ; ἡγε ‐ ωνται
 
-Present Middle/Passive Optative
+Present Middle Optative
 ἡγοίμην ; ἡγε ‐ οιμην
 ἡγοῖο ; ἡγε ‐ οιο
 ἡγοῖτο ; ἡγε ‐ οιτο
@@ -22921,13 +22921,13 @@ Present Middle/Passive Optative
 ἡγοῖσθε ; ἡγε ‐ οισθε
 ἡγοῖντο ; ἡγε ‐ οιντο
 
-Present Middle/Passive Imperative
+Present Middle Imperative
 ἡγοῦ ; ἡγε ‐ ου
 ἡγείσθω ; ἡγε ‐ εσθω
 ἡγεῖσθε ; ἡγε ‐ εσθε
 ἡγείσθων ; ἡγε ‐ εσθων
 
-Imperfect Middle/Passive Indicative
+Imperfect Middle Indicative
 ἡγούμην ; ἡγε ‐ ομην
 ἡγοῦ ; ἡγε ‐ ου
 ἡγεῖτο ; ἡγε ‐ ετο
@@ -23027,7 +23027,7 @@ Aorist Passive Imperative
 ἡγήθητε ; ἡγηθ ‐ ητε
 ἡγηθέντων ; ἡγηθ ‐ εντων
 
-Perfect Middle/Passive Indicative
+Perfect Middle Indicative
 ἥγημαι ; ἡγη ‐ μαι
 ἥγησαι ; ἡγη ‐ σαι
 ἥγηται ; ἡγη ‐ ται
@@ -23035,7 +23035,7 @@ Perfect Middle/Passive Indicative
 ἥγησθε ; ἡγη ‐ σθε
 ἥγηνται ; ἡγη ‐ νται
 
-Pluperfect Middle/Passive Indicative
+Pluperfect Middle Indicative
 ἡγήμην ; ἡγη ‐ μην
 ἥγησο ; ἡγη ‐ σο
 ἥγητο ; ἡγη ‐ το
