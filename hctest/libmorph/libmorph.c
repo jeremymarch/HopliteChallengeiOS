@@ -1269,335 +1269,211 @@ int getOida(VerbFormC *vf, UCS2 *buffer, int *bufferLen, bool decompose)
         {
             if (vf->number == SINGULAR)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_OMICRON;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_OMICRON}, 1);
                 if (!hasPrefix || decompose)
-                    buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA_WITH_PSILI_AND_PERISPOMENI;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_IOTA_WITH_PSILI_AND_PERISPOMENI}, 1);
                 else
-                    buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_IOTA}, 1);
                 if (vf->person == SECOND)
-                    buffer[*bufferLen+2] = GREEK_SMALL_LETTER_SIGMA;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_SIGMA}, 1);
                 else
-                    buffer[*bufferLen+2] = GREEK_SMALL_LETTER_DELTA;
-                *bufferLen += 3;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_DELTA}, 1);
             }
             else
             {
                 if (!hasPrefix || decompose)
-                    buffer[*bufferLen] = GREEK_SMALL_LETTER_IOTA_WITH_PSILI;
+                {
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_IOTA_WITH_PSILI}, 1);
+                }
                 else
-                    buffer[*bufferLen] = GREEK_SMALL_LETTER_IOTA;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_SIGMA;
-                *bufferLen += 2;
+                {
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_IOTA}, 1);
+                }
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_SIGMA}, 1);
             }
             if (decompose)
             {
-                buffer[*bufferLen] = SPACE;
-                buffer[*bufferLen+1] = HYPHEN;
-                buffer[*bufferLen+2] = SPACE;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
             }
             if (vf->person == FIRST && vf->number == SINGULAR)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_ALPHA;
-                *bufferLen += 1;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ALPHA}, 1);
             }
             else if (vf->person == SECOND && vf->number == SINGULAR)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_THETA;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_ALPHA;
-                *bufferLen += 2;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_THETA,GREEK_SMALL_LETTER_ALPHA}, 2);
             }
             else if (vf->person == THIRD && vf->number == SINGULAR)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+1] = LEFT_PARENTHESIS;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_NU;
-                buffer[*bufferLen+3] = RIGHT_PARENTHESIS;
-                *bufferLen += 4;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,LEFT_PARENTHESIS,GREEK_SMALL_LETTER_NU,RIGHT_PARENTHESIS}, 4);
             }
             else if (vf->person == FIRST && vf->number == PLURAL)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_MU;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_NU;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_MU,GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_NU}, 3);
             }
             else if (vf->person == SECOND && vf->number == PLURAL)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_TAU;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_EPSILON;
-                *bufferLen += 2;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_TAU,GREEK_SMALL_LETTER_EPSILON}, 2);
             }
             else if (vf->person == THIRD && vf->number == PLURAL)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_ALPHA;
-                buffer[*bufferLen+1] = COMBINING_MACRON;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_SIGMA;
-                buffer[*bufferLen+3] = GREEK_SMALL_LETTER_IOTA;
-                buffer[*bufferLen+4] = LEFT_PARENTHESIS;
-                buffer[*bufferLen+5] = GREEK_SMALL_LETTER_NU;
-                buffer[*bufferLen+6] = RIGHT_PARENTHESIS;
-                *bufferLen += 7;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ALPHA,COMBINING_MACRON,GREEK_SMALL_LETTER_SIGMA,GREEK_SMALL_LETTER_IOTA,LEFT_PARENTHESIS,GREEK_SMALL_LETTER_NU,RIGHT_PARENTHESIS}, 7);
             }
         }
         else if (vf->mood == SUBJUNCTIVE)
         {
-            buffer[*bufferLen] = GREEK_SMALL_LETTER_EPSILON;
-            if (!hasPrefix || decompose)
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA_WITH_PSILI;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON}, 1);
+            if (hasPrefix && !decompose)
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_IOTA}, 1);
             else
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA;
-            buffer[*bufferLen+2] = GREEK_SMALL_LETTER_DELTA;
-            *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_IOTA_WITH_PSILI}, 1);
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_DELTA}, 1);
+            
             if (decompose)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+1] = SPACE;
-                buffer[*bufferLen+2] = HYPHEN;
-                buffer[*bufferLen+3] = SPACE;
-                *bufferLen += 4;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,SPACE,HYPHEN,SPACE}, 4);
             }
             if (vf->person == FIRST && vf->number == SINGULAR)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_OMEGA_WITH_PERISPOMENI;
-                *bufferLen += 1;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_OMEGA_WITH_PERISPOMENI}, 1);
             }
             else if (vf->person == SECOND && vf->number == SINGULAR)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_ETA_WITH_PERISPOMENI_AND_YPOGEGRAMMENI;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_FINAL_SIGMA;
-                *bufferLen += 2;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_PERISPOMENI_AND_YPOGEGRAMMENI,GREEK_SMALL_LETTER_FINAL_SIGMA}, 2);
             }
             else if (vf->person == THIRD && vf->number == SINGULAR)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_ETA_WITH_PERISPOMENI_AND_YPOGEGRAMMENI;
-                *bufferLen += 1;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_PERISPOMENI_AND_YPOGEGRAMMENI}, 1);
             }
             else if (vf->person == FIRST && vf->number == PLURAL)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_OMEGA_WITH_PERISPOMENI;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_MU;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen +3] = GREEK_SMALL_LETTER_NU;
-                *bufferLen += 4;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_OMEGA_WITH_PERISPOMENI,GREEK_SMALL_LETTER_MU,GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_NU}, 4);
             }
             else if (vf->person == SECOND && vf->number == PLURAL)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_ETA_WITH_PERISPOMENI;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_TAU;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_EPSILON;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_PERISPOMENI,GREEK_SMALL_LETTER_TAU,GREEK_SMALL_LETTER_EPSILON}, 3);
+                
             }
             else if (vf->person == THIRD && vf->number == PLURAL)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_OMEGA_WITH_PERISPOMENI;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_SIGMA;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_IOTA;
-                buffer[*bufferLen+3] = LEFT_PARENTHESIS;
-                buffer[*bufferLen+4] = GREEK_SMALL_LETTER_NU;
-                buffer[*bufferLen+5] = RIGHT_PARENTHESIS;
-                *bufferLen += 6;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_OMEGA_WITH_PERISPOMENI,GREEK_SMALL_LETTER_SIGMA,GREEK_SMALL_LETTER_IOTA,LEFT_PARENTHESIS,GREEK_SMALL_LETTER_NU,RIGHT_PARENTHESIS}, 6);
             }
         }
         else if (vf->mood == OPTATIVE)
         {
-            buffer[*bufferLen] = GREEK_SMALL_LETTER_EPSILON;
-            if (!hasPrefix | decompose)
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA_WITH_PSILI;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON}, 1);
+            if (hasPrefix && !decompose)
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_IOTA}, 1);
             else
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA;
-            buffer[*bufferLen+2] = GREEK_SMALL_LETTER_DELTA;
-            *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_IOTA_WITH_PSILI}, 1);
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_DELTA}, 1);
+            
             if (decompose)
             {
-                buffer[*bufferLen] = SPACE;
-                buffer[*bufferLen+1] = HYPHEN;
-                buffer[*bufferLen+2] = SPACE;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
             }
             if (vf->person == FIRST && vf->number == SINGULAR)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA_WITH_OXIA;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_ETA;
-                buffer[*bufferLen+3] = GREEK_SMALL_LETTER_NU;
-                *bufferLen += 4;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA_WITH_OXIA,GREEK_SMALL_LETTER_ETA,GREEK_SMALL_LETTER_NU}, 4);
             }
             else if (vf->person == SECOND && vf->number == SINGULAR)
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA_WITH_OXIA;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_ETA;
-                buffer[*bufferLen+3] = GREEK_SMALL_LETTER_FINAL_SIGMA;
-                *bufferLen += 4;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA_WITH_OXIA,GREEK_SMALL_LETTER_ETA,GREEK_SMALL_LETTER_FINAL_SIGMA}, 4);
             }
             else if (vf->person == THIRD && vf->number == SINGULAR)
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA_WITH_OXIA;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_ETA;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA_WITH_OXIA,GREEK_SMALL_LETTER_ETA}, 3);
             }
             else if (vf->person == FIRST && vf->number == PLURAL)
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA_WITH_PERISPOMENI;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_MU;
-                buffer[*bufferLen+3] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+4] = GREEK_SMALL_LETTER_NU;
-                buffer[*bufferLen+5] = COMMA;
-                buffer[*bufferLen+6] = SPACE;
-                *bufferLen += 7;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA_WITH_PERISPOMENI,GREEK_SMALL_LETTER_MU,GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_NU,COMMA,SPACE}, 7);
                 if (utf8HasSuffix(vf->verb->present, "σύνοιδα"))
                 {
-                    buffer[*bufferLen+0] = GREEK_SMALL_LETTER_SIGMA;
-                    buffer[*bufferLen+1] = GREEK_SMALL_LETTER_UPSILON;
-                    buffer[*bufferLen+2] = GREEK_SMALL_LETTER_NU;
-                    *bufferLen += 3;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_SIGMA,GREEK_SMALL_LETTER_UPSILON,GREEK_SMALL_LETTER_NU}, 3);
                     
                     if (decompose)
                     {
-                        buffer[*bufferLen] = SPACE;
-                        buffer[*bufferLen+1] = HYPHEN;
-                        buffer[*bufferLen+2] = SPACE;
-                        *bufferLen += 3;
+                        splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
                     }
                 }
                 
-                
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_EPSILON;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON}, 1);
                 if (hasPrefix && !decompose)
-                    buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_IOTA}, 1);
                 else
-                    buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA_WITH_PSILI;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_DELTA;
-                *bufferLen += 3;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_IOTA_WITH_PSILI}, 1);
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_DELTA}, 1);
                 if (decompose)
                 {
-                    buffer[*bufferLen] = SPACE;
-                    buffer[*bufferLen+1] = HYPHEN;
-                    buffer[*bufferLen+2] = SPACE;
-                    *bufferLen += 3;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
                 }
                 
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA_WITH_OXIA;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_ETA;
-                buffer[*bufferLen+3] = GREEK_SMALL_LETTER_MU;
-                buffer[*bufferLen+4] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+5] = GREEK_SMALL_LETTER_NU;
-                *bufferLen += 6;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA_WITH_OXIA,GREEK_SMALL_LETTER_ETA,GREEK_SMALL_LETTER_MU,GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_NU}, 6);
             }
             else if (vf->person == SECOND && vf->number == PLURAL)
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA_WITH_PERISPOMENI;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_TAU;
-                buffer[*bufferLen+3] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+4] = COMMA;
-                buffer[*bufferLen+5] = SPACE;
-                *bufferLen += 6;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA_WITH_PERISPOMENI,GREEK_SMALL_LETTER_TAU,GREEK_SMALL_LETTER_EPSILON,COMMA,SPACE}, 6);
                 if (utf8HasSuffix(vf->verb->present, "σύνοιδα"))
                 {
-                    buffer[*bufferLen+0] = GREEK_SMALL_LETTER_SIGMA;
-                    buffer[*bufferLen+1] = GREEK_SMALL_LETTER_UPSILON;
-                    buffer[*bufferLen+2] = GREEK_SMALL_LETTER_NU;
-                    *bufferLen += 3;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_SIGMA,GREEK_SMALL_LETTER_UPSILON,GREEK_SMALL_LETTER_NU}, 3);
                     
                     if (decompose)
                     {
-                        buffer[*bufferLen] = SPACE;
-                        buffer[*bufferLen+1] = HYPHEN;
-                        buffer[*bufferLen+2] = SPACE;
-                        *bufferLen += 3;
+                        splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
                     }
                 }
                 
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_EPSILON;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON}, 1);
                 if (hasPrefix && !decompose)
-                    buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_IOTA}, 1);
                 else
-                    buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA_WITH_PSILI;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_DELTA;
-                *bufferLen += 3;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_IOTA_WITH_PSILI}, 1);
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_DELTA}, 1);
                 if (decompose)
                 {
-                    buffer[*bufferLen] = SPACE;
-                    buffer[*bufferLen+1] = HYPHEN;
-                    buffer[*bufferLen+2] = SPACE;
-                    *bufferLen += 3;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
                 }
                 
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA_WITH_OXIA;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_ETA;
-                buffer[*bufferLen+3] = GREEK_SMALL_LETTER_TAU;
-                buffer[*bufferLen+4] = GREEK_SMALL_LETTER_EPSILON;
-                *bufferLen += 5;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA_WITH_OXIA,GREEK_SMALL_LETTER_ETA,GREEK_SMALL_LETTER_TAU,GREEK_SMALL_LETTER_EPSILON}, 5);
             }
             else if (vf->person == THIRD && vf->number == PLURAL)
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA_WITH_PERISPOMENI;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+3] = GREEK_SMALL_LETTER_NU;
-                buffer[*bufferLen+4] = COMMA;
-                buffer[*bufferLen+5] = SPACE;
-                *bufferLen += 6;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA_WITH_PERISPOMENI,GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_NU,COMMA,SPACE}, 6);
                 if (utf8HasSuffix(vf->verb->present, "σύνοιδα"))
                 {
-                    buffer[*bufferLen+0] = GREEK_SMALL_LETTER_SIGMA;
-                    buffer[*bufferLen+1] = GREEK_SMALL_LETTER_UPSILON;
-                    buffer[*bufferLen+2] = GREEK_SMALL_LETTER_NU;
-                    *bufferLen += 3;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_SIGMA,GREEK_SMALL_LETTER_UPSILON,GREEK_SMALL_LETTER_NU}, 3);
                     
                     if (decompose)
                     {
-                        buffer[*bufferLen] = SPACE;
-                        buffer[*bufferLen+1] = HYPHEN;
-                        buffer[*bufferLen+2] = SPACE;
-                        *bufferLen += 3;
+                        splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
                     }
                 }
                 
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_EPSILON;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON}, 1);
                 if (hasPrefix && !decompose)
-                    buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_IOTA}, 1);
                 else
-                    buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA_WITH_PSILI;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_DELTA;
-                *bufferLen += 3;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_IOTA_WITH_PSILI}, 1);
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_DELTA}, 1);
                 if (decompose)
                 {
-                    buffer[*bufferLen] = SPACE;
-                    buffer[*bufferLen+1] = HYPHEN;
-                    buffer[*bufferLen+2] = SPACE;
-                    *bufferLen += 3;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
                 }
                 
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA_WITH_OXIA;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_ETA;
-                buffer[*bufferLen+3] = GREEK_SMALL_LETTER_SIGMA;
-                buffer[*bufferLen+4] = GREEK_SMALL_LETTER_ALPHA;
-                buffer[*bufferLen+5] = GREEK_SMALL_LETTER_NU;
-                *bufferLen += 6;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA_WITH_OXIA,GREEK_SMALL_LETTER_ETA,GREEK_SMALL_LETTER_SIGMA,GREEK_SMALL_LETTER_ALPHA,GREEK_SMALL_LETTER_NU}, 6);
             }
         }
         else if (vf->mood == IMPERATIVE)
         {
             if (!hasPrefix || decompose)
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_IOTA_WITH_PSILI;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_IOTA_WITH_PSILI}, 1);
             else
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_IOTA;
-            buffer[*bufferLen+1] = GREEK_SMALL_LETTER_SIGMA;
-            *bufferLen += 2;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_IOTA}, 1);
+            
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_SIGMA}, 1);
             if (decompose)
             {
-                buffer[*bufferLen] = SPACE;
-                buffer[*bufferLen+1] = HYPHEN;
-                buffer[*bufferLen+2] = SPACE;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
                 
             }
             if (vf->person == FIRST && vf->number == SINGULAR)
@@ -1606,16 +1482,11 @@ int getOida(VerbFormC *vf, UCS2 *buffer, int *bufferLen, bool decompose)
             }
             else if (vf->person == SECOND && vf->number == SINGULAR)
             {
-
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_THETA;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA;
-                *bufferLen += 2;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_THETA,GREEK_SMALL_LETTER_IOTA}, 2);
             }
             else if (vf->person == THIRD && vf->number == SINGULAR)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_TAU;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_OMEGA;
-                *bufferLen += 2;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_TAU,GREEK_SMALL_LETTER_OMEGA}, 2);
             }
             else if (vf->person == FIRST && vf->number == PLURAL)
             {
@@ -1623,16 +1494,11 @@ int getOida(VerbFormC *vf, UCS2 *buffer, int *bufferLen, bool decompose)
             }
             else if (vf->person == SECOND && vf->number == PLURAL)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_TAU;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_EPSILON;
-                *bufferLen += 2;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_TAU,GREEK_SMALL_LETTER_EPSILON}, 2);
             }
             else if (vf->person == THIRD && vf->number == PLURAL)
             {
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_TAU;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_OMEGA;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_NU;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_TAU,GREEK_SMALL_LETTER_OMEGA,GREEK_SMALL_LETTER_NU}, 3);
             }
         }
     }
@@ -1641,358 +1507,215 @@ int getOida(VerbFormC *vf, UCS2 *buffer, int *bufferLen, bool decompose)
         if (!decompose)
         {
             if (!hasPrefix && vf->number == SINGULAR)
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_ETA_WITH_PSILI_AND_OXIA_AND_YPOGEGRAMMENI;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_PSILI_AND_OXIA_AND_YPOGEGRAMMENI}, 1);
             else if ( vf->number == SINGULAR )
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_ETA_WITH_OXIA_AND_YPOGEGRAMMENI;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_OXIA_AND_YPOGEGRAMMENI}, 1);
             else if (!hasPrefix && vf->number == PLURAL)
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_ETA_WITH_PSILI_AND_PERISPOMENI_AND_YPOGEGRAMMENI;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_PSILI_AND_PERISPOMENI_AND_YPOGEGRAMMENI}, 1);
             else if ( vf->number == PLURAL)
-                buffer[*bufferLen] = GREEK_SMALL_LETTER_ETA_WITH_PERISPOMENI_AND_YPOGEGRAMMENI;
-            
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_PERISPOMENI_AND_YPOGEGRAMMENI}, 1);
             
             if (vf->number == SINGULAR)
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_DELTA;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_DELTA}, 1);
             else
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_SIGMA;
-            *bufferLen += 2;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_SIGMA}, 1);
         }
         else
         {
-            buffer[*bufferLen] = DECOMPOSED_AUGMENT_CHAR;
-            buffer[*bufferLen+1] = SPACE;
-            buffer[*bufferLen+2] = HYPHEN;
-            buffer[*bufferLen+3] = SPACE;
-            buffer[*bufferLen+4] = GREEK_SMALL_LETTER_EPSILON;
-            buffer[*bufferLen+5] = GREEK_SMALL_LETTER_IOTA_WITH_PSILI;
+           splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){DECOMPOSED_AUGMENT_CHAR,SPACE,HYPHEN,SPACE,GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA_WITH_PSILI}, 6);
             
             if (vf->number == SINGULAR)
-                buffer[*bufferLen+6] = GREEK_SMALL_LETTER_DELTA;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_DELTA}, 1);
             else
-                buffer[*bufferLen+6] = GREEK_SMALL_LETTER_SIGMA;
-            *bufferLen += 7;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_SIGMA}, 1);
         }
         
         if (decompose)
         {
-            buffer[*bufferLen] = SPACE;
-            buffer[*bufferLen+1] = HYPHEN;
-            buffer[*bufferLen+2] = SPACE;
-            *bufferLen += 3;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
         }
         if (vf->person == FIRST && vf->number == SINGULAR)
         {
-            buffer[*bufferLen] = GREEK_SMALL_LETTER_ETA;
-            buffer[*bufferLen+1] = COMMA;
-            buffer[*bufferLen+2] = SPACE;
-            *bufferLen += 3;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA,COMMA,SPACE}, 3);
             
             if (utf8HasSuffix(vf->verb->present, "σύνοιδα"))
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_SIGMA;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_UPSILON;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_NU;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_SIGMA,GREEK_SMALL_LETTER_UPSILON,GREEK_SMALL_LETTER_NU}, 3);
                 
                 if (decompose)
                 {
-                    buffer[*bufferLen] = SPACE;
-                    buffer[*bufferLen+1] = HYPHEN;
-                    buffer[*bufferLen+2] = SPACE;
-                    *bufferLen += 3;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
                 }
             }
             
             if (hasPrefix && !decompose)
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_ETA_WITH_OXIA_AND_YPOGEGRAMMENI;
-                *bufferLen += 1;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_OXIA_AND_YPOGEGRAMMENI}, 1);
             }
             else if (decompose)
             {
-                buffer[*bufferLen+0] = DECOMPOSED_AUGMENT_CHAR;
-                buffer[*bufferLen+1] = SPACE;
-                buffer[*bufferLen+2] = HYPHEN;
-                buffer[*bufferLen+3] = SPACE;
-                buffer[*bufferLen+4] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+5] = GREEK_SMALL_LETTER_IOTA_WITH_PSILI;
-                *bufferLen += 6;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){DECOMPOSED_AUGMENT_CHAR,SPACE,HYPHEN,SPACE,GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA_WITH_PSILI}, 6);
             }
             else
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_ETA_WITH_PSILI_AND_OXIA_AND_YPOGEGRAMMENI;
-                *bufferLen += 1;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_PSILI_AND_OXIA_AND_YPOGEGRAMMENI}, 1);
             }
-            buffer[*bufferLen+0] = GREEK_SMALL_LETTER_DELTA;
-            *bufferLen += 1;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_DELTA}, 1);
             
             if (decompose)
             {
-                buffer[*bufferLen] = SPACE;
-                buffer[*bufferLen+1] = HYPHEN;
-                buffer[*bufferLen+2] = SPACE;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
             }
             
-            buffer[*bufferLen] = GREEK_SMALL_LETTER_EPSILON;
-            buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA;
-            buffer[*bufferLen+2] = GREEK_SMALL_LETTER_NU;
-            *bufferLen += 3;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA,GREEK_SMALL_LETTER_NU}, 3);
+            
         }
         else if (vf->person == SECOND && vf->number == SINGULAR)
         {
-            buffer[*bufferLen] = GREEK_SMALL_LETTER_ETA;
-            buffer[*bufferLen+1] = GREEK_SMALL_LETTER_SIGMA;
-            buffer[*bufferLen+2] = GREEK_SMALL_LETTER_THETA;
-            buffer[*bufferLen+3] = GREEK_SMALL_LETTER_ALPHA;
-            buffer[*bufferLen+4] = COMMA;
-            buffer[*bufferLen+5] = SPACE;
-            *bufferLen += 6;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA,GREEK_SMALL_LETTER_SIGMA,GREEK_SMALL_LETTER_THETA,GREEK_SMALL_LETTER_ALPHA,COMMA,SPACE}, 6);
             
             if (utf8HasSuffix(vf->verb->present, "σύνοιδα"))
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_SIGMA;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_UPSILON;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_NU;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_SIGMA,GREEK_SMALL_LETTER_UPSILON,GREEK_SMALL_LETTER_NU}, 3);
                 
                 if (decompose)
                 {
-                    buffer[*bufferLen] = SPACE;
-                    buffer[*bufferLen+1] = HYPHEN;
-                    buffer[*bufferLen+2] = SPACE;
-                    *bufferLen += 3;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
                 }
             }
             
             if (hasPrefix && !decompose)
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_ETA_WITH_OXIA_AND_YPOGEGRAMMENI;
-                *bufferLen += 1;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_OXIA_AND_YPOGEGRAMMENI}, 1);
             }
             else if (decompose)
             {
-                buffer[*bufferLen+0] = DECOMPOSED_AUGMENT_CHAR;
-                buffer[*bufferLen+1] = SPACE;
-                buffer[*bufferLen+2] = HYPHEN;
-                buffer[*bufferLen+3] = SPACE;
-                buffer[*bufferLen+4] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+5] = GREEK_SMALL_LETTER_IOTA_WITH_PSILI;
-                *bufferLen += 6;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){DECOMPOSED_AUGMENT_CHAR,SPACE,HYPHEN,SPACE,GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA_WITH_PSILI}, 6);
             }
             else
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_ETA_WITH_PSILI_AND_OXIA_AND_YPOGEGRAMMENI;
-                *bufferLen += 1;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_PSILI_AND_OXIA_AND_YPOGEGRAMMENI}, 1);
             }
-            buffer[*bufferLen+0] = GREEK_SMALL_LETTER_DELTA;
-            *bufferLen += 1;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_DELTA}, 1);
             
             if (decompose)
             {
-                buffer[*bufferLen] = SPACE;
-                buffer[*bufferLen+1] = HYPHEN;
-                buffer[*bufferLen+2] = SPACE;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
             }
             
-            buffer[*bufferLen] = GREEK_SMALL_LETTER_EPSILON;
-            buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA;
-            buffer[*bufferLen+2] = GREEK_SMALL_LETTER_FINAL_SIGMA;
-            *bufferLen += 3;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA,GREEK_SMALL_LETTER_FINAL_SIGMA}, 3);
         }
         else if (vf->person == THIRD && vf->number == SINGULAR)
         {
-            buffer[*bufferLen] = GREEK_SMALL_LETTER_EPSILON;
-            buffer[*bufferLen+1] = GREEK_SMALL_LETTER_IOTA;
-            buffer[*bufferLen+2] = LEFT_PARENTHESIS;
-            buffer[*bufferLen+3] = GREEK_SMALL_LETTER_NU;
-            buffer[*bufferLen+4] = RIGHT_PARENTHESIS;
-            *bufferLen += 5;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA,LEFT_PARENTHESIS,GREEK_SMALL_LETTER_NU,RIGHT_PARENTHESIS}, 5);
         }
         else if (vf->person == FIRST && vf->number == PLURAL)
         {
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_MU,GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_NU,COMMA,SPACE}, 5);
 
-            buffer[*bufferLen] = GREEK_SMALL_LETTER_MU;
-            buffer[*bufferLen+1] = GREEK_SMALL_LETTER_EPSILON;
-            buffer[*bufferLen+2] = GREEK_SMALL_LETTER_NU;
-            buffer[*bufferLen+3] = COMMA;
-            buffer[*bufferLen+4] = SPACE;
-            *bufferLen += 5;
             if (utf8HasSuffix(vf->verb->present, "σύνοιδα"))
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_SIGMA;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_UPSILON;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_NU;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_SIGMA,GREEK_SMALL_LETTER_UPSILON,GREEK_SMALL_LETTER_NU}, 3);
                 
                 if (decompose)
                 {
-                    buffer[*bufferLen] = SPACE;
-                    buffer[*bufferLen+1] = HYPHEN;
-                    buffer[*bufferLen+2] = SPACE;
-                    *bufferLen += 3;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
                 }
             }
             
             if (hasPrefix && !decompose)
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_ETA_WITH_OXIA_AND_YPOGEGRAMMENI;
-                *bufferLen += 1;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_OXIA_AND_YPOGEGRAMMENI}, 1);
             }
             else if (decompose)
             {
-                buffer[*bufferLen+0] = DECOMPOSED_AUGMENT_CHAR;
-                buffer[*bufferLen+1] = SPACE;
-                buffer[*bufferLen+2] = HYPHEN;
-                buffer[*bufferLen+3] = SPACE;
-                buffer[*bufferLen+4] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+5] = GREEK_SMALL_LETTER_IOTA_WITH_PSILI;
-                *bufferLen += 6;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){DECOMPOSED_AUGMENT_CHAR,SPACE,HYPHEN,SPACE,GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA_WITH_PSILI}, 6);
             }
             else
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_ETA_WITH_PSILI_AND_OXIA_AND_YPOGEGRAMMENI;
-                *bufferLen += 1;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_PSILI_AND_OXIA_AND_YPOGEGRAMMENI}, 1);
             }
-            buffer[*bufferLen+0] = GREEK_SMALL_LETTER_DELTA;
-            *bufferLen += 1;
+
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_DELTA}, 1);
             
             if (decompose)
             {
-                buffer[*bufferLen] = SPACE;
-                buffer[*bufferLen+1] = HYPHEN;
-                buffer[*bufferLen+2] = SPACE;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
             }
             
-            buffer[*bufferLen] = GREEK_SMALL_LETTER_EPSILON;
-            buffer[*bufferLen+1] = GREEK_SMALL_LETTER_MU;
-            buffer[*bufferLen+2] = GREEK_SMALL_LETTER_EPSILON;
-            buffer[*bufferLen+3] = GREEK_SMALL_LETTER_NU;
-            *bufferLen += 4;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_MU,GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_NU}, 4);
         }
         else if (vf->person == SECOND && vf->number == PLURAL)
         {
-            buffer[*bufferLen] = GREEK_SMALL_LETTER_TAU;
-            buffer[*bufferLen+1] = GREEK_SMALL_LETTER_EPSILON;
-            buffer[*bufferLen+2] = COMMA;
-            buffer[*bufferLen+3] = SPACE;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_TAU,GREEK_SMALL_LETTER_EPSILON,COMMA,SPACE}, 4);
             
-            *bufferLen += 4;
             if (utf8HasSuffix(vf->verb->present, "σύνοιδα"))
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_SIGMA;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_UPSILON;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_NU;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_SIGMA,GREEK_SMALL_LETTER_UPSILON,GREEK_SMALL_LETTER_NU}, 3);
                 
                 if (decompose)
                 {
-                    buffer[*bufferLen] = SPACE;
-                    buffer[*bufferLen+1] = HYPHEN;
-                    buffer[*bufferLen+2] = SPACE;
-                    *bufferLen += 3;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
                 }
             }
             
             if (hasPrefix && !decompose)
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_ETA_WITH_OXIA_AND_YPOGEGRAMMENI;
-                *bufferLen += 1;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_OXIA_AND_YPOGEGRAMMENI}, 1);
             }
             else if (decompose)
             {
-                buffer[*bufferLen+0] = DECOMPOSED_AUGMENT_CHAR;
-                buffer[*bufferLen+1] = SPACE;
-                buffer[*bufferLen+2] = HYPHEN;
-                buffer[*bufferLen+3] = SPACE;
-                buffer[*bufferLen+4] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+5] = GREEK_SMALL_LETTER_IOTA_WITH_PSILI;
-                *bufferLen += 6;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){DECOMPOSED_AUGMENT_CHAR,SPACE,HYPHEN,SPACE,GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA_WITH_PSILI}, 6);
             }
             else
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_ETA_WITH_PSILI_AND_OXIA_AND_YPOGEGRAMMENI;
-                *bufferLen += 1;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_PSILI_AND_OXIA_AND_YPOGEGRAMMENI}, 1);
             }
             
-            buffer[*bufferLen] = GREEK_SMALL_LETTER_DELTA;
-            *bufferLen += 1;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_DELTA}, 1);
             
             if (decompose)
             {
-                buffer[*bufferLen] = SPACE;
-                buffer[*bufferLen+1] = HYPHEN;
-                buffer[*bufferLen+2] = SPACE;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
             }
             
-            buffer[*bufferLen] = GREEK_SMALL_LETTER_EPSILON;
-            buffer[*bufferLen+1] = GREEK_SMALL_LETTER_TAU;
-            buffer[*bufferLen+2] = GREEK_SMALL_LETTER_EPSILON;
-            *bufferLen += 3;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_TAU,GREEK_SMALL_LETTER_EPSILON}, 3);
         }
         else if (vf->person == THIRD && vf->number == PLURAL)
         {
-            buffer[*bufferLen] = GREEK_SMALL_LETTER_ALPHA;
-            buffer[*bufferLen+1] = GREEK_SMALL_LETTER_NU;
-            buffer[*bufferLen+2] = COMMA;
-            buffer[*bufferLen+3] = SPACE;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ALPHA,GREEK_SMALL_LETTER_NU,COMMA,SPACE}, 4);
             
-            *bufferLen += 4;
             if (utf8HasSuffix(vf->verb->present, "σύνοιδα"))
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_SIGMA;
-                buffer[*bufferLen+1] = GREEK_SMALL_LETTER_UPSILON;
-                buffer[*bufferLen+2] = GREEK_SMALL_LETTER_NU;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_SIGMA,GREEK_SMALL_LETTER_UPSILON,GREEK_SMALL_LETTER_NU}, 3);
                 
                 if (decompose)
                 {
-                    buffer[*bufferLen] = SPACE;
-                    buffer[*bufferLen+1] = HYPHEN;
-                    buffer[*bufferLen+2] = SPACE;
-                    *bufferLen += 3;
+                    splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
                 }
             }
             
             if (hasPrefix && !decompose)
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_ETA_WITH_OXIA_AND_YPOGEGRAMMENI;
-                *bufferLen += 1;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_OXIA_AND_YPOGEGRAMMENI}, 1);
             }
             else if (decompose)
             {
-                buffer[*bufferLen+0] = DECOMPOSED_AUGMENT_CHAR;
-                buffer[*bufferLen+1] = SPACE;
-                buffer[*bufferLen+2] = HYPHEN;
-                buffer[*bufferLen+3] = SPACE;
-                buffer[*bufferLen+4] = GREEK_SMALL_LETTER_EPSILON;
-                buffer[*bufferLen+5] = GREEK_SMALL_LETTER_IOTA_WITH_PSILI;
-                *bufferLen += 6;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){DECOMPOSED_AUGMENT_CHAR,SPACE,HYPHEN,SPACE,GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_IOTA_WITH_PSILI}, 6);
             }
             else
             {
-                buffer[*bufferLen+0] = GREEK_SMALL_LETTER_ETA_WITH_PSILI_AND_OXIA_AND_YPOGEGRAMMENI;
-                *bufferLen += 1;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA_WITH_PSILI_AND_OXIA_AND_YPOGEGRAMMENI}, 1);
             }
             
-            buffer[*bufferLen] = GREEK_SMALL_LETTER_DELTA;
-            *bufferLen += 1;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_DELTA}, 1);
             
             if (decompose)
             {
-                buffer[*bufferLen] = SPACE;
-                buffer[*bufferLen+1] = HYPHEN;
-                buffer[*bufferLen+2] = SPACE;
-                *bufferLen += 3;
+                splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
             }
             
-            buffer[*bufferLen] = GREEK_SMALL_LETTER_EPSILON;
-            buffer[*bufferLen + 1] = GREEK_SMALL_LETTER_SIGMA;
-            buffer[*bufferLen + 2] = GREEK_SMALL_LETTER_ALPHA;
-            buffer[*bufferLen + 3] = GREEK_SMALL_LETTER_NU;
-            *bufferLen += 4;
+            splice(buffer, bufferLen, 1024, *bufferLen, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON,GREEK_SMALL_LETTER_SIGMA,GREEK_SMALL_LETTER_ALPHA,GREEK_SMALL_LETTER_NU}, 4);
         }
     }
     else

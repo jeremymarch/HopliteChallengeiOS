@@ -81,6 +81,7 @@ int main(int argc, char **argv)
             {
                 for (int m = 0; m < NUM_MOODS; m++)
                 {
+                    //add exception for oida here
                     if (m != INDICATIVE && (g1 == PERFECT || g1 == PLUPERFECT || g1 == IMPERFECT || (g1 == FUTURE && m != OPTATIVE)))
                         continue;
 
