@@ -48,6 +48,7 @@
 		3F3B30EE20D7033700EEB1E7 /* HCGameList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */; };
 		3F4205361FDDA57200BCA548 /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4205351FDDA57200BCA548 /* CardController.swift */; };
 		3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4869CD1E7C9A020051B46A /* HCSettings.swift */; };
+		3F4B252E214790C60060FFB9 /* specialverbs.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F4B252D214790C60060FFB9 /* specialverbs.c */; };
 		3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */; };
 		3F6D20541FB7B8DA0000615B /* AccentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */; };
 		3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20551FB8E4EA0000615B /* AccentTextField.swift */; };
@@ -141,6 +142,8 @@
 		3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCGameList.swift; sourceTree = "<group>"; };
 		3F4205351FDDA57200BCA548 /* CardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
 		3F4869CD1E7C9A020051B46A /* HCSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCSettings.swift; sourceTree = "<group>"; };
+		3F4B252C214790C60060FFB9 /* specialverbs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = specialverbs.h; path = libmorph/specialverbs.h; sourceTree = "<group>"; };
+		3F4B252D214790C60060FFB9 /* specialverbs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = specialverbs.c; path = libmorph/specialverbs.c; sourceTree = "<group>"; };
 		3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabTableViewController.swift; sourceTree = "<group>"; };
 		3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentsViewController.swift; sourceTree = "<group>"; };
 		3F6D20551FB8E4EA0000615B /* AccentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentTextField.swift; sourceTree = "<group>"; };
@@ -298,6 +301,8 @@
 				3FFE2C071FAE7CA50013A92E /* swiftVSeqLayer.h */,
 				3F3443C81E6BB2CD00FFAD04 /* GreekForms.c */,
 				3F3443C51E6BB2BF00FFAD04 /* utilities.c */,
+				3F4B252C214790C60060FFB9 /* specialverbs.h */,
+				3F4B252D214790C60060FFB9 /* specialverbs.c */,
 				3F3443C61E6BB2BF00FFAD04 /* utilities.h */,
 				3F3443C21E6BB2B000FFAD04 /* accent.c */,
 				3F3443C31E6BB2B000FFAD04 /* accent.h */,
@@ -608,6 +613,7 @@
 				3F85625E20A93FCC00FE3EE1 /* HCMFButton.swift in Sources */,
 				3F6D20541FB7B8DA0000615B /* AccentsViewController.swift in Sources */,
 				3F3B30EE20D7033700EEB1E7 /* HCGameList.swift in Sources */,
+				3F4B252E214790C60060FFB9 /* specialverbs.c in Sources */,
 				3F85625520A9318900FE3EE1 /* HCGlobeButton.swift in Sources */,
 				3FFE2C081FAE7CA50013A92E /* swiftVSeqLayer.c in Sources */,
 				3F85625720A9318900FE3EE1 /* HCSpaceButton.swift in Sources */,

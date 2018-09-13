@@ -75,4 +75,32 @@ int main(int argc, char **argv)
     char buf[1024];
     getForm2(&v, buffer, 1024, true, false);
     printf("buffer: %s\n", buffer);
+
+    /*
+    jmarch-itsvm
+
+    Domain: corporate.testsys.com
+
+    erxomai
+    epomai -- check all deponents
+    prodidwmi
+    thnhskw
+
+    mi verb +present / aorist
+      subj.
+      opt.
+      pres.
+        indic.
+        imper.
+      aor.
+        indic.
+        imper.
+      imperf.
+    isthmi + perf/plup.
+
+    root aorist?
+
+    edidoun ending
+    apothnskw
+    */
 }
