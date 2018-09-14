@@ -754,13 +754,14 @@ int getForm(VerbFormC *vf, char *utf8OutputBuffer, int bufferLen, bool includeAl
 {
     utf8OutputBuffer[0] = '\0'; //clear buffer
     
-    int bufferLen2 = 1024;
-    UCS2 ucs2Buffer[bufferLen2];
+    int ucs2BuffLen = 0;
+    int ucs2BufferMaxLen = 1024;
+    UCS2 ucs2Buffer[ucs2BufferMaxLen];
     
-    int ret = getFormUCS2(vf, ucs2Buffer, &bufferLen2, includeAlternateForms, decompose);
+    int ret = getFormUCS2(vf, ucs2Buffer, &ucs2BuffLen, ucs2BufferMaxLen, includeAlternateForms, decompose);
     if (ret != 0)
     {
-        ucs2_to_utf8_string(ucs2Buffer, bufferLen2, (unsigned char*)utf8OutputBuffer);
+        ucs2_to_utf8_string(ucs2Buffer, ucs2BuffLen, (unsigned char*)utf8OutputBuffer);
     }
     return ret;
 }
@@ -781,19 +782,20 @@ int getForm2(VerbFormD *vf, char *utf8OutputBuffer, int bufferLen, bool includeA
 /**
  * return 1 for success, 0 for failure
  */
-int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlternateForms, bool decompose)
+int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, int bufferMaxLen, bool includeAlternateForms, bool decompose)
 {
     //clear buffer
-    int i;
-    //UCS2 ucs2Buffer[1024];
-    //buffer needs to be cleared
-    for (i = 0; i < *bufferLen; i++)
+    for (int i = 0; i < bufferMaxLen; i++)
+    {
         ucs2Buffer[i] = 0;
+    }
     
     int ucs2StemPlusEndingBufferLen = 0;
     
     if (vf->mood == IMPERATIVE && vf->person == FIRST)
+    {
         return 0;
+    }
     
     //eimi/
     if ( vf->tense != FUTURE && utf8HasSuffix(vf->verb->present, "εἰμί"))
@@ -932,13 +934,7 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
      */
     
     
-    /*
-    if (vf->mood == IMPERATIVE && vf->person == FIRST)
-    {
-        return 0;
-    }
-    */
-    UCS2 ucs2Stems[(strlen(utf8Stems) * 3) + 1];
+    UCS2 ucs2Stems[(strlen(utf8Stems) * 3) + 1];  //wait, ucs2 needs *less* space, right?
     int ucs2StemsLen = 0;
     utf8_to_ucs2_string((const unsigned char*)utf8Stems, ucs2Stems, &ucs2StemsLen);
     
@@ -948,7 +944,7 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
     if (utf8HasSuffix(vf->verb->present, "προδίδωμι") && !decompose && (vf->tense == IMPERFECT || vf->tense == PLUPERFECT))
     {
         splice(ucs2Stems, &ucs2StemsLen, 1024, ucs2StemsLen, 0, (UCS2[]){COMMA, SPACE}, 2);
-        splice(ucs2Stems, &ucs2StemsLen, 1024, ucs2StemsLen, 0, ucs2Stems, ucs2StemsLen - 2);
+        splice(ucs2Stems, &ucs2StemsLen, 1024, ucs2StemsLen, 0, ucs2Stems, ucs2StemsLen - 2); //-2 for the added comma + space
     }
     
     //find out how many stems, then how many endings.  loop through stems adding each ending in an inner loop.
@@ -956,6 +952,7 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
     
     int stemStarts[5] = { 0,0,0,0,0 };  //we leave space for up to five alternate stems
     int numStems = 1;
+    int i = 0;
     for (i = 0; i < ucs2StemsLen; i++)
     {
         if (ucs2Stems[i] == SPACE)//space, 002C == comma
@@ -1270,10 +1267,7 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
             
             ucs2StemPlusEndingBufferLen += (tempStemLen - stemLen);
             
-            ucs2Buffer[ucs2StemPlusEndingBufferLen] = COMMA; //comma
-            ucs2StemPlusEndingBufferLen++;
-            ucs2Buffer[ucs2StemPlusEndingBufferLen] = SPACE; //space
-            ucs2StemPlusEndingBufferLen++;
+            splice(ucs2Buffer, &ucs2StemPlusEndingBufferLen, bufferMaxLen, ucs2StemPlusEndingBufferLen, 0, (UCS2[]){COMMA,SPACE}, 2);
         }
     }
     ucs2StemPlusEndingBufferLen -= 2; //remove trailing comma and space.
@@ -1289,23 +1283,21 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, bool includeAlt
     {
         if ((vf->tense == AORIST || vf->tense == IMPERFECT || vf->tense == PERFECT || vf->tense == PLUPERFECT) && vf->mood == INDICATIVE)// ucs2Buffer[0] == GREEK_SMALL_LETTER_ETA)
         {
-            ucs2Buffer[ucs2StemPlusEndingBufferLen] = COMMA; //comma
-            ucs2StemPlusEndingBufferLen++;
-            ucs2Buffer[ucs2StemPlusEndingBufferLen] = SPACE; //space
-            ucs2StemPlusEndingBufferLen++;
-            ucs2Buffer[ucs2StemPlusEndingBufferLen] = GREEK_SMALL_LETTER_EPSILON;
-            ucs2StemPlusEndingBufferLen++;
+            splice(ucs2Buffer, &ucs2StemPlusEndingBufferLen, bufferMaxLen, ucs2StemPlusEndingBufferLen, 0, (UCS2[]){COMMA,SPACE,GREEK_SMALL_LETTER_EPSILON}, 3);
             
             int j = 1;
-            int i = 1;
+            //int i = 1;
             if (decompose && vf->tense != PERFECT && vf->tense != PLUPERFECT)
+            {
                 j = 5;
-            
+            }
+            splice(ucs2Buffer, &ucs2StemPlusEndingBufferLen, bufferMaxLen, ucs2StemPlusEndingBufferLen, 0, &ucs2Buffer[j], ucs2StemPlusEndingBufferLen - j - 3);
+            /*
             for (; j < (ucs2StemPlusEndingBufferLen - 3); i++, j++)
             {
                 ucs2Buffer[ucs2StemPlusEndingBufferLen+i-1] = ucs2Buffer[j];
             }
-            ucs2StemPlusEndingBufferLen += (j-1);
+            ucs2StemPlusEndingBufferLen += (j-1);*/
         }
     }
     
@@ -1631,12 +1623,11 @@ void stripAccent(UCS2 *word, int *len)
             case GREEK_SMALL_LETTER_IOTA_WITH_PERISPOMENI: //to fix decomposed macron on krine
                 if (i > 0 && word[i-1] != GREEK_SMALL_LETTER_EPSILON && word[i-1] != GREEK_SMALL_LETTER_OMICRON && word[i-1] != GREEK_SMALL_LETTER_ALPHA && word[i-1] != SPACE)
                 {
-                    rightShiftFromOffsetSteps(word, i, 1, len);
-                    word[i] = GREEK_SMALL_LETTER_IOTA;
-                    word[i+1] = COMBINING_MACRON;
+                    splice(word, len, 1024, i, 1, (UCS2[]){GREEK_SMALL_LETTER_IOTA,COMBINING_MACRON}, 2);
                 }
                 else
                 {
+                    //case if iota is part of a diphthong (i.e. not long by itself)
                     word[i] = GREEK_SMALL_LETTER_IOTA;
                 }
                 break;
@@ -1649,7 +1640,7 @@ void stripAccent(UCS2 *word, int *len)
             case GREEK_SMALL_LETTER_UPSILON_WITH_TONOS:
             case GREEK_SMALL_LETTER_UPSILON_WITH_PERISPOMENI:
                 word[i] = GREEK_SMALL_LETTER_UPSILON;
-                break; /*
+                break; /* //I guess this never comes up?
             case GREEK_SMALL_LETTER_UPSILON_WITH_PERISPOMENI:
                 rightShiftFromOffsetSteps(word, i, 1, len);
                 word[i] = GREEK_SMALL_LETTER_UPSILON;
@@ -1685,10 +1676,7 @@ void stripAccent(UCS2 *word, int *len)
             case GREEK_SMALL_LETTER_IOTA_WITH_DASIA_AND_PERISPOMENI:
                 if (i > 0 && word[i-1] != GREEK_SMALL_LETTER_EPSILON && word[i-1] != GREEK_SMALL_LETTER_OMICRON && word[i-1] != GREEK_SMALL_LETTER_ALPHA)
                 {
-                rightShiftFromOffsetSteps(word, i, 2, len);
-                word[i] = GREEK_SMALL_LETTER_IOTA;
-                word[i+1] = COMBINING_MACRON;
-                word[i+2] = COMBINING_ROUGH_BREATHING;
+                    splice(word, len, 1024, i, 1, (UCS2[]){GREEK_SMALL_LETTER_IOTA,COMBINING_MACRON,COMBINING_ROUGH_BREATHING}, 3);
                 }
                 else
                 {
@@ -1769,12 +1757,7 @@ void stripAccent(UCS2 *word, int *len)
             case COMBINING_ACUTE:
                 //case COMBINING_MACRON:
                 //remove combining accent, shift other characters over 1
-                //change this to use leftShift function.  add later when I can test it out.
-                for (int j = i; j < *len; j++)
-                {
-                    word[j] = word[j + 1];
-                }
-                --(*len);
+                splice(word, len, 1024, i, 1, NULL, 0);
                 break;
             default:
                 break;

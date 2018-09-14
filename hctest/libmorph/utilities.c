@@ -19,9 +19,9 @@ void debug_msg(char *x)
     //exit(1);
 }
 
-bool rightShiftFromOffsetSteps2(UCS2 *ucs2, int offset, int steps, int *len, int buffer_len)
+bool rightShiftFromOffsetSteps2(UCS2 *ucs2, int offset, int steps, int *len, int buffer_capacity)
 {
-    if (*len + steps > buffer_len)
+    if (*len + steps > buffer_capacity)
     {
         DEBUG_SPLICE("right shift: out of bounds!");
         return false;
@@ -77,9 +77,9 @@ bool leftShiftFromOffsetSteps2(UCS2 *ucs2, int offset, int steps, int *len)
  *
  * returns true, or false if error
  */
-bool splice(UCS2 *string, int *len, int buffer_len, int offset, int replacing, UCS2 *insert, int insert_len)
+bool splice(UCS2 *string, int *len, int buffer_capacity, int offset, int replacing, UCS2 *insert, int insert_len)
 {
-    if (*len + insert_len - replacing > buffer_len)
+    if (*len + insert_len - replacing > buffer_capacity)
     {
         DEBUG_SPLICE("out of bounds!");
         return false;
@@ -109,7 +109,7 @@ bool splice(UCS2 *string, int *len, int buffer_len, int offset, int replacing, U
     {
         if (offset + replacing < *len) //only call right shift if offset is before end, else rightShift will fail since nothing to move
         {
-            if (!rightShiftFromOffsetSteps2(string, offset + replacing, insert_len - replacing, len, buffer_len))
+            if (!rightShiftFromOffsetSteps2(string, offset + replacing, insert_len - replacing, len, buffer_capacity))
             {
                 return false;
             }
