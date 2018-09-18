@@ -8,7 +8,7 @@
 
 #include "ending.h"
 
-void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool contractedFuture, bool decompose)
+void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, const int ucs2Capacity, UCS2 *ending, int elen, bool contractedFuture, bool decompose)
 {
     if (decompose && contractedFuture)
     {
@@ -32,7 +32,7 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
     }
     else if(decompose && ADD_EPSILON_TO_AORIST_PASSIVE_SUBJUNCTIVE_STEM && vf->tense == AORIST && vf->voice == PASSIVE && vf->mood == SUBJUNCTIVE)
     {
-        splice(ucs2, len, BUFFER_LEN, *len, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON}, 1);
+        splice(ucs2, len, ucs2Capacity, *len, 0, (UCS2[]){GREEK_SMALL_LETTER_EPSILON}, 1);
     }
     /* start consonant stem perfect and pluperfect */
     else if ((vf->tense == PERFECT || vf->tense == PLUPERFECT) && (vf->voice == MIDDLE || vf->voice == PASSIVE))
@@ -68,8 +68,8 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
                 }
                 else
                 {
-                    splice(ucs2, len, BUFFER_LEN, *len -1, 1, (UCS2[]){GREEK_SMALL_LETTER_PSI}, 1);
-                    splice(ending, &elen, BUFFER_LEN, 0, 1, NULL, 0);
+                    splice(ucs2, len, ucs2Capacity, *len -1, 1, (UCS2[]){GREEK_SMALL_LETTER_PSI}, 1);
+                    splice(ending, &elen, ucs2Capacity, 0, 1, NULL, 0);
                 }
             }
             else if (vf->person == THIRD && vf->number == SINGULAR)
@@ -338,9 +338,9 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
     {
         if (decompose)
         {
-            splice(ucs2, len, BUFFER_LEN, *len, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
+            splice(ucs2, len, ucs2Capacity, *len, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
         }
-        splice(ucs2, len, BUFFER_LEN, *len, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA,GREEK_SMALL_LETTER_SIGMA}, 2);
+        splice(ucs2, len, ucs2Capacity, *len, 0, (UCS2[]){GREEK_SMALL_LETTER_ETA,GREEK_SMALL_LETTER_SIGMA}, 2);
     }
     /* start mi verbs present tense */
     else if (vf->tense == PRESENT &&
@@ -352,20 +352,20 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
         if (vf->voice != ACTIVE || vf->number == PLURAL || vf->mood == OPTATIVE || vf->mood == IMPERATIVE || vf->mood == SUBJUNCTIVE)
         {
             if (ucs2[*len - 1] == GREEK_SMALL_LETTER_OMEGA)
-                splice(ucs2, len, BUFFER_LEN, *len - 1, 1, (UCS2[]){GREEK_SMALL_LETTER_OMICRON}, 1);
+                splice(ucs2, len, ucs2Capacity, *len - 1, 1, (UCS2[]){GREEK_SMALL_LETTER_OMICRON}, 1);
             else if (ucs2[*len - 1] == GREEK_SMALL_LETTER_ETA && (ucs2[*len - 2] == GREEK_SMALL_LETTER_TAU || ucs2[*len - 2] == GREEK_SMALL_LETTER_PHI))
-                splice(ucs2, len, BUFFER_LEN, *len - 1, 1, (UCS2[]){GREEK_SMALL_LETTER_ALPHA}, 1);
+                splice(ucs2, len, ucs2Capacity, *len - 1, 1, (UCS2[]){GREEK_SMALL_LETTER_ALPHA}, 1);
             else if (ucs2[*len - 1] == GREEK_SMALL_LETTER_ETA)
-                splice(ucs2, len, BUFFER_LEN, *len - 1, 1, (UCS2[]){GREEK_SMALL_LETTER_EPSILON}, 1);
+                splice(ucs2, len, ucs2Capacity, *len - 1, 1, (UCS2[]){GREEK_SMALL_LETTER_EPSILON}, 1);
             else if (ucs2[*len - 1] == COMBINING_MACRON) //deiknumi
-                splice(ucs2, len, BUFFER_LEN, *len - 1, 1, NULL, 0); //remove one (macron) --(*len);
+                splice(ucs2, len, ucs2Capacity, *len - 1, 1, NULL, 0); //remove one (macron) --(*len);
         }
         //contract third plural indicative of isthmi
         if (vf->person == THIRD && vf->number == PLURAL && vf->mood == INDICATIVE && vf->voice == ACTIVE && (utf8HasSuffix(vf->verb->present, "στημι") || utf8HasSuffix(vf->verb->present, "ῑ̔́ημι") || utf8HasSuffix(vf->verb->present, "ῑ́ημι")))
         {
             if (!decompose)
             {
-                splice(ucs2, len, BUFFER_LEN, *len - 1, 1, NULL, 0);
+                splice(ucs2, len, ucs2Capacity, *len - 1, 1, NULL, 0);
                 splice(ending, &elen, elen, 0, 2, (UCS2[]){GREEK_SMALL_LETTER_ALPHA_WITH_PERISPOMENI}, 1);
             }
         }
@@ -373,7 +373,7 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
         {
             if (!decompose)
             {
-                splice(ucs2, len, BUFFER_LEN, *len - 1, 1, NULL, 0); //--(*len);
+                splice(ucs2, len, ucs2Capacity, *len - 1, 1, NULL, 0); //--(*len);
             }
         }
         else if (vf->person == SECOND && vf->number == SINGULAR && vf->mood == INDICATIVE && vf->voice == ACTIVE &&
@@ -391,12 +391,12 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
         {
             if (vf->person == SECOND && vf->number == SINGULAR && vf->mood == INDICATIVE)
             {
-                splice(ucs2, len, BUFFER_LEN, 1, 1, (UCS2[]){GREEK_SMALL_LETTER_IOTA_WITH_PSILI_AND_PERISPOMENI}, 1);
+                splice(ucs2, len, ucs2Capacity, 1, 1, (UCS2[]){GREEK_SMALL_LETTER_IOTA_WITH_PSILI_AND_PERISPOMENI}, 1);
                 elen = 0;
             }
             else if (vf->number == PLURAL && vf->mood == INDICATIVE)
             {
-                splice(ucs2, len, BUFFER_LEN, 0, 1, NULL, 0);
+                splice(ucs2, len, ucs2Capacity, 0, 1, NULL, 0);
             }
         }
         
@@ -1489,7 +1489,7 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
     }
     else if (utf8HasSuffix(vf->verb->present, "κεῖμαι"))
     {
-        if (vf->mood == SUBJUNCTIVE || vf->mood == OPTATIVE)
+        if ((vf->mood == SUBJUNCTIVE || vf->mood == OPTATIVE) && vf->tense == PRESENT)
         {
             leftShiftFromOffsetSteps(ucs2, *len - 1, 1, len);
         }
@@ -1518,9 +1518,9 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
     //add the ending to the stem, decompose if necessary
     if (decompose && *len > 0 && !(*len == 1 && ucs2[0] == '-'))
     {
-        splice(ucs2, len, BUFFER_LEN, *len, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
+        splice(ucs2, len, ucs2Capacity, *len, 0, (UCS2[]){SPACE,HYPHEN,SPACE}, 3);
     }
     
     //add the ending
-    splice(ucs2, len, BUFFER_LEN, *len, 0, ending, elen);
+    splice(ucs2, len, ucs2Capacity, *len, 0, ending, elen);
 }

@@ -25,6 +25,8 @@
 #define HYPHEN                          0x2010
 #define COMMA                           0x002C
 #define NEWLINE                         0x000A
+#define WORD_JOINER                     0x2060 //to prevent word from breaking, e.g. place after dashελήλακα
+
 /* BASIC GREEK 0370-03FF */
 
 #define GREEK_CAPITAL_LETTER_HETA  					0x0370 // Ͱ → 2C75 Ⱶ latin capital letter half h

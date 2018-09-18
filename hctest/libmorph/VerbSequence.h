@@ -90,11 +90,14 @@ bool dbInit(const char *path);
 //void VerbSeqInit(const char *path);
 int nextVerbSeq(VerbFormC *vf1, VerbFormC *vf2, VerbSeqOptions *vso);
 int nextVerbSeq2(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1);
+int nextVerbSeqCustom(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso);
+
 void resetVerbSeq(VerbSeqOptions *opt);
 void changeFormByDegrees(VerbFormC *verbform, int degrees);
 void generateForm(VerbFormC *verbform);
 void getDistractorsForChange(VerbFormC *orig, VerbFormC *new, int numDistractors, char *buffer);
 bool isValidFormForUnit(VerbFormC *vf, int unit);
+
 
 Verb *getRandomVerb(int *units, int numUnits);
 Verb *getRandomVerbFromUnit(int *units, int numUnits);

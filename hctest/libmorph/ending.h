@@ -15,6 +15,6 @@
 #include "libmorph.h"
 #include "GreekUnicode.h"
 
-void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool contractedFuture, bool decompose);
+void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, const int ucs2Capacity, UCS2 *ending, int elen, bool contractedFuture, bool decompose);
 
 #endif /* ending_h */

@@ -248,7 +248,7 @@ bool compareWord(UCS2 *w1, int w1len, UCS2 *w2, int w2len);
 int getForm(VerbFormC *vf, char *buffer, int bufferLen, bool includeAlternateForms, bool decompose);
 
 int getForm2(VerbFormD *vf, char *utf8OutputBuffer, int bufferLen, bool includeAlternateForms, bool decompose);
-int getFormUCS2(VerbFormC *vf, UCS2 *ucs2StemPlusEndingBuffer, int *bufferLen, int bufferMaxLen, bool includeAlternateForms, bool decompose);
+int getFormUCS2(VerbFormC *vf, UCS2 *ucs2StemPlusEndingBuffer, int *bufferLen, const int bufferCapacity, bool includeAlternateForms, bool decompose);
 
 void getFullDescription (VerbFormC *vf, char *buffer, int len);
 void getAbbrevDescription (VerbFormC *vf, char *buffer, int len);

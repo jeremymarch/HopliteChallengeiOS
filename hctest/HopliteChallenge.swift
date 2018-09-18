@@ -718,6 +718,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         }
         else
         {
+            vs.lives = 3 //temp just for testing
             textView.textColor = UIColor.gray
             showAnswer()
             NSLog("no!")

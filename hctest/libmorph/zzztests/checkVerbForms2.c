@@ -52,6 +52,8 @@ int main(int argc, char **argv)
     int MFMore = 0;
     int longestForm = 0;
     int longestFormDecomposed = 0;
+    char *noFormLabel = "NF";
+    char *noDCFormLabel = "NDF";
 
 //numVerbs = 1;
     for (int verbi = 0; verbi < numVerbs; verbi++)
@@ -94,9 +96,10 @@ int main(int argc, char **argv)
                             vf.number = h;
                             vf.person = i;
                             vf.mood = m;
-                            if (getForm(&vf, buffer, bufferLen, true, false) && getForm(&vf, buffer2, bufferLen2, true, true))
-                            {
-                                if (countPerSection == 0)
+                            bool hasComposed = getForm(&vf, buffer, bufferLen, true, false);
+                            bool hasDecomposed = getForm(&vf, buffer2, bufferLen2, true, true);
+
+                                if (countPerSection == 0 && vf.person == FIRST && vf.number == SINGULAR) //== first item, so add label first
                                 {
                                     if (v == ACTIVE || g1 == AORIST || g1 == FUTURE)
                                     {
@@ -105,22 +108,36 @@ int main(int argc, char **argv)
                                     else if (v == MIDDLE)
                                     {
                                         //FIX ME, is this right?? how do we label these?
-                                        if ( deponentType(vf.verb) == MIDDLE_DEPONENT || deponentType(vf.verb) == PASSIVE_DEPONENT)
-                                        {
+                                        //if ( deponentType(vf.verb) == MIDDLE_DEPONENT || deponentType(vf.verb) == PASSIVE_DEPONENT)
+                                        //{
                                             fprintf(fp, "\n%s %s %s\n", tenses[g1], "Middle", moods[m]);
-                                        }
-                                        else
-                                        {
-                                            fprintf(fp, "\n%s %s %s\n", tenses[g1], "Middle/Passive", moods[m]);
-                                        }
+                                        //}
+                                        //else
+                                        //{
+                                        //    fprintf(fp, "\n%s %s %s\n", tenses[g1], "Middle/Passive", moods[m]);
+                                        //}
                                     }
                                     else
                                     {
-                                        continue; //skip passive if middle+passive are the same
+                                        fprintf(fp, "\n%s %s %s\n", tenses[g1], "Passive", moods[m]);
+                                        //yes we want to show them! //continue; //skip passive if middle+passive are the same
                                     }
-                                }
+                                } //end label conditional
 
-                                fprintf(fp, "%s ; %s\n", buffer, buffer2);
+                            if (!hasComposed)
+                            {
+                                strncpy(buffer, noFormLabel, strlen(noFormLabel) * sizeof(char));
+                                buffer[strlen(noFormLabel)] = '\0';
+                            }
+                            if (!hasDecomposed)
+                            {
+                                strncpy(buffer2, noDCFormLabel, strlen(noDCFormLabel) * sizeof(char));
+                                buffer2[strlen(noDCFormLabel)] = '\0';
+                            }
+                            fprintf(fp, "%d%c: %s ; %s\n", vf.person + 1, (vf.number == 0) ? 's' : 'p', buffer, buffer2);
+
+                            if (hasComposed && hasDecomposed)
+                            {
                                 int thisNumForms = 0;
                                 if (strncmp(buffer, "—", 2))
                                 {

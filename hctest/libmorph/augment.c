@@ -42,7 +42,7 @@ void augmentStem(VerbFormC *vf, UCS2 *ucs2, int *len, bool decompose, int stem)
         
         if ((vf->tense == PLUPERFECT && vf->number == SINGULAR && utf8HasSuffix(vf->verb->present, "στημι")) || (vf->tense != PLUPERFECT && utf8HasSuffix(vf->verb->present, "στημι")) || !utf8HasSuffix(vf->verb->present, "στημι"))
         {
-            //pluperfect of elau/nw herehere
+            //pluperfect of elau/nw
             if (ucs2[0] == '-' && ucs2[1] == GREEK_SMALL_LETTER_EPSILON_WITH_PSILI)
                 return;
             

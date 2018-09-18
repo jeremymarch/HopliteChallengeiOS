@@ -782,10 +782,10 @@ int getForm2(VerbFormD *vf, char *utf8OutputBuffer, int bufferLen, bool includeA
 /**
  * return 1 for success, 0 for failure
  */
-int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, int bufferMaxLen, bool includeAlternateForms, bool decompose)
+int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, const int bufferCapacity, bool includeAlternateForms, bool decompose)
 {
     //clear buffer
-    for (int i = 0; i < bufferMaxLen; i++)
+    for (int i = 0; i < bufferCapacity; i++)
     {
         ucs2Buffer[i] = 0;
     }
@@ -793,6 +793,29 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, int bufferMaxLe
     int ucs2StemPlusEndingBufferLen = 0;
     
     if (vf->mood == IMPERATIVE && vf->person == FIRST)
+    {
+        return 0;
+    }
+    
+    //abd
+    //no passive for middle deponent present or imperfect
+    //this does not need to be done for future, aorist because from different pp,
+    if (vf->voice == PASSIVE && (vf->tense == PRESENT || vf->tense == IMPERFECT) && utf8HasSuffix(vf->verb->present, "μαι"))
+    {
+        return 0;
+    }
+    //for perfect and pluperfect we need to block passive if middle or passive deponent
+    if (vf->voice == PASSIVE && (vf->tense == PERFECT || vf->tense == PLUPERFECT) && (deponentType(vf->verb) == MIDDLE_DEPONENT || deponentType(vf->verb) == PASSIVE_DEPONENT))
+    {
+        return 0;
+    }
+    
+    //middle deponents do not have a passive voice.  H&Q page 316
+    if (vf->voice == PASSIVE && deponentType(vf->verb) == MIDDLE_DEPONENT)
+    {
+        return 0;
+    }
+    if (vf->voice == PASSIVE && deponentType(vf->verb) == PASSIVE_DEPONENT && (vf->tense == PRESENT || vf->tense == IMPERFECT || vf->tense == PERFECT || vf->tense == PLUPERFECT)) //aorist or future are ok
     {
         return 0;
     }
@@ -857,16 +880,6 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, int bufferMaxLe
     //Step 1: get principal part
     char *utf8Stems = getPrincipalPartForTense(vf->verb, vf->tense, vf->voice);
     if (!utf8Stems || utf8Stems[0] == '\0')
-    {
-        return 0;
-    }
-    
-    //middle deponents do not have a passive voice.  H&Q page 316
-    if (deponentType(vf->verb) == MIDDLE_DEPONENT && vf->voice == PASSIVE)
-    {
-        return 0;
-    }
-    if (deponentType(vf->verb) == PASSIVE_DEPONENT && vf->voice == PASSIVE && (vf->tense == PRESENT || vf->tense == IMPERFECT || vf->tense == PERFECT || vf->tense == PLUPERFECT)) //aorist or future are ok
     {
         return 0;
     }
@@ -1170,7 +1183,7 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, int bufferMaxLe
                 stripAugmentFromPrincipalPart(vf, &ucs2Buffer[stemStartInBuffer], &tempStemLen, presentInitialLetter, decompose);
             }
             //Step 9: add the ending to the principal part
-            addEnding(vf, &ucs2Buffer[stemStartInBuffer], &tempStemLen, &ucs2Endings[endingStart], endingLen, contractedFuture, decompose);
+            addEnding(vf, &ucs2Buffer[stemStartInBuffer], &tempStemLen, bufferCapacity, &ucs2Endings[endingStart], endingLen, contractedFuture, decompose);
 
             //Labe/ Accent EXCEPTION H&Q page 326
             //elthe/ accent exception h&q page 383
@@ -1267,23 +1280,17 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, int bufferMaxLe
             
             ucs2StemPlusEndingBufferLen += (tempStemLen - stemLen);
             
-            splice(ucs2Buffer, &ucs2StemPlusEndingBufferLen, bufferMaxLen, ucs2StemPlusEndingBufferLen, 0, (UCS2[]){COMMA,SPACE}, 2);
+            splice(ucs2Buffer, &ucs2StemPlusEndingBufferLen, bufferCapacity, ucs2StemPlusEndingBufferLen, 0, (UCS2[]){COMMA,SPACE}, 2);
         }
     }
     ucs2StemPlusEndingBufferLen -= 2; //remove trailing comma and space.
-    
-    if (vf->mood == IMPERATIVE && vf->person == FIRST && ucs2StemPlusEndingBufferLen > 0) //check len so we don't give dashes for deponents in active voice
-    {
-        ucs2Buffer[0] = EM_DASH;
-        ucs2StemPlusEndingBufferLen = 1;
-    }
     
     //add eu alternates here here H&Q p. 552
     if (utf8HasSuffix(vf->verb->present, "εὑρίσκω"))
     {
         if ((vf->tense == AORIST || vf->tense == IMPERFECT || vf->tense == PERFECT || vf->tense == PLUPERFECT) && vf->mood == INDICATIVE)// ucs2Buffer[0] == GREEK_SMALL_LETTER_ETA)
         {
-            splice(ucs2Buffer, &ucs2StemPlusEndingBufferLen, bufferMaxLen, ucs2StemPlusEndingBufferLen, 0, (UCS2[]){COMMA,SPACE,GREEK_SMALL_LETTER_EPSILON}, 3);
+            splice(ucs2Buffer, &ucs2StemPlusEndingBufferLen, bufferCapacity, ucs2StemPlusEndingBufferLen, 0, (UCS2[]){COMMA,SPACE,GREEK_SMALL_LETTER_EPSILON}, 3);
             
             int j = 1;
             //int i = 1;
@@ -1291,7 +1298,7 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, int bufferMaxLe
             {
                 j = 5;
             }
-            splice(ucs2Buffer, &ucs2StemPlusEndingBufferLen, bufferMaxLen, ucs2StemPlusEndingBufferLen, 0, &ucs2Buffer[j], ucs2StemPlusEndingBufferLen - j - 3);
+            splice(ucs2Buffer, &ucs2StemPlusEndingBufferLen, bufferCapacity, ucs2StemPlusEndingBufferLen, 0, &ucs2Buffer[j], ucs2StemPlusEndingBufferLen - j - 3);
             /*
             for (; j < (ucs2StemPlusEndingBufferLen - 3); i++, j++)
             {
@@ -1352,12 +1359,31 @@ int deponentType2(int verbid)
 }
 
 /*
- gignomai
- hepomai
- metanistamai
- epanistamai
- hgeomai = a middle deponent which happens to have a 6th pp
- erxomai: partial deponent
+ check deponents
+ add nextSeq function to work with vseq array
+ add apothnhskw alt forms.
+ fix decomposed endings for edidoyn
+ add word_joiner, fix places it breaks
+ check nys estimated taxes
+ prepare to call about surgery bill
+ read: https://www.gamasutra.com/blogs/KwasiMensah/20110211/88949/Game_Loops_on_IOS.php
+ install ios 12 on old devices
+ 
+ 1. partial deponents have an active first pp. (or just has one deponent form?)
+ ἀκούω, πάσχω, μανθάνω, φεύγω, τυγχάνω, ὑπακούω, φθάνω, εἰμί, ὁράω, ἀναβαίνω, βαίνω, γιγνώσκω, ἐκπῑ́πτω, πῑ́πτω, ἁμαρτάνω, ἀποθνῄσκω, οἶδα, σύνοιδα
+ 
+ 2. middle deponents (by the book)
+ δέχομαι, μάχομαι, μηχανάομαι, ἐπιδείκνυμαι, αἰσθάνομαι, ἕπομαι (missing pp 5), ἀποκρῑ́νομαι, ἀνερήσομαι, ἐρήσομαι, ἀφικνέομαι, πυνθάνομαι, κεῖμαι
+ 
+ 3. middle deponents with some active forms
+ γίγνομαι, ἔρχομαι, μετανίσταμαι, ἐπανίσταμαι, παραγίγνομαι
+ 
+ 4. middle deponents which also happens to have an aorist passive form
+ ἡγέομαι
+ 
+ 5. passive deponents
+ βούλομαι, φοβέομαι, δύναμαι, ἐπίσταμαι, αἰσχῡ́νομαι
+ 
  */
 //page 316 in h&q
 int deponentType(Verb *v)
@@ -1367,6 +1393,10 @@ int deponentType(Verb *v)
         //From Hardy: "I guess γίγνομαι is technically a partial deponent, though in practice I don't think we're in the habit of calling it that.  We simply say that's a deponent (i.e. a middle deponent) with one active PP."
         return DEPONENT_GIGNOMAI; //see H&Q page 382. fix me, there may be a better way to do this without separate case
     }
+    /*else if ( utf8HasSuffix(v->present, "μαι"))
+    {
+        return MIDDLE_DEPONENT;
+    }*/
     else if ( utf8HasSuffix(v->present, "μαι") && utf8HasSuffix(v->future, "μαι") && utf8HasSuffix(v->aorist, "μην") && v->perf[0] == '\0' /* && utf8HasSuffix(v->perfmid, "μαι") */ && v->aoristpass[0] == '\0')
     {
         return MIDDLE_DEPONENT;

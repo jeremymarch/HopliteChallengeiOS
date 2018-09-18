@@ -348,7 +348,7 @@ void resetVerbSeq(VerbSeqOptions *opt)
     opt->verbSeq = 99999;
     opt->firstVerbSeq = true;
     buildSequence(opt);
-    //currentVerb = 0;
+    currentVerb = 0;
 }
 
 int nextVerbSeq2old(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso1)
@@ -544,9 +544,10 @@ void setOptionsxx(const int *persons, const int numPersons, const int *numbers, 
     printf("here set options");
 }
 
+int seqNum = 0;
 bool buildSequence(VerbSeqOptions *vso)
 {
-    int seqNum = 0;
+    seqNum = 0;
     int bufferLen = 1024;
     char buffer[bufferLen];
     VerbFormD vf;
@@ -625,6 +626,16 @@ bool buildSequence(VerbSeqOptions *vso)
     return true;
 }
 
+void removeFromList(VerbFormD *list, int *listCount, int itemToRemove)
+{
+    for (int i = itemToRemove; i < *listCount - 1; i++)
+    {
+        list[i] = list[i+1];
+        
+    }
+    *listCount -= 1;
+}
+
 int nextVerbSeqCustom(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso)
 {
     //char buffer[1024];
@@ -641,6 +652,10 @@ int nextVerbSeqCustom(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso)
     //fprintf(stderr, "current verb A: %d, person: %d, %s, %d\n", currentVerb, vf1->person,  buffer, vf1->verb->verbid);
     
     currentVerb++;
+    if (currentVerb >= seqNum) //if reach end restart at beginning
+    {
+        currentVerb = 0;
+    }
     
     vf2->person = vseq[currentVerb].person;
     vf2->number = vseq[currentVerb].number;
@@ -648,13 +663,15 @@ int nextVerbSeqCustom(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso)
     vf2->voice = vseq[currentVerb].voice;
     vf2->mood = vseq[currentVerb].mood;
     vf2->verbid = vseq[currentVerb].verbid;
+    
+    removeFromList(vseq, &seqNum, currentVerb - 1);
+    currentVerb = 0;
     //vf2 = &vseq[currentVerb];
     //getAbbrevDescription(vf2, buffer, len);
     //fprintf(stderr, "current verb B: %d, person: %d, %s, %d\n", currentVerb, vf2->person,  buffer, vf2->verb->verbid);
     //fprintf(stderr, "current verb C\n");
     return 1;
 }
-
 
 bool once = true;
 long lastInitialDegreesToChange = 0;

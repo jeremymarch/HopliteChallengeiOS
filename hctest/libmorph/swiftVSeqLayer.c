@@ -38,7 +38,8 @@ void externalSetUnits(const char *unitStr)
 int nextVS(int *seq, VerbFormD *vf1, VerbFormD *vf2)
 {
     fprintf(stdout, "SWIFT LAYER1\n\n");
-    int a = nextVerbSeq2(vf1, vf2, &swiftLayerOptions);
+    //int a = nextVerbSeq2(vf1, vf2, &swiftLayerOptions);
+    int a = nextVerbSeqCustom(vf1, vf2, &swiftLayerOptions);
     *seq = swiftLayerOptions.verbSeq;
     fprintf(stdout, "SWIFT LAYER2\n\n");
     return a;
@@ -79,11 +80,14 @@ void swiftResetVerbSeq()
     swiftLayerOptions.seqOptions.moods[1] = 1;
     swiftLayerOptions.seqOptions.moods[2] = 2;
     swiftLayerOptions.seqOptions.moods[3] = 3;
+    swiftLayerOptions.seqOptions.verbs[0] = 3;
+    
     swiftLayerOptions.seqOptions.numPerson = 3;
     swiftLayerOptions.seqOptions.numNumbers = 2;
     swiftLayerOptions.seqOptions.numTense = 5;
     swiftLayerOptions.seqOptions.numVoice = 3;
     swiftLayerOptions.seqOptions.numMood = 1;
+    swiftLayerOptions.seqOptions.numVerbs = 1;
     
     externalSetUnits("2");
     
