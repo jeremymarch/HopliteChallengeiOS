@@ -23,36 +23,36 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         //print("View Controller is : \(topViewController) \n", terminator: "")
         switch (index) {
         case 0:
-            self.openViewControllerBasedOnIdentifier("HopliteChallenge")
+            self.openViewControllerBasedOnIdentifier("HopliteChallenge",p:"")
         case 1:
             //about
-            self.openViewControllerBasedOnIdentifier("HopliteChallenge")
+            self.openViewControllerBasedOnIdentifier("HopliteChallenge",p:"")
         case 2:
             //settings
-            self.openViewControllerBasedOnIdentifier("Settings")
+            self.openViewControllerBasedOnIdentifier("Settings",p:"")
         case 3:
-            self.openViewControllerBasedOnIdentifier("GameHistory")
+            self.openViewControllerBasedOnIdentifier("GameHistory",p:"")
         case 4:
-            self.openViewControllerBasedOnIdentifier("VerbList")
+            self.openViewControllerBasedOnIdentifier("Vocabulary",p:"verbs")
         case 5:
-            self.openViewControllerBasedOnIdentifier("Accents")
+            self.openViewControllerBasedOnIdentifier("Accents",p:"")
         case 6:
-            self.openViewControllerBasedOnIdentifier("Vocabulary")
+            self.openViewControllerBasedOnIdentifier("Vocabulary",p:"")
         case 7:
-            self.openViewControllerBasedOnIdentifier("CardView")
+            self.openViewControllerBasedOnIdentifier("CardView",p:"")
         case 8:
-            self.openViewControllerBasedOnIdentifier("ExercisesView")
+            self.openViewControllerBasedOnIdentifier("ExercisesView",p:"")
         case 9:
-            self.openViewControllerBasedOnIdentifier("HCGame")
+            self.openViewControllerBasedOnIdentifier("HCGame",p:"")
         case 10:
-            self.openViewControllerBasedOnIdentifier("HCGameList")
+            self.openViewControllerBasedOnIdentifier("HCGameList",p:"")
         default:
             //NSLog("default")
             break
         }
     }
     
-    func openViewControllerBasedOnIdentifier(_ strIdentifier:String){
+    func openViewControllerBasedOnIdentifier(_ strIdentifier:String, p:String){
         let destViewController : UIViewController = self.storyboard!.instantiateViewController(withIdentifier: strIdentifier)
         let topViewController : UIViewController = self.navigationController!.topViewController!
         if topViewController.restorationIdentifier! == destViewController.restorationIdentifier!
@@ -64,14 +64,35 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             if strIdentifier == "Vocabulary"
             {
                 let dest = destViewController as! VocabTableViewController
-/*
+                if p == "verbs"
+                {
+                    //we can set these values before showing
+                    dest.sortAlpha = false
+                    dest.predicate = "pos=='Verb'"
+                    dest.selectedButtonIndex = 1
+                    dest.filterViewHeightValue = 0.0
+                    dest.navTitle = "Verbs"
+                    dest.segueDest = "synopsis"
+                }
+                else
+                {
+                /*
                  //we can set these values before showing
                 dest.sortAlpha = false
-                dest.predicate = "pos=='Adjective'"
-                dest.selectedButtonIndex = 3
+                dest.predicate = "pos=='Verb'"
+                dest.selectedButtonIndex = 1
                 dest.filterViewHeightValue = 0.0
                 dest.navTitle = "Verbs"
- */
+                dest.segueDest = "synopsis"
+                */
+                }
+                self.navigationController!.pushViewController(dest, animated: true)
+            }
+            else if strIdentifier == "VerbList"
+            {
+                let dest = destViewController as! VocabTableViewController
+                
+ 
                 self.navigationController!.pushViewController(dest, animated: true)
             }
             else

@@ -41,7 +41,8 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     var selectedId = -1
     var predicate = ""
     var sortAlpha = true
-    var kb:KeyboardViewController? = nil 
+    var kb:KeyboardViewController? = nil
+    var segueDest:String = ""
     
     let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
     
@@ -556,8 +557,14 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         }
         else //to see detail
         {
-            //performSegue(withIdentifier: "ShowVocabDetail", sender: self)
-            performSegue(withIdentifier: "showVerbDetail2", sender: self)
+            if segueDest == "synopsis"
+            {
+                performSegue(withIdentifier: "showVerbDetail2", sender: self)
+            }
+            else
+            {
+                performSegue(withIdentifier: "ShowVocabDetail", sender: self)
+            }
         }
     }
     
@@ -607,11 +614,17 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         let indexPath = tableView.indexPathForSelectedRow
         let object = fetchedResultsController.object(at: indexPath!)
         let wordid = Int(object.hqid)
-        //let vd = segue.destination as! VocabDetailViewController
-        //vd.hqid = wordid
+        if segueDest == "synopsis"
+        {
+            let vd = segue.destination as! VerbDetailViewController
+            vd.verbIndex = wordid
+        }
+        else
+        {
+            let vd = segue.destination as! VocabDetailViewController
+            vd.hqid = wordid
+        }
 
-        let vd = segue.destination as! VerbDetailViewController
-        vd.verbIndex = wordid
     }
     
     func scrollToWord()
