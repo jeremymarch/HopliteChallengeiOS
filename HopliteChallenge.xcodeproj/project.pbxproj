@@ -76,7 +76,6 @@
 		3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B401E78EF0700144F7D /* MenuViewController.swift */; };
 		3FF71B431E78EF3600144F7D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B421E78EF3600144F7D /* BaseViewController.swift */; };
 		3FF71B451E79EC4700144F7D /* GameHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B441E79EC4700144F7D /* GameHistory.swift */; };
-		3FF71B471E79EF5600144F7D /* VerbList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B461E79EF5600144F7D /* VerbList.swift */; };
 		3FF71B491E79EF6900144F7D /* VerbDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B481E79EF6900144F7D /* VerbDetail.swift */; };
 		3FF71B4B1E7A290300144F7D /* Verb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B4A1E7A290300144F7D /* Verb.swift */; };
 		3FFE2C081FAE7CA50013A92E /* swiftVSeqLayer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FFE2C061FAE7CA50013A92E /* swiftVSeqLayer.c */; };
@@ -179,7 +178,6 @@
 		3FF71B401E78EF0700144F7D /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		3FF71B421E78EF3600144F7D /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		3FF71B441E79EC4700144F7D /* GameHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHistory.swift; sourceTree = "<group>"; };
-		3FF71B461E79EF5600144F7D /* VerbList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerbList.swift; sourceTree = "<group>"; };
 		3FF71B481E79EF6900144F7D /* VerbDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerbDetail.swift; sourceTree = "<group>"; };
 		3FF71B4A1E7A290300144F7D /* Verb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verb.swift; sourceTree = "<group>"; };
 		3FFE2C061FAE7CA50013A92E /* swiftVSeqLayer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = swiftVSeqLayer.c; path = libmorph/swiftVSeqLayer.c; sourceTree = "<group>"; };
@@ -256,7 +254,6 @@
 				3FF71B421E78EF3600144F7D /* BaseViewController.swift */,
 				3FF71B441E79EC4700144F7D /* GameHistory.swift */,
 				3F0541631E7A688800DEB439 /* GameResults.swift */,
-				3FF71B461E79EF5600144F7D /* VerbList.swift */,
 				3FF71B481E79EF6900144F7D /* VerbDetail.swift */,
 				3F4869CD1E7C9A020051B46A /* HCSettings.swift */,
 				3F3443AC1E6BB17700FFAD04 /* Assets.xcassets */,
@@ -569,7 +566,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FCB495820C47A5400FFD266 /* NetworkManager.swift in Sources */,
-				3FF71B471E79EF5600144F7D /* VerbList.swift in Sources */,
 				3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */,
 				3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */,
 				3FCB495A20C47F9F00FFD266 /* DataManager.swift in Sources */,

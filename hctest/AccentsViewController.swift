@@ -34,6 +34,11 @@ class AccentsViewController: UIViewController {
         NSLayoutConstraint.activate([widthConstraint, heightConstraint, xConstraint, yConstraint])
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
