@@ -64,7 +64,7 @@ class hctestTests: XCTestCase {
         {
             isOida = true
         }
-        
+        /*
         for tense in 0..<NUM_TENSES
         {
             vf.tense = UInt8(tense)
@@ -133,7 +133,7 @@ class hctestTests: XCTestCase {
                     }
                 }
             }
-        }
+        }*/
     }
-    
+ 
 }

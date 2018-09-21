@@ -53,6 +53,7 @@ char *voices[NUM_VOICES] = { "Active", "Middle", "Passive" };
 char *voicesabbrev[NUM_VOICES] = { "act.", "mid.", "pass." };
 char *moods[NUM_MOODS] = { "Indicative", "Subjunctive", "Optative", "Imperative" };
 char *moodsabbrev[NUM_MOODS] = { "ind.", "subj.", "opt.", "imper." };
+
 /*
 void endingGetDescription(int e, char *buffer, int bufferLen)
 {

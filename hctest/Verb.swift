@@ -26,7 +26,7 @@ class Verb2 {
         
         for (_, value) in mirror.children
         {
-            if value is Verb && (value as! Verb).verbid == UInt32(verbid)
+            if value is Verb && (value as! Verb).hqid == UInt32(verbid)
             {
                 let v = value as! Verb
                 present = String(cString: v.present)

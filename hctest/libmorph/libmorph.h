@@ -117,6 +117,7 @@ enum {
 
 typedef struct v {
     unsigned int verbid; //an index in the verbs static array
+    unsigned int hqid;
     unsigned int verbclass; //a bitfield
     unsigned char hq;
     char *present;

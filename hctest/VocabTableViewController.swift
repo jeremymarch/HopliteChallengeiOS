@@ -34,7 +34,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet var adjectiveButton:UIButton!
     @IBOutlet var otherButton:UIButton!
     @IBOutlet var filterViewHeight:NSLayoutConstraint!
-    var filterViewHeightValue:CGFloat = 43.0
+    var filterViewHeightValue:CGFloat = 43.0 //so we can show filter or not
     let highlightSelectedRow = true
     let animatedScroll = false
     var selectedRow = -1
@@ -546,7 +546,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         //let btn = UIButton(type: UIButtonType.custom)
         //btn.tag = indexPath.row
         
-        if delegate != nil
+        if delegate != nil //if it's acting as a verb chooser
         {
             let object = fetchedResultsController.object(at: indexPath)
             let wordid = Int(object.hqid)
@@ -554,9 +554,10 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             //close
             self.presentingViewController?.dismiss(animated: true, completion:delegate?.onDismissVerbChooser)
         }
-        else
+        else //to see detail
         {
-            performSegue(withIdentifier: "ShowVocabDetail", sender: self)
+            //performSegue(withIdentifier: "ShowVocabDetail", sender: self)
+            performSegue(withIdentifier: "showVerbDetail2", sender: self)
         }
     }
     
@@ -606,8 +607,11 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         let indexPath = tableView.indexPathForSelectedRow
         let object = fetchedResultsController.object(at: indexPath!)
         let wordid = Int(object.hqid)
-        let vd = segue.destination as! VocabDetailViewController
-        vd.hqid = wordid
+        //let vd = segue.destination as! VocabDetailViewController
+        //vd.hqid = wordid
+
+        let vd = segue.destination as! VerbDetailViewController
+        vd.verbIndex = wordid
     }
     
     func scrollToWord()
