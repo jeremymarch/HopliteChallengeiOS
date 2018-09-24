@@ -28,12 +28,22 @@ class VerbSequence {
     var maxLives:Int = 3
     var units = [Int]()
     var gameId:Int = -1
+    var vVerbIDs:[Int] = []
+    
+    var per:[Int32] = [0,1,2]
+    var num:[Int32] = [0,1]
+    var ten:[Int32] = [Tense.imperfect.rawValue,Tense.future.rawValue,Tense.aorist.rawValue,Tense.perfect.rawValue,Tense.pluperfect.rawValue]
+    var voic:[Int32] = [0,1,2]
+    var moo:[Int32] = [3]
+    var vrbs:[Int32] = [3]
+    var _shuffle:Bool = true
     
     init() {
         self.givenForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 0)
         self.requestedForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 0)
         //self.reset()
-        
+
+        /*
         options = VerbSeqOptions()
         options?.repsPerVerb = 4
         options?.degreesToChange = 2
@@ -43,14 +53,17 @@ class VerbSequence {
         options?.units = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
         
         externalSetUnits("19,20")
+        */
         
-        let per:[Int32] = [0,1,2]
-        let num:[Int32] = [0,1]
-        let ten:[Int32] = [Tense.imperfect.rawValue,Tense.future.rawValue,Tense.aorist.rawValue,Tense.perfect.rawValue,Tense.pluperfect.rawValue]
-        let voic:[Int32] = [0,1,2]
-        let moo:[Int32] = [3]
-        let vrbs:[Int32] = [3]
-        setOptionsxx(per, Int32(per.count), num, Int32(num.count), ten, Int32(ten.count), voic, Int32(voic.count), moo, Int32(moo.count), vrbs, Int32(vrbs.count))
+        //defaults:
+        per = [0,1,2]
+        num = [0,1]
+        ten = [Tense.present.rawValue,Tense.imperfect.rawValue,Tense.future.rawValue,Tense.aorist.rawValue,Tense.perfect.rawValue,Tense.pluperfect.rawValue]
+        voic = [0,1,2]
+        moo = [0,1,2,3]
+        vrbs = [0]
+
+        setVSOptions(persons:per, numbers:num, tenses:ten, voices:voic, moods:moo, verbs:vrbs, shuffle:_shuffle)
         
         /*
          game mode:
@@ -65,6 +78,20 @@ class VerbSequence {
          receive prompt vf, check answer
  */
 }
+    
+    func setVSOptions(persons:[Int32], numbers:[Int32], tenses:[Int32], voices:[Int32], moods:[Int32], verbs:[Int32], shuffle:Bool)
+    {
+        per = persons
+        num = numbers
+        ten = tenses
+        voic = voices
+        moo = moods
+        vrbs = verbs
+        _shuffle = shuffle
+        
+        setOptionsxx(persons, Int32(persons.count), numbers, Int32(numbers.count), tenses, Int32(tenses.count), voices, Int32(voices.count), moods, Int32(moods.count), verbs, Int32(verbs.count), shuffle)
+    }
+    
     func getNext() -> Int
     {
         var vf1 = VerbFormD()
@@ -110,7 +137,7 @@ class VerbSequence {
     
     func reset()
     {
-        swiftResetVerbSeq();
+        //swiftResetVerbSeq();
         lives = maxLives
         score = 0
     }
@@ -127,8 +154,8 @@ class VerbSequence {
         let enteredForm1 = stringToUtf16(s: enteredForm, len: &enteredLen)
         let enteredBuffer = UnsafeMutablePointer<UInt16>(mutating: enteredForm1)
         
-        print(expectedForm1)
-        print(enteredForm1)
+        //print(expectedForm1)
+        //print(enteredForm1)
         let newTime = time.replacingOccurrences(of: " sec", with: "")
         
         //pass c string: http://stackoverflow.com/questions/31378120/convert-swift-string-into-cchar-pointer
@@ -175,6 +202,7 @@ class VerbSequence {
             NSLog("Couldn't load sqlite db")
         }
     }
+    /*
     func setUnits(units:[Int])
     {
         var s:String = ""
@@ -193,9 +221,10 @@ class VerbSequence {
         */
         //options?.units = s
         //options?.numUnits = UInt8(i)
-        let s2 = s.cString(using: .utf8)
-        externalSetUnits(s2)
+        //let s2 = s.cString(using: .utf8)
+        //externalSetUnits(s2)
         self.units = units
     }
+ */
 }
 

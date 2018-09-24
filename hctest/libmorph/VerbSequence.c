@@ -38,7 +38,6 @@
 //these are assigned to globalGameID.
 //its practice, insipient, or 1-n = a real saved game
 
-bool buildSequence(VerbSeqOptions *vso);
 int nextVerbSeqCustom(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso);
 
 //GLOBAL VARIABLES
@@ -347,7 +346,7 @@ void resetVerbSeq(VerbSeqOptions *opt)
     opt->lastAnswerCorrect = false;
     opt->verbSeq = 99999;
     opt->firstVerbSeq = true;
-    buildSequence(opt);
+    //buildSequence(opt);
     currentVerb = 0;
 }
 
@@ -523,26 +522,6 @@ void swap(void * a, void * b, size_t size)
     free(temp);
 }
 */
-void setOptionsxx(const int *persons, const int numPersons, const int *numbers, const int numNumbers, const int *tenses, const int numTenses, const int *voices, const int numVoices, const int *moods, const int numMoods, const int *verbs, const int numVerbs)
-{
-    VerbSeqOptions opt;
-    memmove(opt.seqOptions.persons, persons, numPersons*(sizeof(opt.seqOptions.persons[0])));
-    opt.seqOptions.numPerson = numPersons;
-    memmove(opt.seqOptions.numbers, numbers, numNumbers*(sizeof(opt.seqOptions.numbers[0])));
-    opt.seqOptions.numNumbers = numNumbers;
-    memmove(opt.seqOptions.tenses, tenses, numTenses*(sizeof(opt.seqOptions.tenses[0])));
-    opt.seqOptions.numTense = numTenses;
-    memmove(opt.seqOptions.voices, voices, numVoices*(sizeof(opt.seqOptions.voices[0])));
-    opt.seqOptions.numVoice = numVoices;
-    memmove(opt.seqOptions.moods, moods, numMoods*(sizeof(opt.seqOptions.moods[0])));
-    opt.seqOptions.numMood = numMoods;
-    memmove(opt.seqOptions.verbs, verbs, numVerbs*(sizeof(opt.seqOptions.verbs[0])));
-    opt.seqOptions.numVerbs = numVerbs;
-    
-    buildSequence(&opt);
-    
-    printf("here set options");
-}
 
 int seqNum = 0;
 bool buildSequence(VerbSeqOptions *vso)
@@ -592,10 +571,13 @@ bool buildSequence(VerbSeqOptions *vso)
             }
         }
     }
-    /*
-    fprintf(stderr, "\nshuffle\n\n");
-    shuffle4(vseq, seqNum, sizeof(vseq[0]));
     
+    //fprintf(stderr, "\nshuffle\n\n");
+    if (vso->shuffle)
+    {
+        shuffle4(vseq, seqNum, sizeof(vseq[0]));
+    }
+    /*
     for (int i = 0; i < seqNum; i++)
     {
         int steps = 0;

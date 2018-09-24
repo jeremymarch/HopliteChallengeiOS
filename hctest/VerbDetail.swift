@@ -27,7 +27,8 @@ class VerbDetailViewController: UITableViewController {
     let voicesabbrev = ["act.", "mid.", "pass."]
     let moodsabbrev = ["ind.", "subj.", "opt.", "imper."]
     
-    var verbIndex:Int = -1
+    var verbIndex:Int = -1 //actually this is hqid
+    var hqVerbID:Int32 = -1 //actually this is verb index!
     var forms = [FormRow]()
     var sections = [String]()
     var sectionCounts = [Int]()
@@ -37,6 +38,7 @@ class VerbDetailViewController: UITableViewController {
         super.viewDidLoad()
         
         let v = Verb2(verbid: verbIndex)
+        hqVerbID = Int32(v.verbId)
         
         if v.present.count > 0
         {
@@ -51,9 +53,9 @@ class VerbDetailViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44
         
-        let backButton = UIBarButtonItem(title: "Practice", style: UIBarButtonItemStyle.plain, target: self, action: #selector
+        let practiceButton = UIBarButtonItem(title: "Practice", style: UIBarButtonItemStyle.plain, target: self, action: #selector
             (practiceVerb))
-        self.navigationItem.rightBarButtonItem = backButton
+        self.navigationItem.rightBarButtonItem = practiceButton
         
         let pinchRecognizer = UIPinchGestureRecognizer(target:self, action:#selector(handlePinch))
         self.view.addGestureRecognizer(pinchRecognizer)
@@ -276,7 +278,9 @@ class VerbDetailViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let hp = segue.destination as! HopliteChallenge
         hp.isGame = false
-        hp.practiceVerbId = verbIndex
+        //hp.practiceVerbId = verbIndex
+        hp.verbIDs.removeAll()
+        hp.verbIDs.append( Int32(hqVerbID) )
     }
 }
 

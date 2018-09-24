@@ -54,14 +54,50 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     var blockPinch:Bool = true
     var isExpanded:Bool = false
     
-    let vs:VerbSequence = VerbSequence()
+    
+    
+    /*
+     get rid of practiceID
+     
+     pass custom array of verbids
+     else if that is empty use unit
+     
+     if unit is not empty, use it in either case to filter which forms.
+     
+     also in all cases if tense, etc passed in, limit those. unit will overrule this
+     
+     pass in shuffle
+     */
+    
+    var verbIDs:[Int32] = [1]
+    var personFilter:[Int32] = [0,1,2]
+    var numberFilter:[Int32] = [0,1]
+    var tenseFilter:[Int32] = [0,1,2,3,4]
+    var voiceFilter:[Int32] = [0,1,2]
+    var moodFilter:[Int32] = [0,1,2,3]
+    var filterByUnit = 0
+    var shuffle:Bool = true
+    var paramsToChange = 2
+    var difficulty = 0
+    
+    var vs:VerbSequence = VerbSequence()
+    
+    func setGame()
+    {
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        vs.setVSOptions(persons: personFilter, numbers: numberFilter, tenses: tenseFilter, voices: voiceFilter, moods: moodFilter, verbs: verbIDs, shuffle:shuffle)
+        
         vs.options?.practiceVerbID = Int32(practiceVerbId)
         //vs.options?.units = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
         //vs.options?.numUnits = 20
         vs.options?.isHCGame = isGame
+        
+        
  
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
@@ -541,8 +577,8 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         textView.addObserver(self, forKeyPath: "contentSize", options: [.new], context: nil)
         self.navigationController?.isNavigationBarHidden = true
         
-        reloadSettings()
-        vs.reset()
+        //reloadSettings()
+        //vs.reset()
     }
     
     func reloadSettings()
@@ -563,7 +599,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
                 }
                 j += 1
             }
-            vs.setUnits(units: units)
+            //vs.setUnits(units: units)
             //print(units)
         }
         //NSLog("load settings done")

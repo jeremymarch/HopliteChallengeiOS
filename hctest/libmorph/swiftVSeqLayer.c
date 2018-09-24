@@ -6,9 +6,34 @@
 //  Copyright © 2017 Jeremy March. All rights reserved.
 //
 #include <stdlib.h>
+#include <string.h>
 #include "swiftVSeqLayer.h"
+#include "VerbSequence.h"
 
 VerbSeqOptions swiftLayerOptions; //this is the global options for the app.
+
+void setOptionsxx(const int *persons, const int numPersons, const int *numbers, const int numNumbers, const int *tenses, const int numTenses, const int *voices, const int numVoices, const int *moods, const int numMoods, const int *verbs, const int numVerbs, bool shuffle)
+{
+    VerbSeqOptions opt;
+    memmove(opt.seqOptions.persons, persons, numPersons*(sizeof(opt.seqOptions.persons[0])));
+    opt.seqOptions.numPerson = numPersons;
+    memmove(opt.seqOptions.numbers, numbers, numNumbers*(sizeof(opt.seqOptions.numbers[0])));
+    opt.seqOptions.numNumbers = numNumbers;
+    memmove(opt.seqOptions.tenses, tenses, numTenses*(sizeof(opt.seqOptions.tenses[0])));
+    opt.seqOptions.numTense = numTenses;
+    memmove(opt.seqOptions.voices, voices, numVoices*(sizeof(opt.seqOptions.voices[0])));
+    opt.seqOptions.numVoice = numVoices;
+    memmove(opt.seqOptions.moods, moods, numMoods*(sizeof(opt.seqOptions.moods[0])));
+    opt.seqOptions.numMood = numMoods;
+    memmove(opt.seqOptions.verbs, verbs, numVerbs*(sizeof(opt.seqOptions.verbs[0])));
+    opt.seqOptions.numVerbs = numVerbs;
+    
+    opt.shuffle = shuffle;
+    
+    buildSequence(&opt);
+    
+    printf("here set options");
+}
 
 void setOptions()
 {
@@ -91,5 +116,5 @@ void swiftResetVerbSeq()
     
     externalSetUnits("2");
     
-    resetVerbSeq(&swiftLayerOptions);
+    //resetVerbSeq(&swiftLayerOptions);
 }

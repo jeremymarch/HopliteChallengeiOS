@@ -77,14 +77,17 @@ typedef struct vso {
     int verbSeq;
     bool firstVerbSeq;
     bool lastAnswerCorrect;
+    bool shuffle;
     int units[20];
     SeqOptions seqOptions;
 } VerbSeqOptions;
 
 void externalSetUnits(const char *units);
 bool compareFormsCheckMFRecordResult(UCS2 *expected, int expectedLen, UCS2 *given, int givenLen, bool MFPressed, const char *elapsedTime, VerbSeqOptions *opt);
-void closeDataFile();
-void syncDataFile();
+//void closeDataFile();
+//void syncDataFile();
+
+bool buildSequence(VerbSeqOptions *vso);
 
 bool dbInit(const char *path);
 //void VerbSeqInit(const char *path);
@@ -104,9 +107,6 @@ Verb *getRandomVerbFromUnit(int *units, int numUnits);
 
 Ending *getRandomEnding(int *units, int numUnits);
 void getRandomEndingAsString(int *units, int numUnits, char *buffer, int bufferLen);
-
-void setOptionsxx(const int *persons, const int numPersons, const int *numbers, const int numNumbers, const int *tenses, const int numTenses, const int *voices, const int numVoices, const int *moods, const int numMoods, const int *verbs, const int numVerbs);
-
 
 #endif /* VerbSequence_h */
 

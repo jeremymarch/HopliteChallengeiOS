@@ -17,7 +17,7 @@
         <!--Vocab Detail View Controller-->
         <scene sceneID="wzI-fC-IcZ">
             <objects>
-                <viewController id="a2w-sk-COz" customClass="VocabDetailViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="VocabDetail" storyboardIdentifier="VocabDetail" id="a2w-sk-COz" customClass="VocabDetailViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jEQ-JW-iDV"/>
                         <viewControllerLayoutGuide type="bottom" id="fkB-gO-Pyv"/>
@@ -119,7 +119,7 @@
         <!--Card View Controller-->
         <scene sceneID="5E8-XS-xWw">
             <objects>
-                <viewController storyboardIdentifier="CardView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VdO-38-HhR" customClass="CardViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="CardView" storyboardIdentifier="CardView" id="VdO-38-HhR" customClass="CardViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FnJ-KA-44z"/>
                         <viewControllerLayoutGuide type="bottom" id="jW8-aS-ooe"/>
@@ -152,7 +152,7 @@
         <!--Game List View Controller-->
         <scene sceneID="3wZ-dl-N3I">
             <objects>
-                <viewController storyboardIdentifier="HCGameList" useStoryboardIdentifierAsRestorationIdentifier="YES" id="22b-2c-Mgt" customClass="HCGameListViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="HCGameList" storyboardIdentifier="HCGameList" id="22b-2c-Mgt" customClass="HCGameListViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7YV-9Z-Kkg"/>
                         <viewControllerLayoutGuide type="bottom" id="MtM-8Y-hUh"/>
@@ -265,7 +265,7 @@
         <!--Game View Controller-->
         <scene sceneID="OX1-Is-INc">
             <objects>
-                <viewController storyboardIdentifier="HCGame" useStoryboardIdentifierAsRestorationIdentifier="YES" id="R4j-bh-BrZ" customClass="HCGameViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="HCGame" storyboardIdentifier="HCGame" id="R4j-bh-BrZ" customClass="HCGameViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OG8-XF-iVe"/>
                         <viewControllerLayoutGuide type="bottom" id="Sym-Jd-Zvk"/>
@@ -286,7 +286,7 @@
         <!--Exercises View Controller-->
         <scene sceneID="YqE-Mb-QdH">
             <objects>
-                <viewController storyboardIdentifier="ExercisesView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vz5-j1-jgh" customClass="ExercisesViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="ExercisesView" storyboardIdentifier="ExercisesView" id="vz5-j1-jgh" customClass="ExercisesViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="D2c-eZ-UxQ"/>
                         <viewControllerLayoutGuide type="bottom" id="a9q-KD-h9O"/>
@@ -469,7 +469,7 @@
         <!--Hoplite Challenge-->
         <scene sceneID="aKK-V2-kfE">
             <objects>
-                <viewController id="OEm-Yv-54X" customClass="HopliteChallenge" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="HopliteChallenge" storyboardIdentifier="HopliteChallenge" id="OEm-Yv-54X" customClass="HopliteChallenge" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="70H-5G-EpC"/>
                         <viewControllerLayoutGuide type="bottom" id="FhM-wp-5KV"/>
@@ -567,7 +567,7 @@
         <!--Hoplite Challenge-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController restorationIdentifier="HopliteChallenge" storyboardIdentifier="HopliteChallenge" id="BYZ-38-t0r" customClass="HopliteChallenge" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="HopliteChallenge2" storyboardIdentifier="HopliteChallenge2" id="BYZ-38-t0r" customClass="HopliteChallenge" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -637,7 +637,7 @@
         <!--VocabTableViewController-->
         <scene sceneID="WcV-kV-ZtU">
             <objects>
-                <viewController storyboardIdentifier="Vocabulary" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2cT-w5-LZV" userLabel="VocabTableViewController" customClass="VocabTableViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="Vocabulary" storyboardIdentifier="Vocabulary" id="2cT-w5-LZV" userLabel="VocabTableViewController" customClass="VocabTableViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hpV-jr-EPO"/>
                         <viewControllerLayoutGuide type="bottom" id="Vuz-Jy-Nog"/>
@@ -793,7 +793,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="SnT-bn-xCC"/>
+        <segue reference="geA-F4-lDG"/>
         <segue reference="USx-nv-zQl"/>
     </inferredMetricsTieBreakers>
 </document>

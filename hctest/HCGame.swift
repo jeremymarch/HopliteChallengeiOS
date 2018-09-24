@@ -75,8 +75,20 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
     let typingDelay:TimeInterval = 0.03
     var blockPinch:Bool = true
     var isExpanded:Bool = false
+    var vVerbIDs:[Int] = []
     
-    let vs:VerbSequence = VerbSequence()
+    var verbIDs:[Int32] = []
+    var personFilter:[Int32] = []
+    var numberFilter:[Int32] = []
+    var tenseFilter:[Int32] = []
+    var voiceFilter:[Int32] = []
+    var moodFilter:[Int32] = []
+    var filterByUnit = 0
+    var shuffle:Bool = true
+    var paramsToChange = 2
+    var difficulty = 0
+    
+    var vs:VerbSequence = VerbSequence()
     
     func setSelectedVerb(verbID: Int) {
         selectedVerb = verbID
@@ -108,6 +120,8 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         //vs.options?.units = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
         //vs.options?.numUnits = 20
         vs.options?.isHCGame = isGame
+        
+        vs.setVSOptions(persons: personFilter, numbers: numberFilter, tenses: tenseFilter, voices: voiceFilter, moods: moodFilter, verbs: verbIDs, shuffle:true)
         
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
@@ -591,8 +605,8 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         textView.addObserver(self, forKeyPath: "contentSize", options: [.new], context: nil)
         self.navigationController?.isNavigationBarHidden = false
         
-        reloadSettings()
-        vs.reset()
+        //reloadSettings()
+        //vs.reset()
     }
     
     func reloadSettings()
@@ -613,7 +627,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                 }
                 j += 1
             }
-            vs.setUnits(units: units)
+            //vs.setUnits(units: units)
             //print(units)
         }
         //NSLog("load settings done")
