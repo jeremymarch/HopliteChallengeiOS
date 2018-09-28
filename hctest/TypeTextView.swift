@@ -41,7 +41,7 @@ class TypeTextView: UITextView {
             startTime = CACurrentMediaTime()
             timerDisplayLink = CADisplayLink.init(target: self, selector: #selector(updateHideAtt))
             timerDisplayLink?.frameInterval = 1
-            timerDisplayLink?.add(to: RunLoop.current, forMode: .defaultRunLoopMode)
+            timerDisplayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.default)
         }
         else
         {
@@ -67,7 +67,7 @@ class TypeTextView: UITextView {
         startTime = CACurrentMediaTime()
         timerDisplayLink = CADisplayLink.init(target: self, selector: #selector(update))
         timerDisplayLink?.frameInterval = 1
-        timerDisplayLink?.add(to: RunLoop.current, forMode: .defaultRunLoopMode)
+        timerDisplayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.default)
     }
     
     func type(newText:String, duration:TimeInterval)
@@ -96,14 +96,14 @@ class TypeTextView: UITextView {
         
         if newStep > currentStep
         {
-            att?.addAttribute(NSAttributedStringKey.foregroundColor, value: attTextColor, range: NSRange(location: 0, length: newStep))
+            att?.addAttribute(NSAttributedString.Key.foregroundColor, value: attTextColor, range: NSRange(location: 0, length: newStep))
             self.attributedText = att
             currentStep = newStep
             
             if currentStep == steps
             {
                 timerDisplayLink?.invalidate()
-                timerDisplayLink?.remove(from: RunLoop.current, forMode: .defaultRunLoopMode)
+                timerDisplayLink?.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
             }
         }
     }
@@ -126,14 +126,14 @@ class TypeTextView: UITextView {
         
         if newStep > currentStep
         {
-            att?.addAttribute(NSAttributedStringKey.foregroundColor, value: backgroundColor as Any, range: NSRange(location: steps - newStep, length: newStep))
+            att?.addAttribute(NSAttributedString.Key.foregroundColor, value: backgroundColor as Any, range: NSRange(location: steps - newStep, length: newStep))
             self.attributedText = att
             currentStep = newStep
             
             if currentStep == steps
             {
                 timerDisplayLink?.invalidate()
-                timerDisplayLink?.remove(from: RunLoop.current, forMode: .defaultRunLoopMode)
+                timerDisplayLink?.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
                 text = ""
                 attributedText = nil
                 timerDisplayLink = nil

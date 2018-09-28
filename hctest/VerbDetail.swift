@@ -50,10 +50,10 @@ class VerbDetailViewController: UITableViewController {
         }
         printVerb(verb: v)
         //tableView.separatorStyle = .none
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44
         
-        let practiceButton = UIBarButtonItem(title: "Practice", style: UIBarButtonItemStyle.plain, target: self, action: #selector
+        let practiceButton = UIBarButtonItem(title: "Practice", style: UIBarButtonItem.Style.plain, target: self, action: #selector
             (practiceVerb))
         self.navigationItem.rightBarButtonItem = practiceButton
         
@@ -91,14 +91,14 @@ class VerbDetailViewController: UITableViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        let att = [ NSAttributedStringKey.font: UIFont(name: "HelveticaNeue", size: 18)! ]
+        let att = [ NSAttributedString.Key.font: UIFont(name: "HelveticaNeue", size: 18)! ]
         self.navigationController?.navigationBar.titleTextAttributes = att
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         
-        let att = [ NSAttributedStringKey.font: UIFont(name: "NewAthenaUnicode", size: 22)! ]
+        let att = [ NSAttributedString.Key.font: UIFont(name: "NewAthenaUnicode", size: 22)! ]
         self.navigationController?.navigationBar.titleTextAttributes = att
     }
     
@@ -203,11 +203,11 @@ class VerbDetailViewController: UITableViewController {
         }
         let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: cellName)!
         
-        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
         cell.layoutMargins = UIEdgeInsets.zero
         cell.preservesSuperviewLayoutMargins = true
         cell.backgroundColor = UIColor.clear
-        cell.accessoryType = UITableViewCellAccessoryType.none
+        cell.accessoryType = UITableViewCell.AccessoryType.none
         
         var index = 0
         for i in 0..<indexPath.section

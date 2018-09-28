@@ -41,7 +41,7 @@ class HCTimer: UILabel {
         startTime = CACurrentMediaTime()
         timerDisplayLink = CADisplayLink.init(target: self, selector: #selector(runTimer))
         timerDisplayLink?.frameInterval = 1
-        timerDisplayLink?.add(to: RunLoop.current, forMode: .defaultRunLoopMode)
+        timerDisplayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.default)
         isRunning = true
     }
     

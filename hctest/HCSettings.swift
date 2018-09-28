@@ -49,11 +49,11 @@ class HCSettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell")!
         
-        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
         cell.layoutMargins = UIEdgeInsets.zero
         cell.preservesSuperviewLayoutMargins = false
         cell.backgroundColor = UIColor.clear
-        cell.accessoryType = UITableViewCellAccessoryType.none
+        cell.accessoryType = UITableViewCell.AccessoryType.none
         
         let switchView = UISwitch()
         cell.accessoryView = switchView
@@ -81,7 +81,7 @@ class HCSettingsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let btn = UIButton(type: UIButtonType.custom)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
         btn.tag = indexPath.row
         
         //performSegue(withIdentifier: "SegueToVerbDetail", sender: self)

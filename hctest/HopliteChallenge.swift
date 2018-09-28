@@ -18,7 +18,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     let continueButton = UIButton()
     let headerView = UIView()
     let timerLabel = HCTimer()
-    let quitButton = UIButton(type: UIButtonType.custom) as UIButton
+    let quitButton = UIButton(type: UIButton.ButtonType.custom) as UIButton
     let scoreLabel = UILabel()
     let mfLabel = UILabel()
     let checkImg = UIImage(named:"greencheck.png")
@@ -205,19 +205,19 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         quitButton.layer.borderWidth = 2.0
         quitButton.layer.borderColor = UIColor(red: 0.88, green: 0.88, blue: 0.88, alpha: 1.0).cgColor
         quitButton.layer.cornerRadius = 4.0
-        quitButton.imageEdgeInsets = UIEdgeInsetsMake(2, 4, 2, 4)
+        quitButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
  
         let image = UIImage(named: "hamburger.png") as UIImage?
         quitButton.setImage(image, for: .normal)
         
         if practiceVerbId < 0
         {
-            quitButton.addTarget(self, action: #selector(menuButtonPressed), for: UIControlEvents.touchUpInside)
+            quitButton.addTarget(self, action: #selector(menuButtonPressed), for: UIControl.Event.touchUpInside)
         }
         else
         {
             //pop controller to go back to verb detail
-            quitButton.addTarget(self, action: #selector(goBackToVerbDetail), for: UIControlEvents.touchUpInside)
+            quitButton.addTarget(self, action: #selector(goBackToVerbDetail), for: UIControl.Event.touchUpInside)
         }
 
         headerView.addSubview(scoreLabel)
@@ -367,9 +367,9 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         checkXView.widthAnchor.constraint(equalToConstant: 25.0).isActive = true
         
             
-        checkXYOffset = NSLayoutConstraint(item: checkXView, attribute:NSLayoutAttribute.centerY , relatedBy: NSLayoutRelation.equal, toItem: textView, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0.0)
+        checkXYOffset = NSLayoutConstraint(item: checkXView, attribute:NSLayoutConstraint.Attribute.centerY , relatedBy: NSLayoutConstraint.Relation.equal, toItem: textView, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1.0, constant: 0.0)
         view.addConstraint(checkXYOffset!)
-        checkXXOffset = NSLayoutConstraint(item: checkXView, attribute:NSLayoutAttribute.centerX , relatedBy: NSLayoutRelation.equal, toItem: textView, attribute: NSLayoutAttribute.centerX, multiplier: 1.0, constant: 00.0)
+        checkXXOffset = NSLayoutConstraint(item: checkXView, attribute:NSLayoutConstraint.Attribute.centerX , relatedBy: NSLayoutConstraint.Relation.equal, toItem: textView, attribute: NSLayoutConstraint.Attribute.centerX, multiplier: 1.0, constant: 00.0)
         view.addConstraint(checkXXOffset!)
         checkXView.isHidden = true
         
@@ -397,17 +397,19 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
                 landscapeHeight = 157.0
             }
         }
-        kb?.heightOverride = portraitHeight
+        kb?.portraitHeightOverride = portraitHeight
         kb?.unicodeMode = 3 //hc mode
         textView.inputView = kb?.view
         let keys: [[String]] = [["MF", "῾", "᾿", "´", "˜", "¯", "ͺ", "enter"],
                                 ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                                 ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
                                 ["ζ", "χ", "ψ", "ω", "β", "ν", "μ" , "( )", "BK" ]]
+        /*
         kb?.accentBGColor = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
         kb?.accentBGColorDown = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
         kb?.accentTextColor = UIColor.black
         kb?.accentTextColorDown = UIColor.black
+        */
         kb?.setButtons(keys: keys) //has to be after set as inputView
         
         continueButton.addTarget(self, action: #selector(continuePressed(button:)), for: .touchUpInside)
@@ -503,7 +505,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         label2Top?.isActive = false
         label2Top = label2.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0)
         label2Top?.isActive = true
-        view.bringSubview(toFront: self.label2)
+        view.bringSubviewToFront(self.label2)
         
         UIView.animate(withDuration: animateDuration, delay: 0.0, options: [.curveEaseInOut], animations: {
             self.view.layoutIfNeeded()
@@ -528,7 +530,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
             tempCon = self.label2Top
             self.label2Top = self.label1Top
             self.label1Top = tempCon!
-            self.view.bringSubview(toFront:self.checkXView)
+            self.view.bringSubviewToFront(self.checkXView)
             self.view.layoutIfNeeded()
             self.askForForm(erasePreviousForm: false)
         })
@@ -543,7 +545,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         //self.textViewTop = self.textView.topAnchor.constraint(equalTo: self.headerView.bottomAnchor, constant: 0.0)
         self.textViewTop2?.isActive = true
         
-        view.bringSubview(toFront: self.textView)
+        view.bringSubviewToFront(self.textView)
         
         UIView.animate(withDuration: animateDuration, delay: 0.0, options: [.curveEaseInOut], animations: {
             self.view.layoutIfNeeded()
@@ -561,7 +563,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
             self.textViewTop2?.isActive = false
             //self.textViewTop = self.textView.topAnchor.constraint(equalTo: self.stemLabel.bottomAnchor, constant: 0.0)
             self.textViewTop?.isActive = true
-            self.view.bringSubview(toFront:self.checkXView)
+            self.view.bringSubviewToFront(self.checkXView)
             self.view.layoutIfNeeded()
             self.askForForm(erasePreviousForm: false)
         })
@@ -621,7 +623,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         var topCorrect:CGFloat  = (tv.bounds.size.height - tv.contentSize.height * tv.zoomScale) / 2.0;
         topCorrect = ( topCorrect < 0.0 ? 0.0 : topCorrect )
         //NSLog(@"content: %f, %f, %f", topCorrect, [tv bounds].size.height, [tv contentSize].height);
-        tv.contentInset = UIEdgeInsetsMake(topCorrect,0,0,0)
+        tv.contentInset = UIEdgeInsets(top: topCorrect,left: 0,bottom: 0,right: 0)
     }
     
     func printVerbs()
@@ -697,7 +699,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         {
             if a[i] != b[i]
             {
-                att.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "HelveticaNeue-Bold", size: fontSize)!, range: NSRange(location: start, length: b[i].count))
+                att.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue-Bold", size: fontSize)!, range: NSRange(location: start, length: b[i].count))
             }
             start += b[i].count + 1
         }
@@ -708,7 +710,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     {
         let s: String = v.text
         let myString: NSString = s as NSString
-        return myString.size(withAttributes: [NSAttributedStringKey.font: v.font!])
+        return myString.size(withAttributes: [NSAttributedString.Key.font: v.font!])
     }
     
     func positionCheckX()

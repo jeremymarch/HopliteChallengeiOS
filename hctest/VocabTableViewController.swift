@@ -291,7 +291,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
                 landscapeHeight = portraitHeight
             }
         }
-        kb?.heightOverride = portraitHeight
+        kb?.portraitHeightOverride = portraitHeight
         kb?.forceLowercase = true
         
         searchTextField?.inputView = kb?.inputView
@@ -316,14 +316,14 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         setWordsPerUnit()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: UITextField.textDidChangeNotification, object: nil)
         
         //move bottom of table up when keyboard shows, so we can access bottom rows and
         //also so selected row is in middle of screen - keyboard height.
         //https://stackoverflow.com/questions/594181/making-a-uitableview-scroll-when-text-field-is-selected/41040630#41040630
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardDidShowNotification, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardDidHideNotification, object: nil)
         
         setSortToggleButton()
         setFilterButtons()
@@ -373,18 +373,18 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardHeight = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as?
+        if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as?
             NSValue)?.cgRectValue.height {
             //the above doesn't work on ipad because we change the kb height later
             //let keyboardHeight = (kb?.portraitHeight)! //this works
-            tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardHeight, 0)
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
         UIView.animate(withDuration: 0.2, animations: {
             // For some reason adding inset in keyboardWillShow is animated by itself but removing is not, that's why we have to use animateWithDuration here
-            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         })
     }
     
@@ -759,25 +759,25 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         {
             if seq == 0 && searchText == ""
             {
-                tableView.scrollToRow(at: scrollIndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
+                tableView.scrollToRow(at: scrollIndexPath, at: UITableView.ScrollPosition.middle, animated: animatedScroll)
                 if let indexPath = tableView.indexPathForSelectedRow {
                     tableView.deselectRow(at: indexPath, animated: animatedScroll)
                 }
             }
             else
             {
-                tableView.selectRow(at: scrollIndexPath, animated: animatedScroll, scrollPosition: UITableViewScrollPosition.middle)
+                tableView.selectRow(at: scrollIndexPath, animated: animatedScroll, scrollPosition: UITableView.ScrollPosition.middle)
             }
         }
         else
         {
             if sortAlpha
             {
-                tableView.scrollToRow(at: scrollIndexPath, at: UITableViewScrollPosition.middle, animated: animatedScroll)
+                tableView.scrollToRow(at: scrollIndexPath, at: UITableView.ScrollPosition.middle, animated: animatedScroll)
             }
             else
             {
-                tableView.scrollToRow(at: scrollIndexPath, at: UITableViewScrollPosition.top, animated: animatedScroll)
+                tableView.scrollToRow(at: scrollIndexPath, at: UITableView.ScrollPosition.top, animated: animatedScroll)
             }
             
         }
