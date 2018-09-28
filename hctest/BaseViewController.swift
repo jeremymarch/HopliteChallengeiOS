@@ -95,6 +95,13 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
  
                 self.navigationController!.pushViewController(dest, animated: true)
             }
+            else if strIdentifier == "HopliteChallenge"
+            {
+                let dest = destViewController as! HopliteChallenge
+                dest.isGame = false
+                
+                self.navigationController!.pushViewController(dest, animated: true)
+            }
             else
             {
                 self.navigationController!.pushViewController(destViewController, animated: true)

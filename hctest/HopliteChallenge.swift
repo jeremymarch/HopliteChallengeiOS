@@ -48,7 +48,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     var mfPressed:Bool = false
     var checkXXOffset:NSLayoutConstraint? = nil
     var checkXYOffset:NSLayoutConstraint? = nil
-    var isGame:Bool = true
+    var isGame:Bool = false
     var practiceVerbId:Int = -1
     let typingDelay:TimeInterval = 0.03
     var blockPinch:Bool = true
