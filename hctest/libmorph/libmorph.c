@@ -1628,14 +1628,11 @@ void stripAccent(UCS2 *word, int *len)
         {
             case GREEK_SMALL_LETTER_ALPHA_WITH_OXIA:
             case GREEK_SMALL_LETTER_ALPHA_WITH_TONOS:
+                word[i] = GREEK_SMALL_LETTER_ALPHA;
+                break;
             case GREEK_SMALL_LETTER_ALPHA_WITH_PERISPOMENI:
-                word[i] = GREEK_SMALL_LETTER_ALPHA;
-                break; /*
-            case GREEK_SMALL_LETTER_ALPHA_WITH_PERISPOMENI: //fix me, this needs to be done for the other cases below
-                rightShiftFromOffset(Stepsword, i, 1, len);
-                word[i] = GREEK_SMALL_LETTER_ALPHA;
-                word[i+1] = COMBINING_MACRON;
-                break; */
+                splice(word, len, 1024, i, 1, (UCS2[]){GREEK_SMALL_LETTER_ALPHA,COMBINING_MACRON}, 2);
+                break;
             case GREEK_SMALL_LETTER_EPSILON_WITH_OXIA:
             case GREEK_SMALL_LETTER_EPSILON_WITH_TONOS:
                 word[i] = GREEK_SMALL_LETTER_EPSILON;
@@ -1669,14 +1666,19 @@ void stripAccent(UCS2 *word, int *len)
                 break;
             case GREEK_SMALL_LETTER_UPSILON_WITH_OXIA:
             case GREEK_SMALL_LETTER_UPSILON_WITH_TONOS:
-            case GREEK_SMALL_LETTER_UPSILON_WITH_PERISPOMENI:
                 word[i] = GREEK_SMALL_LETTER_UPSILON;
-                break; /* //I guess this never comes up?
+                break;
             case GREEK_SMALL_LETTER_UPSILON_WITH_PERISPOMENI:
-                rightShiftFromOffsetSteps(word, i, 1, len);
-                word[i] = GREEK_SMALL_LETTER_UPSILON;
-                word[i+1] = COMBINING_MACRON;
-                break; */
+                if (i > 0 && word[i-1] != GREEK_SMALL_LETTER_EPSILON && word[i-1] != GREEK_SMALL_LETTER_OMICRON && word[i-1] != GREEK_SMALL_LETTER_ALPHA && word[i-1] != GREEK_SMALL_LETTER_ETA && word[i-1] != SPACE)
+                {
+                    splice(word, len, 1024, i, 1, (UCS2[]){GREEK_SMALL_LETTER_UPSILON,COMBINING_MACRON}, 2);
+                }
+                else
+                {
+                    //case if upsilon is part of a diphthong (i.e. not long by itself)
+                    word[i] = GREEK_SMALL_LETTER_UPSILON;
+                }
+                break;
             case GREEK_SMALL_LETTER_OMEGA_WITH_OXIA:
             case GREEK_SMALL_LETTER_OMEGA_WITH_TONOS:
             case GREEK_SMALL_LETTER_OMEGA_WITH_PERISPOMENI:

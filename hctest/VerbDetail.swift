@@ -278,9 +278,9 @@ class VerbDetailViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let hp = segue.destination as! HopliteChallenge
         hp.isGame = false
-        //hp.practiceVerbId = verbIndex
         hp.verbIDs.removeAll()
         hp.verbIDs.append( Int32(hqVerbID) )
+        hp.fromVerbDetail = true
     }
 }
 

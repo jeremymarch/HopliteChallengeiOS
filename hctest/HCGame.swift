@@ -121,7 +121,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         //vs.options?.numUnits = 20
         vs.options?.isHCGame = isGame
         
-        vs.setVSOptions(persons: personFilter, numbers: numberFilter, tenses: tenseFilter, voices: voiceFilter, moods: moodFilter, verbs: verbIDs, shuffle:true)
+        vs.setVSOptions(persons: personFilter, numbers: numberFilter, tenses: tenseFilter, voices: voiceFilter, moods: moodFilter, verbs: verbIDs, shuffle:true, reps:3)
         
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
@@ -417,6 +417,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             }
         }
         kb?.portraitHeightOverride = portraitHeight
+        kb?.landscapeHeightOverride = landscapeHeight
         kb?.unicodeMode = 3 //hc mode
         textView.inputView = kb?.view
         let keys: [[String]] = [["MF", "῾", "᾿", "´", "˜", "¯", "ͺ", "enter"],

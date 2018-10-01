@@ -12,7 +12,7 @@
 
 VerbSeqOptions swiftLayerOptions; //this is the global options for the app.
 
-void setOptionsxx(const int *persons, const int numPersons, const int *numbers, const int numNumbers, const int *tenses, const int numTenses, const int *voices, const int numVoices, const int *moods, const int numMoods, const int *verbs, const int numVerbs, bool shuffle)
+void setOptionsxx(const int *persons, const int numPersons, const int *numbers, const int numNumbers, const int *tenses, const int numTenses, const int *voices, const int numVoices, const int *moods, const int numMoods, const int *verbs, const int numVerbs, bool shuffle, int repsPerVerb)
 {
     VerbSeqOptions opt;
     memmove(opt.seqOptions.persons, persons, numPersons*(sizeof(opt.seqOptions.persons[0])));
@@ -29,6 +29,7 @@ void setOptionsxx(const int *persons, const int numPersons, const int *numbers, 
     opt.seqOptions.numVerbs = numVerbs;
     
     opt.shuffle = shuffle;
+    opt.repsPerVerb = (unsigned char) repsPerVerb;
     
     buildSequence(&opt);
     

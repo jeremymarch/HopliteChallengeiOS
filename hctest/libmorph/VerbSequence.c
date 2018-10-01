@@ -418,6 +418,7 @@ VerbFormD vseq[1000024];
  * Only effective if N is much smaller than RAND_MAX;
  * if this may not be the case, use a better random
  * number generator. */
+/*
 static void shuffle2(void *array, size_t n, size_t size) {
     char tmp[size];
     char *arr = array;
@@ -437,7 +438,7 @@ static void shuffle2(void *array, size_t n, size_t size) {
         }
     }
 }
-
+*/
 //https://stackoverflow.com/questions/6127503/shuffle-array-in-c
 void shuffle4(VerbFormD *array, size_t n, size_t size) {
     struct timeval tv;
@@ -523,6 +524,32 @@ void swap(void * a, void * b, size_t size)
 }
 */
 
+void removeFromList(VerbFormD *list, int *listCount, int itemToRemove)
+{
+    for (int i = itemToRemove; i < *listCount - 1; i++)
+    {
+        list[i] = list[i+1];
+        
+    }
+    *listCount -= 1;
+}
+
+void prepareSeq(VerbFormD *vseq, int *seqNum)
+{
+    int bufferCapacity = 1024;
+    char buffer[bufferCapacity];
+    
+    //weed out mid/passive forms that are the same
+    for (int i = 0; i < *seqNum; i++)
+    {
+        if (getForm2(&vseq[i], buffer, bufferCapacity, true, false) && strlen(buffer) == 3 && !memcmp(&buffer[0], "—", 3))
+        {
+            fprintf(stderr, "remove: %s\n", buffer);
+            removeFromList(vseq, seqNum, i);
+        }
+    }
+}
+
 int seqNum = 0;
 bool buildSequence(VerbSeqOptions *vso)
 {
@@ -562,7 +589,7 @@ bool buildSequence(VerbSeqOptions *vso)
                                 vseq[seqNum].mood = vf.mood;
                                 vseq[seqNum].verbid = vf.verbid;
                                 */
-                                fprintf(stderr, "Building seq #: %d, p%d, n%d, t%d, v%d, m%d, verbid%d, %s\n", seqNum, vseq[seqNum].person, vseq[seqNum].number, vseq[seqNum].tense, vseq[seqNum].voice, vseq[seqNum].mood, vseq[seqNum].verbid, buffer);
+                                //fprintf(stderr, "Building seq #: %d, p%d, n%d, t%d, v%d, m%d, verbid%d, %s\n", seqNum, vseq[seqNum].person, vseq[seqNum].number, vseq[seqNum].tense, vseq[seqNum].voice, vseq[seqNum].mood, vseq[seqNum].verbid, buffer);
                                 seqNum++;
                             }
                         }
@@ -572,12 +599,17 @@ bool buildSequence(VerbSeqOptions *vso)
         }
     }
     
+    prepareSeq(vseq, &seqNum);
+    
     //fprintf(stderr, "\nshuffle\n\n");
     if (vso->shuffle)
     {
-        shuffle4(vseq, seqNum, sizeof(vseq[0]));
+        for (int i = 0; i < 5; i++)
+        {
+            shuffle4(vseq, seqNum, sizeof(vseq[0]));
+        }
     }
-    /*
+    
     for (int i = 0; i < seqNum; i++)
     {
         int steps = 0;
@@ -590,7 +622,7 @@ bool buildSequence(VerbSeqOptions *vso)
     }
     
     fprintf(stderr, "\n\n");
-    
+    /*
     for (int i = 0; i < seqNum; i++)
     {
         int steps = 0;
@@ -608,35 +640,28 @@ bool buildSequence(VerbSeqOptions *vso)
     return true;
 }
 
-void removeFromList(VerbFormD *list, int *listCount, int itemToRemove)
-{
-    for (int i = itemToRemove; i < *listCount - 1; i++)
-    {
-        list[i] = list[i+1];
-        
-    }
-    *listCount -= 1;
-}
-
 int nextVerbSeqCustom(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso)
 {
     //char buffer[1024];
     //int len = 1024;
-    
-    vf1->person = vseq[currentVerb].person;
-    vf1->number = vseq[currentVerb].number;
-    vf1->tense = vseq[currentVerb].tense;
-    vf1->voice = vseq[currentVerb].voice;
-    vf1->mood = vseq[currentVerb].mood;
-    vf1->verbid = vseq[currentVerb].verbid;
+    currentVerb = 0;
+    if (vf1->verbid < 0) //start at -1
+    {
+        vf1->person = vseq[currentVerb].person;
+        vf1->number = vseq[currentVerb].number;
+        vf1->tense = vseq[currentVerb].tense;
+        vf1->voice = vseq[currentVerb].voice;
+        vf1->mood = vseq[currentVerb].mood;
+        vf1->verbid = vseq[currentVerb].verbid;
+        removeFromList(vseq, &seqNum, currentVerb);
+    }
 
     //getAbbrevDescription(vf1, buffer, len);
     //fprintf(stderr, "current verb A: %d, person: %d, %s, %d\n", currentVerb, vf1->person,  buffer, vf1->verb->verbid);
     
-    currentVerb++;
-    if (currentVerb >= seqNum) //if reach end restart at beginning
+    while (currentVerb < seqNum && stepsAway(vf1, &vseq[currentVerb]) != 2)
     {
-        currentVerb = 0;
+        currentVerb++;
     }
     
     vf2->person = vseq[currentVerb].person;
@@ -645,9 +670,11 @@ int nextVerbSeqCustom(VerbFormD *vf1, VerbFormD *vf2, VerbSeqOptions *vso)
     vf2->voice = vseq[currentVerb].voice;
     vf2->mood = vseq[currentVerb].mood;
     vf2->verbid = vseq[currentVerb].verbid;
+    removeFromList(vseq, &seqNum, currentVerb);
     
-    removeFromList(vseq, &seqNum, currentVerb - 1);
-    currentVerb = 0;
+    fprintf(stderr, "steps: %d, seq count: %d\n", stepsAway(vf1, vf2), seqNum);
+    
+    
     //vf2 = &vseq[currentVerb];
     //getAbbrevDescription(vf2, buffer, len);
     //fprintf(stderr, "current verb B: %d, person: %d, %s, %d\n", currentVerb, vf2->person,  buffer, vf2->verb->verbid);

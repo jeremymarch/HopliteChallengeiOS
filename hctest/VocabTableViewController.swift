@@ -292,6 +292,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
         kb?.portraitHeightOverride = portraitHeight
+        kb?.landscapeHeightOverride = landscapeHeight
         kb?.forceLowercase = true
         
         searchTextField?.inputView = kb?.inputView
@@ -368,7 +369,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     @objc func textDidChange(_ notification: Notification) {
-        guard let textView = notification.object as? UITextField else { return }
+        //guard let textView = notification.object as? UITextField else { return }
         scrollToWord()
     }
     

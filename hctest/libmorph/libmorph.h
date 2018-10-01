@@ -116,7 +116,7 @@ enum {
 };
 
 typedef struct v {
-    unsigned int verbid; //an index in the verbs static array
+    int verbid; //an index in the verbs static array
     unsigned int hqid;
     unsigned int verbclass; //a bitfield
     unsigned char hq;
@@ -145,7 +145,7 @@ typedef struct vfd {
     unsigned char tense;
     unsigned char voice;
     unsigned char mood;
-    unsigned int verbid;
+    int verbid;
 } VerbFormD;
 
 typedef struct e {

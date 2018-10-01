@@ -33,7 +33,7 @@ class NetworkManager {
             
             jsonStr = String(data: jsonData, encoding: .utf8)
         } catch let error {
-            //print(error.localizedDescription)
+            print(error.localizedDescription)
             return nil
         }
         return jsonStr

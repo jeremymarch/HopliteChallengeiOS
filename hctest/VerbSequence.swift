@@ -37,9 +37,10 @@ class VerbSequence {
     var moo:[Int32] = [3]
     var vrbs:[Int32] = [3]
     var _shuffle:Bool = true
+    var repsPerVerb:Int32 = 3
     
     init() {
-        self.givenForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 0)
+        self.givenForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: -1)
         self.requestedForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 0)
         //self.reset()
 
@@ -62,8 +63,9 @@ class VerbSequence {
         voic = [0,1,2]
         moo = [0,1,2,3]
         vrbs = [0]
+        repsPerVerb = 3
 
-        setVSOptions(persons:per, numbers:num, tenses:ten, voices:voic, moods:moo, verbs:vrbs, shuffle:_shuffle)
+        setVSOptions(persons:per, numbers:num, tenses:ten, voices:voic, moods:moo, verbs:vrbs, shuffle:_shuffle,reps: repsPerVerb)
         
         /*
          game mode:
@@ -79,7 +81,7 @@ class VerbSequence {
  */
 }
     
-    func setVSOptions(persons:[Int32], numbers:[Int32], tenses:[Int32], voices:[Int32], moods:[Int32], verbs:[Int32], shuffle:Bool)
+    func setVSOptions(persons:[Int32], numbers:[Int32], tenses:[Int32], voices:[Int32], moods:[Int32], verbs:[Int32], shuffle:Bool, reps:Int32)
     {
         per = persons
         num = numbers
@@ -88,8 +90,9 @@ class VerbSequence {
         moo = moods
         vrbs = verbs
         _shuffle = shuffle
+        repsPerVerb = reps
         
-        setOptionsxx(persons, Int32(persons.count), numbers, Int32(numbers.count), tenses, Int32(tenses.count), voices, Int32(voices.count), moods, Int32(moods.count), verbs, Int32(verbs.count), shuffle)
+        setOptionsxx(persons, Int32(persons.count), numbers, Int32(numbers.count), tenses, Int32(tenses.count), voices, Int32(voices.count), moods, Int32(moods.count), verbs, Int32(verbs.count), shuffle, reps)
     }
     
     func getNext() -> Int
@@ -102,14 +105,14 @@ class VerbSequence {
         vf1.tense = (givenForm?.tense)!
         vf1.voice = (givenForm?.voice)!
         vf1.mood = (givenForm?.mood)!
-        vf1.verbid = UInt32((givenForm?.verbid)!)
+        vf1.verbid = Int32((givenForm?.verbid)!)
         
         vf2.person = (requestedForm?.person)!
         vf2.number = (requestedForm?.number)!
         vf2.tense = (requestedForm?.tense)!
         vf2.voice = (requestedForm?.voice)!
         vf2.mood = (requestedForm?.mood)!
-        vf2.verbid = UInt32((requestedForm?.verbid)!)
+        vf2.verbid = Int32((requestedForm?.verbid)!)
 
         var a:Int32 = Int32(self.seq)
         
@@ -138,6 +141,7 @@ class VerbSequence {
     func reset()
     {
         //swiftResetVerbSeq();
+        givenForm?.verbid = -1
         lives = maxLives
         score = 0
     }

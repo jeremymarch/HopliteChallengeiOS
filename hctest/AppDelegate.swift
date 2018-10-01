@@ -167,7 +167,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         if results != nil && results!.count > 0
         {
-            return results?.first as! NSManagedObject
+            return results?.first as? NSManagedObject
         }
         else
         {
@@ -273,7 +273,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     {
                                         backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator
                                     }
-                                    let entity = NSEntityDescription.entity(forEntityName: "HQWords", in: backgroundContext)
+                                    //let entity = NSEntityDescription.entity(forEntityName: "HQWords", in: backgroundContext)
                                     /*
                                     let countFetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
                                     do {
@@ -386,32 +386,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let usePreloadedStore = false
         if (usePreloadedStore)
         {
-        let seededData: String = appName
-        var persistentStoreDescriptions: NSPersistentStoreDescription
-        
-        //let storeUrl = self.applicationDocumentsDirectory.appendingPathComponent("app_name.sqlite")
-        //let storeURL = [[NSBundle mainBundle] URLForResource:@"philologus" withExtension:@"sqlite"];
-        let storeURL = Bundle.main.url(forResource: appName, withExtension: "sqlite")
-        /*
-         if !FileManager.default.fileExists(atPath: (storeURL?.path)!) {
-         let seededDataUrl = Bundle.main.url(forResource: seededData, withExtension: "sqlite")
-         try! FileManager.default.copyItem(at: seededDataUrl!, to: storeURL!)
-         
-         }
-         */
-        print(storeURL!)
-        //var options = NSMutableDictionary()
-        //options[NSReadOnlyPersistentStoreOption] = true
-        
-        //container.persistentStoreCoordinator.addPersistentStore(ofType: , configurationName: , at: , options: )
-        
-        let d:NSPersistentStoreDescription = NSPersistentStoreDescription(url: storeURL!)
-        d.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
-        d.setOption(["journal_mode": "delete"] as NSObject!, forKey: NSSQLitePragmasOption)
-        container.persistentStoreDescriptions = [d]
-        
-        //persistentStoreDescriptions.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
-        //container.persistentStoreCoordinator.
+            let seededData: String = appName
+            var persistentStoreDescriptions: NSPersistentStoreDescription
+            
+            //let storeUrl = self.applicationDocumentsDirectory.appendingPathComponent("app_name.sqlite")
+            //let storeURL = [[NSBundle mainBundle] URLForResource:@"philologus" withExtension:@"sqlite"];
+            let storeURL = Bundle.main.url(forResource: appName, withExtension: "sqlite")
+            /*
+             if !FileManager.default.fileExists(atPath: (storeURL?.path)!) {
+             let seededDataUrl = Bundle.main.url(forResource: seededData, withExtension: "sqlite")
+             try! FileManager.default.copyItem(at: seededDataUrl!, to: storeURL!)
+             
+             }
+             */
+            print(storeURL!)
+            //var options = NSMutableDictionary()
+            //options[NSReadOnlyPersistentStoreOption] = true
+            
+            //container.persistentStoreCoordinator.addPersistentStore(ofType: , configurationName: , at: , options: )
+            
+            let d:NSPersistentStoreDescription = NSPersistentStoreDescription(url: storeURL!)
+            d.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
+            d.setOption(["journal_mode": "delete"] as NSObject, forKey: NSSQLitePragmasOption)
+            container.persistentStoreDescriptions = [d]
+            
+            //persistentStoreDescriptions.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
+            //container.persistentStoreCoordinator.
         }
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error {
@@ -445,7 +445,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var failureReason = "There was an error creating or loading the application's saved data."
         
         let opt = [ NSReadOnlyPersistentStoreOption: true as NSObject,
-                    NSSQLitePragmasOption: ["journal_mode": "delete"] as NSObject!,
+                    NSSQLitePragmasOption: ["journal_mode": "delete"] as NSObject,
                     NSMigratePersistentStoresAutomaticallyOption:false as NSObject,
                     NSInferMappingModelAutomaticallyOption:false as NSObject]
         

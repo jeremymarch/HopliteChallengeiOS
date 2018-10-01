@@ -15,7 +15,7 @@ class Verb2 {
     var perfect:String = ""
     var perfMid:String = ""
     var aoristPass:String = ""
-    var verbId:UInt32 = 0
+    var verbId:Int32 = 0
     var verbClass:UInt32 = 0
     var HQUnit:UInt8 = 0
     var hqVerbID:Int32 = 0

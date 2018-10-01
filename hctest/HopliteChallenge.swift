@@ -24,6 +24,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     let checkImg = UIImage(named:"greencheck.png")
     let xImg = UIImage(named:"redx.png")
     let checkXView = UIImageView()
+    var fromVerbDetail = false
     
     let life1 = UIImageView()
     let life2 = UIImageView()
@@ -90,7 +91,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        vs.setVSOptions(persons: personFilter, numbers: numberFilter, tenses: tenseFilter, voices: voiceFilter, moods: moodFilter, verbs: verbIDs, shuffle:shuffle)
+        vs.setVSOptions(persons: personFilter, numbers: numberFilter, tenses: tenseFilter, voices: voiceFilter, moods: moodFilter, verbs: verbIDs, shuffle:shuffle,reps: 3)
         
         vs.options?.practiceVerbID = Int32(practiceVerbId)
         //vs.options?.units = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
@@ -210,7 +211,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         let image = UIImage(named: "hamburger.png") as UIImage?
         quitButton.setImage(image, for: .normal)
         
-        if practiceVerbId < 0
+        if fromVerbDetail == false
         {
             quitButton.addTarget(self, action: #selector(menuButtonPressed), for: UIControl.Event.touchUpInside)
         }
@@ -398,18 +399,19 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
             }
         }
         kb?.portraitHeightOverride = portraitHeight
+        kb?.landscapeHeightOverride = landscapeHeight
         kb?.unicodeMode = 3 //hc mode
         textView.inputView = kb?.view
         let keys: [[String]] = [["MF", "῾", "᾿", "´", "˜", "¯", "ͺ", "enter"],
                                 ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                                 ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
                                 ["ζ", "χ", "ψ", "ω", "β", "ν", "μ" , "( )", "BK" ]]
-        /*
+        
         kb?.accentBGColor = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
         kb?.accentBGColorDown = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
         kb?.accentTextColor = UIColor.black
         kb?.accentTextColorDown = UIColor.black
-        */
+ 
         kb?.setButtons(keys: keys) //has to be after set as inputView
         
         continueButton.addTarget(self, action: #selector(continuePressed(button:)), for: .touchUpInside)

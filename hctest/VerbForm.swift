@@ -59,7 +59,7 @@ class VerbForm {
         vf.tense = UInt8(self.tense)
         vf.voice = UInt8(self.voice)
         vf.mood = UInt8(self.mood)
-        vf.verbid = UInt32(self.verbid)
+        vf.verbid = Int32(self.verbid)
         
         let x = getForm2(&vf, &buffer, Int32(bufferSize), true, decomposed)
         if x != 0
@@ -89,7 +89,7 @@ class VerbForm {
         vf.tense = UInt8(self.tense)
         vf.voice = UInt8(self.voice)
         vf.mood = UInt8(self.mood)
-        vf.verbid = UInt32(self.verbid)
+        vf.verbid = Int32(self.verbid)
         
         getAbbrevDescription2(&vf, &buffer2, Int32(bufferSize))
         //let data = Data(bytes:buffer2, count:bufferSize)
