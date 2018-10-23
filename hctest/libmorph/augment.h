@@ -15,10 +15,10 @@
 #include "libmorph.h"
 #include "GreekUnicode.h"
 
-void augmentStem(VerbFormC *vf, UCS2 *ucs2, int *len, bool decompose, int stem);
+void augmentStem(VerbFormC *vf, UCS2 *ucs2, int *len, int bufferCapacity, bool decompose, int stem);
 
-void stripAugmentFromPrincipalPart(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 presentStemInitial, bool decompose);
+void stripAugmentFromPrincipalPart(VerbFormC *vf, UCS2 *ucs2, int *len, int bufferCapacity, UCS2 presentStemInitial, bool decompose);
 
-void decomposePrefixes(VerbFormC *vf, UCS2 *ucs2, int *len);
+void decomposePrefixes(VerbFormC *vf, UCS2 *ucs2, int *len, int bufferCapacity);
 
 #endif /* augment_h */

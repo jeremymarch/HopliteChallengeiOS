@@ -12,7 +12,7 @@
 		3F15E1731E8450A0009760A0 /* hctestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15E1721E8450A0009760A0 /* hctestTests.swift */; };
 		3F15E17B1E8462C3009760A0 /* Verb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B4A1E7A290300144F7D /* Verb.swift */; };
 		3F15E17C1E8462F2009760A0 /* VerbForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */; };
-		3F15E17D1E84AFDD009760A0 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CF1E6BB41D00FFAD04 /* sqlite3.c */; };
+		3F15E17D1E84AFDD009760A0 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CF1E6BB41D00FFAD04 /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		3F15E17E1E84AFEB009760A0 /* VerbSequence.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CA1E6BB2D700FFAD04 /* VerbSequence.c */; };
 		3F15E17F1E84AFEE009760A0 /* GreekForms.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443C81E6BB2CD00FFAD04 /* GreekForms.c */; };
 		3F15E1801E84AFF2009760A0 /* utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443C51E6BB2BF00FFAD04 /* utilities.c */; };
@@ -42,7 +42,7 @@
 		3F3443C91E6BB2CD00FFAD04 /* GreekForms.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443C81E6BB2CD00FFAD04 /* GreekForms.c */; };
 		3F3443CB1E6BB2D700FFAD04 /* VerbSequence.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CA1E6BB2D700FFAD04 /* VerbSequence.c */; };
 		3F3443CE1E6BB33400FFAD04 /* VerbForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */; };
-		3F3443D31E6BB41D00FFAD04 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CF1E6BB41D00FFAD04 /* sqlite3.c */; };
+		3F3443D31E6BB41D00FFAD04 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CF1E6BB41D00FFAD04 /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */; };
 		3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443D61E6C814200FFAD04 /* newathu5.ttf */; };
 		3F3B30EE20D7033700EEB1E7 /* HCGameList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */; };

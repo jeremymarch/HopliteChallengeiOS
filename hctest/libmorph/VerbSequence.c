@@ -538,7 +538,7 @@ void prepareSeq(VerbFormD *vseq, int *seqNum)
 {
     int bufferCapacity = 1024;
     char buffer[bufferCapacity];
-    
+    int mpcount = 0;
     //weed out mid/passive forms that are the same
     for (int i = 0; i < *seqNum; i++)
     {
@@ -546,11 +546,91 @@ void prepareSeq(VerbFormD *vseq, int *seqNum)
         {
             fprintf(stderr, "remove: %s\n", buffer);
             removeFromList(vseq, seqNum, i);
+            fprintf(stderr, "seqNum %d\n", *seqNum);
         }
+        else if (vseq[i].tense != AORIST && vseq[i].tense != FUTURE && vseq[i].voice != ACTIVE)
+        {
+            VerbFormD temp;
+            temp.person = vseq[i].person;
+            temp.number = vseq[i].number;
+            temp.tense = vseq[i].tense;
+            temp.voice = vseq[i].voice;
+            temp.mood = vseq[i].mood;
+            temp.verbid = vseq[i].verbid;
+            
+            for (int j = i + 1; j < *seqNum - 1; j++)
+            {
+                if (temp.person == vseq[j].person && temp.number == vseq[j].number && temp.tense == vseq[j].tense && temp.mood == vseq[j].mood && vseq[j].voice != ACTIVE)
+                {
+                    getForm2(&temp, buffer, bufferCapacity, true, false);
+                    fprintf(stderr, "%d form %d: %s, ", mpcount++, temp.voice, buffer);
+                    
+                    getForm2(&vseq[j], buffer, bufferCapacity, true, false);
+                    fprintf(stderr, "remove %d: %s\n", vseq[j].voice, buffer);
+                    removeFromList(vseq, seqNum, j);
+                    fprintf(stderr, "seqNum %d\n", *seqNum);
+                    break;
+                }
+            }
+        }
+        
     }
 }
-
 int seqNum = 0;
+int removeAlreadySeen(int verbid)
+{
+    //search db to remove forms already seen and correct.
+    //how far to look back?
+    if (!db)
+    {
+        fprintf(stderr, "sqlite error0 : no db\n\n");
+        return -1;
+    }
+    int bufferLen = 1024;
+    char buffer[bufferLen];
+    VerbFormD temp;
+    temp.verbid = verbid;
+    sqlite3_stmt *stmt;
+    const char *sql = "SELECT person,number,tense,voice,mood FROM verbseq WHERE verbid=? AND correct=0 ORDER BY id DESC LIMIT 100000";
+    int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "sqlite error2 : %s", sqlite3_errmsg(db));
+        return -1;
+    }
+    rc = sqlite3_bind_int(stmt, 1, verbid);
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "sqlite error2 : %s", sqlite3_errmsg(db));
+        return -1;
+    }
+    while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
+        temp.person = sqlite3_column_int (stmt, 0);
+        temp.number = sqlite3_column_int (stmt, 1);
+        temp.tense = sqlite3_column_int (stmt, 2);
+        temp.voice = sqlite3_column_int (stmt, 3);
+        temp.mood = sqlite3_column_int (stmt, 4);
+        
+        for (int i = 0; i < seqNum; i++)
+        {
+            if (stepsAway(&temp, &vseq[i]) == 0)
+            {
+                getForm2(&vseq[i], buffer, bufferLen, true, false);
+                fprintf(stderr, "already seen: %d, %d, %d, %d, %d, %d, %d, %s\n", i, vseq[i].person, vseq[i].number, vseq[i].tense, vseq[i].voice, vseq[i].mood, vseq[i].verbid, buffer);
+                removeFromList(vseq, &seqNum, i);
+            }
+        }
+    }
+    if (rc != SQLITE_DONE) {
+        fprintf(stderr, "sqlite error: %s", sqlite3_errmsg(db));
+    }
+    sqlite3_finalize(stmt);
+    return 0;
+}
+
+void sortByDegreeDiff()
+{
+    
+}
+
 bool buildSequence(VerbSeqOptions *vso)
 {
     seqNum = 0;
@@ -599,17 +679,18 @@ bool buildSequence(VerbSeqOptions *vso)
         }
     }
     
-    prepareSeq(vseq, &seqNum);
-    
     //fprintf(stderr, "\nshuffle\n\n");
     if (vso->shuffle)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 5; i++) //4 times
         {
             shuffle4(vseq, seqNum, sizeof(vseq[0]));
         }
     }
     
+    prepareSeq(vseq, &seqNum); //after shuffle, so mid/pass pruning is random
+    removeAlreadySeen(vseq[0].verbid);
+    sortByDegreeDiff();
     for (int i = 0; i < seqNum; i++)
     {
         int steps = 0;

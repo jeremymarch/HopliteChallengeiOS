@@ -1165,11 +1165,11 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, const int buffe
             //Step 8: add or remove augment
             if (vf->tense == IMPERFECT || vf->tense == PLUPERFECT)
             {
-                augmentStem(vf, &ucs2Buffer[stemStartInBuffer], &tempStemLen, decompose, stem);
+                augmentStem(vf, &ucs2Buffer[stemStartInBuffer], &tempStemLen, bufferCapacity, decompose, stem);
             }
             else if (decompose && (vf->verb->verbclass & PREFIXED) == PREFIXED && vf->tense != AORIST && !(vf->tense == FUTURE && vf->voice == PASSIVE))
             {
-                decomposePrefixes(vf, &ucs2Buffer[stemStartInBuffer], &tempStemLen);
+                decomposePrefixes(vf, &ucs2Buffer[stemStartInBuffer], &tempStemLen, bufferCapacity);
             }
             
             //De-augment
@@ -1181,7 +1181,7 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, const int buffe
                 stripAccent(ucs2Present, &ucs2PresentLen);
                 UCS2 presentInitialLetter = ucs2Present[0];
                 
-                stripAugmentFromPrincipalPart(vf, &ucs2Buffer[stemStartInBuffer], &tempStemLen, presentInitialLetter, decompose);
+                stripAugmentFromPrincipalPart(vf, &ucs2Buffer[stemStartInBuffer], &tempStemLen, bufferCapacity, presentInitialLetter, decompose);
             }
             //Step 9: add the ending to the principal part
             addEnding(vf, &ucs2Buffer[stemStartInBuffer], &tempStemLen, bufferCapacity, &ucs2Endings[endingStart], endingLen, contractedFuture, decompose);

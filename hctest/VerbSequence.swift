@@ -40,6 +40,7 @@ class VerbSequence {
     var repsPerVerb:Int32 = 3
     
     init() {
+        DBInit2()
         self.givenForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: -1)
         self.requestedForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 0)
         //self.reset()

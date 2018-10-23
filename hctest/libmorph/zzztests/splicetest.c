@@ -1,3 +1,5 @@
+//gcc -std=c99  splicetest.c -o splicetest
+
 #include <stdlib.h> // For random(), RAND_MAX
 #include <string.h>  //for strlen()
 #include <stdbool.h> //for bool type
@@ -117,7 +119,7 @@ bool splice(UCS2 *string, int *len, int buffer_len, int offset, int replacing, U
     }
     else if (replacing > insert_len)
     {
-        if (!leftShiftFromOffsetSteps2(string, offset + replacing - 1, replacing - insert_len, len))
+        if (!leftShiftFromOffsetSteps2(string, offset + insert_len, replacing - insert_len, len))
         {
             return false;
         }
@@ -371,6 +373,52 @@ else
     printa(a, lenA);
     printf(" (len: %d)\n", lenA);
     if (!test(a, (UCS2[]){1,2,3,4}, 4))
+    {
+        printf("test failed\n");
+        exit(1);
+    }
+    else
+    {
+        printf("test passed\n");
+    }
+
+    printf("TEST 11: insert 1 replacing 2\n");
+    memmove(a, clean, sizeof(UCS2)*8);
+    lenA = 5;
+    printa(a, lenA);
+    printf(" (len: %d)\n", lenA);
+    //splice(ucs2, len, BUFFER_LEN, 0, 3, (UCS2[]){GREEK_SMALL_LETTER_RHO_WITH_DASIA}, 1);
+    if (splice(a, &lenA, maxA, 0, 2, (UCS2[]){6}, 1) == false)
+    {
+        printf("test failed\n");
+        exit(1);
+    }
+    printa(a, lenA);
+    printf(" (len: %d)\n", lenA);
+    if (!test(a, (UCS2[]){6,3,4,5}, 4))
+    {
+        printf("test failed\n");
+        exit(1);
+    }
+    else
+    {
+        printf("test passed\n");
+    }
+
+    printf("TEST 12: insert 1 replacing 3\n");
+    memmove(a, clean, sizeof(UCS2)*8);
+    lenA = 5;
+    printa(a, lenA);
+    printf(" (len: %d)\n", lenA);
+    //splice(ucs2, len, BUFFER_LEN, 0, 3, (UCS2[]){GREEK_SMALL_LETTER_RHO_WITH_DASIA}, 1);
+    if (splice(a, &lenA, maxA, 0, 3, (UCS2[]){6}, 1) == false)
+    {
+        printf("test failed\n");
+        exit(1);
+    }
+    printa(a, lenA);
+    printf(" (len: %d)\n", lenA);
+    if (!test(a, (UCS2[]){6,4,5}, 3))
     {
         printf("test failed\n");
         exit(1);

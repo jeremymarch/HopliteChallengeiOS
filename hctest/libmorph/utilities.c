@@ -121,7 +121,7 @@ bool splice(UCS2 *string, int *len, int buffer_capacity, int offset, int replaci
     }
     else if (replacing > insert_len)
     {
-        if (!leftShiftFromOffsetSteps2(string, offset + replacing - 1, replacing - insert_len, len))
+        if (!leftShiftFromOffsetSteps2(string, offset + insert_len, replacing - insert_len, len))
         {
             return false;
         }
