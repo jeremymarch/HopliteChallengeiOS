@@ -13,9 +13,9 @@
 #include "libmorph.h"
 #include "GreekUnicode.h"
 
-int getEimi(VerbFormC *vf, UCS2 *buffer, int *bufferLen);
-int getOida(VerbFormC *vf, UCS2 *buffer, int *bufferLen, bool decompose);
-int getXrh(VerbFormC *vf, UCS2 *buffer, int *bufferLen, bool decompose);
-int getDei(VerbFormC *vf, UCS2 *buffer, int *bufferLen, bool decompose);
+int getEimi(VerbFormC *vf, UCS2 *buffer, int *bufferLen, int bufferCapacity);
+int getOida(VerbFormC *vf, UCS2 *buffer, int *bufferLen, int bufferCapacity, bool decompose);
+int getXrh(VerbFormC *vf, UCS2 *buffer, int *bufferLen, int bufferCapacity, bool decompose);
+int getDei(VerbFormC *vf, UCS2 *buffer, int *bufferLen, int bufferCapacity, bool decompose);
 
 #endif /* specialverbs_h */

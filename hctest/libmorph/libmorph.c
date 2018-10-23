@@ -824,13 +824,13 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, const int buffe
     //eimi/
     if ( vf->tense != FUTURE && utf8HasSuffix(vf->verb->present, "εἰμί"))
     {
-        int ret = getEimi(vf, ucs2Buffer, &ucs2StemPlusEndingBufferLen);
+        int ret = getEimi(vf, ucs2Buffer, &ucs2StemPlusEndingBufferLen, bufferCapacity);
         *bufferLen = ucs2StemPlusEndingBufferLen;
         return ret;
     }
     else if ((utf8HasSuffix(vf->verb->present, "οἶδα") || utf8HasSuffix(vf->verb->present, "οιδα")) && vf->tense != FUTURE)
     {
-        int ret = getOida(vf, ucs2Buffer, &ucs2StemPlusEndingBufferLen, decompose);
+        int ret = getOida(vf, ucs2Buffer, &ucs2StemPlusEndingBufferLen, bufferCapacity, decompose);
         if (ret)
         {
             if (!wordIsAccented(&ucs2Buffer[0], ucs2StemPlusEndingBufferLen))
@@ -848,7 +848,7 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, const int buffe
     }
     else if (utf8HasSuffix(vf->verb->present, "δεῖ"))
     {
-        int ret = getDei(vf, ucs2Buffer, &ucs2StemPlusEndingBufferLen, decompose);
+        int ret = getDei(vf, ucs2Buffer, &ucs2StemPlusEndingBufferLen, bufferCapacity, decompose);
         if (ret)
         {
             if (!wordIsAccented(&ucs2Buffer[0], ucs2StemPlusEndingBufferLen))
@@ -866,7 +866,7 @@ int getFormUCS2(VerbFormC *vf, UCS2 *ucs2Buffer, int *bufferLen, const int buffe
     }
     else if (utf8HasSuffix(vf->verb->present, "χρή"))
     {
-        int ret = getXrh(vf, ucs2Buffer, &ucs2StemPlusEndingBufferLen, decompose);
+        int ret = getXrh(vf, ucs2Buffer, &ucs2StemPlusEndingBufferLen, bufferCapacity, decompose);
         if (ret)
         {
             if (!wordIsAccented(&ucs2Buffer[0], ucs2StemPlusEndingBufferLen))
