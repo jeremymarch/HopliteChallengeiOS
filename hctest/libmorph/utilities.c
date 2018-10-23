@@ -69,7 +69,7 @@ bool leftShiftFromOffsetSteps2(UCS2 *ucs2, int offset, int steps, int *len)
  * Except there cannot be any empty gaps, it will fail
  * string: the string
  * len: the actual len of the string
- * buffer_len: the length of the array buffer
+ * bufferCapacity: the length of the array buffer
  * offset: the offset to begin inserting/removing elements
  * replacing: how many characters to replace or remove if insert_len is 0
  * insert: the string to insert

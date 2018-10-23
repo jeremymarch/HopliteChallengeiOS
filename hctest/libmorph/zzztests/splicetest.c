@@ -1,10 +1,12 @@
 //gcc -std=c99  splicetest.c -o splicetest
+//gcc -std=c99  splicetest.c ../utilities.c -o splicetest
 
 #include <stdlib.h> // For random(), RAND_MAX
 #include <string.h>  //for strlen()
 #include <stdbool.h> //for bool type
 #include <stdio.h>
-
+#include "../utilities.h"
+/*
 typedef uint16_t UCS2;
 
 //1 2 3 4 5
@@ -61,7 +63,7 @@ bool leftShiftFromOffsetSteps2(UCS2 *ucs2, int offset, int steps, int *len)
     *len -= steps;
     return true;
 }
-
+*/
 /*
 * Almost just like the Javascript function splice
 * Except there cannot be any empty gaps, it will fail
@@ -75,6 +77,7 @@ bool leftShiftFromOffsetSteps2(UCS2 *ucs2, int offset, int steps, int *len)
 *
 * returns true, or false if error
 */
+/*
 bool splice(UCS2 *string, int *len, int buffer_len, int offset, int replacing, UCS2 *insert, int insert_len)
 {
   if (*len + insert_len - replacing > buffer_len)
@@ -130,7 +133,7 @@ bool splice(UCS2 *string, int *len, int buffer_len, int offset, int replacing, U
     }
   return true;
 }
-
+*/
 void printa(UCS2 *a, int n)
 {
   for (int i = 0; i < n; i++)
