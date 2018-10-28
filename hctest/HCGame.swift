@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 enum gameStates {
     case start
@@ -842,6 +843,88 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         verbChooser.delegate = self
         label1.text = ""
     }
+    
+    func addGame(game:Dictionary<String, String>, gameID:Int)
+    {
+        let moc = DataManager.shared.backgroundContext!
+        
+        let object = NSEntityDescription.insertNewObject(forEntityName: "HCGame", into: moc) as! HCGame
+        object.gameID = Int64(gameID)
+        object.topUnit = Int16(game["topUnit"]!)!
+        object.timeLimit = Int16(game["timeLimit"]!)!
+        object.player1ID = Int32(game["askPlayerID"]!)!
+        object.player2ID = Int32(game["answerPlayerID"]!)!
+        object.gameState = 1
+        
+        let move = NSEntityDescription.insertNewObject(forEntityName: "HCMoves", into: moc) as! HCMoves
+        move.gameID = Int64(gameID)
+        move.moveID = 1 //first move in new game
+        move.verbID = Int32(game["verbID"]!)!
+        move.person = Int16(game["person"]!)!
+        move.number = Int16(game["number"]!)!
+        move.tense = Int16(game["tense"]!)!
+        move.voice = Int16(game["voice"]!)!
+        move.mood = Int16(game["mood"]!)!
+        
+        do {
+            try moc.save()
+            print("saved moc")
+        } catch {
+            print("couldn't save game")
+        }
+        
+        print("count: \(getGameCount())")
+    }
+    
+    func getGameCount() -> Int
+    {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HCGame")
+        do {
+            let count = try DataManager.shared.mainContext?.count(for:fetchRequest)
+            return count!
+        } catch let error as NSError {
+            print("Error: \(error.localizedDescription)")
+            return 0
+        }
+    }
+    
+    func proc(requestDictionary:Dictionary<String, String>, returnedData:Data)->Bool
+    {
+        do {
+            //create json object from data
+            if let json = try JSONSerialization.jsonObject(with: returnedData, options: .mutableContainers) as? [String: Any] {
+                //print(json)
+                
+                if let statusResult = json["status"] as? Int {
+                    if statusResult == 1
+                    {
+                        if let id:Int = json["gameID"] as? Int
+                        {
+                            print("game created.  id: " + String(id))
+                            addGame(game:requestDictionary, gameID:id)
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        return false
+                    }
+                }
+                else
+                {
+                    return false
+                }
+            }
+            else
+            {
+                return false
+            }
+            
+        } catch let error {
+            print(error.localizedDescription)
+            return false
+        }
+    }
  
     @objc func continuePressed(button: UIButton) {
         //continueButton.isEnabled = false
@@ -858,7 +941,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             
             let parameters:Dictionary<String, String> = ["type":"newgame","askPlayerID": String(1), "answerPlayerID": String(2), "verbID":String(oldSelectedVerb), "person":String(stemLabel.pickerSelected[0]), "number":String(stemLabel.pickerSelected[1]), "tense":String(stemLabel.pickerSelected[2]), "voice":String(stemLabel.pickerSelected[3]), "mood":String(stemLabel.pickerSelected[4]),"topUnit":String(10),"timeLimit":String(30), "gameState":String(0)]
             
-            NetworkManager.shared.sendReq(urlstr: url, requestData: parameters)
+            NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:true, processResult:proc)
             
             //get result save global gameid/first move data to db
             //send push notification from server to opponent

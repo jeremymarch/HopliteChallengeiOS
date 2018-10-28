@@ -37,152 +37,125 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         self.navigationItem.title = navTitle
         login()
         
-        hcsync()
+        datasync()
+        tableView.reloadData()
     }
     
-    func hcsync()
+    struct HCGameSyncResponse : Codable {
+        struct Meta : Codable {
+            let updated: Int
+            enum CodingKeys : String, CodingKey {
+                case updated = "updated"
+            }
+        }
+        struct Row : Codable {
+            let id: Int
+            let lemma: String
+            let unit: Int
+            let def: String
+            let pos: String
+            let present:String
+            let future:String
+            let aorist:String
+            let perfect:String
+            let perfectmid:String
+            let aoristpass:String
+            let note:String
+            let lastupdated:Int
+            let seq:Int16
+            enum CodingKeys : String, CodingKey {
+                case id
+                case lemma = "l"
+                case unit = "u"
+                case def = "d"
+                case pos = "ps"
+                case present = "p"
+                case future = "f"
+                case aorist = "a"
+                case perfect = "pe"
+                case perfectmid = "pm"
+                case aoristpass = "ap"
+                case note = "n"
+                case lastupdated = "up"
+                case seq = "s"
+            }
+        }
+        let meta: Meta
+        let rows: [Row]
+    }
+    
+    func proc(newDict:Dictionary<String, String>, data:Data)->Bool
     {
-        let url = "https://philolog.us/hcsync.php"
-        
-        let parameters:Dictionary<String, String> = ["type":"sync","playerID": String(vUserID)]
-        
-        NetworkManager.shared.sendReq(urlstr: url, requestData: parameters)
+        print("getupdates response 222: [\(String(decoding: data, as: UTF8.self))] end")
+        do {
+            //create json object from data
+            if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
+                print("getupdates response: \(json)")
+                
+                if let statusResult = json["status"] as? Int {
+                    if statusResult == 1
+                    {
+                        if let id:Int = json["gameID"] as? Int
+                        {
+                            print("game created.  id: " + String(id))
+                            //addGame(game:newDict, gameID:id)
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        return false
+                    }
+                }
+                else
+                {
+                    return false
+                }
+            }
+            else
+            {
+                return false
+            }
+            
+        } catch let error {
+            print("make json obj \(error.localizedDescription)")
+            return false
+        }
     }
     
     func datasync()
     {
         /*
-        //let time = NSDate.init()
-        var timestamp = 0 //time.timeIntervalSince1970
+         See list of available players to challenge.
+         
+         Challenge random opponent?
+         0.5 get available players
+         
+         1. create game and make first move.
+            Insert and retrieve new globalGameID with opposing player's ID and the game parameters.
+            Insert first move with form requested.
+            Send push notification to opponent
+         
+         2. Get updates:
+            select games where globalGameIDs > lastStoredGameID and player1 = me or player2 = me;
+            select moves where globalMoveIDs > lastStoredMoveID
+            select userIDs of any users in the above
+         
+         3. answer move
+            update row where globalMoveID = x
+         
+         4. make next move
+            insert into moves set gameid = globalgameID
+         
+         
+         xxxselect moves where globalGameID in (my list of active games), pull all higher move ids | where I am a player
+ 
+         */
+        print("getupdates 222")
+        let url = "https://philolog.us/hc.php"
+        let parameters:Dictionary<String, String> = ["type":"getupdates","playerID": String(vUserID),"lastGlobalGameID":String(1),"lastGobalMoveID":String(1)]
         
-        let d = UserDefaults.standard
-        let time = d.object(forKey: "LastUpdated")
-        if time != nil
-        {
-            timestamp = time as! Int
-        }
-        else
-        {
-            d.set(timestamp, forKey: "LastUpdated")
-            d.synchronize()
-        }
-        NSLog("Time: \(timestamp)")
-        
-        NSLog("START REQUEST")
-        //http://benscheirman.com/2017/06/ultimate-guide-to-json-parsing-with-swift-4/
-        //https://stackoverflow.com/questions/32631184/the-resource-could-not-be-loaded-because-the-app-transport-security-policy-requi
-        
-        //with password:https://gist.github.com/n8armstrong/5c5c828f1b82b0315e24
-        let urlString = URL(string: "https://philolog.us/hqjson.php?lastupdated=\(timestamp)")//https://philolog.us/hqvocab.php?unit=20&AndUnder=on&sort=alpha")
-        NSLog("Start timestamp: \(timestamp)")
-        if let url = urlString {
-            //let session = NSURLSession(configuration: .defaultSessionConfiguration(), delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
-            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-                if error != nil {
-                    NSLog("boo")
-                    NSLog(error!.localizedDescription)
-                } else {
-                    if let usableData = data {
-                        NSLog("yay")
-                        if let stringData = String(data: usableData, encoding: String.Encoding.utf8) {
-                            print(stringData) //JSONSerialization
-                            do {
-                                let decoder = JSONDecoder()
-                                let rows = try decoder.decode(HQResponse.self, from: usableData)
-                                
-                                NSLog("Updated: \(rows.meta.updated)")
-                                
-                                DispatchQueue.main.sync {
-                                    //https://stackoverflow.com/questions/46956921/main-thread-checker-ui-api-called-on-a-background-thread-uiapplication-deleg
-                                    let backgroundContext = NSManagedObjectContext(concurrencyType:.privateQueueConcurrencyType)
-                                    //backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-                                    //let backgroundContext = self.managedObjectContext
-                                    backgroundContext.mergePolicy = NSRollbackMergePolicy //needed or duplicates x2
-                                    if #available(iOS 10.0, *) {
-                                        backgroundContext.persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator
-                                    }
-                                    else
-                                    {
-                                        backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-                                    }
-                                    let entity = NSEntityDescription.entity(forEntityName: "HQWords", in: backgroundContext)
-                                    /*
-                                     let countFetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
-                                     do {
-                                     let newCount = try backgroundContext.count(for: countFetch)
-                                     NSLog("count1 \(newCount)")
-                                     } catch { }
-                                     */
-                                    //var count = 0
-                                    var highestTimestamp = 0;
-                                    for row in rows.rows {
-                                        //print("Row: \(row.id), \(row.lemma), \(row.unit)")
-                                        /*
-                                         if self.hqWordExists(id:row.id)
-                                         {
-                                         NSLog("duplicate \(row.id)")
-                                         continue
-                                         }
-                                         */
-                                        if row.lastupdated > highestTimestamp
-                                        {
-                                            highestTimestamp = row.lastupdated
-                                        }
-                                        
-                                        let newWord = self.getWordObjectOrNew(hqid:row.id, context:backgroundContext)
-                                        
-                                        
-                                        newWord.setValue(self.stripAccent(lemma: row.lemma), forKey: "sortkey")
-                                        
-                                        newWord.setValue(row.id, forKey: "hqid")
-                                        newWord.setValue(row.unit, forKey: "unit")
-                                        newWord.setValue(row.lemma, forKey: "lemma")
-                                        newWord.setValue(row.def, forKey: "def")
-                                        newWord.setValue(row.pos, forKey: "pos")
-                                        newWord.setValue(row.present, forKey: "present")
-                                        newWord.setValue(row.future, forKey: "future")
-                                        newWord.setValue(row.aorist, forKey: "aorist")
-                                        newWord.setValue(row.perfect, forKey: "perfect")
-                                        newWord.setValue(row.perfectmid, forKey: "perfectmid")
-                                        newWord.setValue(row.aoristpass, forKey: "aoristpass")
-                                        newWord.setValue(row.note, forKey: "note")
-                                        newWord.setValue(row.lastupdated, forKey: "lastupdated")
-                                        newWord.setValue(row.seq, forKey: "seq")
-                                    }
-                                    do {
-                                        if backgroundContext.hasChanges
-                                        {
-                                            NSLog("has changes!")
-                                            try backgroundContext.save()
-                                            //NSLog("Count: \(count)")
-                                            if highestTimestamp > timestamp
-                                            {
-                                                UserDefaults.standard.set(highestTimestamp, forKey: "LastUpdated")
-                                                NSLog("New timestamp: \(highestTimestamp)")
-                                            }
-                                        }
-                                    } catch let error as NSError {
-                                        print("failed saving: \(error.localizedDescription)")
-                                    }
-                                    
-                                    let countFetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
-                                    do {
-                                        let newCount = try backgroundContext.count(for: countFetch)
-                                        NSLog("count2 \(newCount)")
-                                    } catch { }
-                                }
-                                
-                            } catch let error as NSError {
-                                print(error.localizedDescription)
-                            }
-                        }
-                    }
-                }
-            }
-            task.resume()
-        }
-        NSLog("End REQUEST")
- */
+        NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:proc)
     }
     
     func login()

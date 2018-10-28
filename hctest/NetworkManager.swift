@@ -39,40 +39,36 @@ class NetworkManager {
         return jsonStr
     }
     
-    func sendReq(urlstr:String, requestData:Dictionary<String, String>)
+    func sendReq(urlstr:String, requestData:Dictionary<String, String>, queueOnFailure:Bool, processResult: @escaping (Dictionary<String, String>, Data)->Bool )
     {
         //let parameters:Dictionary<String, String> = ["wordid": String(wordid), "lang": String(theLang), "device":UIDevice.current.identifierForVendor!.uuidString, "agent":"iOS \(UIDevice.current.systemVersion)",  "screen":"\(UIScreen.main.nativeBounds.height) x \(UIScreen.main.nativeBounds.width)"]
         
-        let isReachable = isNetworkReachable()
+        var newDict = requestData //make a mutable copy
         
-        var newDict = requestData
-        
-        
-        
-        //let unixTimestamp = 1480134638.0
         let utcTimestamp = Date().timeIntervalSince1970
         let date = Date(timeIntervalSince1970: utcTimestamp)
-        //let date = Date(timeIntervalSince1970: unixtimeInterval)
+        
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC") //Set timezone that you want
-        //dateFormatter.locale = NSLocale.current
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" //format compatible with mysql
-        let dateString = dateFormatter.string(from: date)
         
+        let dateString = dateFormatter.string(from: date)
         //print(dateString)
         
+        //get generic properties
         var realVersion = ""
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         {
             realVersion = version
         }
-        
         newDict["appversion"] = realVersion
         newDict["device"] = UIDevice.current.identifierForVendor!.uuidString
         newDict["agent"] = "iOS \(UIDevice.current.systemVersion)"
         newDict["screen"] = "\(UIScreen.main.nativeBounds.height) x \(UIScreen.main.nativeBounds.width)"
         newDict["accessdate"] = dateString
         newDict["error"] = ""
+        
+        let isReachable = isNetworkReachable()
         
         if !isReachable
         {
@@ -87,7 +83,7 @@ class NetworkManager {
         if isReachable
         {
             //print("yes is reachable")
-            let url = URL(string: urlstr)! //change the url
+            let url = URL(string: urlstr)! //change to url type
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             
@@ -97,7 +93,7 @@ class NetworkManager {
             toSend += queue.joined(separator: ",")
             toSend += "]"
             
-            //print("tosend: " + toSend)
+            print("tosend: " + toSend)
             request.httpBody = toSend.data(using: String.Encoding.utf8)
             
             request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
@@ -117,99 +113,45 @@ class NetworkManager {
                         return
                     }
                     
-                    self.addToRequestQueue(req:poststr)
-                    
+                    if queueOnFailure
+                    {
+                        self.addToRequestQueue(req:poststr)
+                    }
                     return
                 }
                 
                 guard let data = data else {
                     return
                 }
-                
-                do {
-                    //create json object from data
-                    if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
-                        //print(json)
-                        
-                        if let statusResult = json["status"] as? Int {
-                            if statusResult == 1
-                            {
-                                if let id:Int = json["gameID"] as? Int
-                                {
-                                    print("game created.  id: " + String(id))
-                                    self.addGame(game:newDict, gameID:id)
-                                }
-                                self.clearQueue()
-                            }
-                            else
-                            {
-                                newDict["error"] = "*2*"
-                                
-                                guard let poststr = self.dictToJSONString(data: newDict) else
-                                {
-                                    return
-                                }
-                                
-                                self.addToRequestQueue(req:poststr)
-                                //print("nope")
-                            }
-                        }
+                //self.clearQueue()
+                //process returned data, clear queue if successful, else add to queue
+                if processResult(newDict, data) == true
+                {
+                    self.clearQueue()
+                }
+                else
+                {
+                    newDict["error"] = "*2*"
+                    
+                    guard let poststr = self.dictToJSONString(data: newDict) else
+                    {
+                        return
                     }
                     
-                } catch let error {
-                    print(error.localizedDescription)
+                    if queueOnFailure
+                    {
+                        self.addToRequestQueue(req:poststr)
+                    }
+                    //print("nope")
                 }
+                
             })
             task.resume()
         }
-        else
+        else if queueOnFailure
         {
             //print("not reachable")
             addToRequestQueue(req:poststr)
-        }
-    }
-    
-    func addGame(game:Dictionary<String, String>, gameID:Int)
-    {
-        let moc = DataManager.shared.backgroundContext!
-        
-        let object = NSEntityDescription.insertNewObject(forEntityName: "HCGame", into: moc) as! HCGame
-        object.gameID = Int32(gameID)
-        object.topUnit = Int16(game["topUnit"]!)!
-        object.timeLimit = Int16(game["timeLimit"]!)!
-        object.player1ID = Int32(game["askPlayerID"]!)!
-        object.player2ID = Int32(game["answerPlayerID"]!)!
-        object.gameState = 1
-        
-        let move = NSEntityDescription.insertNewObject(forEntityName: "HCMoves", into: moc) as! HCMoves
-        move.gameID = Int32(gameID)
-        move.moveID = 1 //first move in new game
-        move.verbID = Int32(game["verbID"]!)!
-        move.person = Int16(game["person"]!)!
-        move.number = Int16(game["number"]!)!
-        move.tense = Int16(game["tense"]!)!
-        move.voice = Int16(game["voice"]!)!
-        move.mood = Int16(game["mood"]!)!
-        
-        do {
-            try moc.save()
-            print("saved moc")
-        } catch {
-            print("couldn't save game")
-        }
-        
-        print("count: \(getGameCount())")
-    }
-    
-    func getGameCount() -> Int
-    {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HCGame")
-        do {
-            let count = try DataManager.shared.mainContext?.count(for:fetchRequest)
-            return count!
-        } catch let error as NSError {
-            print("Error: \(error.localizedDescription)")
-            return 0
         }
     }
  
