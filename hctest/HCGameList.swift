@@ -27,7 +27,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     let animatedScroll = false
     
     let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,56 +40,210 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         datasync()
         tableView.reloadData()
     }
+
     
-    struct HCGameSyncResponse : Codable {
+    func getPlayerObject(playerID: Int, context:NSManagedObjectContext) -> NSManagedObject?
+    {
+        if playerID < 1
+        {
+            return nil
+        }
+        
+        let request: NSFetchRequest<HCPlayer> = HCPlayer.fetchRequest()
+        if #available(iOS 10.0, *) {
+            request.entity = HCPlayer.entity()
+        } else {
+            request.entity = NSEntityDescription.entity(forEntityName: "HCPlayer", in: context)
+        }
+        let pred = NSPredicate(format: "(playerID = %d)", playerID)
+        request.predicate = pred
+        var results:[Any]?
+        do {
+            results = try context.fetch(request as! NSFetchRequest<NSFetchRequestResult>)
+        } catch let error {
+            NSLog("Error: %@", error.localizedDescription)
+            return nil
+        }
+        if results != nil && results!.count > 0
+        {
+            return results?.first as? NSManagedObject
+        }
+        else
+        {
+            return nil
+        }
+    }
+    
+    struct HCGameRow : Codable {
+        let gameID: Int64
+        let player1: Int
+        let player2: Int
+        let topunit: Int
+        let timelimit: Int
+        let gamestate: Int
+        
+        enum CodingKeys : String, CodingKey {
+            case gameID = "gameid"
+            case player1 = "player1"
+            case player2 = "player2"
+            case topunit = "topunit"
+            case timelimit = "timelimit"
+            case gamestate = "gamestate"
+        }
+    }
+    
+    struct HCMoveRow : Codable {
+        let moveID: Int64
+        let gameID: Int64
+        let askPlayerID: Int
+        let answerPlayerID: Int
+        let person: Int
+        let number: Int
+        let tense: Int
+        let voice: Int
+        let mood: Int
+        let verbID: Int
+        
+        enum CodingKeys : String, CodingKey {
+            case moveID = "moveid"
+            case gameID = "gameid"
+            case askPlayerID = "askPlayerID"
+            case answerPlayerID = "answerPlayerID"
+            case person = "person"
+            case number = "number"
+            case tense = "tense"
+            case voice = "voice"
+            case mood = "mood"
+            case verbID = "verbID"
+        }
+    }
+    
+    struct HCPlayerRow : Codable {
+        let playerID: Int
+        let playerName: String
+        
+        enum CodingKeys : String, CodingKey {
+            case playerID = "playerid"
+            case playerName = "playername"
+        }
+    }
+
+    func saveSyncedGames(games:[HCGameRow])
+    {
+        let moc = DataManager.shared.backgroundContext!
+        
+        for game in games
+        {
+            let object = NSEntityDescription.insertNewObject(forEntityName: "HCGame", into: moc) as! HCGame
+            
+            object.gameID = Int64(game.gameID)
+            object.topUnit = Int16(game.topunit)
+            object.timeLimit = Int16(game.timelimit)
+            object.player1ID = Int32(game.player1)
+            object.player2ID = Int32(game.player2)
+            object.gameState = 1
+        }
+
+        do {
+            try moc.save()
+            print("saved moc")
+        } catch {
+            print("couldn't save game")
+        }
+        
+        //print("count: \(getGameCount())")
+    }
+    
+    
+    func saveSyncedMoves(moves:[HCMoveRow])
+    {
+        let moc = DataManager.shared.backgroundContext!
+        
+        for move in moves
+        {
+             let moveObj = NSEntityDescription.insertNewObject(forEntityName: "HCMoves", into: moc) as! HCMoves
+             moveObj.gameID = Int64(move.gameID)
+             moveObj.moveID = Int64(move.moveID)
+             moveObj.verbID = Int32(move.verbID)
+             moveObj.person = Int16(move.person)
+             moveObj.number = Int16(move.number)
+             moveObj.tense = Int16(move.tense)
+             moveObj.voice = Int16(move.voice)
+             moveObj.mood = Int16(move.mood)
+        }
+        
+        do {
+            try moc.save()
+            print("saved moc")
+        } catch {
+            print("couldn't save move")
+        }
+        
+        //print("count: \(getGameCount())")
+    }
+    
+    func saveSyncedPlayers(players:[HCPlayerRow])
+    {
+        let moc = DataManager.shared.backgroundContext!
+        
+        for player in players
+        {
+            let playerObj = NSEntityDescription.insertNewObject(forEntityName: "HCPlayer", into: moc) as! HCPlayer
+            playerObj.playerID = Int32(player.playerID)
+            playerObj.userName = player.playerName
+        }
+        
+        do {
+            try moc.save()
+            print("saved moc")
+        } catch {
+            print("couldn't save player")
+        }
+        
+        //print("count: \(getGameCount())")
+    }
+    
+    struct HCSyncResponse : Codable {
+        /*
         struct Meta : Codable {
             let updated: Int
             enum CodingKeys : String, CodingKey {
                 case updated = "updated"
             }
-        }
-        struct Row : Codable {
-            let id: Int
-            let lemma: String
-            let unit: Int
-            let def: String
-            let pos: String
-            let present:String
-            let future:String
-            let aorist:String
-            let perfect:String
-            let perfectmid:String
-            let aoristpass:String
-            let note:String
-            let lastupdated:Int
-            let seq:Int16
-            enum CodingKeys : String, CodingKey {
-                case id
-                case lemma = "l"
-                case unit = "u"
-                case def = "d"
-                case pos = "ps"
-                case present = "p"
-                case future = "f"
-                case aorist = "a"
-                case perfect = "pe"
-                case perfectmid = "pm"
-                case aoristpass = "ap"
-                case note = "n"
-                case lastupdated = "up"
-                case seq = "s"
-            }
-        }
-        let meta: Meta
-        let rows: [Row]
+        }*/
+
+        //let meta: Meta
+        let status:Int
+        let gameRows: [HCGameRow]
+        let moveRows: [HCMoveRow]
+        let playerRows: [HCPlayerRow]
     }
     
-    func proc(newDict:Dictionary<String, String>, data:Data)->Bool
+    func processResponse(requestParams:Dictionary<String, String>, responseData:Data)->Bool
     {
-        print("getupdates response 222: [\(String(decoding: data, as: UTF8.self))] end")
+        print("getupdates response 222: [\(String(decoding: responseData, as: UTF8.self))] end")
+        
+        let decoder = JSONDecoder()
+        do {
+            let rows = try decoder.decode(HCSyncResponse.self, from: responseData)
+            print("games: \(rows.gameRows.count)")
+            if rows.status != 1
+            {
+                return false
+            }
+            saveSyncedGames(games: rows.gameRows)
+            saveSyncedPlayers(players: rows.playerRows)
+            saveSyncedMoves(moves: rows.moveRows)
+            
+        } catch let error {
+            print("hc sync codeable error: \(error.localizedDescription)")
+            return false
+        }
+        return true
+        /*
         do {
             //create json object from data
-            if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
+            if let json = try JSONSerialization.jsonObject(with: responseData, options: .mutableContainers) as? [String: Any] {
                 print("getupdates response: \(json)")
                 
                 if let statusResult = json["status"] as? Int {
@@ -121,6 +275,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
             print("make json obj \(error.localizedDescription)")
             return false
         }
+        */
     }
     
     func datasync()
@@ -150,12 +305,18 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
          
          xxxselect moves where globalGameID in (my list of active games), pull all higher move ids | where I am a player
  
+         1 moves needs to pull answers too
+         2 we need to pull by timestamp because game scores will be updated...
+         3 make move table, so we can see that.
+         4 add unique constraint
+         
+         insert or update? for all
          */
         print("getupdates 222")
         let url = "https://philolog.us/hc.php"
         let parameters:Dictionary<String, String> = ["type":"getupdates","playerID": String(vUserID),"lastGlobalGameID":String(1),"lastGobalMoveID":String(1)]
         
-        NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:proc)
+        NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:processResponse)
     }
     
     func login()
@@ -259,16 +420,23 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let gw = fetchedResultsController.object(at: indexPath)
-        configureCell(cell, lemma: gw.gameID.description)
+        configureCell(cell, gameID: Int(gw.gameID.description)!, opponentID:Int(gw.player2ID.description)!)
         
         return cell
     }
     
-    func configureCell(_ cell: UITableViewCell, lemma:String) {
+    func configureCell(_ cell: UITableViewCell, gameID:Int, opponentID:Int) {
         //cell.textLabel!.text = event.timestamp!.description
         //cell.textLabel!.text = "\(gw.hqid.description) \(gw.lemma!.description)"
-            cell.textLabel!.text = lemma
-        
+        let moc = DataManager.shared.backgroundContext!
+        if let p = getPlayerObject(playerID: opponentID, context: moc) as? HCPlayer
+        {
+            cell.textLabel!.text = "\(gameID) versus \(p.userName ?? "?")"
+        }
+        else
+        {
+            cell.textLabel!.text = "\(gameID) versus ?"
+        }
     
         //cell.tag = Int(gw.wordid)
         
@@ -348,4 +516,5 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
  */
     }
 }
+
 

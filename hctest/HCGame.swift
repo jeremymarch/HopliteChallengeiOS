@@ -844,7 +844,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         label1.text = ""
     }
     
-    func addGame(game:Dictionary<String, String>, gameID:Int)
+    func addNewGame(game:Dictionary<String, String>, gameID:Int)
     {
         let moc = DataManager.shared.backgroundContext!
         
@@ -901,7 +901,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                         if let id:Int = json["gameID"] as? Int
                         {
                             print("game created.  id: " + String(id))
-                            addGame(game:requestDictionary, gameID:id)
+                            addNewGame(game:requestDictionary, gameID:id)
                         }
                         return true;
                     }

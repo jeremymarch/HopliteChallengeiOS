@@ -87,12 +87,15 @@ class NetworkManager {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             
+            /*
+             //don't use queue for now
             var queue = getQueue()
             queue.append(poststr)
             var toSend = "["
             toSend += queue.joined(separator: ",")
             toSend += "]"
-            
+            */
+            let toSend = "[" + poststr + "]"
             print("tosend: " + toSend)
             request.httpBody = toSend.data(using: String.Encoding.utf8)
             
