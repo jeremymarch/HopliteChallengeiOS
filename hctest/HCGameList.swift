@@ -249,8 +249,10 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
             print("returned lastUpdated \(rows.lastUpdated)")
             setLastUpdated(lastUpdated: Int32(rows.lastUpdated))
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                print("here222")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                print("Refreshed")
+                NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: "GameListFRCCache")
+                self._fetchedResultsController = nil //needed for some reason
                 self.tableView.reloadData()
             }
             
@@ -554,7 +556,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         let sortDescriptor = NSSortDescriptor(key: "globalID", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataManager.shared.mainContext!, sectionNameKeyPath: nil, cacheName: nil)
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataManager.shared.mainContext!, sectionNameKeyPath: nil, cacheName: "GameListFRCCache")
         aFetchedResultsController.delegate = self
         _fetchedResultsController = aFetchedResultsController
         
