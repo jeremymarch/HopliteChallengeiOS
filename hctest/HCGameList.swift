@@ -41,7 +41,6 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         //tableView.reloadData()
     }
 
-    
     func getPlayerObject(playerID: Int, context:NSManagedObjectContext) -> NSManagedObject?
     {
         if playerID < 1
@@ -55,7 +54,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         } else {
             request.entity = NSEntityDescription.entity(forEntityName: "HCPlayer", in: context)
         }
-        let pred = NSPredicate(format: "(playerID = %d)", playerID)
+        let pred = NSPredicate(format: "(globalID = %d)", playerID)
         request.predicate = pred
         var results:[Any]?
         do {
@@ -134,9 +133,11 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         
         for game in games
         {
-            let object = NSEntityDescription.insertNewObject(forEntityName: "HCGame", into: moc) as! HCGame
+            //let object = NSEntityDescription.insertNewObject(forEntityName: "HCGame", into: moc) as! HCGame
             
-            object.gameID = Int64(game.gameID)
+            let object = getCoreDataObjectOrNew(globalID: Int(game.gameID), entityType:"HCGame", context:moc) as! HCGame
+            
+            object.globalID = Int64(game.gameID)
             object.topUnit = Int16(game.topunit)
             object.timeLimit = Int16(game.timelimit)
             object.player1ID = Int32(game.player1)
@@ -161,9 +162,12 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         
         for move in moves
         {
-             let moveObj = NSEntityDescription.insertNewObject(forEntityName: "HCMoves", into: moc) as! HCMoves
+             //let moveObj = NSEntityDescription.insertNewObject(forEntityName: "HCMoves", into: moc) as! HCMoves
+            
+            let moveObj = getCoreDataObjectOrNew(globalID: Int(move.moveID), entityType:"HCMoves", context:moc) as! HCMoves
+            
              moveObj.gameID = Int64(move.gameID)
-             moveObj.moveID = Int64(move.moveID)
+             moveObj.globalID = Int64(move.moveID)
              moveObj.verbID = Int32(move.verbID)
              moveObj.person = Int16(move.person)
              moveObj.number = Int16(move.number)
@@ -190,8 +194,10 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         
         for player in players
         {
-            let playerObj = NSEntityDescription.insertNewObject(forEntityName: "HCPlayer", into: moc) as! HCPlayer
-            playerObj.playerID = Int32(player.playerID)
+            //let playerObj = NSEntityDescription.insertNewObject(forEntityName: "HCPlayer", into: moc) as! HCPlayer
+            
+            let playerObj = getCoreDataObjectOrNew(globalID: Int(player.playerID), entityType:"HCPlayer", context:moc) as! HCPlayer
+            playerObj.globalID = Int32(player.playerID)
             playerObj.userName = player.playerName
         }
         
@@ -545,7 +551,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         // nil for section name key path means "no sections".
         //let appDel = UIApplication.shared.delegate as! AppDelegate
         
-        let sortDescriptor = NSSortDescriptor(key: "gameID", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "globalID", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataManager.shared.mainContext!, sectionNameKeyPath: nil, cacheName: nil)
@@ -568,7 +574,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let gw = fetchedResultsController.object(at: indexPath)
-        configureCell(cell, gameID: Int(gw.gameID.description)!, opponentID:Int(gw.player2ID.description)!)
+        configureCell(cell, gameID: Int(gw.globalID.description)!, opponentID:Int(gw.player2ID.description)!)
         
         return cell
     }

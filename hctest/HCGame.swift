@@ -849,7 +849,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         let moc = DataManager.shared.backgroundContext!
         
         let object = NSEntityDescription.insertNewObject(forEntityName: "HCGame", into: moc) as! HCGame
-        object.gameID = Int64(gameID)
+        object.globalID = Int64(gameID)
         object.topUnit = Int16(game["topUnit"]!)!
         object.timeLimit = Int16(game["timeLimit"]!)!
         object.player1ID = Int32(game["askPlayerID"]!)!
@@ -858,7 +858,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         
         let move = NSEntityDescription.insertNewObject(forEntityName: "HCMoves", into: moc) as! HCMoves
         move.gameID = Int64(gameID)
-        move.moveID = 1 //first move in new game
+        move.globalID = 1 //first move in new game
         move.verbID = Int32(game["verbID"]!)!
         move.person = Int16(game["person"]!)!
         move.number = Int16(game["number"]!)!

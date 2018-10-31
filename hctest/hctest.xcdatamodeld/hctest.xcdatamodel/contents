@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="HCGame" representedClassName="HCGame" syncable="YES" codeGenerationType="class">
-        <attribute name="gameID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="gameState" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="globalID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="player1ID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="player2ID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="timeLimit" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="topUnit" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <fetchIndex name="byGlobalGameIDIndex">
-            <fetchIndexElement property="gameID" type="Binary" order="ascending"/>
+            <fetchIndexElement property="globalID" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
     <entity name="HCMeta" representedClassName="HCMeta" syncable="YES" codeGenerationType="class">
@@ -22,9 +22,9 @@
         <attribute name="askPlayerID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="askTimestamp" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="gameID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="globalID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isCorrect" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="mood" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="moveID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="person" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="tense" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -33,17 +33,17 @@
         <attribute name="verbID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="voice" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <fetchIndex name="byMoveIDIndex">
-            <fetchIndexElement property="moveID" type="Binary" order="ascending"/>
+            <fetchIndexElement property="globalID" type="Binary" order="ascending"/>
         </fetchIndex>
         <fetchIndex name="byGameIDIndex1">
             <fetchIndexElement property="gameID" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
     <entity name="HCPlayer" representedClassName="HCPlayer" syncable="YES" codeGenerationType="class">
-        <attribute name="playerID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="globalID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
         <fetchIndex name="byPropertyIndex">
-            <fetchIndexElement property="playerID" type="Binary" order="ascending"/>
+            <fetchIndexElement property="globalID" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
     <entity name="HCUserProfile" representedClassName="HCUserProfile" syncable="YES" codeGenerationType="class">
