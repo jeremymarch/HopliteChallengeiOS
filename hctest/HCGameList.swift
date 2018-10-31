@@ -38,7 +38,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         login()
         
         datasync()
-        tableView.reloadData()
+        //tableView.reloadData()
     }
 
     
@@ -170,6 +170,8 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
              moveObj.tense = Int16(move.tense)
              moveObj.voice = Int16(move.voice)
              moveObj.mood = Int16(move.mood)
+            moveObj.askPlayerID = Int32(move.askPlayerID)
+            moveObj.answerPlayerID = Int32(move.answerPlayerID)
         }
         
         do {
@@ -214,6 +216,8 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
 
         //let meta: Meta
         let status:Int
+        let lastUpdated:Int
+        let requestLastUpdated:Int
         let gameRows: [HCGameRow]
         let moveRows: [HCMoveRow]
         let playerRows: [HCPlayerRow]
@@ -235,10 +239,21 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
             saveSyncedPlayers(players: rows.playerRows)
             saveSyncedMoves(moves: rows.moveRows)
             
+            
+            print("returned lastUpdated \(rows.lastUpdated)")
+            setLastUpdated(lastUpdated: Int32(rows.lastUpdated))
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                print("here222")
+                self.tableView.reloadData()
+            }
+            
         } catch let error {
             print("hc sync codeable error: \(error.localizedDescription)")
             return false
         }
+
+        
         return true
         /*
         do {
@@ -278,6 +293,135 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         */
     }
     
+    /* using swift generics, only iOS 10+
+    func getWordObjectOrNew<T: NSManagedObject>(hqid: Int, type:T, context:NSManagedObjectContext) -> NSManagedObject
+    {
+        if let w = getWordObject(hqid: hqid, type:type, context:context)
+        {
+            return w
+        }
+        else
+        {
+            let entity = NSEntityDescription.entity(forEntityName: type.entity.name!, in: context)
+            return NSManagedObject(entity: entity!, insertInto: context)
+        }
+    }
+    
+    func getWordObject<T: NSManagedObject>(hqid: Int, type:T, context:NSManagedObjectContext) -> NSManagedObject?
+    {
+        let fetchRequest = T.fetchRequest() as! NSFetchRequest<T>
+        fetchRequest.entity = T.entity()
+        let pred = NSPredicate(format: "(hqid = %d)", hqid)
+        fetchRequest.predicate = pred
+        var results:[Any]?
+        do {
+            results = try context.fetch(fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
+        } catch let error {
+            NSLog("Error: %@", error.localizedDescription)
+            return nil
+        }
+        if results != nil && results!.count > 0
+        {
+            return results?.first as? NSManagedObject
+        }
+        else
+        {
+            return nil
+        }
+    }
+    */
+    
+    func getCoreDataObjectOrNew(globalID: Int, entityType:String, context:NSManagedObjectContext) -> NSManagedObject?
+    {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityType)
+        fetchRequest.predicate = NSPredicate(format: "globalID = %d", globalID)
+        var results:[Any]?
+        do {
+            results = try context.fetch(fetchRequest)
+        } catch let error {
+            NSLog("Error: %@", error.localizedDescription)
+            return nil
+        }
+        
+        if results != nil && results!.count > 0
+        {
+            return results?.first as? NSManagedObject
+        }
+        else
+        {
+            let entity = NSEntityDescription.entity(forEntityName: entityType, in: context)
+            return NSManagedObject(entity: entity!, insertInto: context)
+        }
+    }
+    
+    func getLastUpdated() -> Int32
+    {
+        let moc = DataManager.shared.backgroundContext!
+        
+        let request: NSFetchRequest<HCMeta> = HCMeta.fetchRequest()
+        if #available(iOS 10.0, *) {
+            request.entity = HCMeta.entity()
+        } else {
+            request.entity = NSEntityDescription.entity(forEntityName: "HCMeta", in: moc)
+        }
+        let pred = NSPredicate(format: "(metaID = %d)", 1)
+        request.predicate = pred
+        var results:[Any]?
+        do {
+            results = try moc.fetch(request as! NSFetchRequest<NSFetchRequestResult>)
+        } catch let error {
+            NSLog("Error: %@", error.localizedDescription)
+            return 0
+        }
+        if results != nil && results!.count > 0
+        {
+            let h = results?.first as? HCMeta
+            return h!.lastUpdated
+        }
+        else
+        {
+            return 0
+        }
+    }
+    
+    func setLastUpdated(lastUpdated:Int32)
+    {
+        let moc = DataManager.shared.backgroundContext!
+        
+        let request: NSFetchRequest<HCMeta> = HCMeta.fetchRequest()
+        if #available(iOS 10.0, *) {
+            request.entity = HCMeta.entity()
+        } else {
+            request.entity = NSEntityDescription.entity(forEntityName: "HCMeta", in: moc)
+        }
+        let pred = NSPredicate(format: "(metaID = %d)", 1)
+        request.predicate = pred
+        var results:[Any]?
+        do {
+            results = try moc.fetch(request as! NSFetchRequest<NSFetchRequestResult>)
+        } catch let error {
+            NSLog("Error: %@", error.localizedDescription)
+        }
+        var metaObj:HCMeta?
+        if results != nil && results!.count > 0
+        {
+            metaObj = results?.first as? HCMeta
+        }
+        else
+        {
+            metaObj = NSEntityDescription.insertNewObject(forEntityName: "HCMeta", into: moc) as? HCMeta
+        }
+        metaObj?.metaID = 1
+        metaObj?.lastUpdated = lastUpdated
+        
+        do {
+            try moc.save()
+            print("saved moc")
+        } catch {
+            print("couldn't save player")
+        }
+    }
+    
     func datasync()
     {
         /*
@@ -312,9 +456,13 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
          
          insert or update? for all
          */
+        let timestamp = getLastUpdated()
+        
+        NSLog("Time: \(timestamp)")
+        
         print("getupdates 222")
         let url = "https://philolog.us/hc.php"
-        let parameters:Dictionary<String, String> = ["type":"getupdates","playerID": String(vUserID),"lastGlobalGameID":String(1),"lastGobalMoveID":String(1)]
+        let parameters:Dictionary<String, String> = ["type":"getupdates","playerID": String(vUserID),"lastGlobalGameID":String(1),"lastGobalMoveID":String(1),"lastUpdated":String(timestamp)]
         
         NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:processResponse)
     }

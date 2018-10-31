@@ -156,6 +156,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             request.entity = NSEntityDescription.entity(forEntityName: "HQWords", in: context)
         }
+        
         let pred = NSPredicate(format: "(hqid = %d)", hqid)
         request.predicate = pred
         var results:[Any]?
