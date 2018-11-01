@@ -27,12 +27,29 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     let animatedScroll = false
     
     let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
+    
+    @objc func refresh(_ refreshControl: UIRefreshControl) {
+        // Do your job, when done:
+        datasync()
+        refreshControl.endRefreshing() //move to end of processResponse function?
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        //pull down to refresh
+        //https://stackoverflow.com/questions/10291537/pull-to-refresh-uitableview-without-uitableviewcontroller
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+        
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.backgroundView = refreshControl
+        }
         
         self.navigationItem.title = navTitle
         login()
@@ -76,18 +93,28 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     struct HCGameRow : Codable {
         let gameID: Int64
         let player1: Int
+        let player1Lives: Int
+        let player1Score: Int
         let player2: Int
+        let player2Lives: Int
+        let player2Score: Int
         let topunit: Int
         let timelimit: Int
         let gamestate: Int
+        let lastUpdated: Int32
         
         enum CodingKeys : String, CodingKey {
             case gameID = "gameid"
             case player1 = "player1"
+            case player1Lives = "player1Lives"
+            case player1Score = "player1Score"
             case player2 = "player2"
+            case player2Lives = "player2Lives"
+            case player2Score = "player2Score"
             case topunit = "topunit"
             case timelimit = "timelimit"
             case gamestate = "gamestate"
+            case lastUpdated = "lastUpdated"
         }
     }
     
@@ -141,7 +168,12 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
             object.topUnit = Int16(game.topunit)
             object.timeLimit = Int16(game.timelimit)
             object.player1ID = Int32(game.player1)
+            object.player1Lives = Int16(game.player1Lives)
+            object.player1Score = Int16(game.player1Score)
             object.player2ID = Int32(game.player2)
+            object.player2Lives = Int16(game.player2Lives)
+            object.player2Score = Int16(game.player2Score)
+            object.lastUpdated = Int32(game.lastUpdated)
             object.gameState = 1
         }
 
@@ -553,7 +585,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         // nil for section name key path means "no sections".
         //let appDel = UIApplication.shared.delegate as! AppDelegate
         
-        let sortDescriptor = NSSortDescriptor(key: "globalID", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "lastUpdated", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataManager.shared.mainContext!, sectionNameKeyPath: nil, cacheName: "GameListFRCCache")

@@ -3,13 +3,23 @@
     <entity name="HCGame" representedClassName="HCGame" syncable="YES" codeGenerationType="class">
         <attribute name="gameState" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="globalID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="lastUpdated" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="player1ID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="player1Lives" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="player1Score" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="player2ID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="player2Lives" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="player2Score" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="timeLimit" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="topUnit" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <fetchIndex name="byGlobalGameIDIndex">
             <fetchIndexElement property="globalID" type="Binary" order="ascending"/>
         </fetchIndex>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="globalID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="HCMeta" representedClassName="HCMeta" syncable="YES" codeGenerationType="class">
         <attribute name="lastUpdated" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -38,6 +48,11 @@
         <fetchIndex name="byGameIDIndex1">
             <fetchIndexElement property="gameID" type="Binary" order="ascending"/>
         </fetchIndex>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="globalID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="HCPlayer" representedClassName="HCPlayer" syncable="YES" codeGenerationType="class">
         <attribute name="globalID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -45,6 +60,11 @@
         <fetchIndex name="byPropertyIndex">
             <fetchIndexElement property="globalID" type="Binary" order="ascending"/>
         </fetchIndex>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="globalID"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="HCUserProfile" representedClassName="HCUserProfile" syncable="YES" codeGenerationType="class">
         <attribute name="lastUpdated" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -80,7 +100,7 @@
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="HCGame" positionX="-63" positionY="108" width="128" height="135"/>
+        <element name="HCGame" positionX="-63" positionY="108" width="128" height="210"/>
         <element name="HCMoves" positionX="-54" positionY="117" width="128" height="285"/>
         <element name="HCPlayer" positionX="-36" positionY="126" width="128" height="75"/>
         <element name="HCUserProfile" positionX="-18" positionY="162" width="128" height="90"/>
