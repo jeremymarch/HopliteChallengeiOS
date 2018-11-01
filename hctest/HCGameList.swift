@@ -129,6 +129,10 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         let voice: Int
         let mood: Int
         let verbID: Int
+        let answerText:String?
+        let answerIsCorrect:Bool? //the json should give true, false, or null
+        let answerTimedOut:Bool?
+        let answerSeconds:String?
         
         enum CodingKeys : String, CodingKey {
             case moveID = "moveid"
@@ -141,6 +145,10 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
             case voice = "voice"
             case mood = "mood"
             case verbID = "verbID"
+            case answerText = "answerText"
+            case answerIsCorrect = "answerIsCorrect"
+            case answerTimedOut = "answerTimedOut"
+            case answerSeconds = "answerSeconds"
         }
     }
     
