@@ -201,6 +201,7 @@
                     <connections>
                         <outlet property="tableView" destination="mZt-cn-xM8" id="rzU-bM-M6Q"/>
                         <segue destination="R4j-bh-BrZ" kind="show" identifier="showGameVCFromList" id="oNY-gu-MLL"/>
+                        <segue destination="MS4-eY-o5H" kind="show" identifier="showMovesFromGameList" id="EOv-gj-t2J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gdu-QF-jRC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -809,7 +810,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="SnT-bn-xCC"/>
-        <segue reference="USx-nv-zQl"/>
-        <segue reference="KEO-eF-0Hf"/>
+        <segue reference="EOv-gj-t2J"/>
+        <segue reference="oNY-gu-MLL"/>
     </inferredMetricsTieBreakers>
 </document>

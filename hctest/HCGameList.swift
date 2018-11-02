@@ -651,6 +651,10 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         {
             performSegue(withIdentifier: "showGameVCFromList", sender: self)
         }
+        else
+        {
+            performSegue(withIdentifier: "showMovesFromGameList", sender: self)
+        }
         //let btn = UIButton(type: UIButtonType.custom)
         //btn.tag = indexPath.row
         /*
@@ -709,16 +713,24 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        /*
-        searchTextField?.resignFirstResponder() //works for pad and phone
+        
+        //searchTextField?.resignFirstResponder() //works for pad and phone
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         let indexPath = tableView.indexPathForSelectedRow
         let object = fetchedResultsController.object(at: indexPath!)
-        let wordid = Int(object.hqid)
-        let vd = segue.destination as! VocabDetailViewController
-        vd.hqid = wordid
- */
+        //let wordid = Int(object.hqid)
+        
+        if let vd = segue.destination as? HCGameViewController
+        {
+            print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        }
+        else if let vd = segue.destination as? GameResultsViewController
+        {
+            print("b")
+        }
+        //vd.hqid = wordid
+ 
     }
 }
 
