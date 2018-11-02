@@ -20,6 +20,9 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     let hcDarkBlue:UIColor = UIColor.init(red: 0, green: 0, blue: 110.0/255.0, alpha: 1.0)
     var vUserID = -1
     var navTitle = "Game List"
+    
+    let checkImage = UIImage(named:"greencheck.png")
+    let xImage = UIImage(named:"redx.png")
 
     @IBOutlet var tableView:UITableView!
 
@@ -177,7 +180,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
             object.player2Lives = Int16(game.player2Lives)
             object.player2Score = Int16(game.player2Score)
             object.lastUpdated = Int32(game.lastUpdated)
-            object.gameState = 1
+            object.gameState = Int16(game.gamestate)
         }
 
         do {
@@ -594,15 +597,30 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     }
     var _fetchedResultsController: NSFetchedResultsController<HCGame>? = nil
     
+    func isMyTurn(gamePlayer1:Int, myPlayerID:Int, gameState:Int) -> Bool
+    {
+        if gamePlayer1 == myPlayerID && gameState == 0
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let gw = fetchedResultsController.object(at: indexPath)
-        configureCell(cell, gameID: Int(gw.globalID.description)!, opponentID:Int(gw.player2ID.description)!)
+        
+        let myTurn = isMyTurn(gamePlayer1:Int(gw.player1ID), myPlayerID:vUserID, gameState:Int(gw.gameState))
+        
+        configureCell(cell, gameID: Int(gw.globalID.description)!, myTurn:myTurn, opponentID:Int(gw.player2ID.description)!)
         
         return cell
     }
     
-    func configureCell(_ cell: UITableViewCell, gameID:Int, opponentID:Int) {
+    func configureCell(_ cell: UITableViewCell, gameID:Int, myTurn:Bool, opponentID:Int) {
         //cell.textLabel!.text = event.timestamp!.description
         //cell.textLabel!.text = "\(gw.hqid.description) \(gw.lemma!.description)"
         let moc = DataManager.shared.backgroundContext!
@@ -614,7 +632,10 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         {
             cell.textLabel!.text = "\(gameID) versus ?"
         }
-    
+        
+        let isCorrect : UIImageView = cell.contentView.viewWithTag(105) as! UIImageView
+        isCorrect.image = (myTurn) ? checkImage : xImage
+        
         //cell.tag = Int(gw.wordid)
         
         let bgColorView = UIView()
@@ -623,6 +644,13 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let object = fetchedResultsController.object(at: indexPath)
+        let myTurn = isMyTurn(gamePlayer1:Int(object.player1ID), myPlayerID:vUserID, gameState:Int(object.gameState))
+        
+        if myTurn
+        {
+            performSegue(withIdentifier: "showGameVCFromList", sender: self)
+        }
         //let btn = UIButton(type: UIButtonType.custom)
         //btn.tag = indexPath.row
         /*

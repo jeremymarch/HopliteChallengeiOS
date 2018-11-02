@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3b4-Ch-zZ1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3b4-Ch-zZ1">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -171,6 +171,20 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E2B-og-h4x" id="AMj-Oh-7Ri">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" tag="105" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pii-1y-CRe">
+                                                    <rect key="frame" x="338" y="10" width="22" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="22" id="7tk-LX-N1F"/>
+                                                        <constraint firstAttribute="width" constant="22" id="MnS-xx-LTl"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="pii-1y-CRe" firstAttribute="top" secondItem="AMj-Oh-7Ri" secondAttribute="top" constant="10" id="5io-Dh-Zma"/>
+                                                <constraint firstAttribute="trailing" secondItem="pii-1y-CRe" secondAttribute="trailing" constant="15" id="COl-wT-ur7"/>
+                                                <constraint firstAttribute="bottom" secondItem="pii-1y-CRe" secondAttribute="bottom" constant="11.5" id="NpF-iy-fgx"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -186,11 +200,12 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="mZt-cn-xM8" id="rzU-bM-M6Q"/>
+                        <segue destination="R4j-bh-BrZ" kind="show" identifier="showGameVCFromList" id="oNY-gu-MLL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gdu-QF-jRC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3338.4000000000001" y="1642.128935532234"/>
+            <point key="canvasLocation" x="-3414" y="1757"/>
         </scene>
         <!--Accents View Controller-->
         <scene sceneID="eBI-W1-AhH">
@@ -793,7 +808,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="geA-F4-lDG"/>
+        <segue reference="SnT-bn-xCC"/>
         <segue reference="USx-nv-zQl"/>
+        <segue reference="KEO-eF-0Hf"/>
     </inferredMetricsTieBreakers>
 </document>
