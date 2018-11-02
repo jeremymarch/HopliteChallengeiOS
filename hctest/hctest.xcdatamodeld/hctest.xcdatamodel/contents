@@ -42,14 +42,13 @@
         <attribute name="timedOut" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="verbID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="voice" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <fetchIndex name="byMoveIDIndex">
-            <fetchIndexElement property="globalID" type="Binary" order="ascending"/>
-        </fetchIndex>
         <fetchIndex name="byGameIDIndex1">
             <fetchIndexElement property="gameID" type="Binary" order="ascending"/>
+            <fetchIndexElement property="globalID" type="Binary" order="ascending"/>
         </fetchIndex>
         <uniquenessConstraints>
             <uniquenessConstraint>
+                <constraint value="gameID"/>
                 <constraint value="globalID"/>
             </uniquenessConstraint>
         </uniquenessConstraints>

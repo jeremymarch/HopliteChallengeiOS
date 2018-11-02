@@ -60,11 +60,6 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
 
     func getPlayerObject(playerID: Int, context:NSManagedObjectContext) -> NSManagedObject?
     {
-        if playerID < 1
-        {
-            return nil
-        }
-        
         let request: NSFetchRequest<HCPlayer> = HCPlayer.fetchRequest()
         if #available(iOS 10.0, *) {
             request.entity = HCPlayer.entity()
@@ -100,7 +95,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         let player2Score: Int
         let topunit: Int
         let timelimit: Int
-        let gamestate: Int
+        let gamestate: Int //0 player1's turn, 1, player2's turn, 2 player 1 won, 3 player 2 won, 4 game expired unfinished
         let lastUpdated: Int32
         
         enum CodingKeys : String, CodingKey {
@@ -204,7 +199,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         {
              //let moveObj = NSEntityDescription.insertNewObject(forEntityName: "HCMoves", into: moc) as! HCMoves
             
-            let moveObj = getCoreDataObjectOrNew(globalID: Int(move.moveID), entityType:"HCMoves", context:moc) as! HCMoves
+            let moveObj = getMoveObjectOrNew(gameID: Int(move.gameID), globalID: Int(move.moveID), entityType:"HCMoves", context:moc) as! HCMoves
             
              moveObj.gameID = Int64(move.gameID)
              moveObj.globalID = Int64(move.moveID)
@@ -276,7 +271,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         let decoder = JSONDecoder()
         do {
             let rows = try decoder.decode(HCSyncResponse.self, from: responseData)
-            print("games: \(rows.gameRows.count)")
+            //print("games: \(rows.gameRows.count)")
             if rows.status != 1
             {
                 return false
@@ -301,44 +296,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
             return false
         }
 
-        
         return true
-        /*
-        do {
-            //create json object from data
-            if let json = try JSONSerialization.jsonObject(with: responseData, options: .mutableContainers) as? [String: Any] {
-                print("getupdates response: \(json)")
-                
-                if let statusResult = json["status"] as? Int {
-                    if statusResult == 1
-                    {
-                        if let id:Int = json["gameID"] as? Int
-                        {
-                            print("game created.  id: " + String(id))
-                            //addGame(game:newDict, gameID:id)
-                        }
-                        return true;
-                    }
-                    else
-                    {
-                        return false
-                    }
-                }
-                else
-                {
-                    return false
-                }
-            }
-            else
-            {
-                return false
-            }
-            
-        } catch let error {
-            print("make json obj \(error.localizedDescription)")
-            return false
-        }
-        */
     }
     
     /* using swift generics, only iOS 10+
@@ -383,6 +341,29 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityType)
         fetchRequest.predicate = NSPredicate(format: "globalID = %d", globalID)
+        var results:[Any]?
+        do {
+            results = try context.fetch(fetchRequest)
+        } catch let error {
+            NSLog("Error: %@", error.localizedDescription)
+            return nil
+        }
+        
+        if results != nil && results!.count > 0
+        {
+            return results?.first as? NSManagedObject
+        }
+        else
+        {
+            let entity = NSEntityDescription.entity(forEntityName: entityType, in: context)
+            return NSManagedObject(entity: entity!, insertInto: context)
+        }
+    }
+    
+    func getMoveObjectOrNew(gameID:Int, globalID: Int, entityType:String, context:NSManagedObjectContext) -> NSManagedObject?
+    {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityType)
+        fetchRequest.predicate = NSPredicate(format: "globalID = %d AND gameID = %d", globalID, gameID)
         var results:[Any]?
         do {
             results = try context.fetch(fetchRequest)
@@ -464,9 +445,9 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         
         do {
             try moc.save()
-            print("saved moc")
+            print("saved last updated")
         } catch {
-            print("couldn't save player")
+            print("couldn't save last updated")
         }
     }
     

@@ -272,11 +272,11 @@
 				3F74B2D81FDA55580044B0FC /* CardView.swift */,
 				3F4205351FDDA57200BCA548 /* CardController.swift */,
 				3F286B9E20B3314300F580E6 /* Exercises.swift */,
-				3F7A63CF20B79D9A003D483C /* HCGame.swift */,
 				3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */,
 				3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */,
 				3FCB495720C47A5400FFD266 /* NetworkManager.swift */,
 				3FCB495920C47F9F00FFD266 /* DataManager.swift */,
+				3F7A63CF20B79D9A003D483C /* HCGame.swift */,
 				3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */,
 			);
 			name = HopliteChallenge;

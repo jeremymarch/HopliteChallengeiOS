@@ -869,8 +869,8 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         do {
             try moc.save()
             print("saved moc")
-        } catch {
-            print("couldn't save game")
+        } catch let error as NSError {
+            print("Error saving game: \(error.localizedDescription)")
         }
         
         print("count: \(getGameCount())")
@@ -890,6 +890,9 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
     
     func proc(requestDictionary:Dictionary<String, String>, returnedData:Data)->Bool
     {
+        print("getupdates response 111: [\(String(decoding: returnedData, as: UTF8.self))] end")
+
+        
         do {
             //create json object from data
             if let json = try JSONSerialization.jsonObject(with: returnedData, options: .mutableContainers) as? [String: Any] {
@@ -928,7 +931,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
  
     @objc func continuePressed(button: UIButton) {
         //continueButton.isEnabled = false
-        
+        print("pressed")
         if gameState == .start && button.titleLabel?.text != "Send"
         {
             performSegue(withIdentifier: "ShowVerbChooser", sender: self)
@@ -939,10 +942,10 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         {
             let url = "https://philolog.us/hc.php"
             
-            let parameters:Dictionary<String, String> = ["type":"newgame","askPlayerID": String(1), "answerPlayerID": String(2), "verbID":String(oldSelectedVerb), "person":String(stemLabel.pickerSelected[0]), "number":String(stemLabel.pickerSelected[1]), "tense":String(stemLabel.pickerSelected[2]), "voice":String(stemLabel.pickerSelected[3]), "mood":String(stemLabel.pickerSelected[4]),"topUnit":String(10),"timeLimit":String(30), "gameState":String(0)]
+            let parameters:Dictionary<String, String> = ["type":"newgame","askPlayerID": String(1), "answerPlayerID": String(2), "verbID":String(oldSelectedVerb), "person":String(stemLabel.pickerSelected[0]), "number":String(stemLabel.pickerSelected[1]), "tense":String(stemLabel.pickerSelected[2]), "voice":String(stemLabel.pickerSelected[3]), "mood":String(stemLabel.pickerSelected[4]),"topUnit":String(10),"timeLimit":String(30), "gameState":String(1)]
             
-            NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:true, processResult:proc)
-            
+            NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:proc)
+            print("send new game")
             //get result save global gameid/first move data to db
             //send push notification from server to opponent
             return
