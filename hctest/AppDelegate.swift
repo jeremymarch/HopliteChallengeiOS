@@ -264,9 +264,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 DispatchQueue.main.sync {
                                     //https://stackoverflow.com/questions/46956921/main-thread-checker-ui-api-called-on-a-background-thread-uiapplication-deleg
                                     let backgroundContext = NSManagedObjectContext(concurrencyType:.privateQueueConcurrencyType)
-                                    //backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+                                    backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
                                     //let backgroundContext = self.managedObjectContext
-                                    backgroundContext.mergePolicy = NSRollbackMergePolicy //needed or duplicates x2
+                                    //backgroundContext.mergePolicy = NSRollbackMergePolicy //needed or duplicates x2
                                     if #available(iOS 10.0, *) {
                                         backgroundContext.persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator
                                     }

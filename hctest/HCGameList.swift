@@ -725,9 +725,9 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         {
             print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
         }
-        else if let vd = segue.destination as? GameResultsViewController
+        else if let vd = segue.destination as? MoveListViewController
         {
-            print("b")
+            print("bbbb")
         }
         //vd.hqid = wordid
  

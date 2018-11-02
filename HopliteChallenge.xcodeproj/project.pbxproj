@@ -71,6 +71,7 @@
 		3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAA8D301E6D212900254E97 /* HCTimer.swift */; };
 		3FCB495820C47A5400FFD266 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCB495720C47A5400FFD266 /* NetworkManager.swift */; };
 		3FCB495A20C47F9F00FFD266 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCB495920C47F9F00FFD266 /* DataManager.swift */; };
+		3FF462E3218CC76E005B0629 /* MoveListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF462E2218CC76E005B0629 /* MoveListViewController.swift */; };
 		3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B401E78EF0700144F7D /* MenuViewController.swift */; };
 		3FF71B431E78EF3600144F7D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B421E78EF3600144F7D /* BaseViewController.swift */; };
 		3FF71B451E79EC4700144F7D /* GameHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B441E79EC4700144F7D /* GameHistory.swift */; };
@@ -173,6 +174,7 @@
 		3FCB495720C47A5400FFD266 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		3FCB495920C47F9F00FFD266 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		3FDA3E4720C62703003BAC74 /* HopliteChallenge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HopliteChallenge.entitlements; sourceTree = SOURCE_ROOT; };
+		3FF462E2218CC76E005B0629 /* MoveListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveListViewController.swift; sourceTree = "<group>"; };
 		3FF71B401E78EF0700144F7D /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		3FF71B421E78EF3600144F7D /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		3FF71B441E79EC4700144F7D /* GameHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHistory.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				3FCB495920C47F9F00FFD266 /* DataManager.swift */,
 				3F7A63CF20B79D9A003D483C /* HCGame.swift */,
 				3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */,
+				3FF462E2218CC76E005B0629 /* MoveListViewController.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -598,6 +601,7 @@
 				3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */,
 				3F286B9F20B3314300F580E6 /* Exercises.swift in Sources */,
 				3F3443CB1E6BB2D700FFAD04 /* VerbSequence.c in Sources */,
+				3FF462E3218CC76E005B0629 /* MoveListViewController.swift in Sources */,
 				3F85625A20A9318900FE3EE1 /* HCDeleteButton.swift in Sources */,
 				3F85624F20A9318900FE3EE1 /* HCbutton.swift in Sources */,
 				3F28F7F21FD0C1D4008A69D9 /* VocabDetailViewController.swift in Sources */,

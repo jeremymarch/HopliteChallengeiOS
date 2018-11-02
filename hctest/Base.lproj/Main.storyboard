@@ -201,7 +201,7 @@
                     <connections>
                         <outlet property="tableView" destination="mZt-cn-xM8" id="rzU-bM-M6Q"/>
                         <segue destination="R4j-bh-BrZ" kind="show" identifier="showGameVCFromList" id="oNY-gu-MLL"/>
-                        <segue destination="MS4-eY-o5H" kind="show" identifier="showMovesFromGameList" id="EOv-gj-t2J"/>
+                        <segue destination="dQR-ie-6ix" kind="show" identifier="showMovesFromGameList" id="Cto-04-qiv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gdu-QF-jRC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -807,10 +807,90 @@
             </objects>
             <point key="canvasLocation" x="-4194.3999999999996" y="936.88155922038993"/>
         </scene>
+        <!--Move List View Controller-->
+        <scene sceneID="iKd-75-TCW">
+            <objects>
+                <tableViewController restorationIdentifier="MoveListVC" storyboardIdentifier="MoveListVC" id="dQR-ie-6ix" customClass="MoveListViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="xIz-zH-OGv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GameResultCell" rowHeight="80" id="Ly0-ag-oQs">
+                                <rect key="frame" x="0.0" y="28" width="375" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ly0-ag-oQs" id="gBK-sI-rFo">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Stem" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzR-zi-khO">
+                                            <rect key="frame" x="8" y="0.0" width="322" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Correct Ans" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rf-8a-47b">
+                                            <rect key="frame" x="8" y="29" width="314" height="21"/>
+                                            <fontDescription key="fontDescription" name="NewAthenaUnicode" family="New Athena Unicode" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incorrect Ans" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6L-dT-f8Q">
+                                            <rect key="frame" x="16" y="47" width="108" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="C6L-dT-f8Q" secondAttribute="height" multiplier="103:21" id="ouQ-Wb-eey"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="NewAthenaUnicode" family="New Athena Unicode" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mv0-07-YgC">
+                                            <rect key="frame" x="281" y="50" width="82" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="Mv0-07-YgC" secondAttribute="height" multiplier="38:21" id="CvX-9t-aSa"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" tag="105" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ugl-wB-6n1">
+                                            <rect key="frame" x="337" y="11" width="22" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="22" id="JAp-PY-JlC"/>
+                                                <constraint firstAttribute="width" constant="22" id="a4d-Pt-Pmw"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="8rf-8a-47b" firstAttribute="top" secondItem="hzR-zi-khO" secondAttribute="bottom" constant="8" id="6KQ-Zc-cNC"/>
+                                        <constraint firstItem="Ugl-wB-6n1" firstAttribute="top" secondItem="gBK-sI-rFo" secondAttribute="topMargin" id="6Qf-rJ-SmG"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Mv0-07-YgC" secondAttribute="trailing" constant="4" id="7rU-WN-CsU"/>
+                                        <constraint firstItem="C6L-dT-f8Q" firstAttribute="leading" secondItem="gBK-sI-rFo" secondAttribute="leadingMargin" id="ErS-jL-Tfy"/>
+                                        <constraint firstItem="hzR-zi-khO" firstAttribute="leading" secondItem="gBK-sI-rFo" secondAttribute="leading" constant="8" id="F13-pd-Z9w"/>
+                                        <constraint firstItem="C6L-dT-f8Q" firstAttribute="bottom" secondItem="gBK-sI-rFo" secondAttribute="bottomMargin" id="HuF-qO-iqs"/>
+                                        <constraint firstItem="hzR-zi-khO" firstAttribute="top" secondItem="gBK-sI-rFo" secondAttribute="top" id="KBr-OX-zyy"/>
+                                        <constraint firstItem="8rf-8a-47b" firstAttribute="leading" secondItem="gBK-sI-rFo" secondAttribute="leadingMargin" id="OXf-47-7WY"/>
+                                        <constraint firstItem="C6L-dT-f8Q" firstAttribute="top" secondItem="8rf-8a-47b" secondAttribute="bottom" id="PiY-sW-iNB"/>
+                                        <constraint firstItem="Mv0-07-YgC" firstAttribute="bottom" secondItem="gBK-sI-rFo" secondAttribute="bottomMargin" id="bkc-oR-pXt"/>
+                                        <constraint firstItem="Ugl-wB-6n1" firstAttribute="trailing" secondItem="gBK-sI-rFo" secondAttribute="trailingMargin" id="orp-P0-0vs"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="dQR-ie-6ix" id="x04-oT-8KD"/>
+                            <outlet property="delegate" destination="dQR-ie-6ix" id="D1R-rm-TB0"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3zK-H8-VdV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="481" y="1818"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="SnT-bn-xCC"/>
-        <segue reference="EOv-gj-t2J"/>
+        <segue reference="USx-nv-zQl"/>
         <segue reference="oNY-gu-MLL"/>
     </inferredMetricsTieBreakers>
 </document>
