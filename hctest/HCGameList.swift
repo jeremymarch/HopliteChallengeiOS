@@ -19,7 +19,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     let hcLightBlue:UIColor = UIColor(red: 140/255.0, green: 220/255.0, blue: 255/255.0, alpha: 1.0)
     let hcDarkBlue:UIColor = UIColor.init(red: 0, green: 0, blue: 110.0/255.0, alpha: 1.0)
     var vUserID = -1
-    var navTitle = "Game List"
+    var navTitle = "Hoplite Challenge"
     
     let checkImage = UIImage(named:"greencheck.png")
     let xImage = UIImage(named:"redx.png")
@@ -724,6 +724,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         if let vd = segue.destination as? HCGameViewController
         {
             print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+            //set gameid, moveid, userid
         }
         else if let vd = segue.destination as? MoveListViewController
         {

@@ -198,6 +198,7 @@
                             <constraint firstItem="MtM-8Y-hUh" firstAttribute="top" secondItem="mZt-cn-xM8" secondAttribute="bottom" id="uti-9c-4Az"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="LJw-se-Ucd"/>
                     <connections>
                         <outlet property="tableView" destination="mZt-cn-xM8" id="rzU-bM-M6Q"/>
                         <segue destination="R4j-bh-BrZ" kind="show" identifier="showGameVCFromList" id="oNY-gu-MLL"/>
@@ -276,7 +277,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s7x-re-dSd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2663" y="937"/>
+            <point key="canvasLocation" x="-2380" y="937"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="OX1-Is-INc">
@@ -385,7 +386,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="vaS-p3-EHY"/>
                         <segue destination="y8s-NC-Zzi" kind="show" identifier="SegueToMenu" id="Ltk-qx-3T8"/>
                         <segue destination="GuB-la-JF8" kind="show" identifier="SegueToGameHistory" id="HvO-aN-VxS"/>
                         <segue destination="MS4-eY-o5H" kind="show" identifier="SegueToGameResults" id="USx-nv-zQl"/>
@@ -395,6 +395,7 @@
                         <segue destination="vz5-j1-jgh" kind="show" identifier="ExercisesSegue" id="DIl-yQ-Wde"/>
                         <segue destination="R4j-bh-BrZ" kind="show" identifier="ShowHCGame" id="KEO-eF-0Hf"/>
                         <segue destination="22b-2c-Mgt" kind="show" identifier="showHCGames" id="Ozt-cc-fkV"/>
+                        <segue destination="22b-2c-Mgt" kind="relationship" relationship="rootViewController" id="VZs-Q8-gkM"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UiL-SM-4y8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -891,6 +892,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="SnT-bn-xCC"/>
         <segue reference="USx-nv-zQl"/>
-        <segue reference="oNY-gu-MLL"/>
+        <segue reference="KEO-eF-0Hf"/>
+        <segue reference="VZs-Q8-gkM"/>
     </inferredMetricsTieBreakers>
 </document>
