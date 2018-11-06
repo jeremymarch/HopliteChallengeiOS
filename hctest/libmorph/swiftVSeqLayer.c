@@ -81,6 +81,13 @@ bool checkVFResult(UCS2 *expected, int expectedLen, UCS2 *entered, int enteredLe
     return a;
 }
 
+bool checkVFResultNoSave(UCS2 *expected, int expectedLen, UCS2 *entered, int enteredLen, bool MFPressed)
+{
+    bool a = compareFormsCheckMF(expected, expectedLen, entered, enteredLen, MFPressed);
+    
+    return a;
+}
+
 void swiftResetVerbSeq()
 {
     swiftLayerOptions.isHCGame = true;

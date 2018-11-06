@@ -162,7 +162,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mZt-cn-xM8">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="E2B-og-h4x">
@@ -173,33 +173,47 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="105" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pii-1y-CRe">
-                                                    <rect key="frame" x="338" y="10" width="22" height="22"/>
+                                                    <rect key="frame" x="332" y="7" width="28" height="28"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="22" id="7tk-LX-N1F"/>
-                                                        <constraint firstAttribute="width" constant="22" id="MnS-xx-LTl"/>
+                                                        <constraint firstAttribute="height" constant="28" id="7tk-LX-N1F"/>
+                                                        <constraint firstAttribute="width" constant="28" id="MnS-xx-LTl"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="pii-1y-CRe" firstAttribute="top" secondItem="AMj-Oh-7Ri" secondAttribute="top" constant="10" id="5io-Dh-Zma"/>
-                                                <constraint firstAttribute="trailing" secondItem="pii-1y-CRe" secondAttribute="trailing" constant="15" id="COl-wT-ur7"/>
-                                                <constraint firstAttribute="bottom" secondItem="pii-1y-CRe" secondAttribute="bottom" constant="11.5" id="NpF-iy-fgx"/>
+                                                <constraint firstItem="pii-1y-CRe" firstAttribute="top" secondItem="AMj-Oh-7Ri" secondAttribute="top" constant="7" id="6rf-0K-KTw"/>
+                                                <constraint firstAttribute="bottom" secondItem="pii-1y-CRe" secondAttribute="bottom" constant="8.5" id="Ecg-xH-Mfx"/>
+                                                <constraint firstAttribute="trailing" secondItem="pii-1y-CRe" secondAttribute="trailing" constant="15" id="PJi-eA-UYk"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fmy-a9-YJR">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <color key="backgroundColor" red="0.30496327369999998" green="0.46742949080000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="e2E-W8-gt2"/>
+                                </constraints>
+                                <state key="normal" title="New Game">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="fmy-a9-YJR" firstAttribute="leading" secondItem="vjs-uc-Eox" secondAttribute="leading" id="1BV-a0-ZBV"/>
                             <constraint firstAttribute="trailing" secondItem="mZt-cn-xM8" secondAttribute="trailing" id="K0e-Ov-EE8"/>
+                            <constraint firstAttribute="trailing" secondItem="fmy-a9-YJR" secondAttribute="trailing" id="Ngp-cx-J4T"/>
                             <constraint firstItem="mZt-cn-xM8" firstAttribute="leading" secondItem="vjs-uc-Eox" secondAttribute="leading" id="QjQ-51-C2E"/>
-                            <constraint firstItem="mZt-cn-xM8" firstAttribute="top" secondItem="vjs-uc-Eox" secondAttribute="top" id="g2w-hF-LGo"/>
+                            <constraint firstItem="mZt-cn-xM8" firstAttribute="top" secondItem="fmy-a9-YJR" secondAttribute="bottom" id="S7T-H8-WTv"/>
+                            <constraint firstItem="fmy-a9-YJR" firstAttribute="top" secondItem="7YV-9Z-Kkg" secondAttribute="bottom" id="hu3-Ka-Qah"/>
                             <constraint firstItem="MtM-8Y-hUh" firstAttribute="top" secondItem="mZt-cn-xM8" secondAttribute="bottom" id="uti-9c-4Az"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="LJw-se-Ucd"/>
                     <connections>
+                        <outlet property="newGameButton" destination="fmy-a9-YJR" id="RWZ-ac-iiX"/>
                         <outlet property="tableView" destination="mZt-cn-xM8" id="rzU-bM-M6Q"/>
                         <segue destination="R4j-bh-BrZ" kind="show" identifier="showGameVCFromList" id="oNY-gu-MLL"/>
                         <segue destination="dQR-ie-6ix" kind="show" identifier="showMovesFromGameList" id="Cto-04-qiv"/>
@@ -207,7 +221,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gdu-QF-jRC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3414" y="1757"/>
+            <point key="canvasLocation" x="-3415.1999999999998" y="1756.3718140929536"/>
         </scene>
         <!--Accents View Controller-->
         <scene sceneID="eBI-W1-AhH">
@@ -892,7 +906,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="SnT-bn-xCC"/>
         <segue reference="USx-nv-zQl"/>
-        <segue reference="KEO-eF-0Hf"/>
+        <segue reference="oNY-gu-MLL"/>
         <segue reference="VZs-Q8-gkM"/>
     </inferredMetricsTieBreakers>
 </document>

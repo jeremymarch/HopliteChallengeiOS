@@ -72,6 +72,8 @@
 		3FCB495820C47A5400FFD266 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCB495720C47A5400FFD266 /* NetworkManager.swift */; };
 		3FCB495A20C47F9F00FFD266 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCB495920C47F9F00FFD266 /* DataManager.swift */; };
 		3FF462E3218CC76E005B0629 /* MoveListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF462E2218CC76E005B0629 /* MoveListViewController.swift */; };
+		3FF462E6218D1AA3005B0629 /* circlered.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FF462E4218D1AA2005B0629 /* circlered.png */; };
+		3FF462E7218D1AA3005B0629 /* circlegreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FF462E5218D1AA2005B0629 /* circlegreen.png */; };
 		3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B401E78EF0700144F7D /* MenuViewController.swift */; };
 		3FF71B431E78EF3600144F7D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B421E78EF3600144F7D /* BaseViewController.swift */; };
 		3FF71B451E79EC4700144F7D /* GameHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B441E79EC4700144F7D /* GameHistory.swift */; };
@@ -175,6 +177,8 @@
 		3FCB495920C47F9F00FFD266 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		3FDA3E4720C62703003BAC74 /* HopliteChallenge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HopliteChallenge.entitlements; sourceTree = SOURCE_ROOT; };
 		3FF462E2218CC76E005B0629 /* MoveListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveListViewController.swift; sourceTree = "<group>"; };
+		3FF462E4218D1AA2005B0629 /* circlered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlered.png; sourceTree = "<group>"; };
+		3FF462E5218D1AA2005B0629 /* circlegreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlegreen.png; sourceTree = "<group>"; };
 		3FF71B401E78EF0700144F7D /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		3FF71B421E78EF3600144F7D /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		3FF71B441E79EC4700144F7D /* GameHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHistory.swift; sourceTree = "<group>"; };
@@ -261,6 +265,8 @@
 				3F3443AE1E6BB17700FFAD04 /* LaunchScreen.storyboard */,
 				3F3443A91E6BB17700FFAD04 /* hctest.xcdatamodeld */,
 				3F3443B11E6BB17700FFAD04 /* Info.plist */,
+				3FF462E5218D1AA2005B0629 /* circlegreen.png */,
+				3FF462E4218D1AA2005B0629 /* circlered.png */,
 				3F2BF3C61E6DC8EC00884CDC /* redx.png */,
 				3F2BF3C41E6DC8E200884CDC /* greencheck.png */,
 				3FAA8D2E1E6D046300254E97 /* Life4X.png */,
@@ -469,6 +475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F2BF3C51E6DC8E200884CDC /* greencheck.png in Resources */,
+				3FF462E6218D1AA3005B0629 /* circlered.png in Resources */,
 				3F3443B01E6BB17700FFAD04 /* LaunchScreen.storyboard in Resources */,
 				3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */,
 				3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */,
@@ -478,6 +485,7 @@
 				3F15E1861E85A893009760A0 /* hamburger.png in Resources */,
 				3F1A64721FDA22BE00D38351 /* Podfile in Resources */,
 				3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */,
+				3FF462E7218D1AA3005B0629 /* circlegreen.png in Resources */,
 				3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

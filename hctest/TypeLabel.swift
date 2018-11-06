@@ -18,6 +18,8 @@ class TypeLabel: UILabel {
     var currentStep:Int = 0
     var att:NSMutableAttributedString? = nil
     var attTextColor:UIColor = UIColor.black
+    var onComplete:( ()->Void )? = nil
+    var after:Double = 0.0
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
@@ -25,6 +27,13 @@ class TypeLabel: UILabel {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+    }
+    
+    func hide(duration:TimeInterval, after:Double, onComplete: @escaping ()->Void )
+    {
+        self.onComplete = onComplete
+        self.after = after
+        hide(duration:duration)
     }
 
     func hide(duration:TimeInterval)
@@ -68,6 +77,13 @@ class TypeLabel: UILabel {
         timerDisplayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.default)
     }
     
+    func type(newText:String, duration:TimeInterval, after:Double, onComplete: @escaping ()->Void )
+    {
+        self.onComplete = onComplete
+        self.after = after
+        type(newText:newText, duration:duration)
+    }
+    
     func type(newText:String, duration:TimeInterval)
     {
         if newText.count > 0
@@ -102,6 +118,13 @@ class TypeLabel: UILabel {
             {
                 timerDisplayLink?.invalidate()
                 timerDisplayLink?.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
+                if onComplete != nil
+                {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + self.after) {
+                        self.onComplete!()
+                        //onComplete = nil
+                    }
+                }
             }
         }
     }
@@ -135,6 +158,13 @@ class TypeLabel: UILabel {
                 text = ""
                 attributedText = nil
                 timerDisplayLink = nil
+                if onComplete != nil
+                {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + self.after) {
+                        self.onComplete!()
+                        //onComplete = nil
+                    }
+                }
             }
         }
     }

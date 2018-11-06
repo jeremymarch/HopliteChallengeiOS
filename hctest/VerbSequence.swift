@@ -146,6 +146,22 @@ class VerbSequence {
         lives = maxLives
         score = 0
     }
+
+    func checkVerbNoSave(expectedForm:String, enteredForm:String, mfPressed:Bool) -> Bool
+    {
+        var expectedLen:Int32 = 0
+        let expectedForm1 = stringToUtf16(s: expectedForm, len: &expectedLen)
+        let expectedBuffer = UnsafeMutablePointer<UInt16>(mutating: expectedForm1)
+        
+        var enteredLen:Int32 = 0
+        let enteredForm1 = stringToUtf16(s: enteredForm, len: &enteredLen)
+        let enteredBuffer = UnsafeMutablePointer<UInt16>(mutating: enteredForm1)
+        
+        //pass c string: http://stackoverflow.com/questions/31378120/convert-swift-string-into-cchar-pointer
+        let a = checkVFResultNoSave(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed)
+
+        return a
+    }
     
     func checkVerb(expectedForm:String, enteredForm:String, mfPressed:Bool, time:String) -> Bool
     {

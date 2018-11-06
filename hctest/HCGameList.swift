@@ -21,9 +21,10 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     var vUserID = -1
     var navTitle = "Hoplite Challenge"
     
-    let checkImage = UIImage(named:"greencheck.png")
-    let xImage = UIImage(named:"redx.png")
+    let checkImage = UIImage(named:"circlegreen.png")
+    let xImage = UIImage(named:"circlered.png")
 
+    @IBOutlet var newGameButton:UIButton!
     @IBOutlet var tableView:UITableView!
 
     let highlightSelectedRow = true
@@ -53,6 +54,8 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         } else {
             tableView.backgroundView = refreshControl
         }
+        
+        newGameButton.addTarget(self, action: #selector(newGamePressed(button:)), for: .touchUpInside)
         
         self.navigationItem.title = navTitle
         login()
@@ -416,6 +419,38 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
+    func getLastMoveForGame(gameID:Int) -> HCMoves?
+    {
+        let moc = DataManager.shared.backgroundContext!
+        
+        let request: NSFetchRequest<HCMoves> = HCMoves.fetchRequest()
+        if #available(iOS 10.0, *) {
+            request.entity = HCMoves.entity()
+        } else {
+            request.entity = NSEntityDescription.entity(forEntityName: "HCMoves", in: moc)
+        }
+        let pred = NSPredicate(format: "(gameID = %d)", gameID)
+        request.predicate = pred
+        let sortDescriptor = NSSortDescriptor(key: "globalID", ascending: false)
+        request.sortDescriptors = [sortDescriptor]
+        request.fetchLimit = 1
+        var results:[Any]?
+        do {
+            results = try moc.fetch(request as! NSFetchRequest<NSFetchRequestResult>)
+        } catch let error {
+            NSLog("Error: %@", error.localizedDescription)
+            return nil
+        }
+        if results != nil && results!.count > 0
+        {
+            return results?.first as? HCMoves
+        }
+        else
+        {
+            return nil
+        }
+    }
+    
     func setLastUpdated(lastUpdated:Int32)
     {
         let moc = DataManager.shared.backgroundContext!
@@ -497,6 +532,10 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         let parameters:Dictionary<String, String> = ["type":"getupdates","playerID": String(vUserID),"lastGlobalGameID":String(1),"lastGobalMoveID":String(1),"lastUpdated":String(timestamp)]
         
         NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:processResponse)
+    }
+    
+    @objc func newGamePressed(button: UIButton) {
+        performSegue(withIdentifier: "showGameVCFromList", sender: button)
     }
     
     func login()
@@ -649,11 +688,11 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         
         if myTurn
         {
-            performSegue(withIdentifier: "showGameVCFromList", sender: self)
+            performSegue(withIdentifier: "showGameVCFromList", sender: tableView)
         }
         else
         {
-            performSegue(withIdentifier: "showMovesFromGameList", sender: self)
+            performSegue(withIdentifier: "showMovesFromGameList", sender: tableView)
         }
         //let btn = UIButton(type: UIButtonType.custom)
         //btn.tag = indexPath.row
@@ -717,21 +756,46 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         //searchTextField?.resignFirstResponder() //works for pad and phone
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        let indexPath = tableView.indexPathForSelectedRow
-        let object = fetchedResultsController.object(at: indexPath!)
-        //let wordid = Int(object.hqid)
         
-        if let vd = segue.destination as? HCGameViewController
+        if sender is UIButton //new game
         {
-            print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-            //set gameid, moveid, userid
+            print("new game!")
+            if let vd = segue.destination as? HCGameViewController
+            {
+                vd.gameType = .hcgame
+            }
         }
-        else if let vd = segue.destination as? MoveListViewController
+        else if sender is UITableView
         {
-            print("bbbb")
+            let indexPath = tableView.indexPathForSelectedRow
+            let object = fetchedResultsController.object(at: indexPath!)
+            
+            if let vd = segue.destination as? HCGameViewController
+            {
+                print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                //set gameid, moveid, userid
+                let gameID = Int(object.globalID)
+                if let move = getLastMoveForGame(gameID:gameID)
+                {
+                    let moveID = move.globalID
+                    vd.gameType = .hcgame
+                    vd.moveUserID = vUserID
+                    vd.globalGameID = gameID
+                    vd.globalMoveID = Int(moveID)
+                    vd.movePerson = Int(move.person)
+                    vd.moveNumber = Int(move.number)
+                    vd.moveTense = Int(move.tense)
+                    vd.moveVoice = Int(move.voice)
+                    vd.moveMood = Int(move.mood)
+                    vd.moveVerbID = Int(move.verbID)
+                }
+            }
+            else if let vd = segue.destination as? MoveListViewController
+            {
+                print("bbbb")
+                //just pass gameid
+            }
         }
-        //vd.hqid = wordid
- 
     }
 }
 
