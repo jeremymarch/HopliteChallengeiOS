@@ -638,6 +638,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             self.label1Top = tempCon!
             self.view.bringSubviewToFront(self.checkXView)
             self.view.layoutIfNeeded()
+            
             self.askForForm(erasePreviousForm: false)
         })
     }
@@ -671,7 +672,11 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             self.textViewTop?.isActive = true
             self.view.bringSubviewToFront(self.checkXView)
             self.view.layoutIfNeeded()
-            self.askForForm(erasePreviousForm: false)
+            
+            if self.gameType != .hcgame
+            {
+                self.askForForm(erasePreviousForm: false)
+            }
         })
     }
     
@@ -1163,7 +1168,45 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         else if gameType == .hcgame && button.titleLabel?.text == "Your turn"
         {
             print("your turn pressed")
+            if label2.isHidden == true || label2.text == ""
+            {
+                label1.hide(duration: 0.3)
+                //stemLabel.hide(duration:0.3)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    self.animatetextViewUp()
+                    //self.stemLabel.unlockPicker()
+                    self.stemLabel.setVerbForm(person: self.movePerson, number: self.moveNumber, tense: self.moveTense, voice: self.moveVoice, mood: self.moveMood, locked: false)
+                }
+            }
+            else
+            {
+                label2.hide(duration: 0.3)
+                
+                //stemLabel.hide(duration:0.3)
+                //textView.hide(duration: 0.3)
+                textView.text = ""
+                //stemLabel.unlockPicker()
+                if globalMoveID == 1
+                {
+                    stemLabel.setVerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, locked: false)
+                }
+                else
+                {
+                    stemLabel.setVerbForm(person: lastPerson!, number: lastNumber!, tense: lastTense!, voice: lastVoice!, mood: lastMood!, locked: false)
+                }
+            }
+            checkXView.isHidden = true
+            continueButton.setTitle("Send Move", for: [])
+            continueButton.isEnabled = true
+            
+            return
         }
+        else if gameType == .hcgame && button.titleLabel?.text == "Send Move"
+        {
+            
+            return;
+        }
+        
         checkXView.isHidden = true
         unexpand() //has to be called before getNext()
         let ret = vs.getNext()
