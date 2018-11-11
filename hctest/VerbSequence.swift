@@ -40,7 +40,7 @@ class VerbSequence {
     var repsPerVerb:Int32 = 3
     
     init() {
-        DBInit2()
+        //DBInit2()
         self.givenForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: -1)
         self.requestedForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 0)
         //self.reset()
@@ -66,7 +66,7 @@ class VerbSequence {
         vrbs = [0]
         repsPerVerb = 3
 
-        setVSOptions(persons:per, numbers:num, tenses:ten, voices:voic, moods:moo, verbs:vrbs, shuffle:_shuffle,reps: repsPerVerb)
+        //setVSOptions(persons:per, numbers:num, tenses:ten, voices:voic, moods:moo, verbs:vrbs, shuffle:_shuffle,reps: repsPerVerb)
         
         /*
          game mode:

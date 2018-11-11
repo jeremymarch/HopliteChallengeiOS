@@ -49,6 +49,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
     let checkXView = UIImageView()
     
     var gameType:gameTypes = .practice
+    var gamePlayer1ID = -1
     var globalGameID = -1
     var globalMoveID = -1
     var moveUserID = -1
@@ -58,12 +59,21 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
     var moveVoice = -1
     var moveMood = -1
     var moveVerbID = -1
+    
+    //to use if move was answered, but a new more has not yet been requested
+    var moveAnswerText:String?
+    var moveIsCorrect:Bool?
+    var moveTime:String?
+    var moveTimedOut:Bool?
+    
+    
     var lastPerson:Int? = nil
     var lastNumber:Int? = nil
     var lastTense:Int? = nil
     var lastVoice:Int? = nil
     var lastMood:Int? = nil
     var lastAnswerText:String? = nil
+    var lastIsCorrect:Bool? = nil
 
     
     var hcGameRequestedForm:VerbForm?
@@ -110,7 +120,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
     var paramsToChange = 2
     var difficulty = 0
     
-    var vs:VerbSequence = VerbSequence()
+    var vs:VerbSequence?
     
     func setSelectedVerb(verbID: Int) {
         selectedVerb = verbID
@@ -132,18 +142,21 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        vs.options?.practiceVerbID = Int32(practiceVerbId)
+        
         //vs.options?.units = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
         //vs.options?.numUnits = 20
         
         //prevent swipe to navigate back
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
-        vs.options?.isHCGame = isGame
         
+        vs = VerbSequence() //need this for checkVerb, should move that
         if gameType != .hcgame
         {
-            vs.setVSOptions(persons: personFilter, numbers: numberFilter, tenses: tenseFilter, voices: voiceFilter, moods: moodFilter, verbs: verbIDs, shuffle:true, reps:3)
+            vs?.options?.practiceVerbID = Int32(practiceVerbId)
+            vs?.options?.isHCGame = isGame
+
+            vs?.setVSOptions(persons: personFilter, numbers: numberFilter, tenses: tenseFilter, voices: voiceFilter, moods: moodFilter, verbs: verbIDs, shuffle:true, reps:3)
         }
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
@@ -468,9 +481,36 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                 print("create a new game")
                 stemLabel.isHidden = true
                 continueButton.setTitle("Choose a verb", for: [])
-                
             }
-            else
+            else if moveAnswerText != nil //was answered, but new request hasn't been made yet
+            {
+                //need to get previous move.
+                if globalMoveID == 1 //first move, so starting form is lemma
+                {
+                    label1.text = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: moveVerbID).getForm(decomposed: false)
+                }
+                else
+                {
+                    label1.text = lastAnswerText
+                }
+                stemLabel.setVerbForm(person: movePerson, number: moveNumber, tense: moveTense, voice: moveVoice, mood: moveMood, locked: true)
+                textView.isEditable = false
+                textView.isSelectable = false
+                blockPinch = true
+                textView.text = moveAnswerText
+                checkXView.image = (moveIsCorrect == true) ? checkImg : xImg
+                checkXView.isHidden = false
+                positionCheckX() //not working???
+                
+                if moveIsCorrect == false
+                {
+                    label2.text = VerbForm(person: UInt8(movePerson), number: UInt8(moveNumber), tense: UInt8(moveTense), voice: UInt8(moveVoice), mood: UInt8(moveMood), verb: moveVerbID).getForm(decomposed: false)
+                }
+                
+                continueButton.setTitle("Your turn", for: [])
+                continueButton.isEnabled = true
+            }
+            else //need to answer and then request new form
             {
                 if lastPerson == nil //answering first move of game.
                 {
@@ -521,7 +561,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         else // if not hcgame
         {
             NSLog("hc dbinit")
-            vs.DBInit2()
+            vs?.DBInit2()
         }
         
         if (gameType == .hcgame || gameType == .oldgame) && gameState != .start
@@ -862,11 +902,11 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         var res:Bool?
         if gameType == .hcgame
         {
-            res = vs.checkVerbNoSave(expectedForm: (hcGameRequestedForm?.getForm(decomposed:false))!, enteredForm: textView.text, mfPressed: mfPressed)
+            res = vs?.checkVerbNoSave(expectedForm: (hcGameRequestedForm?.getForm(decomposed:false))!, enteredForm: textView.text, mfPressed: mfPressed)
         }
         else
         {
-            res = vs.checkVerb(expectedForm: (vs.requestedForm?.getForm(decomposed:false))!, enteredForm: textView.text, mfPressed: mfPressed, time: String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB))
+            res = vs?.checkVerb(expectedForm: (vs?.requestedForm?.getForm(decomposed:false))!, enteredForm: textView.text, mfPressed: mfPressed, time: String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB))
         }
         if res! == true
         {
@@ -876,7 +916,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             checkXView.isHidden = false
             if isGame
             {
-                setScore(score: vs.score)
+                setScore(score: vs!.score)
             }
         }
         else
@@ -888,7 +928,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             checkXView.isHidden = false
             if isGame
             {
-                setLives(lives: vs.lives)
+                setLives(lives: vs!.lives)
             }
         }
         
@@ -1079,6 +1119,69 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         print("count: \(getGameCount())")
     }
     
+    func getCoreDataObjectOrNew(globalID: Int, entityType:String, context:NSManagedObjectContext) -> NSManagedObject?
+    {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityType)
+        fetchRequest.predicate = NSPredicate(format: "globalID = %d", globalID)
+        var results:[Any]?
+        do {
+            results = try context.fetch(fetchRequest)
+        } catch let error {
+            NSLog("Error: %@", error.localizedDescription)
+            return nil
+        }
+        
+        if results != nil && results!.count > 0
+        {
+            return results?.first as? NSManagedObject
+        }
+        else
+        {
+            let entity = NSEntityDescription.entity(forEntityName: entityType, in: context)
+            return NSManagedObject(entity: entity!, insertInto: context)
+        }
+    }
+    
+    func addNewMove(move:Dictionary<String, String>, gameID:Int, moveID:Int)
+    {
+        let moc = DataManager.shared.backgroundContext!
+        
+        let moveObj = NSEntityDescription.insertNewObject(forEntityName: "HCMoves", into: moc) as! HCMoves
+        moveObj.gameID = Int64(gameID)
+        moveObj.globalID = Int64(move["moveID"]!)!
+        moveObj.verbID = Int32(move["verbID"]!)!
+        moveObj.person = Int16(move["person"]!)!
+        moveObj.number = Int16(move["number"]!)!
+        moveObj.tense = Int16(move["tense"]!)!
+        moveObj.voice = Int16(move["voice"]!)!
+        moveObj.mood = Int16(move["mood"]!)!
+        
+        moveObj.askPlayerID = Int32(move["askPlayerID"]!)!
+        moveObj.answerPlayerID = Int32(move["answerPlayerID"]!)!
+        
+        let object = getCoreDataObjectOrNew(globalID: Int(gameID), entityType:"HCGame", context:moc) as! HCGame
+        
+        object.globalID = Int64(gameID)
+        if object.player1ID == moveUserID
+        {
+            object.gameState = 1
+        }
+        else
+        {
+            object.gameState = 0
+        }
+        
+        
+        do {
+            try moc.save()
+            print("saved moc")
+        } catch let error as NSError {
+            print("Error saving game: \(error.localizedDescription)")
+        }
+        
+        print("count: \(getGameCount())")
+    }
+    
     func getGameCount() -> Int
     {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HCGame")
@@ -1138,6 +1241,61 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             return false
         }
     }
+    
+    func procRequestMoveResponse(requestDictionary:Dictionary<String, String>, returnedData:Data)->Bool
+    {
+        print("getupdates response 111: [\(String(decoding: returnedData, as: UTF8.self))] end")
+        
+        do {
+            //create json object from data
+            if let json = try JSONSerialization.jsonObject(with: returnedData, options: .mutableContainers) as? [String: Any] {
+                //print(json)
+                
+                if let statusResult = json["status"] as? Int {
+                    if statusResult == 1
+                    {
+                        //insert new move in core data
+                        
+                        addNewMove(move:requestDictionary, gameID:Int(json["gameID"] as! String)!, moveID:Int(json["moveID"] as! String)!)
+                        
+                        /*
+                        if let id:Int = json["gameID"] as? Int
+                        {
+                            print("game created.  id: " + String(id))
+                            addNewGame(game:requestDictionary, gameID:id)
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                                self.continueButton.setTitle("Sent!", for: [])
+                            }
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
+                                self.navigationController?.popViewController(animated: true)
+                            }
+                        }
+                        return true;
+ */
+                    }
+                    else
+                    {
+                        return false
+                    }
+                }
+                else
+                {
+                    return false
+                }
+            }
+            else
+            {
+                return false
+            }
+            
+        } catch let error {
+            print(error.localizedDescription)
+            return false
+        }
+        return false
+    }
  
     @objc func continuePressed(button: UIButton) {
         //continueButton.isEnabled = false
@@ -1168,7 +1326,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         else if gameType == .hcgame && button.titleLabel?.text == "Your turn"
         {
             print("your turn pressed")
-            if label2.isHidden == true || label2.text == ""
+            if label2.isHidden == true || label2.text == "" //is correct
             {
                 label1.hide(duration: 0.3)
                 //stemLabel.hide(duration:0.3)
@@ -1203,15 +1361,30 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         }
         else if gameType == .hcgame && button.titleLabel?.text == "Send Move"
         {
+            let url = "https://philolog.us/hc.php"
             
-            return;
+            var gameState:Int?
+            if gamePlayer1ID == moveUserID
+            {
+                gameState = 1
+            }
+            else
+            {
+                gameState = 0
+            }
+            
+            let parameters:Dictionary<String, String> = ["type":"requestMove","askPlayerID": String(moveUserID),"answerPlayerID": String(2), "verbID":String(moveVerbID), "person":String(stemLabel.pickerSelected[0]), "number":String(stemLabel.pickerSelected[1]), "tense":String(stemLabel.pickerSelected[2]), "voice":String(stemLabel.pickerSelected[3]), "mood":String(stemLabel.pickerSelected[4]), "gameState":String(gameState!),"gameID":String(globalGameID),"moveID":String(globalMoveID+1)]
+            
+            NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:procRequestMoveResponse)
+            
+            return
         }
         
         checkXView.isHidden = true
         unexpand() //has to be called before getNext()
-        let ret = vs.getNext()
+        let ret = vs?.getNext()
         
-        if isGame && vs.lives == 0
+        if isGame && vs?.lives == 0
         {
             label2.hide(duration:0.3)
             //stemLabel.hide(duration:0.3)
@@ -1262,7 +1435,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         {
             mfPressed = true
             mfLabel.isHidden = false
-            if vs.requestedForm?.getForm(decomposed:false).contains(",") == false
+            if vs?.requestedForm?.getForm(decomposed:false).contains(",") == false
             {
                 timerLabel.stopTimer()
                 checkAnswer(timedOut:false)
@@ -1284,8 +1457,8 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         textView.text = ""
         continueButton.setTitle("Continue", for: [])
         gameOverLabel.isHidden = true
-        vs.reset()
-        let _ = vs.getNext()
+        vs?.reset()
+        let _ = vs?.getNext()
         askForForm(erasePreviousForm: true)
         if (isGame)
         {
@@ -1302,15 +1475,15 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         isExpanded = false
         if erasePreviousForm
         {
-            label1.type(newText: (vs.givenForm?.getForm(decomposed: false))!, duration: 0.3)
+            label1.type(newText: (vs?.givenForm?.getForm(decomposed: false))!, duration: 0.3)
         }
         label1.isHidden = false
         
-        let p:UInt8 = vs.requestedForm!.person
-        let n:UInt8 = vs.requestedForm!.number
-        let t:UInt8 = vs.requestedForm!.tense
-        let v:UInt8 = vs.requestedForm!.voice
-        let m:UInt8 = vs.requestedForm!.mood
+        let p:UInt8 = vs!.requestedForm!.person
+        let n:UInt8 = vs!.requestedForm!.number
+        let t:UInt8 = vs!.requestedForm!.tense
+        let v:UInt8 = vs!.requestedForm!.voice
+        let m:UInt8 = vs!.requestedForm!.mood
         
         stemLabel.setVerbForm(person: Int(p), number: Int(n), tense: Int(t), voice: Int(v), mood: Int(m), locked: true)
         //stemLabel.type(newAttributedText: attributedDescription(orig: (vs.givenForm?.getDescription())!, new: (vs.requestedForm?.getDescription())!), duration: 0.3)
@@ -1342,7 +1515,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         }
         else
         {
-            label2.type(newText: (vs.requestedForm?.getForm(decomposed: false))!, duration: 0.3)
+            label2.type(newText: (vs!.requestedForm?.getForm(decomposed: false))!, duration: 0.3)
         }
     }
     
@@ -1379,18 +1552,18 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             return
         }
         NSLog("expand")
-        let a = NSMutableAttributedString.init(string: (vs.givenForm?.getForm(decomposed: true))!)
+        let a = NSMutableAttributedString.init(string: (vs!.givenForm?.getForm(decomposed: true))!)
         label1.attributedText = a
         label1.att = a
         label1.textColor = UIColor.black
         if label2.attributedText?.string == ""
         {
-            textView.text = vs.requestedForm?.getForm(decomposed: true)
+            textView.text = vs!.requestedForm?.getForm(decomposed: true)
             positionCheckX()
         }
         else
         {
-            let b = NSMutableAttributedString.init(string: (vs.requestedForm?.getForm(decomposed: true))!)
+            let b = NSMutableAttributedString.init(string: (vs!.requestedForm?.getForm(decomposed: true))!)
             label2.attributedText = b
             label2.att = b
             label2.textColor = UIColor.black
@@ -1406,19 +1579,19 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         }
         NSLog("unexpand")
         
-        let a = NSMutableAttributedString.init(string: (vs.givenForm?.getForm(decomposed: false))!)
+        let a = NSMutableAttributedString.init(string: (vs!.givenForm?.getForm(decomposed: false))!)
         label1.attributedText = a
         label1.att = a
         label1.textColor = UIColor.black
         
         if label2.attributedText?.string == ""
         {
-            textView.text = vs.requestedForm?.getForm(decomposed: false)
+            textView.text = vs!.requestedForm?.getForm(decomposed: false)
             positionCheckX()
         }
         else
         {
-            let b = NSMutableAttributedString.init(string: (vs.requestedForm?.getForm(decomposed: false))!)
+            let b = NSMutableAttributedString.init(string: (vs!.requestedForm?.getForm(decomposed: false))!)
             label2.attributedText = b
             label2.att = b
             label2.textColor = UIColor.black

@@ -215,6 +215,17 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
              moveObj.tense = Int16(move.tense)
              moveObj.voice = Int16(move.voice)
              moveObj.mood = Int16(move.mood)
+            moveObj.answerGiven = move.answerText
+            if move.answerIsCorrect != nil
+            {
+                moveObj.isCorrect = Bool(move.answerIsCorrect!)
+            }
+            if move.answerTimedOut != nil
+            {
+                moveObj.timedOut = Bool(move.answerTimedOut!)
+            }
+            moveObj.time = move.answerSeconds
+
             moveObj.askPlayerID = Int32(move.askPlayerID)
             moveObj.answerPlayerID = Int32(move.answerPlayerID)
         }
@@ -419,7 +430,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    func getLastMoveForGame(gameID:Int) -> HCMoves?
+    func getLastMoveForGame(gameID:Int, penultimate:Bool) -> HCMoves?
     {
         let moc = DataManager.shared.backgroundContext!
         
@@ -429,11 +440,19 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         } else {
             request.entity = NSEntityDescription.entity(forEntityName: "HCMoves", in: moc)
         }
+
         let pred = NSPredicate(format: "(gameID = %d)", gameID)
         request.predicate = pred
         let sortDescriptor = NSSortDescriptor(key: "globalID", ascending: false)
         request.sortDescriptors = [sortDescriptor]
-        request.fetchLimit = 1
+        if penultimate == true
+        {
+            request.fetchLimit = 2
+        }
+        else
+        {
+            request.fetchLimit = 1
+        }
         var results:[Any]?
         do {
             results = try moc.fetch(request as! NSFetchRequest<NSFetchRequestResult>)
@@ -443,7 +462,14 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         }
         if results != nil && results!.count > 0
         {
-            return results?.first as? HCMoves
+            if penultimate == true
+            {
+                return results?.last as? HCMoves
+            }
+            else
+            {
+                return results?.first as? HCMoves
+            }
         }
         else
         {
@@ -541,8 +567,8 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     func login()
     {
         let defaults = UserDefaults.standard
-        defaults.set(1, forKey: "UserID")
-        defaults.set("jeremy", forKey: "UserName")
+        defaults.set(2, forKey: "UserID")
+        //defaults.set("jeremy", forKey: "UserName")
         //defaults.set(2, forKey: "UserID")
         //defaults.set("william", forKey: "UserName")
         defaults.synchronize()
@@ -638,7 +664,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     
     func isMyTurn(gamePlayer1:Int, myPlayerID:Int, gameState:Int) -> Bool
     {
-        if gamePlayer1 == myPlayerID && gameState == 0
+        if (gamePlayer1 == myPlayerID && gameState == 0) || (gamePlayer1 != myPlayerID && gameState == 1)
         {
             return true
         }
@@ -652,20 +678,30 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let gw = fetchedResultsController.object(at: indexPath)
         
-        let myTurn = isMyTurn(gamePlayer1:Int(gw.player1ID), myPlayerID:vUserID, gameState:Int(gw.gameState))
+        let myTurn = isMyTurn(gamePlayer1:Int(gw.player1ID.description)!, myPlayerID:vUserID, gameState:Int(gw.gameState))
         
-        configureCell(cell, gameID: Int(gw.globalID.description)!, myTurn:myTurn, opponentID:Int(gw.player2ID.description)!)
+        var oppID:Int?
+        if Int(gw.player1ID.description) == vUserID
+        {
+            oppID = Int(gw.player2ID.description)
+        }
+        else
+        {
+            oppID = Int(gw.player1ID.description)
+        }
+        
+        configureCell(cell, gameID: Int(gw.globalID.description)!, myTurn:myTurn, opponentID:oppID!, state:Int(gw.gameState.description)!)
         
         return cell
     }
     
-    func configureCell(_ cell: UITableViewCell, gameID:Int, myTurn:Bool, opponentID:Int) {
+    func configureCell(_ cell: UITableViewCell, gameID:Int, myTurn:Bool, opponentID:Int, state:Int) {
         //cell.textLabel!.text = event.timestamp!.description
         //cell.textLabel!.text = "\(gw.hqid.description) \(gw.lemma!.description)"
         let moc = DataManager.shared.backgroundContext!
         if let p = getPlayerObject(playerID: opponentID, context: moc) as? HCPlayer
         {
-            cell.textLabel!.text = "\(gameID) versus \(p.userName ?? "?")"
+            cell.textLabel!.text = "\(gameID) versus \(p.userName ?? "?"), (\(state))"
         }
         else
         {
@@ -673,7 +709,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         }
         
         let isCorrect : UIImageView = cell.contentView.viewWithTag(105) as! UIImageView
-        isCorrect.image = (myTurn) ? checkImage : xImage
+        isCorrect.image = (myTurn == true) ? checkImage : xImage
         
         //cell.tag = Int(gw.wordid)
         
@@ -775,7 +811,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
                 print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
                 //set gameid, moveid, userid
                 let gameID = Int(object.globalID)
-                if let move = getLastMoveForGame(gameID:gameID)
+                if let move = getLastMoveForGame(gameID:gameID, penultimate:false)
                 {
                     let moveID = move.globalID
                     vd.gameType = .hcgame
@@ -788,6 +824,43 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
                     vd.moveVoice = Int(move.voice)
                     vd.moveMood = Int(move.mood)
                     vd.moveVerbID = Int(move.verbID)
+                    vd.gamePlayer1ID = Int(object.player1ID)
+                    
+                    //check the string for nil rather than bool or number because:
+                    //https://stackoverflow.com/questions/42622638/how-to-represent-core-data-optional-scalars-bool-int-double-float-in-swift
+                    if move.answerGiven != nil //it wasn't answered yet.
+                    {
+                        vd.moveAnswerText = move.answerGiven
+                        vd.moveIsCorrect = move.isCorrect
+                        vd.moveTime = move.time
+                        vd.moveTimedOut = move.timedOut
+                     
+                        print("Already answered! \(vd.moveAnswerText)")
+                        
+                        //if it has been answered then we also need to show
+                        //what the previous form was.
+                        //the move is always the "stem"
+                        if moveID == 1
+                        {
+                            //get lemma
+                            vd.lastPerson = 0
+                            vd.lastNumber = 0
+                            vd.lastTense = 0
+                            vd.lastVoice = 0
+                            vd.lastMood = 0
+                        }
+                        else if let penultimateMove = getLastMoveForGame(gameID:gameID, penultimate:true)
+                        {
+                            //get last correct form
+                            vd.lastPerson = Int(penultimateMove.person)
+                            vd.lastNumber = Int(penultimateMove.number)
+                            vd.lastTense = Int(penultimateMove.tense)
+                            vd.lastVoice = Int(penultimateMove.voice)
+                            vd.lastMood = Int(penultimateMove.mood)
+                            vd.lastAnswerText = penultimateMove.answerGiven
+                            vd.lastIsCorrect = penultimateMove.isCorrect
+                        }
+                    }
                 }
             }
             else if let vd = segue.destination as? MoveListViewController
