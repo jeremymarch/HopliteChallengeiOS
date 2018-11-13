@@ -32,7 +32,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
     var gameState:gameStates = .start
     var kb:KeyboardViewController? = nil
     var selectedVerb = -1
-    var oldSelectedVerb = -1
+    var selectedVerbIndex = -1 //the old verb id before hqid
     var gameOverLabel = UILabel()
     var label1 = TypeLabel()
     var label2 = TypeLabel()
@@ -74,7 +74,6 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
     var lastMood:Int? = nil
     var lastAnswerText:String? = nil
     var lastIsCorrect:Bool? = nil
-
     
     var hcGameRequestedForm:VerbForm?
     
@@ -130,7 +129,9 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
     {
         if selectedVerb > -1
         {
-            label1.type(newText: Verb2.init(verbid: selectedVerb).present, duration: typingDelay)
+            let v = Verb2.init(verbid: selectedVerb)
+            label1.type(newText: v.present, duration: typingDelay)
+            selectedVerbIndex = Int(v.verbId)
         }
         
         stemLabel.isHidden = false
@@ -1315,7 +1316,17 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             
             let url = "https://philolog.us/hc.php"
             
-            let parameters:Dictionary<String, String> = ["type":"newgame","askPlayerID": String(1), "answerPlayerID": String(2), "verbID":String(oldSelectedVerb), "person":String(stemLabel.pickerSelected[0]), "number":String(stemLabel.pickerSelected[1]), "tense":String(stemLabel.pickerSelected[2]), "voice":String(stemLabel.pickerSelected[3]), "mood":String(stemLabel.pickerSelected[4]),"topUnit":String(10),"timeLimit":String(30), "gameState":String(1)]
+            var oppID:Int?
+            if moveUserID == 1
+            {
+                oppID = 2
+            }
+            else
+            {
+                oppID = 1
+            }
+            
+            let parameters:Dictionary<String, String> = ["type":"newgame","askPlayerID": String(moveUserID), "answerPlayerID": String(oppID!), "verbID":String(selectedVerbIndex), "person":String(stemLabel.pickerSelected[0]), "number":String(stemLabel.pickerSelected[1]), "tense":String(stemLabel.pickerSelected[2]), "voice":String(stemLabel.pickerSelected[3]), "mood":String(stemLabel.pickerSelected[4]),"topUnit":String(10),"timeLimit":String(30), "gameState":String(1)]
             
             NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:proc)
             print("send new game")
@@ -1348,10 +1359,15 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                 {
                     stemLabel.setVerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, locked: false)
                 }
-                else
+                else if moveIsCorrect != nil && moveIsCorrect == true
+                {
+                    stemLabel.setVerbForm(person: movePerson, number: moveNumber, tense: moveTense, voice: moveVoice, mood: moveMood, locked: false)
+                }
+                else //change to be last correct form
                 {
                     stemLabel.setVerbForm(person: lastPerson!, number: lastNumber!, tense: lastTense!, voice: lastVoice!, mood: lastMood!, locked: false)
                 }
+                
             }
             checkXView.isHidden = true
             continueButton.setTitle("Send Move", for: [])

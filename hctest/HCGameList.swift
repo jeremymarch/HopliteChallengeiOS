@@ -57,8 +57,8 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         
         newGameButton.addTarget(self, action: #selector(newGamePressed(button:)), for: .touchUpInside)
         
-        self.navigationItem.title = navTitle
         login()
+        self.navigationItem.title = navTitle + " (\(vUserID))"
         
         datasync()
         //tableView.reloadData()
@@ -567,16 +567,23 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     func login()
     {
         let defaults = UserDefaults.standard
-        defaults.set(2, forKey: "UserID")
+        
         //defaults.set("jeremy", forKey: "UserName")
         //defaults.set(2, forKey: "UserID")
         //defaults.set("william", forKey: "UserName")
-        defaults.synchronize()
+        
         
         if let a = UserDefaults.standard.object(forKey: "UserID") as! Int?
         {
             vUserID = a
             print("userID is: \(a)")
+        }
+        else
+        {
+            let newID = 2
+            defaults.set(newID, forKey: "UserID")
+            defaults.synchronize()
+            vUserID = newID
         }
     }
     
@@ -799,6 +806,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
             if let vd = segue.destination as? HCGameViewController
             {
                 vd.gameType = .hcgame
+                vd.moveUserID = vUserID
             }
         }
         else if sender is UITableView

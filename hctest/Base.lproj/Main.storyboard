@@ -208,7 +208,7 @@
                             <constraint firstItem="mZt-cn-xM8" firstAttribute="leading" secondItem="vjs-uc-Eox" secondAttribute="leading" id="QjQ-51-C2E"/>
                             <constraint firstItem="mZt-cn-xM8" firstAttribute="top" secondItem="fmy-a9-YJR" secondAttribute="bottom" id="S7T-H8-WTv"/>
                             <constraint firstItem="fmy-a9-YJR" firstAttribute="top" secondItem="7YV-9Z-Kkg" secondAttribute="bottom" id="hu3-Ka-Qah"/>
-                            <constraint firstItem="MtM-8Y-hUh" firstAttribute="top" secondItem="mZt-cn-xM8" secondAttribute="bottom" id="uti-9c-4Az"/>
+                            <constraint firstAttribute="bottom" secondItem="mZt-cn-xM8" secondAttribute="bottom" id="uti-9c-4Az"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="LJw-se-Ucd"/>
