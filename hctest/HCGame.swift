@@ -50,9 +50,11 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
     
     var gameType:gameTypes = .practice
     var gamePlayer1ID = -1
+    var gamePlayer2ID = -1
     var globalGameID = -1
     var globalMoveID = -1
     var moveUserID = -1
+    var moveOpponentID = -1
     var movePerson = -1
     var moveNumber = -1
     var moveTense = -1
@@ -473,10 +475,65 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         let pinchRecognizer = UIPinchGestureRecognizer(target:self, action:#selector(handlePinch))
         self.view.addGestureRecognizer(pinchRecognizer)
         
+        /*
+         show and hide button to indicate action needed
+         
+         HC Game scenarios:
+         0: New game, choose verb and request first form.
+            Choose opponent.
+            Choose game parameters: time limit, highest unit, repetitions per verb.
+            Choose verb.
+            Choose form.
+            Send move request.
+         
+         1. First move received:
+            show verb lemma,
+            press button to reveal requested form and begin timer.
+            Mark answer correct/incorrect.
+         
+         
+         2. Move received (not first):
+            Show their last answer:
+                set stem to form you requested of them. ("You asked for: ")
+                show their answer to your request. ("They said: ")
+                Mark correct/incorrect.
+         
+            Press continue to make your move.
+                If correct, show their requested stem. If incorrect, go back to last correct form, then show their request from that.
+                Begin timer and you must answer.  Your move is marked correct/incorrect.
+         
+            Now you must request a form.  If correct, from your answer, if incorrect, from the last correct form.
+         
+         3. You've already answered, but did not request a form.  Show your answer.  Indicate correct/incorrect again.  Replace with last correct form if need be.
+ 
+         */
         var intro:String = ""
         var form:String = ""
         if gameType == .hcgame
         {
+            let moc = DataManager.shared.backgroundContext!
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HCMoves")
+            fetchRequest.predicate = NSPredicate(format: "gameID = %d", globalGameID)
+            var results:[HCMoves]?
+            do {
+                results = try moc.fetch(fetchRequest) as? [HCMoves]
+            } catch let error {
+                NSLog("Error: %@", error.localizedDescription)
+            }
+            
+            if results != nil && results!.count > 0
+            {
+                for match in results!
+                {
+                    print("Moves: \(match.globalID), ask: \(match.askPlayerID), ans: \(match.answerPlayerID), isC: \(match.isCorrect) answer: \(String(describing: match.answerGiven))")
+                        
+                }
+                //return results?.first as? NSManagedObject
+            }
+            
+            
+            
+            print("move count: \(getMoveCount(entity: "HCMoves", gameID: globalGameID))")
             if  moveVerbID < 0 //create new game
             {
                 print("create a new game")
@@ -873,13 +930,16 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         if textView.text.count > 0
         {
             offset = (sizeOfString(v: textView).width / 2) + 20
+            //print("position 1: \(offset), \(UIScreen.main.bounds.width / 2)")
         }
         //make sure it doesn't go off the screen
-        if offset > textView.bounds.width / 2
+        if offset > UIScreen.main.bounds.width / 2
         {
-            offset = (textView.bounds.width / 2) - checkXView.bounds.width
+            offset = (UIScreen.main.bounds.width / 2) - (checkXView.frame.size.width * 2 /*this isn't working*/)
+            //print("position 2: \(offset)")
         }
         checkXXOffset?.constant = offset
+        //print("position 3: \(offset)")
         //NSLog("Width: \(textView.bounds.width), \(sizeOfString(v: textView).width), \(offset)")
     }
     
@@ -982,7 +1042,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                 print("couldn't save move")
             }
         }
-        //print("count: \(getGameCount())")
+        //print("count: \(getEntityCount(entity:"HCGame"))")
     }
     
     func getMoveObject(gameID:Int, globalID: Int, entityType:String, context:NSManagedObjectContext) -> NSManagedObject?
@@ -1117,7 +1177,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             print("Error saving game: \(error.localizedDescription)")
         }
         
-        print("count: \(getGameCount())")
+        print("count: \(getEntityCount(entity:"HCGame"))")
     }
     
     func getCoreDataObjectOrNew(globalID: Int, entityType:String, context:NSManagedObjectContext) -> NSManagedObject?
@@ -1180,12 +1240,25 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             print("Error saving game: \(error.localizedDescription)")
         }
         
-        print("count: \(getGameCount())")
+        print("count: \(getEntityCount(entity: "HCGame"))")
     }
     
-    func getGameCount() -> Int
+    func getEntityCount(entity:String) -> Int
     {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HCGame")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        do {
+            let count = try DataManager.shared.mainContext?.count(for:fetchRequest)
+            return count!
+        } catch let error as NSError {
+            print("Error: \(error.localizedDescription)")
+            return 0
+        }
+    }
+    
+    func getMoveCount(entity:String, gameID:Int) -> Int
+    {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        fetchRequest.predicate = NSPredicate(format: "gameID = %d", gameID)
         do {
             let count = try DataManager.shared.mainContext?.count(for:fetchRequest)
             return count!
@@ -1259,22 +1332,13 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                         
                         addNewMove(move:requestDictionary, gameID:Int(json["gameID"] as! String)!, moveID:Int(json["moveID"] as! String)!)
                         
-                        /*
-                        if let id:Int = json["gameID"] as? Int
-                        {
-                            print("game created.  id: " + String(id))
-                            addNewGame(game:requestDictionary, gameID:id)
-                            
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                                self.continueButton.setTitle("Sent!", for: [])
-                            }
-                            
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
-                                self.navigationController?.popViewController(animated: true)
-                            }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                            self.continueButton.setTitle("Sent!", for: [])
                         }
-                        return true;
- */
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
+                            self.navigationController?.popViewController(animated: true)
+                        }
                     }
                     else
                     {
@@ -1316,17 +1380,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             
             let url = "https://philolog.us/hc.php"
             
-            var oppID:Int?
-            if moveUserID == 1
-            {
-                oppID = 2
-            }
-            else
-            {
-                oppID = 1
-            }
-            
-            let parameters:Dictionary<String, String> = ["type":"newgame","askPlayerID": String(moveUserID), "answerPlayerID": String(oppID!), "verbID":String(selectedVerbIndex), "person":String(stemLabel.pickerSelected[0]), "number":String(stemLabel.pickerSelected[1]), "tense":String(stemLabel.pickerSelected[2]), "voice":String(stemLabel.pickerSelected[3]), "mood":String(stemLabel.pickerSelected[4]),"topUnit":String(10),"timeLimit":String(30), "gameState":String(1)]
+            let parameters:Dictionary<String, String> = ["type":"newgame","askPlayerID": String(moveUserID), "answerPlayerID": String(moveOpponentID), "verbID":String(selectedVerbIndex), "person":String(stemLabel.pickerSelected[0]), "number":String(stemLabel.pickerSelected[1]), "tense":String(stemLabel.pickerSelected[2]), "voice":String(stemLabel.pickerSelected[3]), "mood":String(stemLabel.pickerSelected[4]),"topUnit":String(10),"timeLimit":String(30), "gameState":String(1)]
             
             NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:proc)
             print("send new game")
@@ -1336,9 +1390,10 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         }
         else if gameType == .hcgame && button.titleLabel?.text == "Your turn"
         {
-            print("your turn pressed")
-            if label2.isHidden == true || label2.text == "" //is correct
+            print("your turn pressed111")
+            if label2.isHidden == true || label2.text == nil || label2.text == "" //is correct
             {
+                print("here1234567")
                 label1.hide(duration: 0.3)
                 //stemLabel.hide(duration:0.3)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
@@ -1349,6 +1404,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             }
             else
             {
+                print("herexyz")
                 label2.hide(duration: 0.3)
                 
                 //stemLabel.hide(duration:0.3)
@@ -1388,8 +1444,8 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             {
                 gameState = 0
             }
-            
-            let parameters:Dictionary<String, String> = ["type":"requestMove","askPlayerID": String(moveUserID),"answerPlayerID": String(2), "verbID":String(moveVerbID), "person":String(stemLabel.pickerSelected[0]), "number":String(stemLabel.pickerSelected[1]), "tense":String(stemLabel.pickerSelected[2]), "voice":String(stemLabel.pickerSelected[3]), "mood":String(stemLabel.pickerSelected[4]), "gameState":String(gameState!),"gameID":String(globalGameID),"moveID":String(globalMoveID+1)]
+
+            let parameters:Dictionary<String, String> = ["type":"requestMove","askPlayerID": String(moveUserID),"answerPlayerID": String(moveOpponentID), "verbID":String(moveVerbID), "person":String(stemLabel.pickerSelected[0]), "number":String(stemLabel.pickerSelected[1]), "tense":String(stemLabel.pickerSelected[2]), "voice":String(stemLabel.pickerSelected[3]), "mood":String(stemLabel.pickerSelected[4]), "gameState":String(gameState!),"gameID":String(globalGameID),"moveID":String(globalMoveID+1)]
             
             NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:procRequestMoveResponse)
             

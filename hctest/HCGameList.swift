@@ -572,7 +572,6 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         //defaults.set(2, forKey: "UserID")
         //defaults.set("william", forKey: "UserName")
         
-        
         if let a = UserDefaults.standard.object(forKey: "UserID") as! Int?
         {
             vUserID = a
@@ -580,7 +579,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         }
         else
         {
-            let newID = 2
+            let newID = 1
             defaults.set(newID, forKey: "UserID")
             defaults.synchronize()
             vUserID = newID
@@ -807,6 +806,16 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
             {
                 vd.gameType = .hcgame
                 vd.moveUserID = vUserID
+                
+                //fix me temporary
+                if vUserID == 1
+                {
+                    vd.moveOpponentID = 2
+                }
+                else
+                {
+                    vd.moveOpponentID = 1
+                }
             }
         }
         else if sender is UITableView
@@ -833,6 +842,8 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
                     vd.moveMood = Int(move.mood)
                     vd.moveVerbID = Int(move.verbID)
                     vd.gamePlayer1ID = Int(object.player1ID)
+                    vd.gamePlayer2ID = Int(object.player2ID)
+                    vd.moveOpponentID = (vd.gamePlayer1ID == vUserID) ? vd.gamePlayer2ID : vd.gamePlayer1ID
                     
                     //check the string for nil rather than bool or number because:
                     //https://stackoverflow.com/questions/42622638/how-to-represent-core-data-optional-scalars-bool-int-double-float-in-swift
@@ -844,30 +855,29 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
                         vd.moveTimedOut = move.timedOut
                      
                         print("Already answered! \(vd.moveAnswerText)")
-                        
-                        //if it has been answered then we also need to show
-                        //what the previous form was.
-                        //the move is always the "stem"
-                        if moveID == 1
-                        {
-                            //get lemma
-                            vd.lastPerson = 0
-                            vd.lastNumber = 0
-                            vd.lastTense = 0
-                            vd.lastVoice = 0
-                            vd.lastMood = 0
-                        }
-                        else if let penultimateMove = getLastMoveForGame(gameID:gameID, penultimate:true)
-                        {
-                            //get last correct form
-                            vd.lastPerson = Int(penultimateMove.person)
-                            vd.lastNumber = Int(penultimateMove.number)
-                            vd.lastTense = Int(penultimateMove.tense)
-                            vd.lastVoice = Int(penultimateMove.voice)
-                            vd.lastMood = Int(penultimateMove.mood)
-                            vd.lastAnswerText = penultimateMove.answerGiven
-                            vd.lastIsCorrect = penultimateMove.isCorrect
-                        }
+                    }
+                    //if it has been answered then we also need to show
+                    //what the previous form was.
+                    //the move is always the "stem"
+                    if moveID == 1
+                    {
+                        //get lemma
+                        vd.lastPerson = 0
+                        vd.lastNumber = 0
+                        vd.lastTense = 0
+                        vd.lastVoice = 0
+                        vd.lastMood = 0
+                    }
+                    else if let penultimateMove = getLastMoveForGame(gameID:gameID, penultimate:true)
+                    {
+                        //get last correct form
+                        vd.lastPerson = Int(penultimateMove.person)
+                        vd.lastNumber = Int(penultimateMove.number)
+                        vd.lastTense = Int(penultimateMove.tense)
+                        vd.lastVoice = Int(penultimateMove.voice)
+                        vd.lastMood = Int(penultimateMove.mood)
+                        vd.lastAnswerText = penultimateMove.answerGiven
+                        vd.lastIsCorrect = penultimateMove.isCorrect
                     }
                 }
             }

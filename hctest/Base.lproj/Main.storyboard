@@ -182,7 +182,6 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="pii-1y-CRe" firstAttribute="top" secondItem="AMj-Oh-7Ri" secondAttribute="top" constant="7" id="6rf-0K-KTw"/>
-                                                <constraint firstAttribute="bottom" secondItem="pii-1y-CRe" secondAttribute="bottom" constant="8.5" id="Ecg-xH-Mfx"/>
                                                 <constraint firstAttribute="trailing" secondItem="pii-1y-CRe" secondAttribute="trailing" constant="15" id="PJi-eA-UYk"/>
                                             </constraints>
                                         </tableViewCellContentView>
