@@ -27,6 +27,7 @@ class HCTimer: UILabel {
     
     func startTimer()
     {
+        self.show()
         if countDown == true
         {
             self.text = String.init(format: "%.02f sec", countDownTime)
@@ -97,4 +98,12 @@ class HCTimer: UILabel {
         }
     }
     
+    func hide()
+    {
+        self.isHidden = true
+    }
+    func show()
+    {
+        self.isHidden = false
+    }
 }

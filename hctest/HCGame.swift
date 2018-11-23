@@ -286,6 +286,11 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             quitButton.addTarget(self, action: #selector(goBackToVerbDetail), for: UIControl.Event.touchUpInside)
         }
         
+        if gameType == .hcgame
+        {
+            quitButton.isHidden = true
+        }
+        
         headerView.addSubview(scoreLabel)
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 0.0).isActive = true
@@ -297,6 +302,11 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         scoreLabel.text = "0"
         scoreLabel.textAlignment = NSTextAlignment.left
         scoreLabel.font = headerFont
+        
+        if gameType == .hcgame
+        {
+            scoreLabel.isHidden = true
+        }
         
         headerView.addSubview(gameOverLabel)
         gameOverLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -351,6 +361,13 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         life3.heightAnchor.constraint(equalToConstant: lifeSize).isActive = true
         life3.widthAnchor.constraint(equalToConstant: lifeSize).isActive = true
         life3.image = life1i
+        
+        if gameType == .hcgame
+        {
+            life1.isHidden = true
+            life2.isHidden = true
+            life3.isHidden = true
+        }
         
         view.addSubview(label1)
         label1.translatesAutoresizingMaskIntoConstraints = false
@@ -1423,7 +1440,13 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
     @objc func continuePressed(button: UIButton) {
         //continueButton.isEnabled = false
         print("pressed")
-        if gameType == .hcgame && button.titleLabel?.text == "Choose a verb"
+        if gameType == .hcgame && button.titleLabel?.text == "Game Over"
+        {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+        else if gameType == .hcgame && button.titleLabel?.text == "Choose a verb"
         {
             performSegue(withIdentifier: "ShowVerbChooser", sender: self)
             //start()
@@ -1449,8 +1472,10 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         else if gameType == .hcgame && button.titleLabel?.text == "Your turn"
         {
             print("your turn pressed111")
+            timerLabel.hide()
             if label2.isHidden == true || label2.text == nil || label2.text == "" //is correct
             {
+                
                 print("here1234567")
                 label1.hide(duration: 0.3)
                 //stemLabel.hide(duration:0.3)
@@ -1491,6 +1516,9 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         }
         else if gameType == .hcgame && button.titleLabel?.text == "Send Move"
         {
+            continueButton.isEnabled = false
+            continueButton.setTitle("Sending...", for: [])
+            
             let url = "https://philolog.us/hc.php"
             
             var gameState:Int?
