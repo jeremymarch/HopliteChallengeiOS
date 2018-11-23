@@ -61,6 +61,10 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
     var moveVoice = -1
     var moveMood = -1
     var moveVerbID = -1
+    var hcGameMylives = 0
+    var hcGameMyScore = 0
+    var hcGameOpplives = 0
+    var hcGameOppScore = 0
     
     //to use if move was answered, but a new more has not yet been requested
     var moveAnswerText:String?
@@ -432,6 +436,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         
         kb = KeyboardViewController() //kb needs to be member variable of vc
         kb?.appExt = false
+        kb?.unicodeMode = 3
         
         var portraitHeight:CGFloat = 222.0
         var landscapeHeight:CGFloat = 157.0
@@ -526,12 +531,9 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                 for match in results!
                 {
                     print("Moves: \(match.globalID), ask: \(match.askPlayerID), ans: \(match.answerPlayerID), isC: \(match.isCorrect) answer: \(String(describing: match.answerGiven))")
-                        
                 }
                 //return results?.first as? NSManagedObject
             }
-            
-            
             
             print("move count: \(getMoveCount(entity: "HCMoves", gameID: globalGameID))")
             if  moveVerbID < 0 //create new game
@@ -975,7 +977,11 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             
             checkXView.image = checkImg
             checkXView.isHidden = false
-            if isGame
+            if gameType == .hcgame
+            {
+                hcGameMyScore = hcGameMyScore + 1
+            }
+            else if isGame
             {
                 setScore(score: vs!.score)
             }
@@ -987,7 +993,11 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             NSLog("no!")
             checkXView.image = xImg
             checkXView.isHidden = false
-            if isGame
+            if gameType == .hcgame
+            {
+                hcGameMylives = hcGameMylives - 1
+            }
+            else if isGame
             {
                 setLives(lives: vs!.lives)
             }
@@ -995,13 +1005,18 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         
         if gameType == .hcgame
         {
+            var isPlayer1 = false
+            if moveUserID == gamePlayer1ID
+            {
+                isPlayer1 = true
+            }
             //send result to server
             let url = "https://philolog.us/hc.php"
-            let parameters:Dictionary<String, String> = ["type":"moveAnswer","playerID": String(moveUserID),"moveID":String(globalMoveID),"gameID":String(globalGameID),"answerText":String(textView.text),"isCorrect":String(res!),"answerSeconds":String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB),"timedOut":String(timedOut)]
+            let parameters:Dictionary<String, String> = ["type":"moveAnswer","playerID": String(moveUserID),"moveID":String(globalMoveID),"gameID":String(globalGameID),"answerText":String(textView.text),"isCorrect":String(res!),"answerSeconds":String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB),"timedOut":String(timedOut),"lives":String(hcGameMylives),"score":String(hcGameMyScore),"isPlayer1":String(isPlayer1)]
             
             NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:processResponse)
             
-            saveMoves(gameID:globalGameID, moveID:globalMoveID, isCorrect:res!, answerText:textView.text, answerSeconds:String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB), timedOut:timedOut)
+            saveMoves(gameID:globalGameID, moveID:globalMoveID, isCorrect:res!, answerText:textView.text, answerSeconds:String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB), timedOut:timedOut, lives:hcGameMylives, score:hcGameMyScore, isPlayer1:isPlayer1)
             
             //prompt user request changes
             continueButton.setTitle("Your turn", for: [])
@@ -1009,21 +1024,49 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         }
     }
     
-    func saveMoves(gameID:Int, moveID:Int, isCorrect:Bool, answerText:String, answerSeconds:String, timedOut:Bool)
+    func saveMoves(gameID:Int, moveID:Int, isCorrect:Bool, answerText:String, answerSeconds:String, timedOut:Bool, lives:Int, score:Int, isPlayer1:Bool)
     {
         let moc = DataManager.shared.backgroundContext!
         
         //let moveObj = NSEntityDescription.insertNewObject(forEntityName: "HCMoves", into: moc) as! HCMoves
         
+        let gameObj = getCoreDataObjectOrNew(globalID: gameID, entityType: "HCGame", context: moc)
+        
         let moveObj = getMoveObject(gameID: Int(gameID), globalID: moveID, entityType:"HCMoves", context:moc) as? HCMoves
     
-        if moveObj != nil
+        if moveObj != nil && gameObj != nil
         {
             moveObj!.answerGiven = answerText
             moveObj!.isCorrect = isCorrect
             moveObj!.time = answerSeconds
             moveObj!.timedOut = timedOut
-        /*
+            
+            //save lives and score
+            //gamestate is only updated if this is end of game, else it is updated when next move is requested
+            let g = gameObj! as! HCGame
+            if isPlayer1
+            {
+                g.player1Lives = Int16(lives)
+                g.player1Score = Int16(score)
+            }
+            else
+            {
+                g.player2Lives = Int16(lives)
+                g.player2Score = Int16(score)
+            }
+            
+            if lives < 1
+            {
+                if isPlayer1
+                {
+                    g.gameState = 3 //player2 won
+                }
+                else
+                {
+                    g.gameState = 2 //player1 won
+                }
+            }
+                /*
             moveObj.gameID = Int64(move.gameID)
             moveObj.globalID = Int64(move.moveID)
             moveObj.verbID = Int32(move.verbID)

@@ -28,6 +28,9 @@
 		3F28F7F21FD0C1D4008A69D9 /* VocabDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */; };
 		3F2BF3C51E6DC8E200884CDC /* greencheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C41E6DC8E200884CDC /* greencheck.png */; };
 		3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C61E6DC8EC00884CDC /* redx.png */; };
+		3F304EC321A75C2D0046A6C4 /* circlegrey.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F304EC121A75C2D0046A6C4 /* circlegrey.png */; };
+		3F304EC421A75C2D0046A6C4 /* circleorange.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F304EC221A75C2D0046A6C4 /* circleorange.png */; };
+		3F304EC621A75C380046A6C4 /* circleblue.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F304EC521A75C380046A6C4 /* circleblue.png */; };
 		3F3443A31E6BB17700FFAD04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */; };
 		3F3443A51E6BB17700FFAD04 /* HopliteChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443A41E6BB17700FFAD04 /* HopliteChallenge.swift */; };
 		3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443A61E6BB17700FFAD04 /* Main.storyboard */; };
@@ -110,6 +113,9 @@
 		3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabDetailViewController.swift; sourceTree = "<group>"; };
 		3F2BF3C41E6DC8E200884CDC /* greencheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greencheck.png; sourceTree = "<group>"; };
 		3F2BF3C61E6DC8EC00884CDC /* redx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redx.png; sourceTree = "<group>"; };
+		3F304EC121A75C2D0046A6C4 /* circlegrey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlegrey.png; sourceTree = "<group>"; };
+		3F304EC221A75C2D0046A6C4 /* circleorange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleorange.png; sourceTree = "<group>"; };
+		3F304EC521A75C380046A6C4 /* circleblue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleblue.png; sourceTree = "<group>"; };
 		3F34439F1E6BB17700FFAD04 /* HopliteChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HopliteChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F3443A41E6BB17700FFAD04 /* HopliteChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HopliteChallenge.swift; sourceTree = "<group>"; };
@@ -243,6 +249,9 @@
 		3F3443A11E6BB17700FFAD04 /* HopliteChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				3F304EC521A75C380046A6C4 /* circleblue.png */,
+				3F304EC121A75C2D0046A6C4 /* circlegrey.png */,
+				3F304EC221A75C2D0046A6C4 /* circleorange.png */,
 				3FDA3E4720C62703003BAC74 /* HopliteChallenge.entitlements */,
 				3F3443B71E6BB25C00FFAD04 /* libmorph */,
 				3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */,
@@ -478,11 +487,14 @@
 				3FF462E6218D1AA3005B0629 /* circlered.png in Resources */,
 				3F3443B01E6BB17700FFAD04 /* LaunchScreen.storyboard in Resources */,
 				3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */,
+				3F304EC321A75C2D0046A6C4 /* circlegrey.png in Resources */,
 				3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */,
 				3F85625020A9318900FE3EE1 /* LICENSE in Resources */,
 				3F286BA120B3F3E800F580E6 /* HQEx.xml in Resources */,
+				3F304EC421A75C2D0046A6C4 /* circleorange.png in Resources */,
 				3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */,
 				3F15E1861E85A893009760A0 /* hamburger.png in Resources */,
+				3F304EC621A75C380046A6C4 /* circleblue.png in Resources */,
 				3F1A64721FDA22BE00D38351 /* Podfile in Resources */,
 				3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */,
 				3FF462E7218D1AA3005B0629 /* circlegreen.png in Resources */,

@@ -23,6 +23,9 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     
     let checkImage = UIImage(named:"circlegreen.png")
     let xImage = UIImage(named:"circlered.png")
+    let circleBlue = UIImage(named:"circleblue.png")
+    let circleGrey = UIImage(named:"circlegrey.png")
+    let circleOrange = UIImage(named:"circleorange.png")
 
     @IBOutlet var newGameButton:UIButton!
     @IBOutlet var tableView:UITableView!
@@ -101,7 +104,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         let player2Score: Int
         let topunit: Int
         let timelimit: Int
-        let gamestate: Int //0 player1's turn, 1, player2's turn, 2 player 1 won, 3 player 2 won, 4 game expired unfinished
+        let gamestate: Int //0 player1's turn, 1 player2's turn, 2 player 1 won, 3 player 2 won, 4 game expired unfinished
         let lastUpdated: Int32
         
         enum CodingKeys : String, CodingKey {
@@ -612,6 +615,8 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        _fetchedResultsController = nil
+        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -687,36 +692,67 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         let myTurn = isMyTurn(gamePlayer1:Int(gw.player1ID.description)!, myPlayerID:vUserID, gameState:Int(gw.gameState))
         
         var oppID:Int?
+        var isPlayer1 = false
         if Int(gw.player1ID.description) == vUserID
         {
             oppID = Int(gw.player2ID.description)
+            isPlayer1 = true
         }
         else
         {
             oppID = Int(gw.player1ID.description)
         }
         
-        configureCell(cell, gameID: Int(gw.globalID.description)!, myTurn:myTurn, opponentID:oppID!, state:Int(gw.gameState.description)!)
+        configureCell(cell, gameID: Int(gw.globalID.description)!, myTurn:myTurn, opponentID:oppID!, state:Int(gw.gameState.description)!, lives1:Int(gw.player1Lives.description)!, lives2:Int(gw.player2Lives.description)!, score1:Int(gw.player1Score.description)!,score2:Int(gw.player2Score.description)!, isPlayer1:isPlayer1)
         
         return cell
     }
     
-    func configureCell(_ cell: UITableViewCell, gameID:Int, myTurn:Bool, opponentID:Int, state:Int) {
+    func configureCell(_ cell: UITableViewCell, gameID:Int, myTurn:Bool, opponentID:Int, state:Int, lives1:Int, lives2:Int, score1:Int,score2:Int,isPlayer1:Bool) {
         //cell.textLabel!.text = event.timestamp!.description
         //cell.textLabel!.text = "\(gw.hqid.description) \(gw.lemma!.description)"
         let moc = DataManager.shared.backgroundContext!
         if let p = getPlayerObject(playerID: opponentID, context: moc) as? HCPlayer
         {
-            cell.textLabel!.text = "\(gameID) versus \(p.userName ?? "?"), (\(state))"
+            var oppLives = lives1
+            var oppScore = score1
+            var myLives = lives2
+            var myScore = score2
+            if isPlayer1
+            {
+                oppLives = lives2
+                oppScore = score2
+                myLives = lives1
+                myScore = score1
+            }
+            
+            cell.textLabel!.text = "\(gameID)(\(myLives),\(myScore)) vs. \(p.userName ?? "?")(\(oppLives),\(oppScore)) - (st:\(state))"
         }
         else
         {
-            cell.textLabel!.text = "\(gameID) versus ?"
+            cell.textLabel!.text = "\(gameID) vs. ?"
         }
         
         let isCorrect : UIImageView = cell.contentView.viewWithTag(105) as! UIImageView
-        isCorrect.image = (myTurn == true) ? checkImage : xImage
-        
+        if state < 2
+        {
+            isCorrect.image = (myTurn == true) ? checkImage : xImage
+        }
+        else if state == 4 //expired
+        {
+            isCorrect.image = circleGrey
+        }
+        else
+        {
+            if isPlayer1 && state == 2
+            {
+                isCorrect.image = circleBlue //I won
+            }
+            else
+            {
+                isCorrect.image = circleOrange //you won
+            }
+        }
         //cell.tag = Int(gw.wordid)
         
         let bgColorView = UIView()
@@ -821,13 +857,13 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         else if sender is UITableView
         {
             let indexPath = tableView.indexPathForSelectedRow
-            let object = fetchedResultsController.object(at: indexPath!)
+            let gameObject = fetchedResultsController.object(at: indexPath!)
             
             if let vd = segue.destination as? HCGameViewController
             {
                 print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
                 //set gameid, moveid, userid
-                let gameID = Int(object.globalID)
+                let gameID = Int(gameObject.globalID)
                 if let move = getLastMoveForGame(gameID:gameID, penultimate:false)
                 {
                     let moveID = move.globalID
@@ -841,9 +877,25 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
                     vd.moveVoice = Int(move.voice)
                     vd.moveMood = Int(move.mood)
                     vd.moveVerbID = Int(move.verbID)
-                    vd.gamePlayer1ID = Int(object.player1ID)
-                    vd.gamePlayer2ID = Int(object.player2ID)
-                    vd.moveOpponentID = (vd.gamePlayer1ID == vUserID) ? vd.gamePlayer2ID : vd.gamePlayer1ID
+                    vd.gamePlayer1ID = Int(gameObject.player1ID)
+                    vd.gamePlayer2ID = Int(gameObject.player2ID)
+                    let isPlayer1 = (vd.gamePlayer1ID == vUserID)
+                    vd.moveOpponentID = (isPlayer1 == true) ? vd.gamePlayer2ID : vd.gamePlayer1ID
+                    
+                    if isPlayer1 == true
+                    {
+                        vd.hcGameMylives = Int(gameObject.player1Lives)
+                        vd.hcGameOpplives = Int(gameObject.player2Lives)
+                        vd.hcGameMyScore = Int(gameObject.player1Score)
+                        vd.hcGameOppScore = Int(gameObject.player2Score)
+                    }
+                    else
+                    {
+                        vd.hcGameMylives = Int(gameObject.player2Lives)
+                        vd.hcGameOpplives = Int(gameObject.player1Lives)
+                        vd.hcGameMyScore = Int(gameObject.player2Score)
+                        vd.hcGameOppScore = Int(gameObject.player1Score)
+                    }
                     
                     //check the string for nil rather than bool or number because:
                     //https://stackoverflow.com/questions/42622638/how-to-represent-core-data-optional-scalars-bool-int-double-float-in-swift

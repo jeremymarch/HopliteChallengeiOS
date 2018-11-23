@@ -126,8 +126,11 @@ if (is_array($decoded) && !empty($decoded) )
         }
         else if ($type == "moveAnswer")
         {
+            $isPlayer1 = ($row->isPlayer1 == "true") ? TRUE : FALSE;
             $gameID = $row->gameID;
             $moveID = $row->moveID;
+            $lives = $row->lives;
+            $score = $row->score;
             $playerID = $row->playerID;
             $answerIsCorrect = ($row->isCorrect == "true") ? 1 : 0;
             $answerSeconds = $conn->real_escape_string($row->answerSeconds);
@@ -156,8 +159,9 @@ if (is_array($decoded) && !empty($decoded) )
         {
             case "newgame":
                 $moveID = 1;
+                $startingNumLives = 3;
                 $conn->query("BEGIN");
-                $newGameQuery = sprintf("INSERT INTO hcgames VALUES (NULL,%u,%u,%u,%u,0,0,0,0,%u,NULL);", $topUnit, $timeLimit, $askPlayerID, $answerPlayerID, $gameState);
+                $newGameQuery = sprintf("INSERT INTO hcgames VALUES (NULL,%u,%u,%u,%u,%u,%u,0,0,%u,NULL);", $topUnit, $timeLimit, $askPlayerID, $answerPlayerID, $startingNumLives, $startingNumLives, $gameState);
                 
                 if ( $conn->query($newGameQuery) !== FALSE)
                 {
@@ -197,7 +201,7 @@ if (is_array($decoded) && !empty($decoded) )
                 $gameRows = [];
                 $moveRows = [];
                 $playerRows = [];
-                $getGamesQuery = sprintf("SELECT gameid,player1,player2,topunit,timelimit,gamestate,UNIX_TIMESTAMP(lastUpdated) AS lastUpdated FROM hcgames WHERE UNIX_TIMESTAMP(lastUpdated) > %s AND (player1 = %s OR player2 = %s) LIMIT 500;", $requestLastUpdated, $userID, $userID);
+                $getGamesQuery = sprintf("SELECT gameid,player1,player2,topunit,timelimit,gamestate,UNIX_TIMESTAMP(lastUpdated) AS lastUpdated,player1Lives,player2Lives,player1Score,player2Score FROM hcgames WHERE UNIX_TIMESTAMP(lastUpdated) > %s AND (player1 = %s OR player2 = %s) LIMIT 500;", $requestLastUpdated, $userID, $userID);
                 //echo $getGamesQuery;
                 $res = $conn->query($getGamesQuery);
                 if ( $res )
@@ -327,6 +331,39 @@ if (is_array($decoded) && !empty($decoded) )
                     $conn->query("ROLLBACK");
                     exit(1);
                 }
+                
+                //FIX ME: if lives are 0 we need to update hcgames.gamestate to gave over
+                $player = ($isPlayer1 === TRUE) ? "1" : "2";
+                
+                $gameOver = "";
+                if ($lives < 0)
+                {
+                    if ($isPlayer1 === TRUE)
+                    {
+                        $gameOver = "SET gameState=3"; //player2 won
+                    }
+                    else
+                    {
+                        $gameOver = "SET gameState=2"; //player1 won
+                    }
+                }
+                $answerGameQuery = sprintf("UPDATE hcgames SET player%sLives=%s, player%sScore=%s %s WHERE gameid=%s LIMIT 1;", $player, $lives, $player, $score, $gameOver, $gameID); 
+                
+                if ( $conn->query($answerGameQuery) !== FALSE)
+                {
+
+                }
+                else
+                {
+                    $success = 0;
+                    $jsonResponse  = new \stdClass();
+                    $jsonResponse->status = $success;
+                    $jsonResponse->sql = $answerMoveQuery;
+                    $jsonResponse->error = $conn->error();
+                    echo json_encode($jsonResponse);  
+                    $conn->query("ROLLBACK");
+                    exit(1);
+                }
               
                 $conn->query("COMMIT");
                 
@@ -374,7 +411,7 @@ if (is_array($decoded) && !empty($decoded) )
                 
                 break;
             default:
-                $success = 0;
+                send404();
                 break;
         }
 
