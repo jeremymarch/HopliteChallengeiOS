@@ -2,12 +2,6 @@
 $reportErrors = FALSE;
 $requirePost = TRUE;
 
-/*
-1. handle requestMove in app and server
-
-2. handle move answered in app, but no request in return
-*/
-
 ob_start("ob_gzhandler");
 if ($reportErrors)
 {
@@ -58,6 +52,8 @@ if ($requirePost)
 
 //Receive the RAW post data.
 $content = trim(file_get_contents("php://input"));
+
+//$content = '[{"type" : "moveAnswer","answerSeconds" : "3.45 sec","accessdate" : "2018-11-23 20:39:26","isPlayer1" : "true","error" : "","answerText" : "γγ","appversion" : "1.0","gameID" : "140","screen" : "2436.0 x 1125.0","lives" : "0","timedOut" : "false","score" : "0","device" : "5506B663-ED80-4A9D-BCF2-23D1FB5DD89E","moveID" : "6","playerID" : "1","isCorrect" : "false","agent" : "iOS 12.1"}]';
 
 //$content = '[{"appversion" : "1.0","screen" : "1334.0 x 750.0","type" : "getupdates","device" : "CBDCE61E-54AF-4D75-A99A-3CD3F55ED4D2","accessdate" : "2018-11-11 06:13:32","lastGlobalGameID" : "1","lastGobalMoveID" : "1","playerID" : "2","lastUpdated" : "0","error" : "","agent" : "iOS 12.1"}]';
 
@@ -315,7 +311,7 @@ if (is_array($decoded) && !empty($decoded) )
             case "moveAnswer":
                 $conn->query("BEGIN");
                 $answerMoveQuery = sprintf("UPDATE hcmoves SET answerIsCorrect=%s, answerText='%s', answerSeconds='%s', answerSeconds2='%s', answerTimedOut=%s, answerTimestamp=%s, answerIP='%s', answerDevice='%s', answerScreen='%s', answerOSVersion='%s', answerAppVersion='%s', answerError=%s WHERE gameid=%s AND moveid=%s LIMIT 1;",  $answerIsCorrect, $answerText, $answerSeconds, $answerSeconds2, $answerTimedOut, "NOW()", $ip, $device, $screen, $agent, $appversion, "NULL", $gameID, $moveID); //add where answerUserID = userID
-                
+
                 if ( $conn->query($answerMoveQuery) !== FALSE)
                 {
 
@@ -336,19 +332,19 @@ if (is_array($decoded) && !empty($decoded) )
                 $player = ($isPlayer1 === TRUE) ? "1" : "2";
                 
                 $gameOver = "";
-                if ($lives < 0)
+                if ($lives < 1)
                 {
                     if ($isPlayer1 === TRUE)
                     {
-                        $gameOver = "SET gameState=3"; //player2 won
+                        $gameOver = ", gamestate=3 "; //player2 won
                     }
                     else
                     {
-                        $gameOver = "SET gameState=2"; //player1 won
+                        $gameOver = ", gamestate=2 "; //player1 won
                     }
                 }
-                $answerGameQuery = sprintf("UPDATE hcgames SET player%sLives=%s, player%sScore=%s %s WHERE gameid=%s LIMIT 1;", $player, $lives, $player, $score, $gameOver, $gameID); 
-                
+                $answerGameQuery = sprintf("UPDATE hcgames SET player%sLives=%u, player%sScore=%u %s WHERE gameid=%u LIMIT 1;", $player, $lives, $player, $score, $gameOver, $gameID); 
+
                 if ( $conn->query($answerGameQuery) !== FALSE)
                 {
 
@@ -370,7 +366,7 @@ if (is_array($decoded) && !empty($decoded) )
                 $success = 1;
                 $jsonResponse  = new \stdClass();
                 $jsonResponse->status = $success;
-                echo json_encode($jsonResponse);     
+                echo json_encode($jsonResponse);
                 break;
             case "requestMove":
 

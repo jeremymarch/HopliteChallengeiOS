@@ -726,7 +726,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
                 myScore = score1
             }
             
-            cell.textLabel!.text = "\(gameID)(\(myLives),\(myScore)) vs. \(p.userName ?? "?")(\(oppLives),\(oppScore)) - (st:\(state))"
+            cell.textLabel!.text = "\(gameID)(\(myLives),\(myScore)) vs. \(p.userName ?? "?")(\(oppLives),\(oppScore)) - (s:\(state))"
         }
         else
         {
@@ -734,17 +734,17 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         }
         
         let isCorrect : UIImageView = cell.contentView.viewWithTag(105) as! UIImageView
-        if state < 2
+        if state < 2 //active game, someone's turn
         {
             isCorrect.image = (myTurn == true) ? checkImage : xImage
         }
-        else if state == 4 //expired
+        else if state == 4 //game expired
         {
             isCorrect.image = circleGrey
         }
         else
         {
-            if isPlayer1 && state == 2
+            if (isPlayer1 && state == 2) || (!isPlayer1 && state == 3)
             {
                 isCorrect.image = circleBlue //I won
             }

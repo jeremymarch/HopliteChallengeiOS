@@ -475,6 +475,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         */
         kb?.setButtons(keys: keys) //has to be after set as inputView
         
+        continueButton.isEnabled = false //start disabled
         continueButton.addTarget(self, action: #selector(continuePressed(button:)), for: .touchUpInside)
         
         let pinchRecognizer = UIPinchGestureRecognizer(target:self, action:#selector(handlePinch))
@@ -516,6 +517,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         var form:String = ""
         if gameType == .hcgame
         {
+            //debug: print out all moves for game
             let moc = DataManager.shared.backgroundContext!
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HCMoves")
             fetchRequest.predicate = NSPredicate(format: "gameID = %d", globalGameID)
@@ -536,13 +538,16 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             }
             
             print("move count: \(getMoveCount(entity: "HCMoves", gameID: globalGameID))")
+            //end debug print
+            
             if  moveVerbID < 0 //create new game
             {
                 print("create a new game")
                 stemLabel.isHidden = true
                 continueButton.setTitle("Choose a verb", for: [])
+                continueButton.isEnabled = true
             }
-            else if moveAnswerText != nil //was answered, but new request hasn't been made yet
+            else if moveAnswerText != nil //move was answered, but new request hasn't been made yet
             {
                 //need to get previous move.
                 if globalMoveID == 1 //first move, so starting form is lemma
@@ -569,24 +574,26 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                 
                 continueButton.setTitle("Your turn", for: [])
                 continueButton.isEnabled = true
+                continueButton.isHidden = false
             }
             else //need to answer and then request new form
             {
-                if lastPerson == nil //answering first move of game.
+                if globalMoveID == 1 //answering first move of game.
                 {
-                    
                     //the verb is x
                     //give x form
                     intro = "The verb is: "
                     form = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: moveVerbID).getForm(decomposed: false)
                 }
-                else if lastPerson != nil //answering subsequent moves
+                else
                 {
                     //the last form was x
                     //change to y
                     intro = "The last form was: "
                     form = VerbForm(person: UInt8(lastPerson!), number: UInt8(lastNumber!), tense: UInt8(lastTense!), voice: UInt8(lastVoice!), mood: UInt8(lastMood!), verb: moveVerbID).getForm(decomposed: false)
                 }
+                continueButton.isHidden = true
+                
                 stemLabel.isHidden = true
                 stemLabel.setVerbForm(person: movePerson, number: moveNumber, tense: moveTense, voice: moveVoice, mood: moveMood, locked: true)
                 
@@ -1019,8 +1026,16 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             saveMoves(gameID:globalGameID, moveID:globalMoveID, isCorrect:res!, answerText:textView.text, answerSeconds:String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB), timedOut:timedOut, lives:hcGameMylives, score:hcGameMyScore, isPlayer1:isPlayer1)
             
             //prompt user request changes
-            continueButton.setTitle("Your turn", for: [])
-            continueButton.isEnabled = true
+            if hcGameMylives == 0
+            {
+                continueButton.setTitle("Game Over", for: [])
+                continueButton.isEnabled = false
+            }
+            else
+            {
+                continueButton.setTitle("Your turn", for: [])
+                continueButton.isEnabled = true
+            }
         }
     }
     
