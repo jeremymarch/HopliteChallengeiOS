@@ -1091,7 +1091,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             {
                 if isPlayer1
                 {
-                    g.gameState = 3 //player2 won
+                    g.gameState = 2 //player2 won
                 }
                 else
                 {

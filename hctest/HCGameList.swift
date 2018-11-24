@@ -104,7 +104,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         let player2Score: Int
         let topunit: Int
         let timelimit: Int
-        let gamestate: Int //0 player1's turn, 1 player2's turn, 2 player 1 won, 3 player 2 won, 4 game expired unfinished
+        let gamestate: Int //0 player1's turn, 1 player2's turn, 2 game over, 3 game expired
         let lastUpdated: Int32
         
         enum CodingKeys : String, CodingKey {
@@ -645,7 +645,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         let fetchRequest: NSFetchRequest<HCGame> = HCGame.fetchRequest()
         
         // Set the batch size to a suitable number.
-        fetchRequest.fetchBatchSize = 20
+        fetchRequest.fetchBatchSize = 40
         
         // Edit the sort key as appropriate.
         
@@ -653,8 +653,9 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         // nil for section name key path means "no sections".
         //let appDel = UIApplication.shared.delegate as! AppDelegate
         
-        let sortDescriptor = NSSortDescriptor(key: "lastUpdated", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
+        let sortDescriptor1 = NSSortDescriptor(key: "gameState", ascending: true)
+        let sortDescriptor2 = NSSortDescriptor(key: "lastUpdated", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor1,sortDescriptor2]
         
         let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataManager.shared.mainContext!, sectionNameKeyPath: nil, cacheName: "GameListFRCCache")
         aFetchedResultsController.delegate = self
@@ -712,20 +713,19 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         //cell.textLabel!.text = event.timestamp!.description
         //cell.textLabel!.text = "\(gw.hqid.description) \(gw.lemma!.description)"
         let moc = DataManager.shared.backgroundContext!
+        var oppLives = lives1
+        var oppScore = score1
+        var myLives = lives2
+        var myScore = score2
+        if isPlayer1
+        {
+            oppLives = lives2
+            oppScore = score2
+            myLives = lives1
+            myScore = score1
+        }
         if let p = getPlayerObject(playerID: opponentID, context: moc) as? HCPlayer
         {
-            var oppLives = lives1
-            var oppScore = score1
-            var myLives = lives2
-            var myScore = score2
-            if isPlayer1
-            {
-                oppLives = lives2
-                oppScore = score2
-                myLives = lives1
-                myScore = score1
-            }
-            
             cell.textLabel!.text = "\(gameID)(\(myLives),\(myScore)) vs. \(p.userName ?? "?")(\(oppLives),\(oppScore)) - (s:\(state))"
         }
         else
@@ -738,13 +738,13 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         {
             isCorrect.image = (myTurn == true) ? checkImage : xImage
         }
-        else if state == 4 //game expired
+        else if state == 3 //game expired
         {
             isCorrect.image = circleGrey
         }
         else
         {
-            if (isPlayer1 && state == 2) || (!isPlayer1 && state == 3)
+            if (myScore > oppScore)
             {
                 isCorrect.image = circleBlue //I won
             }

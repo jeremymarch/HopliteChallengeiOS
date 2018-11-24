@@ -64,16 +64,8 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
             assertionFailure("Set verb form out of range: mood -> \(mood)")
             return
         }
- 
-        pickerSelected = [ person, number, tense, voice, mood ]
-        pickerOrigSelected = [ person, number, tense, voice, mood ]
-        
-        selectRow(person, inComponent: 0, animated: false)
-        selectRow(number, inComponent: 1, animated: false)
-        selectRow(tense, inComponent: 2, animated: false)
-        selectRow(voice, inComponent: 3, animated: false)
-        selectRow(mood, inComponent: 4, animated: false)
-        
+
+        //needs to be before selection
         if locked
         {
             lockPicker()
@@ -82,6 +74,15 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
         {
             unlockPicker()
         }
+        
+        pickerSelected = [ person, number, tense, voice, mood ]
+        pickerOrigSelected = [ person, number, tense, voice, mood ]
+        
+        selectRow(person, inComponent: 0, animated: false)
+        selectRow(number, inComponent: 1, animated: false)
+        selectRow(tense, inComponent: 2, animated: false)
+        selectRow(voice, inComponent: 3, animated: false)
+        selectRow(mood, inComponent: 4, animated: false)
     }
     
     func restore()
