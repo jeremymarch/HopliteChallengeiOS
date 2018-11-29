@@ -25,6 +25,15 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
     var pickerMood = 0
     var pickerSelected = [ 0, 0, 0, 0, 0 ]
     var pickerOrigSelected = [ 0, 0, 0, 0, 0 ]
+    var personLabel:[UILabel?] = [nil,nil,nil]
+    var numberLabel:[UILabel?] = [nil,nil]
+    var tenseLabel:[UILabel?] = [nil,nil,nil,nil,nil,nil]
+    var voiceLabel:[UILabel?] = [nil,nil,nil]
+    var moodLabel:[UILabel?] = [nil,nil,nil,nil]
+    
+    var maxChangedComponents = 5
+    var highlightChanges = false
+    var autoUnchangeFirstChanged = true //else prevent further changes after max
     
     override init(frame: CGRect){
         super.init(frame: frame)
@@ -85,6 +94,49 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
         selectRow(mood, inComponent: 4, animated: false)
     }
     
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        var pickerLabel = view as? UILabel
+        if pickerLabel == nil
+        {
+            pickerLabel = UILabel()
+            pickerLabel?.font = UIFont(name: "Helvetica", size: 22)
+            pickerLabel?.textAlignment = NSTextAlignment.center
+            if pickerSelected[component] != pickerOrigSelected[component] && row != pickerOrigSelected[component] && highlightChanges
+            {
+                //pickerLabel?.font = UIFont(name: "Helvetica", size: 26)
+                pickerLabel?.textColor = UIColor.red
+            }
+            
+            var selectedRow = row
+            if !pickerEnabled {
+                selectedRow = pickerSelected[component]
+            }
+            
+            switch component {
+            case 0:
+                pickerLabel?.text = arPerson[selectedRow]
+                personLabel[row] = pickerLabel!
+            case 1:
+                pickerLabel?.text = arNumber[selectedRow]
+                numberLabel[row] = pickerLabel!
+            case 2:
+                pickerLabel?.text = arTense[selectedRow]
+                tenseLabel[row] = pickerLabel!
+                //tenseLabel?.font = UIFont(name: "Helvetica", size: 26)
+            case 3:
+                pickerLabel?.text = arVoice[selectedRow]
+                voiceLabel[row] = pickerLabel!
+            case 4:
+                pickerLabel?.text = arMood[selectedRow]
+                moodLabel[row] = pickerLabel!
+            default:
+                pickerLabel?.text = ""
+            }
+        }
+        return pickerLabel!
+    }
+    
     func restore()
     {
         setVerbForm(person: pickerOrigSelected[0], number: pickerOrigSelected[1], tense: pickerOrigSelected[2], voice: pickerOrigSelected[3], mood: pickerOrigSelected[3], locked: pickerEnabled)
@@ -101,6 +153,7 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
     {
         pickerEnabled = true
         isUserInteractionEnabled = true
+        
         reloadAllComponents()
     }
     
@@ -131,7 +184,8 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
             return 1
         }
     }
-    
+    /*
+     now we use viewForRow, so this is no longer called
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         var selectedRow = row
@@ -154,10 +208,37 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
             return ""
         }
     }
+    */
+    func getNumChanged() -> Int
+    {
+        var numChanged = 0
+        for (index,_) in pickerSelected.enumerated()
+        {
+            if pickerSelected[index] != pickerOrigSelected[index]
+            {
+                numChanged += 1
+            }
+        }
+        
+        return numChanged
+    }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow: Int, inComponent: Int)
     {
         pickerSelected[inComponent] = didSelectRow
+        
+        let numChanged = getNumChanged()
+        if numChanged > maxChangedComponents
+        {
+            //print("too many: \(numChanged)")
+            pickerSelected[inComponent] = pickerOrigSelected[inComponent]
+            selectRow(pickerOrigSelected[inComponent], inComponent: inComponent, animated: true)
+        }
+        else
+        {
+            //print("not too many: \(numChanged)")
+        }
+        reloadAllComponents()
     }
     
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {

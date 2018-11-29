@@ -563,6 +563,8 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                 stemLabel.isHidden = true
                 continueButton.setTitle("Choose a verb", for: [])
                 continueButton.isEnabled = true
+                stemLabel.highlightChanges = false
+                stemLabel.maxChangedComponents = 5
             }
             else if moveAnswerText != nil //move was answered, but new request hasn't been made yet
             {
@@ -612,6 +614,10 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                 continueButton.isHidden = true
                 
                 stemLabel.isHidden = true
+                
+                //set to lastperson, the "change to" set to moveperson and highlight changes
+                //add setVerbFormChange func which highlights changes from prev.
+                
                 stemLabel.setVerbForm(person: movePerson, number: moveNumber, tense: moveTense, voice: moveVoice, mood: moveMood, locked: true)
                 
                 hcGameRequestedForm = VerbForm(person: UInt8(movePerson), number: UInt8(moveNumber), tense: UInt8(moveTense), voice: UInt8(moveVoice), mood: UInt8(moveMood), verb: moveVerbID)
@@ -1482,6 +1488,8 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     self.animatetextViewUp()
                     //self.stemLabel.unlockPicker()
+                    self.stemLabel.highlightChanges = true
+                    self.stemLabel.maxChangedComponents = 2
                     self.stemLabel.setVerbForm(person: self.movePerson, number: self.moveNumber, tense: self.moveTense, voice: self.moveVoice, mood: self.moveMood, locked: false)
                 }
             }
