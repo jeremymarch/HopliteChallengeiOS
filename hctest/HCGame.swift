@@ -577,7 +577,10 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                 {
                     label1.text = lastAnswerText
                 }
-                stemLabel.setVerbForm(person: movePerson, number: moveNumber, tense: moveTense, voice: moveVoice, mood: moveMood, locked: true)
+                stemLabel.highlightChanges = true
+                stemLabel.maxChangedComponents = 2
+                stemLabel.setVerbForm(person: movePerson, number: moveNumber, tense: moveTense, voice: moveVoice, mood: moveMood, locked: true, setAsChanges: false)
+                
                 textView.isEditable = false
                 textView.isSelectable = false
                 blockPinch = true
@@ -617,8 +620,10 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                 
                 //set to lastperson, the "change to" set to moveperson and highlight changes
                 //add setVerbFormChange func which highlights changes from prev.
-                
-                stemLabel.setVerbForm(person: movePerson, number: moveNumber, tense: moveTense, voice: moveVoice, mood: moveMood, locked: true)
+                stemLabel.highlightChanges = true
+                stemLabel.maxChangedComponents = 2
+                stemLabel.setVerbForm(person: lastPerson!, number: lastNumber!, tense: lastTense!, voice: lastVoice!, mood: lastMood!, locked: true, setAsChanges: false)
+                stemLabel.setVerbForm(person: movePerson, number: moveNumber, tense: moveTense, voice: moveVoice, mood: moveMood, locked: true, setAsChanges: true)
                 
                 hcGameRequestedForm = VerbForm(person: UInt8(movePerson), number: UInt8(moveNumber), tense: UInt8(moveTense), voice: UInt8(moveVoice), mood: UInt8(moveMood), verb: moveVerbID)
                 
@@ -1490,7 +1495,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                     //self.stemLabel.unlockPicker()
                     self.stemLabel.highlightChanges = true
                     self.stemLabel.maxChangedComponents = 2
-                    self.stemLabel.setVerbForm(person: self.movePerson, number: self.moveNumber, tense: self.moveTense, voice: self.moveVoice, mood: self.moveMood, locked: false)
+                    self.stemLabel.setVerbForm(person: self.movePerson, number: self.moveNumber, tense: self.moveTense, voice: self.moveVoice, mood: self.moveMood, locked: false, setAsChanges: false)
                 }
             }
             else
@@ -1504,15 +1509,15 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                 //stemLabel.unlockPicker()
                 if globalMoveID == 1
                 {
-                    stemLabel.setVerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, locked: false)
+                    stemLabel.setVerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, locked: false, setAsChanges: false)
                 }
                 else if moveIsCorrect != nil && moveIsCorrect == true
                 {
-                    stemLabel.setVerbForm(person: movePerson, number: moveNumber, tense: moveTense, voice: moveVoice, mood: moveMood, locked: false)
+                    stemLabel.setVerbForm(person: movePerson, number: moveNumber, tense: moveTense, voice: moveVoice, mood: moveMood, locked: false, setAsChanges: false)
                 }
                 else //change to be last correct form
                 {
-                    stemLabel.setVerbForm(person: lastPerson!, number: lastNumber!, tense: lastTense!, voice: lastVoice!, mood: lastMood!, locked: false)
+                    stemLabel.setVerbForm(person: lastPerson!, number: lastNumber!, tense: lastTense!, voice: lastVoice!, mood: lastMood!, locked: false, setAsChanges: false)
                 }
                 
             }
@@ -1651,7 +1656,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         let v:UInt8 = vs!.requestedForm!.voice
         let m:UInt8 = vs!.requestedForm!.mood
         
-        stemLabel.setVerbForm(person: Int(p), number: Int(n), tense: Int(t), voice: Int(v), mood: Int(m), locked: true)
+        stemLabel.setVerbForm(person: Int(p), number: Int(n), tense: Int(t), voice: Int(v), mood: Int(m), locked: true, setAsChanges: false)
         //stemLabel.type(newAttributedText: attributedDescription(orig: (vs.givenForm?.getDescription())!, new: (vs.requestedForm?.getDescription())!), duration: 0.3)
         
         startMove()

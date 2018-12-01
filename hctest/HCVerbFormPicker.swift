@@ -25,12 +25,14 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
     var pickerMood = 0
     var pickerSelected = [ 0, 0, 0, 0, 0 ]
     var pickerOrigSelected = [ 0, 0, 0, 0, 0 ]
+    var setAuto = true //if set by setVerbForm or by user in didSelectRow...
+    /*
     var personLabel:[UILabel?] = [nil,nil,nil]
     var numberLabel:[UILabel?] = [nil,nil]
     var tenseLabel:[UILabel?] = [nil,nil,nil,nil,nil,nil]
     var voiceLabel:[UILabel?] = [nil,nil,nil]
     var moodLabel:[UILabel?] = [nil,nil,nil,nil]
-    
+    */
     var maxChangedComponents = 5
     var highlightChanges = false
     var autoUnchangeFirstChanged = true //else prevent further changes after max
@@ -46,7 +48,7 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setVerbForm(person:Int, number:Int, tense:Int, voice:Int, mood:Int, locked:Bool)
+    func setVerbForm(person:Int, number:Int, tense:Int, voice:Int, mood:Int, locked:Bool, setAsChanges:Bool)
     {
         if person >= arPerson.count
         {
@@ -73,7 +75,7 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
             assertionFailure("Set verb form out of range: mood -> \(mood)")
             return
         }
-
+        setAuto = true
         //needs to be before selection
         if locked
         {
@@ -85,13 +87,21 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
         }
         
         pickerSelected = [ person, number, tense, voice, mood ]
-        pickerOrigSelected = [ person, number, tense, voice, mood ]
-        
+        if setAsChanges == false
+        {
+            pickerOrigSelected = [ person, number, tense, voice, mood ]
+        }
+        else
+        {
+            print("old: \(pickerOrigSelected), new: \(pickerSelected)")
+            
+        }
         selectRow(person, inComponent: 0, animated: false)
         selectRow(number, inComponent: 1, animated: false)
         selectRow(tense, inComponent: 2, animated: false)
         selectRow(voice, inComponent: 3, animated: false)
         selectRow(mood, inComponent: 4, animated: false)
+        reloadAllComponents()
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
@@ -102,10 +112,14 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
             pickerLabel = UILabel()
             pickerLabel?.font = UIFont(name: "Helvetica", size: 22)
             pickerLabel?.textAlignment = NSTextAlignment.center
-            if pickerSelected[component] != pickerOrigSelected[component] && row != pickerOrigSelected[component] && highlightChanges
+            if pickerSelected[component] != pickerOrigSelected[component] && (row != pickerOrigSelected[component] || setAuto) && highlightChanges
             {
                 //pickerLabel?.font = UIFont(name: "Helvetica", size: 26)
                 pickerLabel?.textColor = UIColor.red
+            }
+            else
+            {
+                pickerLabel?.textColor = UIColor.black
             }
             
             var selectedRow = row
@@ -116,20 +130,20 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
             switch component {
             case 0:
                 pickerLabel?.text = arPerson[selectedRow]
-                personLabel[row] = pickerLabel!
+                //personLabel[row] = pickerLabel!
             case 1:
                 pickerLabel?.text = arNumber[selectedRow]
-                numberLabel[row] = pickerLabel!
+                //numberLabel[row] = pickerLabel!
             case 2:
                 pickerLabel?.text = arTense[selectedRow]
-                tenseLabel[row] = pickerLabel!
+                //tenseLabel[row] = pickerLabel!
                 //tenseLabel?.font = UIFont(name: "Helvetica", size: 26)
             case 3:
                 pickerLabel?.text = arVoice[selectedRow]
-                voiceLabel[row] = pickerLabel!
+                //voiceLabel[row] = pickerLabel!
             case 4:
                 pickerLabel?.text = arMood[selectedRow]
-                moodLabel[row] = pickerLabel!
+                //moodLabel[row] = pickerLabel!
             default:
                 pickerLabel?.text = ""
             }
@@ -139,7 +153,7 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
     
     func restore()
     {
-        setVerbForm(person: pickerOrigSelected[0], number: pickerOrigSelected[1], tense: pickerOrigSelected[2], voice: pickerOrigSelected[3], mood: pickerOrigSelected[3], locked: pickerEnabled)
+        setVerbForm(person: pickerOrigSelected[0], number: pickerOrigSelected[1], tense: pickerOrigSelected[2], voice: pickerOrigSelected[3], mood: pickerOrigSelected[3], locked: pickerEnabled, setAsChanges: false)
     }
     
     func lockPicker()
@@ -153,7 +167,6 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
     {
         pickerEnabled = true
         isUserInteractionEnabled = true
-        
         reloadAllComponents()
     }
     
@@ -225,6 +238,7 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow: Int, inComponent: Int)
     {
+        setAuto = false
         pickerSelected[inComponent] = didSelectRow
         
         let numChanged = getNumChanged()

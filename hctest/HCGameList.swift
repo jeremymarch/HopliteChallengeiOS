@@ -906,7 +906,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
                         vd.moveTime = move.time
                         vd.moveTimedOut = move.timedOut
                      
-                        print("Already answered! \(vd.moveAnswerText)")
+                        print("Already answered! \(String(describing: vd.moveAnswerText))")
                     }
                     //if it has been answered then we also need to show
                     //what the previous form was.
