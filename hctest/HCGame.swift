@@ -81,6 +81,19 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
     var lastAnswerText:String? = nil
     var lastIsCorrect:Bool? = nil
     
+    var lastPrevPerson:Int? = nil //so we can use this to highlight what was changed in last move
+    var lastPrevNumber:Int? = nil
+    var lastPrevTense:Int? = nil
+    var lastPrevVoice:Int? = nil
+    var lastPrevMood:Int? = nil
+    
+    var lastCorrectPerson:Int? = nil
+    var lastCorrectNumber:Int? = nil
+    var lastCorrectTense:Int? = nil
+    var lastCorrectVoice:Int? = nil
+    var lastCorrectMood:Int? = nil
+    var lastCorrectAnswerText:String? = nil
+    
     var hcGameRequestedForm:VerbForm?
     
     
@@ -393,7 +406,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         stemLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
         stemLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.16).isActive = true
         //stemLabel.attTextColor = UIColor.gray
-        //stemLabel.backgroundColor = UIColor.white
+        stemLabel.backgroundColor = UIColor.clear
         //stemLabel.text = ""
         //stemLabel.font = stemFont
         
@@ -600,56 +613,117 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             }
             else //need to answer and then request new form
             {
+                stemLabel.highlightChanges = true
+                stemLabel.maxChangedComponents = 2
+                continueButton.isHidden = true
                 if globalMoveID == 1 //answering first move of game.
                 {
                     //the verb is x
                     //give x form
                     intro = "The verb is: "
                     form = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: moveVerbID).getForm(decomposed: false)
-                }
-                else
-                {
-                    //the last form was x
-                    //change to y
-                    intro = "The last form was: "
-                    form = VerbForm(person: UInt8(lastPerson!), number: UInt8(lastNumber!), tense: UInt8(lastTense!), voice: UInt8(lastVoice!), mood: UInt8(lastMood!), verb: moveVerbID).getForm(decomposed: false)
-                }
-                continueButton.isHidden = true
-                
-                stemLabel.isHidden = true
-                
-                //set to lastperson, the "change to" set to moveperson and highlight changes
-                //add setVerbFormChange func which highlights changes from prev.
-                stemLabel.highlightChanges = true
-                stemLabel.maxChangedComponents = 2
-                stemLabel.setVerbForm(person: lastPerson!, number: lastNumber!, tense: lastTense!, voice: lastVoice!, mood: lastMood!, locked: true, setAsChanges: false)
-                stemLabel.setVerbForm(person: movePerson, number: moveNumber, tense: moveTense, voice: moveVoice, mood: moveMood, locked: true, setAsChanges: true)
-                
-                hcGameRequestedForm = VerbForm(person: UInt8(movePerson), number: UInt8(moveNumber), tense: UInt8(moveTense), voice: UInt8(moveVoice), mood: UInt8(moveMood), verb: moveVerbID)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    let dur = 0.3
-                    let after = 1.0
                     
-                    self.label1.type(newText: intro, duration: dur, after:after, onComplete: { () in
+                    stemLabel.isHidden = true
+                    
+                    //set to lastperson, the "change to" set to moveperson and highlight changes
+                    //add setVerbFormChange func which highlights changes from prev.
+                    
+                    stemLabel.setVerbForm(person: lastPerson!, number: lastNumber!, tense: lastTense!, voice: lastVoice!, mood: lastMood!, locked: true, setAsChanges: false)
+                    stemLabel.setVerbForm(person: movePerson, number: moveNumber, tense: moveTense, voice: moveVoice, mood: moveMood, locked: true, setAsChanges: true)
+                    
+                    hcGameRequestedForm = VerbForm(person: UInt8(movePerson), number: UInt8(moveNumber), tense: UInt8(moveTense), voice: UInt8(moveVoice), mood: UInt8(moveMood), verb: moveVerbID)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        let dur = 0.3
+                        let after = 1.0
                         
-                        self.label1.hide(duration: dur, after:after, onComplete: { () in
+                        self.label1.type(newText: intro, duration: dur, after:after, onComplete: { () in
                             
-                            self.label1.type(newText: form, duration: dur, after:after, onComplete: { () in
+                            self.label1.hide(duration: dur, after:after, onComplete: { () in
                                 
-                                self.label1.hide(duration: dur, after:after, onComplete: { () in
+                                self.label1.type(newText: form, duration: dur, after:after, onComplete: { () in
                                     
-                                    self.label1.type(newText: "Change to:", duration: dur, after:after, onComplete: { () in
-                                        //self.label1.text = form
-                                        self.label1.type(newText: form, duration: dur, after:0.0, onComplete:{})
-                                        self.label1.isHidden = false
-                                        self.stemLabel.isHidden = false
-                                        self.startMove()
+                                    self.label1.hide(duration: dur, after:after, onComplete: { () in
+                                        
+                                        self.label1.type(newText: "Change to:", duration: dur, after:after, onComplete: { () in
+                                            //self.label1.text = form
+                                            self.label1.type(newText: form, duration: dur, after:0.0, onComplete:{})
+                                            self.label1.isHidden = false
+                                            self.stemLabel.isHidden = false
+                                            self.startMove()
+                                        })
                                     })
                                 })
                             })
                         })
-                    })
+                    }
+                }
+                else
+                {
+                    //you asked for x
+                    //they sad y
+                    //correct/incorrect,
+                    //the last correct form was z
+                    //change to zz
+                    
+                    intro = "You asked for: "
+                    form = VerbForm(person: UInt8(lastPerson!), number: UInt8(lastNumber!), tense: UInt8(lastTense!), voice: UInt8(lastVoice!), mood: UInt8(lastMood!), verb: moveVerbID).getForm(decomposed: false)
+                    let intro2 = "They said: "
+                    let answer = lastAnswerText!
+                    //let lastCorrect = ;
+                    
+                    stemLabel.isHidden = true
+                    
+                    //set to lastperson, the "change to" set to moveperson and highlight changes
+                    //add setVerbFormChange func which highlights changes from prev.
+                    
+                    //stemLabel.setVerbForm(person: lastPerson!, number: lastNumber!, tense: lastTense!, voice: lastVoice!, mood: lastMood!, locked: true, setAsChanges: false)
+                    //stemLabel.setVerbForm(person: movePerson, number: moveNumber, tense: moveTense, voice: moveVoice, mood: moveMood, locked: true, setAsChanges: true)
+                    
+                    stemLabel.setVerbForm(person: lastPrevPerson!, number: lastPrevNumber!, tense: lastPrevTense!, voice: lastPrevVoice!, mood:lastPrevMood!, locked: true, setAsChanges: false)
+                    stemLabel.setVerbForm(person: lastPerson!, number: lastNumber!, tense: lastTense!, voice: lastVoice!, mood: lastMood!, locked: true, setAsChanges: true)
+                    stemLabel.isHidden = true
+                    
+                    hcGameRequestedForm = VerbForm(person: UInt8(movePerson), number: UInt8(moveNumber), tense: UInt8(moveTense), voice: UInt8(moveVoice), mood: UInt8(moveMood), verb: moveVerbID)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        let dur = 0.3
+                        let after = 1.0
+                        
+                        self.label1.type(newText: intro, duration: dur, after:after, onComplete: { () in
+                            //show stem asked for with change highlighted
+                            self.stemLabel.isHidden = false
+                            self.label1.hide(duration: dur, after:after, onComplete: { () in
+                                
+                                
+                                self.label1.type(newText: "They said: ", duration: dur, after:after, onComplete: { () in
+                                    
+                                    self.label1.hide(duration: dur, after:after, onComplete: { () in
+                                    
+                                        self.label1.type(newText: answer, duration: dur, after:after, onComplete: { () in
+                                            
+                                            self.label1.hide(duration: dur, after:after, onComplete: { () in
+                                        
+                                self.label1.type(newText: form, duration: dur, after:after, onComplete: { () in
+                                    
+                                    self.label1.hide(duration: dur, after:after, onComplete: { () in
+                                        
+                                        self.label1.type(newText: "Change to:", duration: dur, after:after, onComplete: { () in
+                                            //self.label1.text = form
+                                            self.label1.type(newText: form, duration: dur, after:0.0, onComplete:{})
+                                            self.label1.isHidden = false
+                                            self.stemLabel.isHidden = false
+                                            self.startMove()
+                                        })
+                                    })
+                                })
+                                        })
+                                            })
+                                        })
+                                    })
+                            })
+                        })
+                    }
                 }
             }
         }
@@ -1723,6 +1797,12 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             return
         }
         NSLog("expand")
+        
+        if vs?.givenForm == nil || vs?.requestedForm == nil
+        {
+            return
+        }
+        
         let a = NSMutableAttributedString.init(string: (vs!.givenForm?.getForm(decomposed: true))!)
         label1.attributedText = a
         label1.att = a
@@ -1749,6 +1829,11 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             return
         }
         NSLog("unexpand")
+        
+        if vs?.givenForm == nil || vs?.requestedForm == nil
+        {
+            return
+        }
         
         let a = NSMutableAttributedString.init(string: (vs!.givenForm?.getForm(decomposed: false))!)
         label1.attributedText = a

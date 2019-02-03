@@ -432,6 +432,40 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
             return 0
         }
     }
+
+    func getLastCorrectMoveForGame(gameID:Int) -> HCMoves?
+    {
+        let moc = DataManager.shared.backgroundContext!
+        
+        let request: NSFetchRequest<HCMoves> = HCMoves.fetchRequest()
+        if #available(iOS 10.0, *) {
+            request.entity = HCMoves.entity()
+        } else {
+            request.entity = NSEntityDescription.entity(forEntityName: "HCMoves", in: moc)
+        }
+        
+        let pred = NSPredicate(format: "(gameID = %d) AND (isCorrect = 1)", gameID)
+        request.predicate = pred
+        let sortDescriptor = NSSortDescriptor(key: "globalID", ascending: false)
+        request.sortDescriptors = [sortDescriptor]
+        request.fetchLimit = 1
+        
+        var results:[Any]?
+        do {
+            results = try moc.fetch(request as! NSFetchRequest<NSFetchRequestResult>)
+        } catch let error {
+            NSLog("Error: %@", error.localizedDescription)
+            return nil
+        }
+        if results != nil && results!.count > 0
+        {
+            return results?.first as? HCMoves
+        }
+        else
+        {
+            return nil
+        }
+    }
     
     func getLastMoveForGame(gameID:Int, penultimate:Bool) -> HCMoves?
     {
@@ -861,6 +895,10 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
             
             if let vd = segue.destination as? HCGameViewController
             {
+                //move is what you are being asked
+                //last move is what you asked your opponent
+                //lastCorrect is last correct of first move of the game
+                
                 print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
                 //set gameid, moveid, userid
                 let gameID = Int(gameObject.globalID)
@@ -913,6 +951,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
                     //the move is always the "stem"
                     if moveID == 1
                     {
+                        //fix me, this isn't always right
                         //get lemma
                         vd.lastPerson = 0
                         vd.lastNumber = 0
@@ -930,6 +969,16 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
                         vd.lastMood = Int(penultimateMove.mood)
                         vd.lastAnswerText = penultimateMove.answerGiven
                         vd.lastIsCorrect = penultimateMove.isCorrect
+                        
+                        if let lc = getLastCorrectMoveForGame(gameID:gameID)
+                        {
+                            vd.lastCorrectPerson = Int(lc.person)
+                            vd.lastCorrectNumber = Int(lc.number)
+                            vd.lastCorrectTense = Int(lc.tense)
+                            vd.lastCorrectVoice = Int(lc.voice)
+                            vd.lastCorrectMood = Int(lc.mood)
+                            vd.lastCorrectAnswerText = lc.answerGiven
+                        }
                     }
                 }
             }

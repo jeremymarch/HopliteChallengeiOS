@@ -115,11 +115,13 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
             if pickerSelected[component] != pickerOrigSelected[component] && (row != pickerOrigSelected[component] || setAuto) && highlightChanges
             {
                 //pickerLabel?.font = UIFont(name: "Helvetica", size: 26)
-                pickerLabel?.textColor = UIColor.red
+                pickerLabel?.textColor = UIColor.orange
+                pickerLabel?.font = UIFont(name: "Helvetica Bold", size: 22)
             }
             else
             {
                 pickerLabel?.textColor = UIColor.black
+                pickerLabel?.font = UIFont(name: "Helvetica", size: 22)
             }
             
             var selectedRow = row
@@ -155,9 +157,26 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
     {
         setVerbForm(person: pickerOrigSelected[0], number: pickerOrigSelected[1], tense: pickerOrigSelected[2], voice: pickerOrigSelected[3], mood: pickerOrigSelected[3], locked: pickerEnabled, setAsChanges: false)
     }
+    /*
+    func hideLines()
+    {
+        self.subviews.forEach({
+            
+            $0.isHidden = $0.frame.height < 1.0
+        })
+    }
     
+    func showLines()
+    {
+        self.subviews.forEach({
+            
+            $0.isHidden = !($0.frame.height < 1.0)
+        })
+    }
+    */
     func lockPicker()
     {
+        //hideLines()
         pickerEnabled = false
         isUserInteractionEnabled = false
         reloadAllComponents()
@@ -165,6 +184,7 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
     
     func unlockPicker()
     {
+        //showLines()
         pickerEnabled = true
         isUserInteractionEnabled = true
         reloadAllComponents()
@@ -175,6 +195,7 @@ class HCVerbFormPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
         if pickerEnabled
         {
             switch component {
