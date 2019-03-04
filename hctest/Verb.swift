@@ -15,9 +15,10 @@ class Verb2 {
     var perfect:String = ""
     var perfMid:String = ""
     var aoristPass:String = ""
-    var verbId:UInt32 = 0
+    var verbId:Int32 = 0
     var verbClass:UInt32 = 0
     var HQUnit:UInt8 = 0
+    var hqVerbID:Int32 = 0
     let dash = "—"//let dash = "–"
     
     init(verbid:Int)
@@ -26,7 +27,7 @@ class Verb2 {
         
         for (_, value) in mirror.children
         {
-            if value is Verb && (value as! Verb).verbid == UInt32(verbid)
+            if value is Verb && (value as! Verb).hqid == UInt32(verbid)
             {
                 let v = value as! Verb
                 present = String(cString: v.present)
@@ -38,6 +39,7 @@ class Verb2 {
                 verbId = v.verbid
                 HQUnit = v.hq
                 verbClass = v.verbclass
+                hqVerbID = Int32(v.hqid)
             }
         }
     }

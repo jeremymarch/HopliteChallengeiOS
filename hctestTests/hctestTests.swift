@@ -64,7 +64,7 @@ class hctestTests: XCTestCase {
         {
             isOida = true
         }
-        
+        /*
         for tense in 0..<NUM_TENSES
         {
             vf.tense = UInt8(tense)
@@ -73,7 +73,7 @@ class hctestTests: XCTestCase {
                 for mood in 0..<NUM_MOODS
                 {
                     let m:Int = Int(mood)
-                    if !isOida && m != INDICATIVE && (tense == PERFECT || tense == PLUPERFECT || tense == IMPERFECT || tense == FUTURE)
+                    if !isOida && m != INDICATIVE && (tense == PERFECT || tense == PLUPERFECT || tense == IMPERFECT || (tense == FUTURE && m != OPTATIVE))
                     {
                         continue
                     }
@@ -133,7 +133,7 @@ class hctestTests: XCTestCase {
                     }
                 }
             }
-        }
+        }*/
     }
-    
+ 
 }

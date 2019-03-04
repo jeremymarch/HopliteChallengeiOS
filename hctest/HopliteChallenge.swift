@@ -18,12 +18,13 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     let continueButton = UIButton()
     let headerView = UIView()
     let timerLabel = HCTimer()
-    let quitButton = UIButton(type: UIButtonType.custom) as UIButton
+    let quitButton = UIButton(type: UIButton.ButtonType.custom) as UIButton
     let scoreLabel = UILabel()
     let mfLabel = UILabel()
     let checkImg = UIImage(named:"greencheck.png")
     let xImg = UIImage(named:"redx.png")
     let checkXView = UIImageView()
+    var fromVerbDetail = false
     
     let life1 = UIImageView()
     let life2 = UIImageView()
@@ -38,8 +39,8 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     var timeFontSize:CGFloat = 24.0
     var fontSize:CGFloat = 30.0
     var greekFontSize:CGFloat = 40.0
-    let hcblue:UIColor = UIColor(colorLiteralRed: 0.0, green: 0.47, blue: 1.0, alpha: 1.0)
-    let hcorange:UIColor = UIColor(colorLiteralRed: 1.0, green: 0.2196, blue: 0.0, alpha: 1.0)
+    let hcblue:UIColor = UIColor(red: 0.0, green: 0.47, blue: 1.0, alpha: 1.0)
+    let hcorange:UIColor = UIColor(red: 1.0, green: 0.2196, blue: 0.0, alpha: 1.0)
     let testColors:Bool = false
     
     let animateDuration:TimeInterval = 0.4
@@ -48,20 +49,56 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     var mfPressed:Bool = false
     var checkXXOffset:NSLayoutConstraint? = nil
     var checkXYOffset:NSLayoutConstraint? = nil
-    var isGame:Bool = true
+    var isGame:Bool = false
     var practiceVerbId:Int = -1
     let typingDelay:TimeInterval = 0.03
     var blockPinch:Bool = true
     var isExpanded:Bool = false
     
-    let vs:VerbSequence = VerbSequence()
+    
+    
+    /*
+     get rid of practiceID
+     
+     pass custom array of verbids
+     else if that is empty use unit
+     
+     if unit is not empty, use it in either case to filter which forms.
+     
+     also in all cases if tense, etc passed in, limit those. unit will overrule this
+     
+     pass in shuffle
+     */
+    
+    var verbIDs:[Int32] = [1]
+    var personFilter:[Int32] = [0,1,2]
+    var numberFilter:[Int32] = [0,1]
+    var tenseFilter:[Int32] = [0,1,2,3,4]
+    var voiceFilter:[Int32] = [0,1,2]
+    var moodFilter:[Int32] = [0,1,2,3]
+    var filterByUnit = 0
+    var shuffle:Bool = true
+    var paramsToChange = 2
+    var difficulty = 0
+    
+    var vs:VerbSequence = VerbSequence()
+    
+    func setGame()
+    {
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        vs.setVSOptions(persons: personFilter, numbers: numberFilter, tenses: tenseFilter, voices: voiceFilter, moods: moodFilter, verbs: verbIDs, shuffle:shuffle,reps: 3)
+        
         vs.options?.practiceVerbID = Int32(practiceVerbId)
         //vs.options?.units = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
         //vs.options?.numUnits = 20
         vs.options?.isHCGame = isGame
+        
+        
  
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
@@ -137,7 +174,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         
         view.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
-        headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 6.0).isActive = true
+        headerView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 6.0).isActive = true
         headerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0).isActive = true
         headerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0.0).isActive = true
         headerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.0, constant: headerHeight).isActive = true
@@ -167,21 +204,21 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         //quitButton.titleLabel?.font = headerFont
         
         quitButton.layer.borderWidth = 2.0
-        quitButton.layer.borderColor = UIColor(colorLiteralRed: 0.88, green: 0.88, blue: 0.88, alpha: 1.0).cgColor
+        quitButton.layer.borderColor = UIColor(red: 0.88, green: 0.88, blue: 0.88, alpha: 1.0).cgColor
         quitButton.layer.cornerRadius = 4.0
-        quitButton.imageEdgeInsets = UIEdgeInsetsMake(2, 4, 2, 4)
+        quitButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
  
         let image = UIImage(named: "hamburger.png") as UIImage?
         quitButton.setImage(image, for: .normal)
         
-        if practiceVerbId < 0
+        if fromVerbDetail == false
         {
-            quitButton.addTarget(self, action: #selector(menuButtonPressed), for: UIControlEvents.touchUpInside)
+            quitButton.addTarget(self, action: #selector(menuButtonPressed), for: UIControl.Event.touchUpInside)
         }
         else
         {
             //pop controller to go back to verb detail
-            quitButton.addTarget(self, action: #selector(goBackToVerbDetail), for: UIControlEvents.touchUpInside)
+            quitButton.addTarget(self, action: #selector(goBackToVerbDetail), for: UIControl.Event.touchUpInside)
         }
 
         headerView.addSubview(scoreLabel)
@@ -307,7 +344,12 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         
         view.addSubview(continueButton)
         continueButton.translatesAutoresizingMaskIntoConstraints = false
-        continueButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -6.0).isActive = true
+        if #available(iOS 11.0, *) {
+            continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0.0).isActive = true
+        } else {
+            // Fallback on earlier versions
+            continueButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -6.0).isActive = true
+        }
         continueButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
         continueButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
         continueButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.0, constant:60.0).isActive = true
@@ -326,15 +368,51 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         checkXView.widthAnchor.constraint(equalToConstant: 25.0).isActive = true
         
             
-        checkXYOffset = NSLayoutConstraint(item: checkXView, attribute:NSLayoutAttribute.centerY , relatedBy: NSLayoutRelation.equal, toItem: textView, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0.0)
+        checkXYOffset = NSLayoutConstraint(item: checkXView, attribute:NSLayoutConstraint.Attribute.centerY , relatedBy: NSLayoutConstraint.Relation.equal, toItem: textView, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1.0, constant: 0.0)
         view.addConstraint(checkXYOffset!)
-        checkXXOffset = NSLayoutConstraint(item: checkXView, attribute:NSLayoutAttribute.centerX , relatedBy: NSLayoutRelation.equal, toItem: textView, attribute: NSLayoutAttribute.centerX, multiplier: 1.0, constant: 00.0)
+        checkXXOffset = NSLayoutConstraint(item: checkXView, attribute:NSLayoutConstraint.Attribute.centerX , relatedBy: NSLayoutConstraint.Relation.equal, toItem: textView, attribute: NSLayoutConstraint.Attribute.centerX, multiplier: 1.0, constant: 00.0)
         view.addConstraint(checkXXOffset!)
         checkXView.isHidden = true
         
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb?.appExt = false
+        
+        var portraitHeight:CGFloat = 222.0
+        var landscapeHeight:CGFloat = 157.0
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            portraitHeight = 340.0
+            landscapeHeight = 290.0
+        }
+        else
+        {
+            //for iphone 5s and narrower
+            if UIScreen.main.nativeBounds.width < 641
+            {
+                portraitHeight = 200.0
+                landscapeHeight = 186.0
+            }
+            else //larger iPhones
+            {
+                portraitHeight = 222.0
+                landscapeHeight = 157.0
+            }
+        }
+        kb?.portraitHeightOverride = portraitHeight
+        kb?.landscapeHeightOverride = landscapeHeight
+        kb?.unicodeMode = 3 //hc mode
         textView.inputView = kb?.view
+        let keys: [[String]] = [["MF", "῾", "᾿", "´", "˜", "¯", "ͺ", "enter"],
+                                ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
+                                ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
+                                ["ζ", "χ", "ψ", "ω", "β", "ν", "μ" , "( )", "BK" ]]
+        
+        kb?.accentBGColor = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
+        kb?.accentBGColorDown = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
+        kb?.accentTextColor = UIColor.black
+        kb?.accentTextColorDown = UIColor.black
+ 
+        kb?.setButtons(keys: keys) //has to be after set as inputView
         
         continueButton.addTarget(self, action: #selector(continuePressed(button:)), for: .touchUpInside)
         
@@ -349,7 +427,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         
         let pinchRecognizer = UIPinchGestureRecognizer(target:self, action:#selector(handlePinch))
         self.view.addGestureRecognizer(pinchRecognizer)
-        
+        NSLog("hc dbinit")
         vs.DBInit2()
         //DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
         //    self.start()
@@ -377,7 +455,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         // Dispose of any resources that can be recreated.
     }
     
-    func menuButtonPressed(sender:UIButton)
+    @objc func menuButtonPressed(sender:UIButton)
     {
         if isGame && timerLabel.isRunning == true //vs.lives > 0
         {
@@ -415,7 +493,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         }
     }
     
-    func goBackToVerbDetail()
+    @objc func goBackToVerbDetail()
     {
         let _ = self.navigationController?.popViewController(animated: true)
     }
@@ -429,7 +507,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         label2Top?.isActive = false
         label2Top = label2.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0)
         label2Top?.isActive = true
-        view.bringSubview(toFront: self.label2)
+        view.bringSubviewToFront(self.label2)
         
         UIView.animate(withDuration: animateDuration, delay: 0.0, options: [.curveEaseInOut], animations: {
             self.view.layoutIfNeeded()
@@ -454,7 +532,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
             tempCon = self.label2Top
             self.label2Top = self.label1Top
             self.label1Top = tempCon!
-            self.view.bringSubview(toFront:self.checkXView)
+            self.view.bringSubviewToFront(self.checkXView)
             self.view.layoutIfNeeded()
             self.askForForm(erasePreviousForm: false)
         })
@@ -469,7 +547,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         //self.textViewTop = self.textView.topAnchor.constraint(equalTo: self.headerView.bottomAnchor, constant: 0.0)
         self.textViewTop2?.isActive = true
         
-        view.bringSubview(toFront: self.textView)
+        view.bringSubviewToFront(self.textView)
         
         UIView.animate(withDuration: animateDuration, delay: 0.0, options: [.curveEaseInOut], animations: {
             self.view.layoutIfNeeded()
@@ -487,7 +565,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
             self.textViewTop2?.isActive = false
             //self.textViewTop = self.textView.topAnchor.constraint(equalTo: self.stemLabel.bottomAnchor, constant: 0.0)
             self.textViewTop?.isActive = true
-            self.view.bringSubview(toFront:self.checkXView)
+            self.view.bringSubviewToFront(self.checkXView)
             self.view.layoutIfNeeded()
             self.askForForm(erasePreviousForm: false)
         })
@@ -508,8 +586,8 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         textView.addObserver(self, forKeyPath: "contentSize", options: [.new], context: nil)
         self.navigationController?.isNavigationBarHidden = true
         
-        reloadSettings()
-        vs.reset()
+        //reloadSettings()
+        //vs.reset()
     }
     
     func reloadSettings()
@@ -530,7 +608,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
                 }
                 j += 1
             }
-            vs.setUnits(units: units)
+            //vs.setUnits(units: units)
             //print(units)
         }
         //NSLog("load settings done")
@@ -547,7 +625,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         var topCorrect:CGFloat  = (tv.bounds.size.height - tv.contentSize.height * tv.zoomScale) / 2.0;
         topCorrect = ( topCorrect < 0.0 ? 0.0 : topCorrect )
         //NSLog(@"content: %f, %f, %f", topCorrect, [tv bounds].size.height, [tv contentSize].height);
-        tv.contentInset = UIEdgeInsetsMake(topCorrect,0,0,0)
+        tv.contentInset = UIEdgeInsets(top: topCorrect,left: 0,bottom: 0,right: 0)
     }
     
     func printVerbs()
@@ -577,7 +655,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
                                 let z:Int = Int(v)
                                 vf = VerbForm(person: UInt8(person), number: UInt8(number), tense: UInt8(t), voice: UInt8(voice), mood: UInt8(mood), verb: z)
                                 s = vf?.getForm(decomposed:false)
-                                if s != nil && (s?.characters.count)! > 0
+                                if s != nil && (s?.count)! > 0
                                 {
                                     label1.text = s
                                     count += 1
@@ -623,9 +701,9 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         {
             if a[i] != b[i]
             {
-                att.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Bold", size: fontSize)!, range: NSRange(location: start, length: b[i].characters.count))
+                att.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue-Bold", size: fontSize)!, range: NSRange(location: start, length: b[i].count))
             }
-            start += b[i].characters.count + 1
+            start += b[i].count + 1
         }
         return att
     }
@@ -634,7 +712,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
     {
         let s: String = v.text
         let myString: NSString = s as NSString
-        return myString.size(attributes: [NSFontAttributeName: v.font!])
+        return myString.size(withAttributes: [NSAttributedString.Key.font: v.font!])
     }
     
     func positionCheckX()
@@ -642,7 +720,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         // 0 = center
         //set offset from end of text
         var offset:CGFloat = 0
-        if textView.text.characters.count > 0
+        if textView.text.count > 0
         {
             offset = (sizeOfString(v: textView).width / 2) + 20
         }
@@ -685,6 +763,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         }
         else
         {
+            vs.lives = 3 //temp just for testing
             textView.textColor = UIColor.gray
             showAnswer()
             NSLog("no!")
@@ -731,7 +810,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         }
     }
     
-    func continuePressed(button: UIButton) {
+    @objc func continuePressed(button: UIButton) {
         continueButton.isEnabled = false
         
         if continueButton.titleLabel?.text == "Play"
@@ -805,7 +884,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
                 //1.5 x the time
                 let halfTime = timerLabel.countDownTime / 2
                 timerLabel.startTime += halfTime
-                kb?.mfButton?.setTitle(",", for: [])
+                // FIX ME NOW kb?.mfButton?.setTitle(",", for: [])
             }
         }
     }
@@ -860,14 +939,14 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         label2.type(newText: (vs.requestedForm?.getForm(decomposed: false))!, duration: 0.3)
     }
     
-    func handleTimeOut()
+    @objc func handleTimeOut()
     {
         NSLog("time out")
         
         checkAnswer()
     }
     
-    func handlePinch(sender: UIPinchGestureRecognizer)
+    @objc func handlePinch(sender: UIPinchGestureRecognizer)
     {
         //NSLog("Scale: %.2f | Velocity: %.2f",sender.scale, sender.velocity);
         let thresholdVelocity:CGFloat  = 0 //4.0;

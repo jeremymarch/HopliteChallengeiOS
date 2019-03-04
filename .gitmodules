@@ -1,0 +1,9 @@
+[submodule "HCPolytonicGreekKB"]
+	path = HCPolytonicGreekKB
+	url = https://github.com/jeremymarch/HCPolytonicGreekKB.git
+[submodule "hctest/libgreek"]
+	path = hctest/libgreek
+	url = git@github.com:jeremymarch/libgreek.git
+[submodule "hctest/libseq"]
+	path = hctest/libseq
+	url = git@github.com:jeremymarch/libseq.git

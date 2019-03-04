@@ -27,7 +27,8 @@ class VerbDetailViewController: UITableViewController {
     let voicesabbrev = ["act.", "mid.", "pass."]
     let moodsabbrev = ["ind.", "subj.", "opt.", "imper."]
     
-    var verbIndex:Int = -1
+    var verbIndex:Int = -1 //actually this is hqid
+    var hqVerbID:Int32 = -1 //actually this is verb index!
     var forms = [FormRow]()
     var sections = [String]()
     var sectionCounts = [Int]()
@@ -37,8 +38,9 @@ class VerbDetailViewController: UITableViewController {
         super.viewDidLoad()
         
         let v = Verb2(verbid: verbIndex)
+        hqVerbID = Int32(v.verbId)
         
-        if v.present.characters.count > 0
+        if v.present.count > 0
         {
             title = v.present
         }
@@ -48,18 +50,18 @@ class VerbDetailViewController: UITableViewController {
         }
         printVerb(verb: v)
         //tableView.separatorStyle = .none
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44
         
-        let backButton = UIBarButtonItem(title: "Practice", style: UIBarButtonItemStyle.plain, target: self, action: #selector
+        let practiceButton = UIBarButtonItem(title: "Practice", style: UIBarButtonItem.Style.plain, target: self, action: #selector
             (practiceVerb))
-        self.navigationItem.rightBarButtonItem = backButton
+        self.navigationItem.rightBarButtonItem = practiceButton
         
         let pinchRecognizer = UIPinchGestureRecognizer(target:self, action:#selector(handlePinch))
         self.view.addGestureRecognizer(pinchRecognizer)
     }
     
-    func handlePinch(sender: UIPinchGestureRecognizer)
+    @objc func handlePinch(sender: UIPinchGestureRecognizer)
     {
         //NSLog("Scale: %.2f | Velocity: %.2f",sender.scale, sender.velocity);
         let thresholdVelocity:CGFloat  = 0 //4.0;
@@ -89,14 +91,14 @@ class VerbDetailViewController: UITableViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        let att = [ NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 18)! ]
+        let att = [ NSAttributedString.Key.font: UIFont(name: "HelveticaNeue", size: 18)! ]
         self.navigationController?.navigationBar.titleTextAttributes = att
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         
-        let att = [ NSFontAttributeName: UIFont(name: "NewAthenaUnicode", size: 22)! ]
+        let att = [ NSAttributedString.Key.font: UIFont(name: "NewAthenaUnicode", size: 22)! ]
         self.navigationController?.navigationBar.titleTextAttributes = att
     }
     
@@ -125,7 +127,7 @@ class VerbDetailViewController: UITableViewController {
                 for mood in 0..<NUM_MOODS
                 {
                     let m:Int = Int(mood)
-                    if !isOida && m != INDICATIVE && (tense == PERFECT || tense == PLUPERFECT || tense == IMPERFECT || tense == FUTURE)
+                    if !isOida && m != INDICATIVE && (tense == PERFECT || tense == PLUPERFECT || tense == IMPERFECT || (tense == FUTURE && m != OPTATIVE))
                     {
                         continue
                     }
@@ -201,11 +203,11 @@ class VerbDetailViewController: UITableViewController {
         }
         let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: cellName)!
         
-        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
         cell.layoutMargins = UIEdgeInsets.zero
         cell.preservesSuperviewLayoutMargins = true
         cell.backgroundColor = UIColor.clear
-        cell.accessoryType = UITableViewCellAccessoryType.none
+        cell.accessoryType = UITableViewCell.AccessoryType.none
         
         var index = 0
         for i in 0..<indexPath.section
@@ -268,7 +270,7 @@ class VerbDetailViewController: UITableViewController {
         return 34
     }
 
-    func practiceVerb()
+    @objc func practiceVerb()
     {
         performSegue(withIdentifier: "SegueToHoplitePractice", sender: self)
     }
@@ -276,7 +278,9 @@ class VerbDetailViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let hp = segue.destination as! HopliteChallenge
         hp.isGame = false
-        hp.practiceVerbId = verbIndex
+        hp.verbIDs.removeAll()
+        hp.verbIDs.append( Int32(hqVerbID) )
+        hp.fromVerbDetail = true
     }
 }
 

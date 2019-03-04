@@ -23,24 +23,36 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         //print("View Controller is : \(topViewController) \n", terminator: "")
         switch (index) {
         case 0:
-            self.openViewControllerBasedOnIdentifier("HopliteChallenge")
+            self.openViewControllerBasedOnIdentifier("HopliteChallenge",p:"")
         case 1:
             //about
-            self.openViewControllerBasedOnIdentifier("HopliteChallenge")
+            self.openViewControllerBasedOnIdentifier("HopliteChallenge",p:"")
         case 2:
             //settings
-            self.openViewControllerBasedOnIdentifier("Settings")
+            self.openViewControllerBasedOnIdentifier("Settings",p:"")
         case 3:
-            self.openViewControllerBasedOnIdentifier("GameHistory")
+            self.openViewControllerBasedOnIdentifier("GameHistory",p:"")
         case 4:
-            self.openViewControllerBasedOnIdentifier("VerbList")
+            self.openViewControllerBasedOnIdentifier("Vocabulary",p:"verbs")
+        case 5:
+            self.openViewControllerBasedOnIdentifier("Accents",p:"")
+        case 6:
+            self.openViewControllerBasedOnIdentifier("Vocabulary",p:"")
+        case 7:
+            self.openViewControllerBasedOnIdentifier("CardView",p:"")
+        case 8:
+            self.openViewControllerBasedOnIdentifier("ExercisesView",p:"")
+        case 9:
+            self.openViewControllerBasedOnIdentifier("HCGame",p:"")
+        case 10:
+            self.openViewControllerBasedOnIdentifier("HCGameList",p:"")
         default:
             //NSLog("default")
             break
         }
     }
     
-    func openViewControllerBasedOnIdentifier(_ strIdentifier:String){
+    func openViewControllerBasedOnIdentifier(_ strIdentifier:String, p:String){
         let destViewController : UIViewController = self.storyboard!.instantiateViewController(withIdentifier: strIdentifier)
         let topViewController : UIViewController = self.navigationController!.topViewController!
         if topViewController.restorationIdentifier! == destViewController.restorationIdentifier!
@@ -49,15 +61,59 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         }
         else
         {
-            self.navigationController!.pushViewController(destViewController, animated: true)
+            if strIdentifier == "Vocabulary"
+            {
+                let dest = destViewController as! VocabTableViewController
+                if p == "verbs"
+                {
+                    //we can set these values before showing
+                    dest.sortAlpha = false
+                    dest.predicate = "pos=='Verb'"
+                    dest.selectedButtonIndex = 1
+                    dest.filterViewHeightValue = 0.0
+                    dest.navTitle = "Verbs"
+                    dest.segueDest = "synopsis"
+                }
+                else
+                {
+                /*
+                 //we can set these values before showing
+                dest.sortAlpha = false
+                dest.predicate = "pos=='Verb'"
+                dest.selectedButtonIndex = 1
+                dest.filterViewHeightValue = 0.0
+                dest.navTitle = "Verbs"
+                dest.segueDest = "synopsis"
+                */
+                }
+                self.navigationController!.pushViewController(dest, animated: true)
+            }
+            else if strIdentifier == "VerbList"
+            {
+                let dest = destViewController as! VocabTableViewController
+                
+ 
+                self.navigationController!.pushViewController(dest, animated: true)
+            }
+            else if strIdentifier == "HopliteChallenge"
+            {
+                let dest = destViewController as! HopliteChallenge
+                dest.isGame = false
+                
+                self.navigationController!.pushViewController(dest, animated: true)
+            }
+            else
+            {
+                self.navigationController!.pushViewController(destViewController, animated: true)
+            }
         }
     }
     
     func addSlideMenuButton() {
-        let btnShowMenu = UIButton(type: UIButtonType.system)
-        btnShowMenu.setImage(self.defaultMenuImage(), for: UIControlState())
+        let btnShowMenu = UIButton(type: UIButton.ButtonType.system)
+        btnShowMenu.setImage(self.defaultMenuImage(), for: UIControl.State())
         btnShowMenu.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        btnShowMenu.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), for: UIControlEvents.touchUpInside)
+        btnShowMenu.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), for: UIControl.Event.touchUpInside)
         let customBarItem = UIBarButtonItem(customView: btnShowMenu)
         self.navigationItem.leftBarButtonItem = customBarItem;
     }
@@ -84,7 +140,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         return defaultMenuImage;
     }
     
-    func onSlideMenuButtonPressed(_ sender : UIButton){
+    @objc func onSlideMenuButtonPressed(_ sender : UIButton){
         if (sender.tag == 10)
         {
             // To Hide Menu If it already there
@@ -114,7 +170,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         menuVC.btnMenu = sender
         menuVC.delegate = self
         self.view.addSubview(menuVC.view)
-        self.addChildViewController(menuVC)
+        self.addChild(menuVC)
         menuVC.view.layoutIfNeeded()
         
         

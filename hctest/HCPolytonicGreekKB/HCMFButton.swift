@@ -20,7 +20,7 @@ class HCMFButton: UIButton {
     var bgDownColor = HopliteConstants.accentBGColorDown
     var textDownColor = HopliteConstants.accentTextColorDown
     
-    let hcorange = UIColor(colorLiteralRed: 1.0, green: 0.2196, blue: 0, alpha: 1)
+    let hcorange = UIColor(red: 1.0, green: 0.2196, blue: 0, alpha: 1)
     
     var btype: Int? = nil
     var isDepressed:Bool = false
@@ -45,7 +45,7 @@ class HCMFButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func touchUpInside(sender: UIButton!) {
+    @objc func touchUpInside(sender: UIButton!) {
         isDepressed = true
         layer.borderColor = hcorange.cgColor
         layer.borderWidth = 2.0
@@ -56,7 +56,7 @@ class HCMFButton: UIButton {
         setNeedsDisplay()
     }
     
-    func touchUpOutside(sender: UIButton!) {
+    @objc func touchUpOutside(sender: UIButton!) {
         
         isDepressed = false
         layer.borderColor = nil
@@ -67,7 +67,7 @@ class HCMFButton: UIButton {
         setNeedsDisplay()
     }
     
-    func touchDown(sender: UIButton!) {
+    @objc func touchDown(sender: UIButton!) {
         isDepressed = true
         layer.borderColor = hcorange.cgColor
         layer.borderWidth = 2.0

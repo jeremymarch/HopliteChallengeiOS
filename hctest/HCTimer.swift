@@ -27,6 +27,7 @@ class HCTimer: UILabel {
     
     func startTimer()
     {
+        self.show()
         if countDown == true
         {
             self.text = String.init(format: "%.02f sec", countDownTime)
@@ -41,11 +42,11 @@ class HCTimer: UILabel {
         startTime = CACurrentMediaTime()
         timerDisplayLink = CADisplayLink.init(target: self, selector: #selector(runTimer))
         timerDisplayLink?.frameInterval = 1
-        timerDisplayLink?.add(to: RunLoop.current, forMode: .defaultRunLoopMode)
+        timerDisplayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.default)
         isRunning = true
     }
     
-    func runTimer()
+    @objc func runTimer()
     {
         var elapsedTime:CFTimeInterval = CACurrentMediaTime() - startTime
         elapsedTimeForDB = elapsedTime
@@ -97,4 +98,12 @@ class HCTimer: UILabel {
         }
     }
     
+    func hide()
+    {
+        self.isHidden = true
+    }
+    func show()
+    {
+        self.isHidden = false
+    }
 }

@@ -8,58 +8,75 @@
 
 /* Begin PBXBuildFile section */
 		3F0541641E7A688800DEB439 /* GameResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0541631E7A688800DEB439 /* GameResults.swift */; };
-		3F0BBD041E6D354500933F44 /* HCAccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBCFB1E6D354500933F44 /* HCAccentButton.swift */; };
-		3F0BBD051E6D354500933F44 /* HCbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBCFC1E6D354500933F44 /* HCbutton.swift */; };
-		3F0BBD061E6D354500933F44 /* HCCapsLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBCFD1E6D354500933F44 /* HCCapsLockButton.swift */; };
-		3F0BBD071E6D354500933F44 /* HCDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBCFE1E6D354500933F44 /* HCDeleteButton.swift */; };
-		3F0BBD081E6D354500933F44 /* HCEnterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBCFF1E6D354500933F44 /* HCEnterButton.swift */; };
-		3F0BBD091E6D354500933F44 /* HCGlobeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBD001E6D354500933F44 /* HCGlobeButton.swift */; };
-		3F0BBD0A1E6D354500933F44 /* HCPunctuationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBD021E6D354500933F44 /* HCPunctuationButton.swift */; };
-		3F0BBD0B1E6D354500933F44 /* HCSpaceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBD031E6D354500933F44 /* HCSpaceButton.swift */; };
-		3F0BBD0D1E6D355100933F44 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BBD0C1E6D355100933F44 /* KeyboardViewController.swift */; };
 		3F0EC6371E7784AE0084347F /* TypeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0EC6361E7784AE0084347F /* TypeTextView.swift */; };
 		3F15E1731E8450A0009760A0 /* hctestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15E1721E8450A0009760A0 /* hctestTests.swift */; };
 		3F15E17B1E8462C3009760A0 /* Verb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B4A1E7A290300144F7D /* Verb.swift */; };
 		3F15E17C1E8462F2009760A0 /* VerbForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */; };
-		3F15E17D1E84AFDD009760A0 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CF1E6BB41D00FFAD04 /* sqlite3.c */; };
-		3F15E17E1E84AFEB009760A0 /* VerbSequence.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CA1E6BB2D700FFAD04 /* VerbSequence.c */; };
-		3F15E17F1E84AFEE009760A0 /* GreekForms.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443C81E6BB2CD00FFAD04 /* GreekForms.c */; };
-		3F15E1801E84AFF2009760A0 /* utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443C51E6BB2BF00FFAD04 /* utilities.c */; };
-		3F15E1811E84AFF6009760A0 /* accent.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443C21E6BB2B000FFAD04 /* accent.c */; };
-		3F15E1821E84AFFA009760A0 /* ending.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443BC1E6BB2A100FFAD04 /* ending.c */; };
-		3F15E1831E84AFFE009760A0 /* augment.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443BF1E6BB2A100FFAD04 /* augment.c */; };
-		3F15E1841E84B002009760A0 /* libmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443B91E6BB27A00FFAD04 /* libmorph.c */; };
 		3F15E1861E85A893009760A0 /* hamburger.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F15E1851E85A893009760A0 /* hamburger.png */; };
 		3F195A271E7610050025EF00 /* TypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195A261E7610050025EF00 /* TypeLabel.swift */; };
+		3F1A64721FDA22BE00D38351 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3F1A64711FDA22BE00D38351 /* Podfile */; };
+		3F286B9F20B3314300F580E6 /* Exercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F286B9E20B3314300F580E6 /* Exercises.swift */; };
+		3F286BA120B3F3E800F580E6 /* HQEx.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3F286BA020B3F3E700F580E6 /* HQEx.xml */; };
+		3F28F7F21FD0C1D4008A69D9 /* VocabDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */; };
 		3F2BF3C51E6DC8E200884CDC /* greencheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C41E6DC8E200884CDC /* greencheck.png */; };
 		3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C61E6DC8EC00884CDC /* redx.png */; };
-		3F2BF3C91E6DF5AC00884CDC /* HCMFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C81E6DF5AC00884CDC /* HCMFButton.swift */; };
+		3F304EC321A75C2D0046A6C4 /* circlegrey.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F304EC121A75C2D0046A6C4 /* circlegrey.png */; };
+		3F304EC421A75C2D0046A6C4 /* circleorange.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F304EC221A75C2D0046A6C4 /* circleorange.png */; };
+		3F304EC621A75C380046A6C4 /* circleblue.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F304EC521A75C380046A6C4 /* circleblue.png */; };
 		3F3443A31E6BB17700FFAD04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */; };
 		3F3443A51E6BB17700FFAD04 /* HopliteChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443A41E6BB17700FFAD04 /* HopliteChallenge.swift */; };
 		3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443A61E6BB17700FFAD04 /* Main.storyboard */; };
 		3F3443AB1E6BB17700FFAD04 /* hctest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443A91E6BB17700FFAD04 /* hctest.xcdatamodeld */; };
 		3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443AC1E6BB17700FFAD04 /* Assets.xcassets */; };
 		3F3443B01E6BB17700FFAD04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443AE1E6BB17700FFAD04 /* LaunchScreen.storyboard */; };
-		3F3443BA1E6BB27A00FFAD04 /* libmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443B91E6BB27A00FFAD04 /* libmorph.c */; };
-		3F3443C01E6BB2A100FFAD04 /* ending.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443BC1E6BB2A100FFAD04 /* ending.c */; };
-		3F3443C11E6BB2A100FFAD04 /* augment.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443BF1E6BB2A100FFAD04 /* augment.c */; };
-		3F3443C41E6BB2B000FFAD04 /* accent.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443C21E6BB2B000FFAD04 /* accent.c */; };
-		3F3443C71E6BB2BF00FFAD04 /* utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443C51E6BB2BF00FFAD04 /* utilities.c */; };
-		3F3443C91E6BB2CD00FFAD04 /* GreekForms.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443C81E6BB2CD00FFAD04 /* GreekForms.c */; };
-		3F3443CB1E6BB2D700FFAD04 /* VerbSequence.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CA1E6BB2D700FFAD04 /* VerbSequence.c */; };
 		3F3443CE1E6BB33400FFAD04 /* VerbForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */; };
-		3F3443D31E6BB41D00FFAD04 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CF1E6BB41D00FFAD04 /* sqlite3.c */; };
 		3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */; };
 		3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443D61E6C814200FFAD04 /* newathu5.ttf */; };
+		3F3B30EE20D7033700EEB1E7 /* HCGameList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */; };
+		3F4205361FDDA57200BCA548 /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4205351FDDA57200BCA548 /* CardController.swift */; };
 		3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4869CD1E7C9A020051B46A /* HCSettings.swift */; };
+		3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */; };
+		3F6D20541FB7B8DA0000615B /* AccentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */; };
+		3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20551FB8E4EA0000615B /* AccentTextField.swift */; };
+		3F74B2D71FDA34EC0044B0FC /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */; };
+		3F74B2D91FDA55580044B0FC /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74B2D81FDA55580044B0FC /* CardView.swift */; };
+		3F7A63D020B79D9A003D483C /* HCGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A63CF20B79D9A003D483C /* HCGame.swift */; };
+		3F7A63D220B7BD26003D483C /* HCVerbFormPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */; };
+		3F7A63D420B7DCB5003D483C /* HCStemLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */; };
+		3F85624E20A9318900FE3EE1 /* HCEnterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85623920A9318900FE3EE1 /* HCEnterButton.swift */; };
+		3F85624F20A9318900FE3EE1 /* HCbutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85623B20A9318900FE3EE1 /* HCbutton.swift */; };
+		3F85625020A9318900FE3EE1 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F85623C20A9318900FE3EE1 /* LICENSE */; };
+		3F85625220A9318900FE3EE1 /* HCCapsLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85623E20A9318900FE3EE1 /* HCCapsLockButton.swift */; };
+		3F85625520A9318900FE3EE1 /* HCGlobeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85624520A9318900FE3EE1 /* HCGlobeButton.swift */; };
+		3F85625620A9318900FE3EE1 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85624720A9318900FE3EE1 /* KeyboardViewController.swift */; };
+		3F85625720A9318900FE3EE1 /* HCSpaceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85624820A9318900FE3EE1 /* HCSpaceButton.swift */; };
+		3F85625A20A9318900FE3EE1 /* HCDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85624B20A9318900FE3EE1 /* HCDeleteButton.swift */; };
+		3F85625C20A9318900FE3EE1 /* HCKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85624D20A9318900FE3EE1 /* HCKeyboardView.swift */; };
+		3F85625E20A93FCC00FE3EE1 /* HCMFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85625D20A93FCC00FE3EE1 /* HCMFButton.swift */; };
+		3F9F220B222C9F9F00BB54F1 /* accent.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F21EA222C9F9F00BB54F1 /* accent.c */; };
+		3F9F220C222C9F9F00BB54F1 /* augment.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F21EB222C9F9F00BB54F1 /* augment.c */; };
+		3F9F221F222C9F9F00BB54F1 /* utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2203222C9F9F00BB54F1 /* utilities.c */; };
+		3F9F2220222C9F9F00BB54F1 /* specialverbs.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2204222C9F9F00BB54F1 /* specialverbs.c */; };
+		3F9F2221222C9F9F00BB54F1 /* GreekForms.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2205222C9F9F00BB54F1 /* GreekForms.c */; };
+		3F9F2222222C9F9F00BB54F1 /* libmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2207222C9F9F00BB54F1 /* libmorph.c */; };
+		3F9F2223222C9F9F00BB54F1 /* ending.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2209222C9F9F00BB54F1 /* ending.c */; };
+		3F9F222E222C9FB300BB54F1 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2226222C9FB300BB54F1 /* sqlite3.c */; };
+		3F9F222F222C9FB300BB54F1 /* swiftVSeqLayer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2228222C9FB300BB54F1 /* swiftVSeqLayer.c */; };
+		3F9F2230222C9FB300BB54F1 /* VerbSequence.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F222A222C9FB300BB54F1 /* VerbSequence.c */; };
+		3F9F2231222C9FB300BB54F1 /* libGreekGlue.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F222C222C9FB300BB54F1 /* libGreekGlue.c */; };
 		3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FAA8D2E1E6D046300254E97 /* Life4X.png */; };
 		3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAA8D301E6D212900254E97 /* HCTimer.swift */; };
+		3FCB495820C47A5400FFD266 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCB495720C47A5400FFD266 /* NetworkManager.swift */; };
+		3FCB495A20C47F9F00FFD266 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCB495920C47F9F00FFD266 /* DataManager.swift */; };
+		3FF462E3218CC76E005B0629 /* MoveListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF462E2218CC76E005B0629 /* MoveListViewController.swift */; };
+		3FF462E6218D1AA3005B0629 /* circlered.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FF462E4218D1AA2005B0629 /* circlered.png */; };
+		3FF462E7218D1AA3005B0629 /* circlegreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FF462E5218D1AA2005B0629 /* circlegreen.png */; };
 		3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B401E78EF0700144F7D /* MenuViewController.swift */; };
 		3FF71B431E78EF3600144F7D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B421E78EF3600144F7D /* BaseViewController.swift */; };
 		3FF71B451E79EC4700144F7D /* GameHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B441E79EC4700144F7D /* GameHistory.swift */; };
-		3FF71B471E79EF5600144F7D /* VerbList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B461E79EF5600144F7D /* VerbList.swift */; };
 		3FF71B491E79EF6900144F7D /* VerbDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B481E79EF6900144F7D /* VerbDetail.swift */; };
 		3FF71B4B1E7A290300144F7D /* Verb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B4A1E7A290300144F7D /* Verb.swift */; };
+		40A9093BB289BD3CA7F681FB /* Pods_HopliteChallenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27075C33C32281AD0F07B97C /* Pods_HopliteChallenge.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,26 +90,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		151C77D90F5A7107DE2C5150 /* Pods-HopliteChallenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HopliteChallenge.release.xcconfig"; path = "Pods/Target Support Files/Pods-HopliteChallenge/Pods-HopliteChallenge.release.xcconfig"; sourceTree = "<group>"; };
+		27075C33C32281AD0F07B97C /* Pods_HopliteChallenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HopliteChallenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F0541631E7A688800DEB439 /* GameResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameResults.swift; sourceTree = "<group>"; };
-		3F0BBCFB1E6D354500933F44 /* HCAccentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCAccentButton.swift; path = HCPolytonicGreekKB/HCAccentButton.swift; sourceTree = "<group>"; };
-		3F0BBCFC1E6D354500933F44 /* HCbutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCbutton.swift; path = HCPolytonicGreekKB/HCbutton.swift; sourceTree = "<group>"; };
-		3F0BBCFD1E6D354500933F44 /* HCCapsLockButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCCapsLockButton.swift; path = HCPolytonicGreekKB/HCCapsLockButton.swift; sourceTree = "<group>"; };
-		3F0BBCFE1E6D354500933F44 /* HCDeleteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCDeleteButton.swift; path = HCPolytonicGreekKB/HCDeleteButton.swift; sourceTree = "<group>"; };
-		3F0BBCFF1E6D354500933F44 /* HCEnterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCEnterButton.swift; path = HCPolytonicGreekKB/HCEnterButton.swift; sourceTree = "<group>"; };
-		3F0BBD001E6D354500933F44 /* HCGlobeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCGlobeButton.swift; path = HCPolytonicGreekKB/HCGlobeButton.swift; sourceTree = "<group>"; };
-		3F0BBD011E6D354500933F44 /* HCPolytonicGreekKB-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "HCPolytonicGreekKB-Bridging-Header.h"; path = "HCPolytonicGreekKB/HCPolytonicGreekKB-Bridging-Header.h"; sourceTree = "<group>"; };
-		3F0BBD021E6D354500933F44 /* HCPunctuationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCPunctuationButton.swift; path = HCPolytonicGreekKB/HCPunctuationButton.swift; sourceTree = "<group>"; };
-		3F0BBD031E6D354500933F44 /* HCSpaceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCSpaceButton.swift; path = HCPolytonicGreekKB/HCSpaceButton.swift; sourceTree = "<group>"; };
-		3F0BBD0C1E6D355100933F44 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardViewController.swift; path = HCPolytonicGreekKB/KeyboardViewController.swift; sourceTree = "<group>"; };
 		3F0EC6361E7784AE0084347F /* TypeTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeTextView.swift; sourceTree = "<group>"; };
 		3F15E1701E8450A0009760A0 /* HopliteChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HopliteChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F15E1721E8450A0009760A0 /* hctestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hctestTests.swift; sourceTree = "<group>"; };
 		3F15E1741E8450A0009760A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F15E1851E85A893009760A0 /* hamburger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hamburger.png; sourceTree = "<group>"; };
 		3F195A261E7610050025EF00 /* TypeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeLabel.swift; sourceTree = "<group>"; };
+		3F1A64711FDA22BE00D38351 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		3F286B9E20B3314300F580E6 /* Exercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercises.swift; sourceTree = "<group>"; };
+		3F286BA020B3F3E700F580E6 /* HQEx.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HQEx.xml; sourceTree = "<group>"; };
+		3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabDetailViewController.swift; sourceTree = "<group>"; };
 		3F2BF3C41E6DC8E200884CDC /* greencheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greencheck.png; sourceTree = "<group>"; };
 		3F2BF3C61E6DC8EC00884CDC /* redx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redx.png; sourceTree = "<group>"; };
-		3F2BF3C81E6DF5AC00884CDC /* HCMFButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HCMFButton.swift; path = HCPolytonicGreekKB/HCMFButton.swift; sourceTree = "<group>"; };
+		3F304EC121A75C2D0046A6C4 /* circlegrey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlegrey.png; sourceTree = "<group>"; };
+		3F304EC221A75C2D0046A6C4 /* circleorange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleorange.png; sourceTree = "<group>"; };
+		3F304EC521A75C380046A6C4 /* circleblue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circleblue.png; sourceTree = "<group>"; };
 		3F34439F1E6BB17700FFAD04 /* HopliteChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HopliteChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F3443A41E6BB17700FFAD04 /* HopliteChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HopliteChallenge.swift; sourceTree = "<group>"; };
@@ -101,36 +116,75 @@
 		3F3443AC1E6BB17700FFAD04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F3443AF1E6BB17700FFAD04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F3443B11E6BB17700FFAD04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3F3443B81E6BB27900FFAD04 /* hctest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "hctest-Bridging-Header.h"; sourceTree = "<group>"; };
-		3F3443B91E6BB27A00FFAD04 /* libmorph.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = libmorph.c; path = libmorph/libmorph.c; sourceTree = "<group>"; };
-		3F3443BB1E6BB2A100FFAD04 /* ending.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ending.h; path = libmorph/ending.h; sourceTree = "<group>"; };
-		3F3443BC1E6BB2A100FFAD04 /* ending.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ending.c; path = libmorph/ending.c; sourceTree = "<group>"; };
-		3F3443BD1E6BB2A100FFAD04 /* libmorph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = libmorph.h; path = libmorph/libmorph.h; sourceTree = "<group>"; };
-		3F3443BE1E6BB2A100FFAD04 /* augment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = augment.h; path = libmorph/augment.h; sourceTree = "<group>"; };
-		3F3443BF1E6BB2A100FFAD04 /* augment.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = augment.c; path = libmorph/augment.c; sourceTree = "<group>"; };
-		3F3443C21E6BB2B000FFAD04 /* accent.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = accent.c; path = libmorph/accent.c; sourceTree = "<group>"; };
-		3F3443C31E6BB2B000FFAD04 /* accent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = accent.h; path = libmorph/accent.h; sourceTree = "<group>"; };
-		3F3443C51E6BB2BF00FFAD04 /* utilities.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = utilities.c; path = libmorph/utilities.c; sourceTree = "<group>"; };
-		3F3443C61E6BB2BF00FFAD04 /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utilities.h; path = libmorph/utilities.h; sourceTree = "<group>"; };
-		3F3443C81E6BB2CD00FFAD04 /* GreekForms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = GreekForms.c; path = libmorph/GreekForms.c; sourceTree = "<group>"; };
-		3F3443CA1E6BB2D700FFAD04 /* VerbSequence.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = VerbSequence.c; path = libmorph/VerbSequence.c; sourceTree = "<group>"; };
-		3F3443CC1E6BB2E600FFAD04 /* VerbSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VerbSequence.h; path = libmorph/VerbSequence.h; sourceTree = "<group>"; };
 		3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerbForm.swift; sourceTree = "<group>"; };
-		3F3443CF1E6BB41D00FFAD04 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sqlite3.c; path = libmorph/sqlite3.c; sourceTree = "<group>"; };
-		3F3443D01E6BB41D00FFAD04 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sqlite3.h; path = libmorph/sqlite3.h; sourceTree = "<group>"; };
-		3F3443D11E6BB41D00FFAD04 /* GreekForms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreekForms.h; path = libmorph/GreekForms.h; sourceTree = "<group>"; };
-		3F3443D21E6BB41D00FFAD04 /* GreekUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreekUnicode.h; path = libmorph/GreekUnicode.h; sourceTree = "<group>"; };
 		3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerbSequence.swift; sourceTree = "<group>"; };
 		3F3443D61E6C814200FFAD04 /* newathu5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newathu5.ttf; sourceTree = "<group>"; };
+		3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCGameList.swift; sourceTree = "<group>"; };
+		3F4205351FDDA57200BCA548 /* CardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
 		3F4869CD1E7C9A020051B46A /* HCSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCSettings.swift; sourceTree = "<group>"; };
+		3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabTableViewController.swift; sourceTree = "<group>"; };
+		3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentsViewController.swift; sourceTree = "<group>"; };
+		3F6D20551FB8E4EA0000615B /* AccentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentTextField.swift; sourceTree = "<group>"; };
+		3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
+		3F74B2D81FDA55580044B0FC /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		3F7A63CF20B79D9A003D483C /* HCGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCGame.swift; sourceTree = "<group>"; };
+		3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCVerbFormPicker.swift; sourceTree = "<group>"; };
+		3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCStemLabel.swift; sourceTree = "<group>"; };
+		3F85623920A9318900FE3EE1 /* HCEnterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCEnterButton.swift; sourceTree = "<group>"; };
+		3F85623A20A9318900FE3EE1 /* HCPolytonicGreekKB-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HCPolytonicGreekKB-Bridging-Header.h"; sourceTree = "<group>"; };
+		3F85623B20A9318900FE3EE1 /* HCbutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCbutton.swift; sourceTree = "<group>"; };
+		3F85623C20A9318900FE3EE1 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		3F85623D20A9318900FE3EE1 /* newathu5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newathu5.ttf; sourceTree = "<group>"; };
+		3F85623E20A9318900FE3EE1 /* HCCapsLockButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCCapsLockButton.swift; sourceTree = "<group>"; };
+		3F85624020A9318900FE3EE1 /* GreekUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreekUnicode.h; sourceTree = "<group>"; };
+		3F85624120A9318900FE3EE1 /* accent.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accent.c; sourceTree = "<group>"; };
+		3F85624220A9318900FE3EE1 /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utilities.h; sourceTree = "<group>"; };
+		3F85624320A9318900FE3EE1 /* utilities.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utilities.c; sourceTree = "<group>"; };
+		3F85624420A9318900FE3EE1 /* accent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = accent.h; sourceTree = "<group>"; };
+		3F85624520A9318900FE3EE1 /* HCGlobeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCGlobeButton.swift; sourceTree = "<group>"; };
+		3F85624620A9318900FE3EE1 /* HCPolytonicGreekKB.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = HCPolytonicGreekKB.entitlements; sourceTree = "<group>"; };
+		3F85624720A9318900FE3EE1 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		3F85624820A9318900FE3EE1 /* HCSpaceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCSpaceButton.swift; sourceTree = "<group>"; };
+		3F85624A20A9318900FE3EE1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F85624B20A9318900FE3EE1 /* HCDeleteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCDeleteButton.swift; sourceTree = "<group>"; };
+		3F85624D20A9318900FE3EE1 /* HCKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCKeyboardView.swift; sourceTree = "<group>"; };
+		3F85625D20A93FCC00FE3EE1 /* HCMFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCMFButton.swift; sourceTree = "<group>"; };
+		3F9F21E7222C9F9F00BB54F1 /* GreekUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreekUnicode.h; sourceTree = "<group>"; };
+		3F9F21E9222C9F9F00BB54F1 /* libmorph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libmorph.h; sourceTree = "<group>"; };
+		3F9F21EA222C9F9F00BB54F1 /* accent.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accent.c; sourceTree = "<group>"; };
+		3F9F21EB222C9F9F00BB54F1 /* augment.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = augment.c; sourceTree = "<group>"; };
+		3F9F21EC222C9F9F00BB54F1 /* GreekForms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreekForms.h; sourceTree = "<group>"; };
+		3F9F21ED222C9F9F00BB54F1 /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utilities.h; sourceTree = "<group>"; };
+		3F9F21EE222C9F9F00BB54F1 /* specialverbs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = specialverbs.h; sourceTree = "<group>"; };
+		3F9F21EF222C9F9F00BB54F1 /* ending.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ending.h; sourceTree = "<group>"; };
+		3F9F2203222C9F9F00BB54F1 /* utilities.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utilities.c; sourceTree = "<group>"; };
+		3F9F2204222C9F9F00BB54F1 /* specialverbs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = specialverbs.c; sourceTree = "<group>"; };
+		3F9F2205222C9F9F00BB54F1 /* GreekForms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = GreekForms.c; sourceTree = "<group>"; };
+		3F9F2206222C9F9F00BB54F1 /* augment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = augment.h; sourceTree = "<group>"; };
+		3F9F2207222C9F9F00BB54F1 /* libmorph.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libmorph.c; sourceTree = "<group>"; };
+		3F9F2208222C9F9F00BB54F1 /* accent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = accent.h; sourceTree = "<group>"; };
+		3F9F2209222C9F9F00BB54F1 /* ending.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ending.c; sourceTree = "<group>"; };
+		3F9F2226222C9FB300BB54F1 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
+		3F9F2227222C9FB300BB54F1 /* VerbSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerbSequence.h; sourceTree = "<group>"; };
+		3F9F2228222C9FB300BB54F1 /* swiftVSeqLayer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = swiftVSeqLayer.c; sourceTree = "<group>"; };
+		3F9F2229222C9FB300BB54F1 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
+		3F9F222A222C9FB300BB54F1 /* VerbSequence.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = VerbSequence.c; sourceTree = "<group>"; };
+		3F9F222B222C9FB300BB54F1 /* swiftVSeqLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = swiftVSeqLayer.h; sourceTree = "<group>"; };
+		3F9F222C222C9FB300BB54F1 /* libGreekGlue.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libGreekGlue.c; sourceTree = "<group>"; };
 		3FAA8D2E1E6D046300254E97 /* Life4X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Life4X.png; sourceTree = "<group>"; };
 		3FAA8D301E6D212900254E97 /* HCTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCTimer.swift; sourceTree = "<group>"; };
+		3FCB495720C47A5400FFD266 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		3FCB495920C47F9F00FFD266 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		3FDA3E4720C62703003BAC74 /* HopliteChallenge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HopliteChallenge.entitlements; sourceTree = SOURCE_ROOT; };
+		3FF462E2218CC76E005B0629 /* MoveListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveListViewController.swift; sourceTree = "<group>"; };
+		3FF462E4218D1AA2005B0629 /* circlered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlered.png; sourceTree = "<group>"; };
+		3FF462E5218D1AA2005B0629 /* circlegreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlegreen.png; sourceTree = "<group>"; };
 		3FF71B401E78EF0700144F7D /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		3FF71B421E78EF3600144F7D /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		3FF71B441E79EC4700144F7D /* GameHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHistory.swift; sourceTree = "<group>"; };
-		3FF71B461E79EF5600144F7D /* VerbList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerbList.swift; sourceTree = "<group>"; };
 		3FF71B481E79EF6900144F7D /* VerbDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerbDetail.swift; sourceTree = "<group>"; };
 		3FF71B4A1E7A290300144F7D /* Verb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verb.swift; sourceTree = "<group>"; };
+		539CB0D9A15B3F4CF2605F86 /* Pods-HopliteChallenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HopliteChallenge.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HopliteChallenge/Pods-HopliteChallenge.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,30 +199,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40A9093BB289BD3CA7F681FB /* Pods_HopliteChallenge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3F0BBCFA1E6D352100933F44 /* Hoplite Keyboard */ = {
-			isa = PBXGroup;
-			children = (
-				3F0BBD0C1E6D355100933F44 /* KeyboardViewController.swift */,
-				3F0BBCFB1E6D354500933F44 /* HCAccentButton.swift */,
-				3F0BBCFC1E6D354500933F44 /* HCbutton.swift */,
-				3F0BBCFD1E6D354500933F44 /* HCCapsLockButton.swift */,
-				3F0BBCFE1E6D354500933F44 /* HCDeleteButton.swift */,
-				3F0BBCFF1E6D354500933F44 /* HCEnterButton.swift */,
-				3F0BBD001E6D354500933F44 /* HCGlobeButton.swift */,
-				3F0BBD011E6D354500933F44 /* HCPolytonicGreekKB-Bridging-Header.h */,
-				3F0BBD021E6D354500933F44 /* HCPunctuationButton.swift */,
-				3F0BBD031E6D354500933F44 /* HCSpaceButton.swift */,
-				3F2BF3C81E6DF5AC00884CDC /* HCMFButton.swift */,
-			);
-			name = "Hoplite Keyboard";
-			sourceTree = "<group>";
-		};
 		3F15E1711E8450A0009760A0 /* HopliteChallengeTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,9 +219,13 @@
 		3F3443961E6BB17700FFAD04 = {
 			isa = PBXGroup;
 			children = (
+				3F85623820A9318900FE3EE1 /* HCPolytonicGreekKB */,
+				3F1A64711FDA22BE00D38351 /* Podfile */,
 				3F3443A11E6BB17700FFAD04 /* HopliteChallenge */,
 				3F15E1711E8450A0009760A0 /* HopliteChallengeTests */,
 				3F3443A01E6BB17700FFAD04 /* Products */,
+				E64163E6C995064FBB676A1E /* Pods */,
+				DF2A71188EEF94728AD15FAC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -200,9 +241,14 @@
 		3F3443A11E6BB17700FFAD04 /* HopliteChallenge */ = {
 			isa = PBXGroup;
 			children = (
-				3F0BBCFA1E6D352100933F44 /* Hoplite Keyboard */,
-				3F3443B71E6BB25C00FFAD04 /* libmorph */,
+				3F9F2224222C9FB300BB54F1 /* libseq */,
+				3F9F21E6222C9F9F00BB54F1 /* libgreek */,
+				3F304EC521A75C380046A6C4 /* circleblue.png */,
+				3F304EC121A75C2D0046A6C4 /* circlegrey.png */,
+				3F304EC221A75C2D0046A6C4 /* circleorange.png */,
+				3FDA3E4720C62703003BAC74 /* HopliteChallenge.entitlements */,
 				3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */,
+				3F286BA020B3F3E700F580E6 /* HQEx.xml */,
 				3F3443A41E6BB17700FFAD04 /* HopliteChallenge.swift */,
 				3F195A261E7610050025EF00 /* TypeLabel.swift */,
 				3F0EC6361E7784AE0084347F /* TypeTextView.swift */,
@@ -214,47 +260,125 @@
 				3FF71B421E78EF3600144F7D /* BaseViewController.swift */,
 				3FF71B441E79EC4700144F7D /* GameHistory.swift */,
 				3F0541631E7A688800DEB439 /* GameResults.swift */,
-				3FF71B461E79EF5600144F7D /* VerbList.swift */,
 				3FF71B481E79EF6900144F7D /* VerbDetail.swift */,
 				3F4869CD1E7C9A020051B46A /* HCSettings.swift */,
 				3F3443AC1E6BB17700FFAD04 /* Assets.xcassets */,
 				3F3443A61E6BB17700FFAD04 /* Main.storyboard */,
 				3F3443AE1E6BB17700FFAD04 /* LaunchScreen.storyboard */,
-				3F3443B11E6BB17700FFAD04 /* Info.plist */,
 				3F3443A91E6BB17700FFAD04 /* hctest.xcdatamodeld */,
+				3F3443B11E6BB17700FFAD04 /* Info.plist */,
+				3FF462E5218D1AA2005B0629 /* circlegreen.png */,
+				3FF462E4218D1AA2005B0629 /* circlered.png */,
 				3F2BF3C61E6DC8EC00884CDC /* redx.png */,
 				3F2BF3C41E6DC8E200884CDC /* greencheck.png */,
 				3FAA8D2E1E6D046300254E97 /* Life4X.png */,
 				3F15E1851E85A893009760A0 /* hamburger.png */,
 				3F3443D61E6C814200FFAD04 /* newathu5.ttf */,
+				3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */,
+				3F6D20551FB8E4EA0000615B /* AccentTextField.swift */,
+				3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */,
+				3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */,
+				3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */,
+				3F74B2D81FDA55580044B0FC /* CardView.swift */,
+				3F4205351FDDA57200BCA548 /* CardController.swift */,
+				3F286B9E20B3314300F580E6 /* Exercises.swift */,
+				3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */,
+				3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */,
+				3FCB495720C47A5400FFD266 /* NetworkManager.swift */,
+				3FCB495920C47F9F00FFD266 /* DataManager.swift */,
+				3F7A63CF20B79D9A003D483C /* HCGame.swift */,
+				3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */,
+				3FF462E2218CC76E005B0629 /* MoveListViewController.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
 			sourceTree = "<group>";
 		};
-		3F3443B71E6BB25C00FFAD04 /* libmorph */ = {
+		3F85623820A9318900FE3EE1 /* HCPolytonicGreekKB */ = {
 			isa = PBXGroup;
 			children = (
-				3F3443CF1E6BB41D00FFAD04 /* sqlite3.c */,
-				3F3443D01E6BB41D00FFAD04 /* sqlite3.h */,
-				3F3443D11E6BB41D00FFAD04 /* GreekForms.h */,
-				3F3443D21E6BB41D00FFAD04 /* GreekUnicode.h */,
-				3F3443CC1E6BB2E600FFAD04 /* VerbSequence.h */,
-				3F3443CA1E6BB2D700FFAD04 /* VerbSequence.c */,
-				3F3443C81E6BB2CD00FFAD04 /* GreekForms.c */,
-				3F3443C51E6BB2BF00FFAD04 /* utilities.c */,
-				3F3443C61E6BB2BF00FFAD04 /* utilities.h */,
-				3F3443C21E6BB2B000FFAD04 /* accent.c */,
-				3F3443C31E6BB2B000FFAD04 /* accent.h */,
-				3F3443BB1E6BB2A100FFAD04 /* ending.h */,
-				3F3443BC1E6BB2A100FFAD04 /* ending.c */,
-				3F3443BE1E6BB2A100FFAD04 /* augment.h */,
-				3F3443BF1E6BB2A100FFAD04 /* augment.c */,
-				3F3443BD1E6BB2A100FFAD04 /* libmorph.h */,
-				3F3443B91E6BB27A00FFAD04 /* libmorph.c */,
-				3F3443B81E6BB27900FFAD04 /* hctest-Bridging-Header.h */,
+				3F85623920A9318900FE3EE1 /* HCEnterButton.swift */,
+				3F85623A20A9318900FE3EE1 /* HCPolytonicGreekKB-Bridging-Header.h */,
+				3F85623B20A9318900FE3EE1 /* HCbutton.swift */,
+				3F85623C20A9318900FE3EE1 /* LICENSE */,
+				3F85623D20A9318900FE3EE1 /* newathu5.ttf */,
+				3F85623E20A9318900FE3EE1 /* HCCapsLockButton.swift */,
+				3F85623F20A9318900FE3EE1 /* libmorph */,
+				3F85624520A9318900FE3EE1 /* HCGlobeButton.swift */,
+				3F85624620A9318900FE3EE1 /* HCPolytonicGreekKB.entitlements */,
+				3F85624720A9318900FE3EE1 /* KeyboardViewController.swift */,
+				3F85624820A9318900FE3EE1 /* HCSpaceButton.swift */,
+				3F85624A20A9318900FE3EE1 /* Info.plist */,
+				3F85624B20A9318900FE3EE1 /* HCDeleteButton.swift */,
+				3F85624D20A9318900FE3EE1 /* HCKeyboardView.swift */,
+				3F85625D20A93FCC00FE3EE1 /* HCMFButton.swift */,
 			);
-			name = libmorph;
+			path = HCPolytonicGreekKB;
+			sourceTree = "<group>";
+		};
+		3F85623F20A9318900FE3EE1 /* libmorph */ = {
+			isa = PBXGroup;
+			children = (
+				3F85624020A9318900FE3EE1 /* GreekUnicode.h */,
+				3F85624120A9318900FE3EE1 /* accent.c */,
+				3F85624220A9318900FE3EE1 /* utilities.h */,
+				3F85624320A9318900FE3EE1 /* utilities.c */,
+				3F85624420A9318900FE3EE1 /* accent.h */,
+			);
+			path = libmorph;
+			sourceTree = "<group>";
+		};
+		3F9F21E6222C9F9F00BB54F1 /* libgreek */ = {
+			isa = PBXGroup;
+			children = (
+				3F9F21E7222C9F9F00BB54F1 /* GreekUnicode.h */,
+				3F9F21E9222C9F9F00BB54F1 /* libmorph.h */,
+				3F9F21EA222C9F9F00BB54F1 /* accent.c */,
+				3F9F21EB222C9F9F00BB54F1 /* augment.c */,
+				3F9F21EC222C9F9F00BB54F1 /* GreekForms.h */,
+				3F9F21ED222C9F9F00BB54F1 /* utilities.h */,
+				3F9F21EE222C9F9F00BB54F1 /* specialverbs.h */,
+				3F9F21EF222C9F9F00BB54F1 /* ending.h */,
+				3F9F2203222C9F9F00BB54F1 /* utilities.c */,
+				3F9F2204222C9F9F00BB54F1 /* specialverbs.c */,
+				3F9F2205222C9F9F00BB54F1 /* GreekForms.c */,
+				3F9F2206222C9F9F00BB54F1 /* augment.h */,
+				3F9F2207222C9F9F00BB54F1 /* libmorph.c */,
+				3F9F2208222C9F9F00BB54F1 /* accent.h */,
+				3F9F2209222C9F9F00BB54F1 /* ending.c */,
+			);
+			path = libgreek;
+			sourceTree = "<group>";
+		};
+		3F9F2224222C9FB300BB54F1 /* libseq */ = {
+			isa = PBXGroup;
+			children = (
+				3F9F2226222C9FB300BB54F1 /* sqlite3.c */,
+				3F9F2227222C9FB300BB54F1 /* VerbSequence.h */,
+				3F9F2228222C9FB300BB54F1 /* swiftVSeqLayer.c */,
+				3F9F2229222C9FB300BB54F1 /* sqlite3.h */,
+				3F9F222A222C9FB300BB54F1 /* VerbSequence.c */,
+				3F9F222B222C9FB300BB54F1 /* swiftVSeqLayer.h */,
+				3F9F222C222C9FB300BB54F1 /* libGreekGlue.c */,
+			);
+			path = libseq;
+			sourceTree = "<group>";
+		};
+		DF2A71188EEF94728AD15FAC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				27075C33C32281AD0F07B97C /* Pods_HopliteChallenge.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E64163E6C995064FBB676A1E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				539CB0D9A15B3F4CF2605F86 /* Pods-HopliteChallenge.debug.xcconfig */,
+				151C77D90F5A7107DE2C5150 /* Pods-HopliteChallenge.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,9 +406,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3F3443B41E6BB17700FFAD04 /* Build configuration list for PBXNativeTarget "HopliteChallenge" */;
 			buildPhases = (
+				120BC056F44F369BEF2BD34E /* [CP] Check Pods Manifest.lock */,
 				3F34439B1E6BB17700FFAD04 /* Sources */,
 				3F34439C1E6BB17700FFAD04 /* Frameworks */,
 				3F34439D1E6BB17700FFAD04 /* Resources */,
+				450F22E2F75C2D93B8B17AAB /* [CP] Embed Pods Frameworks */,
+				ACA317064041E0AE3DDD1A12 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -302,20 +429,26 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Jeremy March";
 				TargetAttributes = {
 					3F15E16F1E8450A0009760A0 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = EFHC4XFZ38;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 3F34439E1E6BB17700FFAD04;
 					};
 					3F34439E1E6BB17700FFAD04 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = EFHC4XFZ38;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -351,34 +484,90 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F2BF3C51E6DC8E200884CDC /* greencheck.png in Resources */,
+				3FF462E6218D1AA3005B0629 /* circlered.png in Resources */,
 				3F3443B01E6BB17700FFAD04 /* LaunchScreen.storyboard in Resources */,
 				3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */,
+				3F304EC321A75C2D0046A6C4 /* circlegrey.png in Resources */,
 				3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */,
+				3F85625020A9318900FE3EE1 /* LICENSE in Resources */,
+				3F286BA120B3F3E800F580E6 /* HQEx.xml in Resources */,
+				3F304EC421A75C2D0046A6C4 /* circleorange.png in Resources */,
 				3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */,
 				3F15E1861E85A893009760A0 /* hamburger.png in Resources */,
+				3F304EC621A75C380046A6C4 /* circleblue.png in Resources */,
+				3F1A64721FDA22BE00D38351 /* Podfile in Resources */,
 				3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */,
+				3FF462E7218D1AA3005B0629 /* circlegreen.png in Resources */,
 				3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		120BC056F44F369BEF2BD34E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HopliteChallenge-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		450F22E2F75C2D93B8B17AAB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-HopliteChallenge/Pods-HopliteChallenge-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
+				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koloda.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HopliteChallenge/Pods-HopliteChallenge-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ACA317064041E0AE3DDD1A12 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HopliteChallenge/Pods-HopliteChallenge-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3F15E16C1E8450A0009760A0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F15E1801E84AFF2009760A0 /* utilities.c in Sources */,
-				3F15E17F1E84AFEE009760A0 /* GreekForms.c in Sources */,
-				3F15E1841E84B002009760A0 /* libmorph.c in Sources */,
 				3F15E17B1E8462C3009760A0 /* Verb.swift in Sources */,
 				3F15E1731E8450A0009760A0 /* hctestTests.swift in Sources */,
 				3F15E17C1E8462F2009760A0 /* VerbForm.swift in Sources */,
-				3F15E17D1E84AFDD009760A0 /* sqlite3.c in Sources */,
-				3F15E1821E84AFFA009760A0 /* ending.c in Sources */,
-				3F15E1831E84AFFE009760A0 /* augment.c in Sources */,
-				3F15E17E1E84AFEB009760A0 /* VerbSequence.c in Sources */,
-				3F15E1811E84AFF6009760A0 /* accent.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,40 +575,56 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FF71B471E79EF5600144F7D /* VerbList.swift in Sources */,
+				3FCB495820C47A5400FFD266 /* NetworkManager.swift in Sources */,
+				3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */,
 				3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */,
-				3F0BBD051E6D354500933F44 /* HCbutton.swift in Sources */,
-				3F3443C71E6BB2BF00FFAD04 /* utilities.c in Sources */,
-				3F3443BA1E6BB27A00FFAD04 /* libmorph.c in Sources */,
+				3FCB495A20C47F9F00FFD266 /* DataManager.swift in Sources */,
+				3F9F2231222C9FB300BB54F1 /* libGreekGlue.c in Sources */,
 				3F0EC6371E7784AE0084347F /* TypeTextView.swift in Sources */,
-				3F0BBD071E6D354500933F44 /* HCDeleteButton.swift in Sources */,
 				3F0541641E7A688800DEB439 /* GameResults.swift in Sources */,
+				3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */,
+				3F7A63D420B7DCB5003D483C /* HCStemLabel.swift in Sources */,
 				3FF71B431E78EF3600144F7D /* BaseViewController.swift in Sources */,
 				3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */,
-				3F3443C11E6BB2A100FFAD04 /* augment.c in Sources */,
-				3F0BBD041E6D354500933F44 /* HCAccentButton.swift in Sources */,
 				3F3443A51E6BB17700FFAD04 /* HopliteChallenge.swift in Sources */,
+				3F9F220B222C9F9F00BB54F1 /* accent.c in Sources */,
 				3F3443A31E6BB17700FFAD04 /* AppDelegate.swift in Sources */,
-				3F0BBD081E6D354500933F44 /* HCEnterButton.swift in Sources */,
-				3F3443C41E6BB2B000FFAD04 /* accent.c in Sources */,
+				3F85625620A9318900FE3EE1 /* KeyboardViewController.swift in Sources */,
 				3F195A271E7610050025EF00 /* TypeLabel.swift in Sources */,
-				3F0BBD0B1E6D354500933F44 /* HCSpaceButton.swift in Sources */,
-				3F3443C91E6BB2CD00FFAD04 /* GreekForms.c in Sources */,
-				3F0BBD0D1E6D355100933F44 /* KeyboardViewController.swift in Sources */,
-				3F0BBD0A1E6D354500933F44 /* HCPunctuationButton.swift in Sources */,
+				3F7A63D220B7BD26003D483C /* HCVerbFormPicker.swift in Sources */,
+				3F9F2223222C9F9F00BB54F1 /* ending.c in Sources */,
+				3F85625C20A9318900FE3EE1 /* HCKeyboardView.swift in Sources */,
+				3F85624E20A9318900FE3EE1 /* HCEnterButton.swift in Sources */,
 				3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */,
+				3F9F220C222C9F9F00BB54F1 /* augment.c in Sources */,
 				3FF71B4B1E7A290300144F7D /* Verb.swift in Sources */,
-				3F3443D31E6BB41D00FFAD04 /* sqlite3.c in Sources */,
+				3F9F2221222C9F9F00BB54F1 /* GreekForms.c in Sources */,
+				3F9F2222222C9F9F00BB54F1 /* libmorph.c in Sources */,
+				3F4205361FDDA57200BCA548 /* CardController.swift in Sources */,
+				3F9F222E222C9FB300BB54F1 /* sqlite3.c in Sources */,
+				3F9F2220222C9F9F00BB54F1 /* specialverbs.c in Sources */,
+				3F9F222F222C9FB300BB54F1 /* swiftVSeqLayer.c in Sources */,
+				3F74B2D91FDA55580044B0FC /* CardView.swift in Sources */,
 				3F3443AB1E6BB17700FFAD04 /* hctest.xcdatamodeld in Sources */,
+				3F9F2230222C9FB300BB54F1 /* VerbSequence.c in Sources */,
 				3F3443CE1E6BB33400FFAD04 /* VerbForm.swift in Sources */,
+				3F74B2D71FDA34EC0044B0FC /* CardViewController.swift in Sources */,
 				3FF71B491E79EF6900144F7D /* VerbDetail.swift in Sources */,
-				3F3443C01E6BB2A100FFAD04 /* ending.c in Sources */,
+				3F85625220A9318900FE3EE1 /* HCCapsLockButton.swift in Sources */,
+				3F7A63D020B79D9A003D483C /* HCGame.swift in Sources */,
 				3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */,
-				3F3443CB1E6BB2D700FFAD04 /* VerbSequence.c in Sources */,
-				3F2BF3C91E6DF5AC00884CDC /* HCMFButton.swift in Sources */,
-				3F0BBD091E6D354500933F44 /* HCGlobeButton.swift in Sources */,
-				3F0BBD061E6D354500933F44 /* HCCapsLockButton.swift in Sources */,
+				3F286B9F20B3314300F580E6 /* Exercises.swift in Sources */,
+				3F9F221F222C9F9F00BB54F1 /* utilities.c in Sources */,
+				3FF462E3218CC76E005B0629 /* MoveListViewController.swift in Sources */,
+				3F85625A20A9318900FE3EE1 /* HCDeleteButton.swift in Sources */,
+				3F85624F20A9318900FE3EE1 /* HCbutton.swift in Sources */,
+				3F28F7F21FD0C1D4008A69D9 /* VocabDetailViewController.swift in Sources */,
 				3FF71B451E79EC4700144F7D /* GameHistory.swift in Sources */,
+				3F85625E20A93FCC00FE3EE1 /* HCMFButton.swift in Sources */,
+				3F6D20541FB7B8DA0000615B /* AccentsViewController.swift in Sources */,
+				3F3B30EE20D7033700EEB1E7 /* HCGameList.swift in Sources */,
+				3F85625520A9318900FE3EE1 /* HCGlobeButton.swift in Sources */,
+				3F85625720A9318900FE3EE1 /* HCSpaceButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,8 +669,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hctestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hctest.app/hctest";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HopliteChallenge.app/HopliteChallenge";
 			};
 			name = Debug;
 		};
@@ -480,8 +686,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hctestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hctest.app/hctest";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HopliteChallenge.app/HopliteChallenge";
 			};
 			name = Release;
 		};
@@ -494,15 +701,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -531,7 +746,8 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				"SWIFT_VERSION[arch=*]" = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				"SWIFT_VERSION[arch=*]" = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -545,15 +761,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -574,7 +798,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				"SWIFT_VERSION[arch=*]" = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				"SWIFT_VERSION[arch=*]" = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -582,10 +807,17 @@
 		};
 		3F3443B51E6BB17700FFAD04 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 539CB0D9A15B3F4CF2605F86 /* Pods-HopliteChallenge.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HopliteChallenge.entitlements;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = (
+					hctest/libseq,
+					hctest/libgreek,
+				);
 				INFOPLIST_FILE = hctest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -593,23 +825,32 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
 		3F3443B61E6BB17700FFAD04 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 151C77D90F5A7107DE2C5150 /* Pods-HopliteChallenge.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HopliteChallenge.entitlements;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = (
+					hctest/libseq,
+					hctest/libgreek,
+				);
 				INFOPLIST_FILE = hctest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplite2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

@@ -18,6 +18,8 @@ class TypeLabel: UILabel {
     var currentStep:Int = 0
     var att:NSMutableAttributedString? = nil
     var attTextColor:UIColor = UIColor.black
+    var onComplete:( ()->Void )? = nil
+    var after:Double = 0.0
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
@@ -25,6 +27,13 @@ class TypeLabel: UILabel {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+    }
+    
+    func hide(duration:TimeInterval, after:Double, onComplete: @escaping ()->Void )
+    {
+        self.onComplete = onComplete
+        self.after = after
+        hide(duration:duration)
     }
 
     func hide(duration:TimeInterval)
@@ -38,7 +47,7 @@ class TypeLabel: UILabel {
             startTime = CACurrentMediaTime()
             timerDisplayLink = CADisplayLink.init(target: self, selector: #selector(updateHideAtt))
             timerDisplayLink?.frameInterval = 1
-            timerDisplayLink?.add(to: RunLoop.current, forMode: .defaultRunLoopMode)
+            timerDisplayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.default)
         }
         else
         {
@@ -65,18 +74,25 @@ class TypeLabel: UILabel {
         startTime = CACurrentMediaTime()
         timerDisplayLink = CADisplayLink.init(target: self, selector: #selector(update))
         timerDisplayLink?.frameInterval = 1
-        timerDisplayLink?.add(to: RunLoop.current, forMode: .defaultRunLoopMode)
+        timerDisplayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.default)
+    }
+    
+    func type(newText:String, duration:TimeInterval, after:Double, onComplete: @escaping ()->Void )
+    {
+        self.onComplete = onComplete
+        self.after = after
+        type(newText:newText, duration:duration)
     }
     
     func type(newText:String, duration:TimeInterval)
     {
-        if newText.characters.count > 0
+        if newText.count > 0
         {
             type(newAttributedText:NSMutableAttributedString.init(string: newText), duration:duration)
         }
     }
 
-    func update()
+    @objc func update()
     {
         var elapsedTime:CFTimeInterval = CACurrentMediaTime() - startTime
         //NSLog("steps: \(steps), duration: \(duration), elapsed: \(elapsedTime), \(elapsedTime / duration)")
@@ -94,19 +110,26 @@ class TypeLabel: UILabel {
         
         if newStep > currentStep
         {
-            att?.addAttribute(NSForegroundColorAttributeName, value: attTextColor, range: NSRange(location: 0, length: newStep))
+            att?.addAttribute(NSAttributedString.Key.foregroundColor, value: attTextColor, range: NSRange(location: 0, length: newStep))
             self.attributedText = att
             currentStep = newStep
             
             if currentStep == steps
             {
                 timerDisplayLink?.invalidate()
-                timerDisplayLink?.remove(from: RunLoop.current, forMode: .defaultRunLoopMode)
+                timerDisplayLink?.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
+                if onComplete != nil
+                {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + self.after) {
+                        self.onComplete!()
+                        //onComplete = nil
+                    }
+                }
             }
         }
     }
     
-    func updateHideAtt()
+    @objc func updateHideAtt()
     {
         var elapsedTime:CFTimeInterval = CACurrentMediaTime() - startTime
         //NSLog("steps: \(steps), duration: \(duration), elapsed: \(elapsedTime), \(elapsedTime / duration)")
@@ -124,17 +147,24 @@ class TypeLabel: UILabel {
         
         if newStep > currentStep
         {
-            att?.addAttribute(NSForegroundColorAttributeName, value: backgroundColor as Any, range: NSRange(location: steps - newStep, length: newStep))
+            att?.addAttribute(NSAttributedString.Key.foregroundColor, value: backgroundColor as Any, range: NSRange(location: steps - newStep, length: newStep))
             self.attributedText = att
             currentStep = newStep
             
             if currentStep == steps
             {
                 timerDisplayLink?.invalidate()
-                timerDisplayLink?.remove(from: RunLoop.current, forMode: .defaultRunLoopMode)
+                timerDisplayLink?.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
                 text = ""
                 attributedText = nil
                 timerDisplayLink = nil
+                if onComplete != nil
+                {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + self.after) {
+                        self.onComplete!()
+                        //onComplete = nil
+                    }
+                }
             }
         }
     }

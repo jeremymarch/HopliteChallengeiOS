@@ -41,7 +41,7 @@ class TypeTextView: UITextView {
             startTime = CACurrentMediaTime()
             timerDisplayLink = CADisplayLink.init(target: self, selector: #selector(updateHideAtt))
             timerDisplayLink?.frameInterval = 1
-            timerDisplayLink?.add(to: RunLoop.current, forMode: .defaultRunLoopMode)
+            timerDisplayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.default)
         }
         else
         {
@@ -67,18 +67,18 @@ class TypeTextView: UITextView {
         startTime = CACurrentMediaTime()
         timerDisplayLink = CADisplayLink.init(target: self, selector: #selector(update))
         timerDisplayLink?.frameInterval = 1
-        timerDisplayLink?.add(to: RunLoop.current, forMode: .defaultRunLoopMode)
+        timerDisplayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.default)
     }
     
     func type(newText:String, duration:TimeInterval)
     {
-        if newText.characters.count > 0
+        if newText.count > 0
         {
             type(newAttributedText:NSMutableAttributedString.init(string: newText), duration:duration)
         }
     }
     
-    func update()
+    @objc func update()
     {
         var elapsedTime:CFTimeInterval = CACurrentMediaTime() - startTime
         //NSLog("steps: \(steps), duration: \(duration), elapsed: \(elapsedTime), \(elapsedTime / duration)")
@@ -96,19 +96,19 @@ class TypeTextView: UITextView {
         
         if newStep > currentStep
         {
-            att?.addAttribute(NSForegroundColorAttributeName, value: attTextColor, range: NSRange(location: 0, length: newStep))
+            att?.addAttribute(NSAttributedString.Key.foregroundColor, value: attTextColor, range: NSRange(location: 0, length: newStep))
             self.attributedText = att
             currentStep = newStep
             
             if currentStep == steps
             {
                 timerDisplayLink?.invalidate()
-                timerDisplayLink?.remove(from: RunLoop.current, forMode: .defaultRunLoopMode)
+                timerDisplayLink?.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
             }
         }
     }
     
-    func updateHideAtt()
+    @objc func updateHideAtt()
     {
         var elapsedTime:CFTimeInterval = CACurrentMediaTime() - startTime
         //NSLog("steps: \(steps), duration: \(duration), elapsed: \(elapsedTime), \(elapsedTime / duration)")
@@ -126,14 +126,14 @@ class TypeTextView: UITextView {
         
         if newStep > currentStep
         {
-            att?.addAttribute(NSForegroundColorAttributeName, value: backgroundColor as Any, range: NSRange(location: steps - newStep, length: newStep))
+            att?.addAttribute(NSAttributedString.Key.foregroundColor, value: backgroundColor as Any, range: NSRange(location: steps - newStep, length: newStep))
             self.attributedText = att
             currentStep = newStep
             
             if currentStep == steps
             {
                 timerDisplayLink?.invalidate()
-                timerDisplayLink?.remove(from: RunLoop.current, forMode: .defaultRunLoopMode)
+                timerDisplayLink?.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
                 text = ""
                 attributedText = nil
                 timerDisplayLink = nil
