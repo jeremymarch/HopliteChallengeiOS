@@ -53,6 +53,7 @@
 		3F85625A20A9318900FE3EE1 /* HCDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85624B20A9318900FE3EE1 /* HCDeleteButton.swift */; };
 		3F85625C20A9318900FE3EE1 /* HCKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85624D20A9318900FE3EE1 /* HCKeyboardView.swift */; };
 		3F85625E20A93FCC00FE3EE1 /* HCMFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85625D20A93FCC00FE3EE1 /* HCMFButton.swift */; };
+		3F938EE3222DC10B00594AC8 /* RetroHomeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F938EE2222DC10B00594AC8 /* RetroHomeMenuViewController.swift */; };
 		3F9F220B222C9F9F00BB54F1 /* accent.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F21EA222C9F9F00BB54F1 /* accent.c */; };
 		3F9F220C222C9F9F00BB54F1 /* augment.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F21EB222C9F9F00BB54F1 /* augment.c */; };
 		3F9F221F222C9F9F00BB54F1 /* utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2203222C9F9F00BB54F1 /* utilities.c */; };
@@ -149,6 +150,7 @@
 		3F85624B20A9318900FE3EE1 /* HCDeleteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCDeleteButton.swift; sourceTree = "<group>"; };
 		3F85624D20A9318900FE3EE1 /* HCKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCKeyboardView.swift; sourceTree = "<group>"; };
 		3F85625D20A93FCC00FE3EE1 /* HCMFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCMFButton.swift; sourceTree = "<group>"; };
+		3F938EE2222DC10B00594AC8 /* RetroHomeMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroHomeMenuViewController.swift; sourceTree = "<group>"; };
 		3F9F21E7222C9F9F00BB54F1 /* GreekUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreekUnicode.h; sourceTree = "<group>"; };
 		3F9F21E9222C9F9F00BB54F1 /* libmorph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libmorph.h; sourceTree = "<group>"; };
 		3F9F21EA222C9F9F00BB54F1 /* accent.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accent.c; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 				3F7A63CF20B79D9A003D483C /* HCGame.swift */,
 				3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */,
 				3FF462E2218CC76E005B0629 /* MoveListViewController.swift */,
+				3F938EE2222DC10B00594AC8 /* RetroHomeMenuViewController.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -411,7 +414,6 @@
 				3F34439C1E6BB17700FFAD04 /* Frameworks */,
 				3F34439D1E6BB17700FFAD04 /* Resources */,
 				450F22E2F75C2D93B8B17AAB /* [CP] Embed Pods Frameworks */,
-				ACA317064041E0AE3DDD1A12 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -543,21 +545,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HopliteChallenge/Pods-HopliteChallenge-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ACA317064041E0AE3DDD1A12 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HopliteChallenge/Pods-HopliteChallenge-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -576,6 +563,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FCB495820C47A5400FFD266 /* NetworkManager.swift in Sources */,
+				3F938EE3222DC10B00594AC8 /* RetroHomeMenuViewController.swift in Sources */,
 				3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */,
 				3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */,
 				3FCB495A20C47F9F00FFD266 /* DataManager.swift in Sources */,

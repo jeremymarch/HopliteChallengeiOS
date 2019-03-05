@@ -141,6 +141,7 @@
                             <constraint firstItem="uPB-cq-4JV" firstAttribute="leading" secondItem="JNt-AP-uhg" secondAttribute="leading" id="aJe-8G-79z"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="JSW-aN-78j"/>
                     <connections>
                         <outlet property="kolodaView" destination="uPB-cq-4JV" id="kmc-hr-w2t"/>
                     </connections>
@@ -162,7 +163,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mZt-cn-xM8">
-                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="E2B-og-h4x">
@@ -189,7 +190,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fmy-a9-YJR">
-                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <color key="backgroundColor" red="0.30496327369999998" green="0.46742949080000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="e2E-W8-gt2"/>
@@ -284,6 +285,7 @@
                             <constraint firstItem="SDX-52-X3a" firstAttribute="top" secondItem="jLs-3u-0gn" secondAttribute="bottom" id="nBE-5X-uAL"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="1Ix-hN-0Bs"/>
                     <connections>
                         <outlet property="tblMenuOptions" destination="SDX-52-X3a" id="JlZ-49-SS7"/>
                     </connections>
@@ -408,7 +410,7 @@
                         <segue destination="vz5-j1-jgh" kind="show" identifier="ExercisesSegue" id="DIl-yQ-Wde"/>
                         <segue destination="R4j-bh-BrZ" kind="show" identifier="ShowHCGame" id="KEO-eF-0Hf"/>
                         <segue destination="22b-2c-Mgt" kind="show" identifier="showHCGames" id="Ozt-cc-fkV"/>
-                        <segue destination="22b-2c-Mgt" kind="relationship" relationship="rootViewController" id="VZs-Q8-gkM"/>
+                        <segue destination="crF-bw-1cz" kind="relationship" relationship="rootViewController" id="WoT-Nt-JXB"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UiL-SM-4y8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -612,6 +614,109 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-740" y="127"/>
+        </scene>
+        <!--Retro Home Menu View Controller-->
+        <scene sceneID="Zkr-NC-S6X">
+            <objects>
+                <viewController id="crF-bw-1cz" customClass="RetroHomeMenuViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eJ5-n4-vLo"/>
+                        <viewControllerLayoutGuide type="bottom" id="yej-NO-eEN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SlP-ex-5Qt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zH4-EH-6bu">
+                                <rect key="frame" x="10" y="374.5" width="355" height="69"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Game History">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTg-0M-RTx">
+                                <rect key="frame" x="10" y="449.5" width="355" height="68.5"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Practice">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7a-9F-Kby">
+                                <rect key="frame" x="10" y="524" width="355" height="68.5"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Practice History">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ya7-pd-o1W">
+                                <rect key="frame" x="10" y="598.5" width="355" height="68.5"/>
+                                <color key="backgroundColor" red="0.54901960780000003" green="0.86274509799999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Verb Forms">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7K-DG-iwz">
+                                <rect key="frame" x="10" y="300" width="355" height="68.5"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137254901957" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Play">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Hoplite Challenge" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Un6-jh-IbI">
+                                <rect key="frame" x="10" y="146" width="355" height="37.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="32"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Z7a-9F-Kby" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="2yg-gd-ZOa"/>
+                            <constraint firstItem="ya7-pd-o1W" firstAttribute="trailing" secondItem="SlP-ex-5Qt" secondAttribute="trailingMargin" priority="999" constant="6" id="4uc-KO-ClC"/>
+                            <constraint firstItem="ya7-pd-o1W" firstAttribute="height" secondItem="q7K-DG-iwz" secondAttribute="height" id="8Cq-Qc-yvL"/>
+                            <constraint firstItem="zH4-EH-6bu" firstAttribute="trailing" secondItem="SlP-ex-5Qt" secondAttribute="trailingMargin" priority="999" constant="6" id="9IJ-MC-W0e"/>
+                            <constraint firstItem="zH4-EH-6bu" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="9LQ-DT-oce"/>
+                            <constraint firstItem="zH4-EH-6bu" firstAttribute="top" secondItem="q7K-DG-iwz" secondAttribute="bottom" priority="999" constant="6" id="ALc-qS-Yec"/>
+                            <constraint firstItem="LTg-0M-RTx" firstAttribute="top" secondItem="zH4-EH-6bu" secondAttribute="bottom" priority="999" constant="6" id="BzW-XV-ktE"/>
+                            <constraint firstItem="ya7-pd-o1W" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="FCX-6i-kwT"/>
+                            <constraint firstItem="LTg-0M-RTx" firstAttribute="trailing" secondItem="SlP-ex-5Qt" secondAttribute="trailingMargin" priority="999" constant="6" id="N4x-kb-U4V"/>
+                            <constraint firstItem="Z7a-9F-Kby" firstAttribute="height" secondItem="q7K-DG-iwz" secondAttribute="height" id="NbI-k5-H7w"/>
+                            <constraint firstItem="Un6-jh-IbI" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="Nrj-t3-ROl"/>
+                            <constraint firstItem="ya7-pd-o1W" firstAttribute="top" secondItem="Z7a-9F-Kby" secondAttribute="bottom" priority="999" constant="6" id="O0F-ON-D3b"/>
+                            <constraint firstItem="zH4-EH-6bu" firstAttribute="height" secondItem="q7K-DG-iwz" secondAttribute="height" id="VBO-EK-N9w"/>
+                            <constraint firstItem="Z7a-9F-Kby" firstAttribute="trailing" secondItem="SlP-ex-5Qt" secondAttribute="trailingMargin" priority="999" constant="6" id="Vru-dq-SeT"/>
+                            <constraint firstItem="Z7a-9F-Kby" firstAttribute="top" secondItem="LTg-0M-RTx" secondAttribute="bottom" priority="999" constant="6" id="aVQ-zw-fnO"/>
+                            <constraint firstItem="q7K-DG-iwz" firstAttribute="trailing" secondItem="SlP-ex-5Qt" secondAttribute="trailingMargin" priority="999" constant="6" id="bha-tk-169"/>
+                            <constraint firstItem="yej-NO-eEN" firstAttribute="top" secondItem="ya7-pd-o1W" secondAttribute="bottom" priority="999" id="cNk-Yc-l4T"/>
+                            <constraint firstItem="LTg-0M-RTx" firstAttribute="height" secondItem="q7K-DG-iwz" secondAttribute="height" id="djN-0n-KPy"/>
+                            <constraint firstItem="LTg-0M-RTx" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="gol-06-cGK"/>
+                            <constraint firstItem="zH4-EH-6bu" firstAttribute="top" secondItem="q7K-DG-iwz" secondAttribute="bottom" priority="999" constant="6" id="h30-ZL-e2v"/>
+                            <constraint firstItem="ya7-pd-o1W" firstAttribute="top" secondItem="Z7a-9F-Kby" secondAttribute="bottom" priority="999" constant="6" id="hyR-WJ-DCB"/>
+                            <constraint firstItem="LTg-0M-RTx" firstAttribute="top" secondItem="zH4-EH-6bu" secondAttribute="bottom" priority="999" constant="6" id="iad-Pw-fvG"/>
+                            <constraint firstItem="Un6-jh-IbI" firstAttribute="top" secondItem="eJ5-n4-vLo" secondAttribute="bottom" priority="999" constant="106" id="muh-Ra-Fx3"/>
+                            <constraint firstItem="q7K-DG-iwz" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="rCb-Cg-kD4"/>
+                            <constraint firstItem="Un6-jh-IbI" firstAttribute="trailing" secondItem="SlP-ex-5Qt" secondAttribute="trailingMargin" priority="999" constant="6" id="s6z-Cj-cvv"/>
+                            <constraint firstItem="q7K-DG-iwz" firstAttribute="top" secondItem="SlP-ex-5Qt" secondAttribute="centerY" multiplier="0.9" id="yq8-Zi-09e"/>
+                            <constraint firstItem="Z7a-9F-Kby" firstAttribute="top" secondItem="LTg-0M-RTx" secondAttribute="bottom" priority="999" constant="6" id="zZh-0h-M1n"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="38l-FH-LEp"/>
+                    <connections>
+                        <outlet property="playButton" destination="q7K-DG-iwz" id="4rM-DN-f43"/>
+                        <outlet property="playHistoryButton" destination="zH4-EH-6bu" id="7Jh-Yo-kNJ"/>
+                        <outlet property="practiceButton" destination="LTg-0M-RTx" id="fqB-9W-e95"/>
+                        <outlet property="practiceHistoryButton" destination="Z7a-9F-Kby" id="IG1-wL-1WQ"/>
+                        <outlet property="verbFormsButton" destination="ya7-pd-o1W" id="dlN-1z-2Yd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Usw-Yf-BOl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-23.199999999999999" y="-230.73463268365819"/>
         </scene>
         <!--Game History View Controller-->
         <scene sceneID="7B4-xf-Sxg">
@@ -904,8 +1009,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="SnT-bn-xCC"/>
-        <segue reference="USx-nv-zQl"/>
-        <segue reference="oNY-gu-MLL"/>
-        <segue reference="VZs-Q8-gkM"/>
+        <segue reference="ge1-B7-ciP"/>
+        <segue reference="KEO-eF-0Hf"/>
     </inferredMetricsTieBreakers>
 </document>
