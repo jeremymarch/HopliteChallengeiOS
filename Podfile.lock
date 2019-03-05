@@ -1,15 +1,28 @@
 PODS:
-  - Koloda (4.3.1):
+  - Koloda (4.6):
     - pop (~> 1.0)
-  - pop (1.0.10)
+  - pop (1.0.12)
 
 DEPENDENCIES:
-  - Koloda
+  - Koloda (from `https://github.com/Yalantis/Koloda.git`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - pop
+
+EXTERNAL SOURCES:
+  Koloda:
+    :git: https://github.com/Yalantis/Koloda.git
+
+CHECKOUT OPTIONS:
+  Koloda:
+    :commit: 89da17e26dfe8154e393a462ac13fed56f3b6fd7
+    :git: https://github.com/Yalantis/Koloda.git
 
 SPEC CHECKSUMS:
-  Koloda: 0d39b2aa188ccd1fac48d752acaf9802e683c625
-  pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
+  Koloda: bcf5acded25fc49020d1447ed8ddd87e14d01e7e
+  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
 
-PODFILE CHECKSUM: 21057b0db85236ae9ea180a9942f2cf4ead4cdeb
+PODFILE CHECKSUM: e75b52e033ab9a79dd4a291b097cdd34d97777ca
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.3

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1D1C10840428DC33A4C37339CB1175AA"
+               BlueprintIdentifier = "325EDDECDEB46D664C861D951C83261D"
                BuildableName = "Pods_HopliteChallenge.framework"
                BlueprintName = "Pods-HopliteChallenge"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1D1C10840428DC33A4C37339CB1175AA"
+            BlueprintIdentifier = "325EDDECDEB46D664C861D951C83261D"
             BuildableName = "Pods_HopliteChallenge.framework"
             BlueprintName = "Pods-HopliteChallenge"
             ReferencedContainer = "container:Pods.xcodeproj">
