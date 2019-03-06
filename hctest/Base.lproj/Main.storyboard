@@ -405,7 +405,7 @@
                         <segue destination="GuB-la-JF8" kind="show" identifier="SegueToGameHistory" id="HvO-aN-VxS"/>
                         <segue destination="MS4-eY-o5H" kind="show" identifier="SegueToGameResults" id="USx-nv-zQl"/>
                         <segue destination="KHK-FC-ST2" kind="show" identifier="SegueToAccents" id="t58-uR-wdT"/>
-                        <segue destination="VdO-38-HhR" kind="show" id="BKi-BD-RsX"/>
+                        <segue destination="VdO-38-HhR" kind="show" identifier="sequeToCardsNew" id="BKi-BD-RsX"/>
                         <segue destination="2cT-w5-LZV" kind="show" identifier="showVocabTableSegue" id="SnT-bn-xCC"/>
                         <segue destination="vz5-j1-jgh" kind="show" identifier="ExercisesSegue" id="DIl-yQ-Wde"/>
                         <segue destination="R4j-bh-BrZ" kind="show" identifier="ShowHCGame" id="KEO-eF-0Hf"/>
