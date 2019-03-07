@@ -335,20 +335,20 @@
 			isa = PBXGroup;
 			children = (
 				3F9F21E7222C9F9F00BB54F1 /* GreekUnicode.h */,
-				3F9F21E9222C9F9F00BB54F1 /* libmorph.h */,
-				3F9F21EA222C9F9F00BB54F1 /* accent.c */,
-				3F9F21EB222C9F9F00BB54F1 /* augment.c */,
-				3F9F21EC222C9F9F00BB54F1 /* GreekForms.h */,
-				3F9F21ED222C9F9F00BB54F1 /* utilities.h */,
-				3F9F21EE222C9F9F00BB54F1 /* specialverbs.h */,
-				3F9F21EF222C9F9F00BB54F1 /* ending.h */,
-				3F9F2203222C9F9F00BB54F1 /* utilities.c */,
-				3F9F2204222C9F9F00BB54F1 /* specialverbs.c */,
-				3F9F2205222C9F9F00BB54F1 /* GreekForms.c */,
-				3F9F2206222C9F9F00BB54F1 /* augment.h */,
-				3F9F2207222C9F9F00BB54F1 /* libmorph.c */,
 				3F9F2208222C9F9F00BB54F1 /* accent.h */,
+				3F9F21EA222C9F9F00BB54F1 /* accent.c */,
+				3F9F2206222C9F9F00BB54F1 /* augment.h */,
+				3F9F21EB222C9F9F00BB54F1 /* augment.c */,
+				3F9F21EF222C9F9F00BB54F1 /* ending.h */,
 				3F9F2209222C9F9F00BB54F1 /* ending.c */,
+				3F9F21ED222C9F9F00BB54F1 /* utilities.h */,
+				3F9F2203222C9F9F00BB54F1 /* utilities.c */,
+				3F9F21EE222C9F9F00BB54F1 /* specialverbs.h */,
+				3F9F2204222C9F9F00BB54F1 /* specialverbs.c */,
+				3F9F21EC222C9F9F00BB54F1 /* GreekForms.h */,
+				3F9F2205222C9F9F00BB54F1 /* GreekForms.c */,
+				3F9F21E9222C9F9F00BB54F1 /* libmorph.h */,
+				3F9F2207222C9F9F00BB54F1 /* libmorph.c */,
 			);
 			path = libgreek;
 			sourceTree = "<group>";
