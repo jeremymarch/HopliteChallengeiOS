@@ -72,11 +72,18 @@ class RetroHomeMenuViewController: UIViewController {
             self.navigationController?.pushViewController(dvc, animated: false)
         }
     }
-    
+    //let dest = destViewController as! VocabTableViewController
     @objc func verbFormsButtonPressed(sender:UIButton)
     {
-        if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "Vocabulary")
+        if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "Vocabulary") as? VocabTableViewController
         {
+            //we can set these values before showing
+            dvc.sortAlpha = false
+            dvc.predicate = "pos=='Verb'"
+            dvc.selectedButtonIndex = 1
+            dvc.filterViewHeightValue = 0.0
+            dvc.navTitle = "Verbs"
+            dvc.segueDest = "synopsis"
             self.navigationController?.pushViewController(dvc, animated: false)
         }
     }
