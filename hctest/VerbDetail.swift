@@ -231,7 +231,7 @@ class VerbDetailViewController: UITableViewController {
                 let attText = NSMutableAttributedString(string: forms[index].label + "\t" + forms[index].decomposedForm)
                 attText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.gray, range: NSRange(location: 0, length: 3))
                 
-                attText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue", size: 16.0)!, range: NSRange(location: 0, length: 3))
+                attText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue", size: 17.0)!, range: NSRange(location: 0, length: 3))
                 
                 lblTitle.attributedText = attText
                 //lblTitle.text = forms[index].label + "\t" + forms[index].decomposedForm
@@ -240,7 +240,7 @@ class VerbDetailViewController: UITableViewController {
             {
                 let attText = NSMutableAttributedString(string: forms[index].label + "\t" + forms[index].form)
                 attText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.gray, range: NSRange(location: 0, length: 3))
-                attText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue", size: 16.0)!, range: NSRange(location: 0, length: 3))
+                attText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue", size: 17.0)!, range: NSRange(location: 0, length: 3))
                 lblTitle.attributedText = attText
                 //lblTitle.text = forms[index].label + "\t" + forms[index].form
             }
