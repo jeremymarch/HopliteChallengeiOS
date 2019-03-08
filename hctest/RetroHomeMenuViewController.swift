@@ -84,7 +84,7 @@ class RetroHomeMenuViewController: UIViewController {
             dvc.filterViewHeightValue = 0.0
             dvc.navTitle = "Verbs"
             dvc.segueDest = "synopsis"
-            self.navigationController?.pushViewController(dvc, animated: false)
+            self.navigationController?.pushViewController(dvc, animated: true)
         }
     }
 
