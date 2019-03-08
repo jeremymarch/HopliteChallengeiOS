@@ -172,9 +172,9 @@ class VerbDetailViewController: UITableViewController {
                             if (form != "")
                             {
                                 let label = String.init(format: "%d%@:", (person+1), (number == 0) ? "s" : "p")
-                                form = form.replacingOccurrences(of: ", ", with: "\n")
+                                form = form.replacingOccurrences(of: ",\n", with: ",\n\t")
                                 
-                                let row = FormRow(label: label, form: form, decomposedForm: vf.getForm(decomposed: true).replacingOccurrences(of: ", ", with: "\n"))
+                                let row = FormRow(label: label, form: form, decomposedForm: vf.getForm(decomposed: true).replacingOccurrences(of: ",\n", with: ",\n\t"))
                                 forms.append(row)
                                 sectionCount += 1
                             }
@@ -224,18 +224,28 @@ class VerbDetailViewController: UITableViewController {
         else
         {
             let lblTitle : UILabel = cell.contentView.viewWithTag(101) as! UILabel
-            let lblTitle2 : UILabel = cell.contentView.viewWithTag(102) as! UILabel
+            //let lblTitle2 : UILabel = cell.contentView.viewWithTag(102) as! UILabel
             
             if isExpanded == true
             {
-                lblTitle.text = forms[index].decomposedForm
+                let attText = NSMutableAttributedString(string: forms[index].label + "\t" + forms[index].decomposedForm)
+                attText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.gray, range: NSRange(location: 0, length: 3))
+                
+                attText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue", size: 16.0)!, range: NSRange(location: 0, length: 3))
+                
+                lblTitle.attributedText = attText
+                //lblTitle.text = forms[index].label + "\t" + forms[index].decomposedForm
             }
             else
             {
-                lblTitle.text = forms[index].form
+                let attText = NSMutableAttributedString(string: forms[index].label + "\t" + forms[index].form)
+                attText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.gray, range: NSRange(location: 0, length: 3))
+                attText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue", size: 16.0)!, range: NSRange(location: 0, length: 3))
+                lblTitle.attributedText = attText
+                //lblTitle.text = forms[index].label + "\t" + forms[index].form
             }
             
-            lblTitle2.text = forms[index].label
+            //lblTitle2.text = forms[index].label
         }
         return cell
     }

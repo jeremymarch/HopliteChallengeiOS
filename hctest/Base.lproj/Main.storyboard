@@ -433,8 +433,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQc-5C-z26">
-                                            <rect key="frame" x="53" y="0.0" width="314" height="43"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQc-5C-z26">
+                                            <rect key="frame" x="8" y="4.5" width="359" height="38"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="38" id="Ru2-Co-5K2"/>
                                             </constraints>
@@ -442,23 +442,12 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSE-xh-2gO">
-                                            <rect key="frame" x="8" y="0.0" width="37" height="35"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="32" id="7G5-7a-XHi"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="gQc-5C-z26" firstAttribute="top" secondItem="VQh-iJ-5In" secondAttribute="top" constant="4" id="4BP-g9-YOw"/>
                                         <constraint firstItem="gQc-5C-z26" firstAttribute="trailing" secondItem="VQh-iJ-5In" secondAttribute="trailing" constant="-8" id="NTj-HC-fBY"/>
-                                        <constraint firstItem="gQc-5C-z26" firstAttribute="leading" secondItem="QSE-xh-2gO" secondAttribute="trailing" id="Y2I-2l-caD"/>
-                                        <constraint firstItem="QSE-xh-2gO" firstAttribute="top" secondItem="VQh-iJ-5In" secondAttribute="top" constant="4" id="YNB-72-x9E"/>
+                                        <constraint firstItem="gQc-5C-z26" firstAttribute="leading" secondItem="VQh-iJ-5In" secondAttribute="leading" constant="8" id="XyV-Qp-0ER"/>
                                         <constraint firstAttribute="bottom" secondItem="gQc-5C-z26" secondAttribute="bottom" constant="2" id="lLf-eH-jlf"/>
-                                        <constraint firstItem="QSE-xh-2gO" firstAttribute="leading" secondItem="VQh-iJ-5In" secondAttribute="leading" constant="8" id="yd6-mE-x9l"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -496,7 +485,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ryf-1s-pei" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2527" y="1757"/>
+            <point key="canvasLocation" x="-2527.1999999999998" y="1756.3718140929536"/>
         </scene>
         <!--Hoplite Challenge-->
         <scene sceneID="aKK-V2-kfE">
