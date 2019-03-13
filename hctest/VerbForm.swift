@@ -45,6 +45,39 @@ class VerbForm {
         }
     }
     
+    func getVoiceDescription() -> String
+    {
+        var vf = VerbFormD()
+        vf.person = UInt8(self.person)
+        vf.number = UInt8(self.number)
+        vf.tense = UInt8(self.tense)
+        vf.voice = UInt8(self.voice)
+        vf.mood = UInt8(self.mood)
+        vf.verbid = Int32(self.verbid)
+        
+        let x = getVoiceDescription2(&vf)
+        if x == 0
+        {
+            return "Active"
+        }
+        else if x == 1
+        {
+            return "Middle"
+        }
+        else if x == 2
+        {
+            return "Passive"
+        }
+        else if x == 3
+        {
+            return "Middle/Passive"
+        }
+        else
+        {
+            return ""
+        }
+    }
+    
     func getForm(decomposed:Bool) -> String
     {
         let bufferSize:Int = 500

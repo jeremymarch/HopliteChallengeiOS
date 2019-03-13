@@ -34,8 +34,27 @@ class VerbDetailViewController: UITableViewController {
     var sectionCounts = [Int]()
     var isExpanded:Bool = false
     
+
+    
+    var attributesLabel: [NSAttributedString.Key: Any]? = nil
+    var attributesPara: [NSAttributedString.Key: Any]? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.tabStops = [NSTextTab(textAlignment: NSTextAlignment.left, location: 30, options: [:])]
+        //paragraphStyle.headIndent = 180
+        
+        attributesLabel = [
+            .font: UIFont(name: "HelveticaNeue", size: 17.0)!,
+            .foregroundColor: UIColor.gray,
+            .baselineOffset: 1.5 as NSNumber
+        ]
+            
+        attributesPara = [
+            .paragraphStyle: paragraphStyle
+        ]
         
         let v = Verb2(verbid: verbIndex)
         hqVerbID = Int32(v.verbId)
@@ -104,7 +123,6 @@ class VerbDetailViewController: UITableViewController {
     
     func printVerb(verb:Verb2)
     {
-
         sections.append("  Principal Parts")
         sectionCounts.append(1)
         let row = FormRow(label: "", form: verb.principalParts(seperator: " or"), decomposedForm: verb.principalParts(seperator: " or"))
@@ -122,10 +140,13 @@ class VerbDetailViewController: UITableViewController {
         for tense in 0..<NUM_TENSES
         {
             vf.tense = UInt8(tense)
+            
             for voice in 0..<NUM_VOICES
             {
+                vf.voice = UInt8(voice)
                 for mood in 0..<NUM_MOODS
                 {
+                    vf.mood = UInt8(mood)
                     let m:Int = Int(mood)
                     if !isOida && m != INDICATIVE && (tense == PERFECT || tense == PLUPERFECT || tense == IMPERFECT || (tense == FUTURE && m != OPTATIVE))
                     {
@@ -138,23 +159,16 @@ class VerbDetailViewController: UITableViewController {
                     var s:String?
                     if voice == ACTIVE || tense == AORIST || tense == FUTURE
                     {
-                        s = "  " + tenses[tense] + " " + voices[voice] + " " + moods[m]
+                        s = "  " + tenses[tense] + " " + vf.getVoiceDescription() + " " + moods[m]
                     }
                     else if voice == MIDDLE
                     {
                         //yes it's correct, middle deponents do not have a passive voice.  H&Q page 316
-                        if  verb.isDeponent() == MIDDLE_DEPONENT || verb.isDeponent() == PASSIVE_DEPONENT || verb.isDeponent() == DEPONENT_GIGNOMAI || verb.present == "κεῖμαι"
-                        {
-                            s = "  " + tenses[tense] + " " + "Middle" + " " + moods[m]
-                        }
-                        else
-                        {
-                            s = "  " + tenses[tense] + " " + "Middle/Passive" + " " + moods[m]
-                        }
+                        s = "  " + tenses[tense] + " " + vf.getVoiceDescription() + " " + moods[m]
                     }
                     else
                     {
-                        continue; //skip passive if middle+passive are the same
+                        continue //skip passive if middle+passive are the same
                     }
                     var sectionCount = 0
                     for number in 0..<NUM_NUMBERS
@@ -163,9 +177,6 @@ class VerbDetailViewController: UITableViewController {
                         {
                             vf.person = UInt8(person)
                             vf.number = UInt8(number)
-                            vf.tense = UInt8(tense)
-                            vf.voice = UInt8(voice)
-                            vf.mood = UInt8(mood)
                             
                             var form = vf.getForm(decomposed: false)
                             
@@ -228,19 +239,17 @@ class VerbDetailViewController: UITableViewController {
             
             if isExpanded == true
             {
-                let attText = NSMutableAttributedString(string: forms[index].label + "\t" + forms[index].decomposedForm)
-                attText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.gray, range: NSRange(location: 0, length: 3))
-                
-                attText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue", size: 17.0)!, range: NSRange(location: 0, length: 3))
+                let attText = NSMutableAttributedString(string: forms[index].label + "\t" + forms[index].decomposedForm, attributes:attributesPara)
+                attText.addAttributes(attributesLabel!, range: NSRange(location: 0, length: 3))
                 
                 lblTitle.attributedText = attText
                 //lblTitle.text = forms[index].label + "\t" + forms[index].decomposedForm
             }
             else
             {
-                let attText = NSMutableAttributedString(string: forms[index].label + "\t" + forms[index].form)
-                attText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.gray, range: NSRange(location: 0, length: 3))
-                attText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue", size: 17.0)!, range: NSRange(location: 0, length: 3))
+                let attText = NSMutableAttributedString(string: forms[index].label + "\t" + forms[index].form, attributes:attributesPara)
+                attText.addAttributes(attributesLabel!, range: NSRange(location: 0, length: 3))
+                
                 lblTitle.attributedText = attText
                 //lblTitle.text = forms[index].label + "\t" + forms[index].form
             }
