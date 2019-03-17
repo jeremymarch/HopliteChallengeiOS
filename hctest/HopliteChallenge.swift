@@ -211,7 +211,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         let image = UIImage(named: "hamburger.png") as UIImage?
         quitButton.setImage(image, for: .normal)
         
-        if fromVerbDetail == false
+        if false //fromVerbDetail == false
         {
             quitButton.addTarget(self, action: #selector(menuButtonPressed), for: UIControl.Event.touchUpInside)
         }
