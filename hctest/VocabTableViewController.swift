@@ -423,6 +423,8 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let att = [ NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20)! ]
+        self.navigationController?.navigationBar.titleTextAttributes = att
         self.navigationController?.isNavigationBarHidden = false
     }
 

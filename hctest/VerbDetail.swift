@@ -59,14 +59,21 @@ class VerbDetailViewController: UITableViewController {
         let v = Verb2(verbid: verbIndex)
         hqVerbID = Int32(v.verbId)
         
+        let t = UILabel()
         if v.present.count > 0
         {
             title = v.present
+            t.text = v.present
         }
         else
         {
             title = v.future
+            t.text = v.future
         }
+        
+        t.font = UIFont(name: "NewAthenaUnicode", size: 22)!
+        self.navigationItem.titleView = t
+        
         printVerb(verb: v)
         //tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
@@ -109,16 +116,11 @@ class VerbDetailViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        let att = [ NSAttributedString.Key.font: UIFont(name: "HelveticaNeue", size: 18)! ]
-        self.navigationController?.navigationBar.titleTextAttributes = att
-    }
+    //override func viewWillDisappear(_ animated: Bool) {}
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
-        
-        let att = [ NSAttributedString.Key.font: UIFont(name: "NewAthenaUnicode", size: 22)! ]
-        self.navigationController?.navigationBar.titleTextAttributes = att
     }
     
     func printVerb(verb:Verb2)
