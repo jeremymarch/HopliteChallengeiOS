@@ -479,16 +479,17 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         let x = UIApplication.shared.delegate as! AppDelegate
         
         var sectionField:String?
-        var sortField:String?
+        let sortDescriptorUnit = NSSortDescriptor(key: "unit", ascending: true)
+        let sortDescriptorSeq = NSSortDescriptor(key: "seq", ascending: true)
         if sortAlpha
         {
             sectionField = nil
-            sortField = "seq"
+            fetchRequest.sortDescriptors = [sortDescriptorSeq]
         }
         else
         {
-            sortField = "hqid"
             sectionField = "unit"
+            fetchRequest.sortDescriptors = [sortDescriptorUnit,sortDescriptorSeq]
         }
         
         if predicate != ""
@@ -496,9 +497,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             let pred = NSPredicate(format: predicate)
             fetchRequest.predicate = pred
         }
-        let sortDescriptor = NSSortDescriptor(key: sortField, ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
+
         let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: x.managedObjectContext, sectionNameKeyPath: sectionField, cacheName: "VocabMaster")
         aFetchedResultsController.delegate = self
         _fetchedResultsController = aFetchedResultsController
