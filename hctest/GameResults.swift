@@ -42,8 +42,11 @@ class GameResultsViewController: UITableViewController {
         let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
         
         //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
-        let db = openDatabase(dbpath: dbpath)
-        query(db: db!, gameid: gameid)
+        if let db = openDatabase(dbpath: dbpath)
+        {
+            query(db: db, gameid: gameid)
+        }
+        //print("len" + String(res.count) + " , " + String(res[0].verbid))
     }
     
     func query(db:OpaquePointer, gameid:Int) {
@@ -133,6 +136,10 @@ class GameResultsViewController: UITableViewController {
         vf.mood = UInt8(res[index].mood)
         vf.verbid = Int(res[index].verbid)
         
+        if vf.verbid < 0
+        {
+            return cell
+        }
         
         stemTitle.text = vf.getDescription()
         correctTitle.text = vf.getForm(decomposed: false)
