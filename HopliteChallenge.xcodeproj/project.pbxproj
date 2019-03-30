@@ -434,14 +434,14 @@
 					3F15E16F1E8450A0009760A0 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = EFHC4XFZ38;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 3F34439E1E6BB17700FFAD04;
 					};
 					3F34439E1E6BB17700FFAD04 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = EFHC4XFZ38;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -456,6 +456,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -653,8 +654,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hctestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HopliteChallenge.app/HopliteChallenge";
 			};
 			name = Debug;
@@ -670,8 +670,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hctestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HopliteChallenge.app/HopliteChallenge";
 			};
 			name = Release;
@@ -809,8 +808,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -833,8 +831,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplite2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
