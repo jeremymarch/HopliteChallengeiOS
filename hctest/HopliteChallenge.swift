@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HopliteChallenge: BaseViewController, UITextViewDelegate  {
+class HopliteChallenge: BaseViewController, UITextViewDelegate, mfPressedDelegate  {
     var kb:KeyboardViewController? = nil
     var gameOverLabel = UILabel()
     var label1 = TypeLabel()
@@ -376,6 +376,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb?.appExt = false
+        kb?.mfDelegate = self
         
         var portraitHeight:CGFloat = 222.0
         var landscapeHeight:CGFloat = 157.0
@@ -432,6 +433,11 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
         //DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
         //    self.start()
         //}
+    }
+    
+    func onMFPressed() -> Void
+    {
+        mfPressed = true
     }
     
     //this doesn't work if used in nav controller, so this is blocked in appDelegate
@@ -917,6 +923,13 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate  {
             label1.type(newText: (vs.givenForm?.getForm(decomposed: false))!, duration: 0.3)
         }
         label1.isHidden = false
+        
+        vs.requestedForm?.verbid = 5
+        vs.requestedForm?.person = 0
+        vs.requestedForm?.number = 1
+        vs.requestedForm?.tense = 3
+        vs.requestedForm?.voice = 2
+        vs.requestedForm?.mood = 2
     
         stemLabel.type(newAttributedText: attributedDescription(orig: (vs.givenForm?.getDescription())!, new: (vs.requestedForm?.getDescription())!), duration: 0.3)
 

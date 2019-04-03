@@ -27,7 +27,7 @@ enum gameTypes {
     case hcgame
 }
 
-class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDelegate  {
+class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDelegate, mfPressedDelegate  {
     let idTranslation:[Int] = [43, 45, 36, 37]
     var gameState:gameStates = .start
     var kb:KeyboardViewController? = nil
@@ -466,6 +466,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         
         kb = KeyboardViewController() //kb needs to be member variable of vc
         kb?.appExt = false
+        kb?.mfDelegate = self
         kb?.unicodeMode = 3
         
         var portraitHeight:CGFloat = 222.0
@@ -668,7 +669,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                     
                     intro = "You asked for: "
                     form = VerbForm(person: UInt8(lastPerson!), number: UInt8(lastNumber!), tense: UInt8(lastTense!), voice: UInt8(lastVoice!), mood: UInt8(lastMood!), verb: moveVerbID).getForm(decomposed: false)
-                    let intro2 = "They said: "
+                    //let intro2 = "They said: "
                     let answer = lastAnswerText!
                     //let lastCorrect = ;
                     
@@ -745,6 +746,11 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         //DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
         //    self.start()
         //}
+    }
+    
+    func onMFPressed() -> Void
+    {
+        mfPressed = true
     }
     
     //this doesn't work if used in nav controller, so this is blocked in appDelegate
