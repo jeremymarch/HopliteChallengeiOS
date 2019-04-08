@@ -27,7 +27,7 @@ enum gameTypes {
     case hcgame
 }
 
-class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDelegate, mfPressedDelegate  {
+class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDelegate  {
     let idTranslation:[Int] = [43, 45, 36, 37]
     var gameState:gameStates = .start
     var kb:KeyboardViewController? = nil
@@ -466,7 +466,6 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         
         kb = KeyboardViewController() //kb needs to be member variable of vc
         kb?.appExt = false
-        kb?.mfDelegate = self
         kb?.unicodeMode = 3
         
         var portraitHeight:CGFloat = 222.0
