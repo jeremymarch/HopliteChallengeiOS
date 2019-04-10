@@ -292,14 +292,7 @@ class VerbForm {
     
     func getVoiceDescription() -> String
     {
-        var vf = getVerbFormD()/*VerbFormD()
-        vf.person = self.person.rawValue
-        vf.number = self.number.rawValue
-        vf.tense = self.tense.rawValue
-        vf.voice = self.voice.rawValue
-        vf.mood = self.mood.rawValue
-        vf.verbid = Int32(self.verbid)
-        */
+        var vf = getVerbFormD()
         let x = getVoiceDescription2(&vf)
         if x == 0
         {
@@ -342,16 +335,7 @@ class VerbForm {
         let bufferSize:Int = 500
         var buffer = [Int8](repeating: 0, count: bufferSize)
         
-        //let v = verbs
-        //var a = v[1][1]
-        
-        var vf = VerbFormD()
-        vf.person = self.person.rawValue
-        vf.number = self.number.rawValue
-        vf.tense = self.tense.rawValue
-        vf.voice = self.voice.rawValue
-        vf.mood = self.mood.rawValue
-        vf.verbid = Int32(self.verbid)
+        var vf = getVerbFormD()
         
         let x = getForm2(&vf, &buffer, Int32(bufferSize), true, decomposed)
         if x != 0
@@ -380,13 +364,7 @@ class VerbForm {
         let bufferSize:Int = 500
         var buffer = [Int8](repeating: 0, count: bufferSize)
         
-        var vf = VerbFormD()
-        vf.person = self.person.rawValue
-        vf.number = self.number.rawValue
-        vf.tense = self.tense.rawValue
-        vf.voice = self.voice.rawValue
-        vf.mood = self.mood.rawValue
-        vf.verbid = Int32(self.verbid)
+        var vf = getVerbFormD()
         
         getAbbrevDescription2(&vf, &buffer, Int32(bufferSize))
         //let data = Data(bytes:buffer2, count:bufferSize)
