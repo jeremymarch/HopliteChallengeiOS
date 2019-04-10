@@ -41,8 +41,8 @@ class VerbSequence {
     
     init() {
         //DBInit2()
-        self.givenForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: -1)
-        self.requestedForm = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 0)
+        self.givenForm = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: -1)
+        self.requestedForm = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: 0)
         //self.reset()
 
         /*
@@ -98,27 +98,33 @@ class VerbSequence {
     
     func getNext() -> Int
     {
-        var vf1 = VerbFormD()
-        var vf2 = VerbFormD()
-        
-        vf1.person = (givenForm?.person)!
+        //var vf1 = VerbFormD()
+        //var vf2 = VerbFormD()
+        /*
+        vf1.person = (givenForm?.person)!.rawValue
         vf1.number = (givenForm?.number)!
         vf1.tense = (givenForm?.tense)!
         vf1.voice = (givenForm?.voice)!
         vf1.mood = (givenForm?.mood)!
         vf1.verbid = Int32((givenForm?.verbid)!)
-        
-        vf2.person = (requestedForm?.person)!
+        */
+        var vf1 = givenForm!.getVerbFormD()
+        var vf2 = requestedForm!.getVerbFormD()
+        /*
+        vf2.person = (requestedForm?.person)!.rawValue
         vf2.number = (requestedForm?.number)!
         vf2.tense = (requestedForm?.tense)!
         vf2.voice = (requestedForm?.voice)!
         vf2.mood = (requestedForm?.mood)!
         vf2.verbid = Int32((requestedForm?.verbid)!)
-
+*/
         var a:Int32 = Int32(self.seq)
         
         let x = nextVS(&a, &vf1, &vf2)
         
+        givenForm?.setFromVFD(verbFormd: vf1)
+        requestedForm?.setFromVFD(verbFormd: vf2)
+        /*
         givenForm?.person = vf1.person
         givenForm?.number = vf1.number
         givenForm?.tense = vf1.tense
@@ -132,7 +138,7 @@ class VerbSequence {
         requestedForm?.voice = vf2.voice
         requestedForm?.mood = vf2.mood
         requestedForm?.verbid = Int(vf2.verbid)
-        
+        */
         self.seq = Int(a)
 
         NSLog("Seq sw: \(self.seq)")

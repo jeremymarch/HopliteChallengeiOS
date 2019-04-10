@@ -628,9 +628,10 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         //NSLog(@"content: %f, %f, %f", topCorrect, [tv bounds].size.height, [tv contentSize].height);
         tv.contentInset = UIEdgeInsets(top: topCorrect,left: 0,bottom: 0,right: 0)
     }
-    
+    /*
     func printVerbs()
     {
+        
         var vf:VerbForm?
         var s:String?
         var count = 0
@@ -654,7 +655,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
                             for number in 0...NUM_NUMBERS
                             {
                                 let z:Int = Int(v)
-                                vf = VerbForm(person: UInt8(person), number: UInt8(number), tense: UInt8(t), voice: UInt8(voice), mood: UInt8(mood), verb: z)
+                                vf = VerbForm(.first /*fix me*/, number: UInt8(number), tense: UInt8(t), voice: UInt8(voice), mood: UInt8(mood), verb: z)
                                 s = vf?.getForm(decomposed:false)
                                 if s != nil && (s?.count)! > 0
                                 {
@@ -669,7 +670,9 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             }
         }
         NSLog("Count: \(count)")
+ 
     }
+    */
     
     //this lets us catch the enter key
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -886,7 +889,6 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
                 //1.5 x the time
                 let halfTime = timerLabel.countDownTime / 2
                 timerLabel.startTime += halfTime
-                // FIX ME NOW kb?.mfButton?.setTitle(",", for: [])
             }
         }
     }
@@ -919,14 +921,16 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             label1.type(newText: (vs.givenForm?.getForm(decomposed: false))!, duration: 0.3)
         }
         label1.isHidden = false
-    
+ /*
         vs.requestedForm?.verbid = 5
         vs.requestedForm?.person = 0
         vs.requestedForm?.number = 1
         vs.requestedForm?.tense = 3
         vs.requestedForm?.voice = 2
         vs.requestedForm?.mood = 2
- 
+ */
+        //printVerbs()
+        
         stemLabel.type(newAttributedText: attributedDescription(orig: (vs.givenForm?.getDescription())!, new: (vs.requestedForm?.getDescription())!), duration: 0.3)
 
         label2.text = ""

@@ -872,6 +872,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
         if sender is UIButton //new game
         {
             print("new game!")
+
             if let vd = segue.destination as? HCGameViewController
             {
                 vd.gameType = .hcgame

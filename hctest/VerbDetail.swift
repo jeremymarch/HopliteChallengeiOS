@@ -127,11 +127,12 @@ class VerbDetailViewController: UITableViewController {
     {
         sections.append("  Principal Parts")
         sectionCounts.append(1)
+        
         let row = FormRow(label: "", form: verb.principalParts(seperator: " or"), decomposedForm: verb.principalParts(seperator: " or"))
-        //let row = FormRow(label: "", form: "def", decomposedForm: "abc")
+        
         forms.append(row)
 
-        let vf = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: Int(verb.verbId))
+        let vf = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: Int(verb.verbId))
         
         var isOida:Bool = false
         if verb.present == "οἶδα" || verb.present == "σύνοιδα"
@@ -139,52 +140,57 @@ class VerbDetailViewController: UITableViewController {
             isOida = true
         }
         
-        for tense in 0..<NUM_TENSES
+        for tense in VerbForm.Tense.allCases
         {
-            vf.tense = UInt8(tense)
+            if tense == .unset { continue }
+            vf.tense = tense
             
-            for voice in 0..<NUM_VOICES
+            for voice in VerbForm.Voice.allCases
             {
-                vf.voice = UInt8(voice)
-                for mood in 0..<NUM_MOODS
+                if voice == .unset { continue }
+                vf.voice = voice
+                for mood in VerbForm.Mood.allCases
                 {
-                    vf.mood = UInt8(mood)
-                    let m:Int = Int(mood)
-                    if !isOida && m != INDICATIVE && (tense == PERFECT || tense == PLUPERFECT || tense == IMPERFECT || (tense == FUTURE && m != OPTATIVE))
+                    if mood == .unset { continue }
+                    vf.mood = mood
+                    if !isOida && mood != .indicative && (tense == .perfect || tense == .pluperfect || tense == .imperfect || (tense == .future && mood != .optative))
                     {
                         continue
                     }
-                    else if isOida && m != INDICATIVE && (tense == PLUPERFECT || tense == IMPERFECT || tense == FUTURE)
+                    else if isOida && mood != .indicative && (tense == .pluperfect || tense == .imperfect || tense == .future)
                     {
                         continue
                     }
                     var s:String?
-                    if voice == ACTIVE || tense == AORIST || tense == FUTURE
+                    if voice == .active || tense == .aorist || tense == .future
                     {
-                        s = "  " + tenses[tense] + " " + vf.getVoiceDescription() + " " + moods[m]
+                        s = "  " + tense.description + " " + vf.getVoiceDescription() + " " + mood.description
                     }
-                    else if voice == MIDDLE
+                    else if voice == .middle
                     {
-                        //yes it's correct, middle deponents do not have a passive voice.  H&Q page 316
-                        s = "  " + tenses[tense] + " " + vf.getVoiceDescription() + " " + moods[m]
+                        //FYI: middle deponents do NOT have a passive voice.  H&Q page 316
+                        s = "  " + tense.description + " " + vf.getVoiceDescription() + " " + mood.description
                     }
                     else
                     {
                         continue //skip passive if middle+passive are the same
                     }
                     var sectionCount = 0
-                    for number in 0..<NUM_NUMBERS
+                    for number in VerbForm.Number.allCases
                     {
-                        for person in 0..<NUM_PERSONS
+                        if number == .unset { continue }
+                        vf.number = number
+                        
+                        for person in VerbForm.Person.allCases
                         {
-                            vf.person = UInt8(person)
-                            vf.number = UInt8(number)
+                            if person == .unset { continue }
+                            vf.person = person
                             
                             var form = vf.getForm(decomposed: false)
                             
                             if (form != "")
                             {
-                                let label = String.init(format: "%d%@:", (person+1), (number == 0) ? "s" : "p")
+                                let label = String.init(format: "%d%@:", (person.rawValue + 1), (number == .singular) ? "s" : "p")
                                 form = form.replacingOccurrences(of: ",\n", with: ",\n\t")
                                 
                                 let row = FormRow(label: label, form: form, decomposedForm: vf.getForm(decomposed: true).replacingOccurrences(of: ",\n", with: ",\n\t"))
@@ -193,6 +199,7 @@ class VerbDetailViewController: UITableViewController {
                             }
                         }
                     }
+                    
                     if sectionCount > 0
                     {
                         sections.append(s!)

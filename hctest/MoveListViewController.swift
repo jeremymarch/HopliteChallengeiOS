@@ -26,7 +26,7 @@ class MoveListViewController: UITableViewController {
     var res = [Result2]()
     let checkImage = UIImage(named:"greencheck.png")
     let xImage = UIImage(named:"redx.png")
-    let vf = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: 0)
+    let vf = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: 0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,20 +119,18 @@ class MoveListViewController: UITableViewController {
         
         let index = indexPath.row
         
-        
         let stemTitle : UILabel = cell.contentView.viewWithTag(101) as! UILabel
         let correctTitle : UILabel = cell.contentView.viewWithTag(102) as! UILabel
         let incorrectTitle : UILabel = cell.contentView.viewWithTag(103) as! UILabel
         let timeTitle : UILabel = cell.contentView.viewWithTag(104) as! UILabel
         let isCorrect : UIImageView = cell.contentView.viewWithTag(105) as! UIImageView
         
-        vf.person = UInt8(res[index].person)
-        vf.number = UInt8(res[index].number)
-        vf.tense = UInt8(res[index].tense)
-        vf.voice = UInt8(res[index].voice)
-        vf.mood = UInt8(res[index].mood)
+        vf.setPerson(UInt8(res[index].person))
+        vf.setNumber(UInt8(res[index].number))
+        vf.setTense(UInt8(res[index].tense))
+        vf.setVoice(UInt8(res[index].voice))
+        vf.setMood(UInt8(res[index].mood))
         vf.verbid = Int(res[index].verbid)
-        
         
         stemTitle.text = vf.getDescription()
         correctTitle.text = vf.getForm(decomposed: false)

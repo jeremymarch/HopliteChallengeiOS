@@ -584,7 +584,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                 //need to get previous move.
                 if globalMoveID == 1 //first move, so starting form is lemma
                 {
-                    label1.text = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: moveVerbID).getForm(decomposed: false)
+                    label1.text = VerbForm(.first, .singular, .present, .active, .indicative, verb: moveVerbID).getForm(decomposed: false)
                 }
                 else
                 {
@@ -604,7 +604,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                 
                 if moveIsCorrect == false
                 {
-                    label2.text = VerbForm(person: UInt8(movePerson), number: UInt8(moveNumber), tense: UInt8(moveTense), voice: UInt8(moveVoice), mood: UInt8(moveMood), verb: moveVerbID).getForm(decomposed: false)
+                    label2.text = VerbForm(UInt8(movePerson), UInt8(moveNumber), UInt8(moveTense), UInt8(moveVoice), UInt8(moveMood), verb: moveVerbID).getForm(decomposed: false)
                 }
                 
                 continueButton.setTitle("Your turn", for: [])
@@ -621,7 +621,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                     //the verb is x
                     //give x form
                     intro = "The verb is: "
-                    form = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: moveVerbID).getForm(decomposed: false)
+                    form = VerbForm(.first, .singular, .present, .active, .indicative, verb: moveVerbID).getForm(decomposed: false)
                     
                     stemLabel.isHidden = true
                     
@@ -631,7 +631,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                     stemLabel.setVerbForm(person: lastPerson!, number: lastNumber!, tense: lastTense!, voice: lastVoice!, mood: lastMood!, locked: true, setAsChanges: false)
                     stemLabel.setVerbForm(person: movePerson, number: moveNumber, tense: moveTense, voice: moveVoice, mood: moveMood, locked: true, setAsChanges: true)
                     
-                    hcGameRequestedForm = VerbForm(person: UInt8(movePerson), number: UInt8(moveNumber), tense: UInt8(moveTense), voice: UInt8(moveVoice), mood: UInt8(moveMood), verb: moveVerbID)
+                    hcGameRequestedForm = VerbForm(UInt8(movePerson), UInt8(moveNumber), UInt8(moveTense), UInt8(moveVoice), UInt8(moveMood), verb: moveVerbID)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                         let dur = 0.3
@@ -667,7 +667,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                     //change to zz
                     
                     intro = "You asked for: "
-                    form = VerbForm(person: UInt8(lastPerson!), number: UInt8(lastNumber!), tense: UInt8(lastTense!), voice: UInt8(lastVoice!), mood: UInt8(lastMood!), verb: moveVerbID).getForm(decomposed: false)
+                    form = VerbForm(UInt8(lastPerson!), UInt8(lastNumber!), UInt8(lastTense!), UInt8(lastVoice!), UInt8(lastMood!), verb: moveVerbID).getForm(decomposed: false)
                     //let intro2 = "They said: "
                     let answer = lastAnswerText!
                     //let lastCorrect = ;
@@ -684,7 +684,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                     stemLabel.setVerbForm(person: lastPerson!, number: lastNumber!, tense: lastTense!, voice: lastVoice!, mood: lastMood!, locked: true, setAsChanges: true)
                     stemLabel.isHidden = true
                     
-                    hcGameRequestedForm = VerbForm(person: UInt8(movePerson), number: UInt8(moveNumber), tense: UInt8(moveTense), voice: UInt8(moveVoice), mood: UInt8(moveMood), verb: moveVerbID)
+                    hcGameRequestedForm = VerbForm(UInt8(movePerson), UInt8(moveNumber), UInt8(moveTense), UInt8(moveVoice), UInt8(moveMood), verb: moveVerbID)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                         let dur = 0.3
@@ -976,7 +976,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                             for number in 0...NUM_NUMBERS
                             {
                                 let z:Int = Int(v)
-                                vf = VerbForm(person: UInt8(person), number: UInt8(number), tense: UInt8(t), voice: UInt8(voice), mood: UInt8(mood), verb: z)
+                                vf = VerbForm(UInt8(person), UInt8(number), UInt8(t), UInt8(voice), UInt8(mood), verb: z)
                                 s = vf?.getForm(decomposed:false)
                                 if s != nil && (s?.count)! > 0
                                 {
@@ -1695,7 +1695,6 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                 //1.5 x the time
                 let halfTime = timerLabel.countDownTime / 2
                 timerLabel.startTime += halfTime
-                // FIX ME NOW kb?.mfButton?.setTitle(",", for: [])
             }
         }
     }
@@ -1729,11 +1728,11 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         }
         label1.isHidden = false
         
-        let p:UInt8 = vs!.requestedForm!.person
-        let n:UInt8 = vs!.requestedForm!.number
-        let t:UInt8 = vs!.requestedForm!.tense
-        let v:UInt8 = vs!.requestedForm!.voice
-        let m:UInt8 = vs!.requestedForm!.mood
+        let p:UInt8 = vs!.requestedForm!.person.rawValue
+        let n:UInt8 = vs!.requestedForm!.number.rawValue
+        let t:UInt8 = vs!.requestedForm!.tense.rawValue
+        let v:UInt8 = vs!.requestedForm!.voice.rawValue
+        let m:UInt8 = vs!.requestedForm!.mood.rawValue
         
         stemLabel.setVerbForm(person: Int(p), number: Int(n), tense: Int(t), voice: Int(v), mood: Int(m), locked: true, setAsChanges: false)
         //stemLabel.type(newAttributedText: attributedDescription(orig: (vs.givenForm?.getDescription())!, new: (vs.requestedForm?.getDescription())!), duration: 0.3)
