@@ -393,9 +393,14 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
                 portraitHeight = 200.0
                 landscapeHeight = 186.0
             }
-            else //larger iPhones
+            else  if UIScreen.main.nativeBounds.height < 2688//larger iPhones
             {
                 portraitHeight = 238.0
+                landscapeHeight = 157.0
+            }
+            else //xsMax
+            {
+                portraitHeight = 260.0
                 landscapeHeight = 157.0
             }
         }
@@ -754,7 +759,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         
         positionCheckX()
         
-        if vs.checkVerb(expectedForm: (vs.requestedForm?.getForm(decomposed:false))!, enteredForm: textView.text, mfPressed: mfPressed, time: String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB)) == true
+        if vs.checkVerb(expectedForm: vs.requestedForm.getForm(decomposed:false), enteredForm: textView.text, mfPressed: mfPressed, time: String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB)) == true
         {
             NSLog("yes!")
             
@@ -879,7 +884,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         {
             mfPressed = true
             mfLabel.isHidden = false
-            if vs.requestedForm?.getForm(decomposed:false).contains(",") == false
+            if vs.requestedForm.getForm(decomposed:false).contains(",") == false
             {
                 timerLabel.stopTimer()
                 checkAnswer()
@@ -918,7 +923,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         isExpanded = false
         if erasePreviousForm
         {
-            label1.type(newText: (vs.givenForm?.getForm(decomposed: false))!, duration: 0.3)
+            label1.type(newText: vs.givenForm.getForm(decomposed: false), duration: 0.3)
         }
         label1.isHidden = false
  /*
@@ -931,7 +936,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
  */
         //printVerbs()
         
-        stemLabel.type(newAttributedText: attributedDescription(orig: (vs.givenForm?.getDescription())!, new: (vs.requestedForm?.getDescription())!), duration: 0.3)
+        stemLabel.type(newAttributedText: attributedDescription(orig: vs.givenForm.getDescription(), new: vs.requestedForm.getDescription()), duration: 0.3)
 
         label2.text = ""
         textView.isEditable = true
@@ -949,7 +954,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     func showAnswer()
     {
         label2.isHidden = false
-        label2.type(newText: (vs.requestedForm?.getForm(decomposed: false))!, duration: 0.3)
+        label2.type(newText: vs.requestedForm.getForm(decomposed: false), duration: 0.3)
     }
     
     @objc func handleTimeOut()
@@ -985,18 +990,18 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             return
         }
         NSLog("expand")
-        let a = NSMutableAttributedString.init(string: (vs.givenForm?.getForm(decomposed: true))!)
+        let a = NSMutableAttributedString.init(string: vs.givenForm.getForm(decomposed: true))
         label1.attributedText = a
         label1.att = a
         label1.textColor = UIColor.black
         if label2.attributedText?.string == ""
         {
-            textView.text = vs.requestedForm?.getForm(decomposed: true)
+            textView.text = vs.requestedForm.getForm(decomposed: true)
             positionCheckX()
         }
         else
         {
-            let b = NSMutableAttributedString.init(string: (vs.requestedForm?.getForm(decomposed: true))!)
+            let b = NSMutableAttributedString.init(string: vs.requestedForm.getForm(decomposed: true))
             label2.attributedText = b
             label2.att = b
             label2.textColor = UIColor.black
@@ -1012,19 +1017,19 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         }
         NSLog("unexpand")
         
-        let a = NSMutableAttributedString.init(string: (vs.givenForm?.getForm(decomposed: false))!)
+        let a = NSMutableAttributedString.init(string: vs.givenForm.getForm(decomposed: false))
         label1.attributedText = a
         label1.att = a
         label1.textColor = UIColor.black
         
         if label2.attributedText?.string == ""
         {
-            textView.text = vs.requestedForm?.getForm(decomposed: false)
+            textView.text = vs.requestedForm.getForm(decomposed: false)
             positionCheckX()
         }
         else
         {
-            let b = NSMutableAttributedString.init(string: (vs.requestedForm?.getForm(decomposed: false))!)
+            let b = NSMutableAttributedString.init(string: vs.requestedForm.getForm(decomposed: false))
             label2.attributedText = b
             label2.att = b
             label2.textColor = UIColor.black

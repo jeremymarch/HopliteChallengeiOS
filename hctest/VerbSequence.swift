@@ -19,13 +19,13 @@ enum Tense:Int32 {
 
 //test
 class VerbSequence {
-    var givenForm:VerbForm?
-    var requestedForm:VerbForm?
+    var givenForm = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: -1)
+    var requestedForm = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: -1)
     var options:VerbSeqOptions?
     var seq:Int = 1
     var score:Int32 = 0
     var lives:Int = 3
-    var maxLives:Int = 3
+    var initialLives:Int = 3
     var units = [Int]()
     var gameId:Int = -1
     var vVerbIDs:[Int] = []
@@ -39,10 +39,13 @@ class VerbSequence {
     var _shuffle:Bool = true
     var repsPerVerb:Int32 = 3
     
+    var gameConfigNew = VerbSeqOptionsNew()
+    
     init() {
         //DBInit2()
-        self.givenForm = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: -1)
-        self.requestedForm = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: 0)
+        //self.givenForm =
+        //self.requestedForm = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: 0)
+        
         //self.reset()
 
         /*
@@ -98,47 +101,16 @@ class VerbSequence {
     
     func getNext() -> Int
     {
-        //var vf1 = VerbFormD()
-        //var vf2 = VerbFormD()
-        /*
-        vf1.person = (givenForm?.person)!.rawValue
-        vf1.number = (givenForm?.number)!
-        vf1.tense = (givenForm?.tense)!
-        vf1.voice = (givenForm?.voice)!
-        vf1.mood = (givenForm?.mood)!
-        vf1.verbid = Int32((givenForm?.verbid)!)
-        */
-        var vf1 = givenForm!.getVerbFormD()
-        var vf2 = requestedForm!.getVerbFormD()
-        /*
-        vf2.person = (requestedForm?.person)!.rawValue
-        vf2.number = (requestedForm?.number)!
-        vf2.tense = (requestedForm?.tense)!
-        vf2.voice = (requestedForm?.voice)!
-        vf2.mood = (requestedForm?.mood)!
-        vf2.verbid = Int32((requestedForm?.verbid)!)
-*/
+        var vf1 = givenForm.getVerbFormD()
+        var vf2 = requestedForm.getVerbFormD()
+
         var a:Int32 = Int32(self.seq)
         
         let x = nextVS(&a, &vf1, &vf2)
         
-        givenForm?.setFromVFD(verbFormd: vf1)
-        requestedForm?.setFromVFD(verbFormd: vf2)
-        /*
-        givenForm?.person = vf1.person
-        givenForm?.number = vf1.number
-        givenForm?.tense = vf1.tense
-        givenForm?.voice = vf1.voice
-        givenForm?.mood = vf1.mood
-        givenForm?.verbid = Int(vf1.verbid)
-        
-        requestedForm?.person = vf2.person
-        requestedForm?.number = vf2.number
-        requestedForm?.tense = vf2.tense
-        requestedForm?.voice = vf2.voice
-        requestedForm?.mood = vf2.mood
-        requestedForm?.verbid = Int(vf2.verbid)
-        */
+        givenForm.setFromVFD(verbFormd: vf1)
+        requestedForm.setFromVFD(verbFormd: vf2)
+
         self.seq = Int(a)
 
         NSLog("Seq sw: \(self.seq)")
@@ -148,8 +120,9 @@ class VerbSequence {
     func reset()
     {
         //swiftResetVerbSeq();
-        givenForm?.verbid = -1
-        lives = maxLives
+        givenForm.verbid = -1
+        requestedForm.verbid = -1
+        lives = initialLives
         score = 0
     }
 

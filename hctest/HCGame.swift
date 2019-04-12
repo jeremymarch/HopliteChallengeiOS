@@ -1083,7 +1083,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         }
         else
         {
-            res = vs?.checkVerb(expectedForm: (vs?.requestedForm?.getForm(decomposed:false))!, enteredForm: textView.text, mfPressed: mfPressed, time: String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB))
+            res = vs?.checkVerb(expectedForm: (vs?.requestedForm.getForm(decomposed:false))!, enteredForm: textView.text, mfPressed: mfPressed, time: String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB))
         }
         if res! == true
         {
@@ -1685,7 +1685,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         {
             mfPressed = true
             mfLabel.isHidden = false
-            if vs?.requestedForm?.getForm(decomposed:false).contains(",") == false
+            if vs?.requestedForm.getForm(decomposed:false).contains(",") == false
             {
                 timerLabel.stopTimer()
                 checkAnswer(timedOut:false)
@@ -1724,15 +1724,15 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         isExpanded = false
         if erasePreviousForm
         {
-            label1.type(newText: (vs?.givenForm?.getForm(decomposed: false))!, duration: 0.3)
+            label1.type(newText: (vs?.givenForm.getForm(decomposed: false))!, duration: 0.3)
         }
         label1.isHidden = false
         
-        let p:UInt8 = vs!.requestedForm!.person.rawValue
-        let n:UInt8 = vs!.requestedForm!.number.rawValue
-        let t:UInt8 = vs!.requestedForm!.tense.rawValue
-        let v:UInt8 = vs!.requestedForm!.voice.rawValue
-        let m:UInt8 = vs!.requestedForm!.mood.rawValue
+        let p:UInt8 = vs!.requestedForm.person.rawValue
+        let n:UInt8 = vs!.requestedForm.number.rawValue
+        let t:UInt8 = vs!.requestedForm.tense.rawValue
+        let v:UInt8 = vs!.requestedForm.voice.rawValue
+        let m:UInt8 = vs!.requestedForm.mood.rawValue
         
         stemLabel.setVerbForm(person: Int(p), number: Int(n), tense: Int(t), voice: Int(v), mood: Int(m), locked: true, setAsChanges: false)
         //stemLabel.type(newAttributedText: attributedDescription(orig: (vs.givenForm?.getDescription())!, new: (vs.requestedForm?.getDescription())!), duration: 0.3)
@@ -1764,7 +1764,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         }
         else
         {
-            label2.type(newText: (vs!.requestedForm?.getForm(decomposed: false))!, duration: 0.3)
+            label2.type(newText: vs!.requestedForm.getForm(decomposed: false), duration: 0.3)
         }
     }
     
@@ -1807,18 +1807,18 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             return
         }
         
-        let a = NSMutableAttributedString.init(string: (vs!.givenForm?.getForm(decomposed: true))!)
+        let a = NSMutableAttributedString.init(string: vs!.givenForm.getForm(decomposed: true))
         label1.attributedText = a
         label1.att = a
         label1.textColor = UIColor.black
         if label2.attributedText?.string == ""
         {
-            textView.text = vs!.requestedForm?.getForm(decomposed: true)
+            textView.text = vs!.requestedForm.getForm(decomposed: true)
             positionCheckX()
         }
         else
         {
-            let b = NSMutableAttributedString.init(string: (vs!.requestedForm?.getForm(decomposed: true))!)
+            let b = NSMutableAttributedString.init(string: vs!.requestedForm.getForm(decomposed: true))
             label2.attributedText = b
             label2.att = b
             label2.textColor = UIColor.black
@@ -1839,19 +1839,19 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             return
         }
         
-        let a = NSMutableAttributedString.init(string: (vs!.givenForm?.getForm(decomposed: false))!)
+        let a = NSMutableAttributedString.init(string: vs!.givenForm.getForm(decomposed: false))
         label1.attributedText = a
         label1.att = a
         label1.textColor = UIColor.black
         
         if label2.attributedText?.string == ""
         {
-            textView.text = vs!.requestedForm?.getForm(decomposed: false)
+            textView.text = vs!.requestedForm.getForm(decomposed: false)
             positionCheckX()
         }
         else
         {
-            let b = NSMutableAttributedString.init(string: (vs!.requestedForm?.getForm(decomposed: false))!)
+            let b = NSMutableAttributedString.init(string: vs!.requestedForm.getForm(decomposed: false))
             label2.attributedText = b
             label2.att = b
             label2.textColor = UIColor.black

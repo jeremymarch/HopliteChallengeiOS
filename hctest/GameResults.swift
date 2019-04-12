@@ -73,10 +73,10 @@ class GameResultsViewController: UITableViewController {
                 let isCorrect = sqlite3_column_int(queryStatement, 8)
                 
                 res.append(Result(person: person, number: number, tense: tense, voice: voice, mood: mood, verbid: verbid, incorrectAns: incorrectString, elapsedTime: timeString, isCorrect: isCorrect))
-                /*
+                
                 print("Query Result:")
                 print("\(person),\(number),\(tense),\(voice),\(mood):\(verbid) | \(incorrectString), \(isCorrect), \(timeString)")
-                */
+                
             }
             
         }
@@ -136,7 +136,7 @@ class GameResultsViewController: UITableViewController {
         vf.setMood(UInt8(res[index].mood))
         vf.verbid = Int(res[index].verbid)
  
-        //vf.setFromVFD(verbFormd: res[index])
+        print("verb \(vf.verbid)")
         
         if vf.verbid < 0
         {
