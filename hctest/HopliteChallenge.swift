@@ -739,7 +739,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         
         if vs.checkVerb(expectedForm: vs.requestedForm.getForm(decomposed:false), enteredForm: textView.text, mfPressed: mfPressed, time: String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB)) == true
         {
-            print("yes!")
+            print("correct!")
             
             checkXView.image = checkImg
             checkXView.isHidden = false
@@ -750,10 +750,10 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         }
         else
         {
-            vs.lives = 3 //temp just for testing
+            //vs.lives = 3 //temp just for testing
             textView.textColor = UIColor.gray
             showAnswer()
-            print("no!")
+            print("incorrect!")
             checkXView.image = xImg
             checkXView.isHidden = false
             if vs.isHCGame
@@ -904,14 +904,9 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             label1.type(newText: vs.givenForm.getForm(decomposed: false), duration: 0.3)
         }
         label1.isHidden = false
- /*
-        vs.requestedForm?.verbid = 5
-        vs.requestedForm?.person = 0
-        vs.requestedForm?.number = 1
-        vs.requestedForm?.tense = 3
-        vs.requestedForm?.voice = 2
-        vs.requestedForm?.mood = 2
- */
+        
+        //for testing:
+        //vs.requestedForm.setParams(.first, .plural, .aorist, .passive, .indicative, verb:5)
         //printVerbs()
         
         stemLabel.type(newAttributedText: attributedDescription(orig: vs.givenForm.getDescription(), new: vs.requestedForm.getDescription()), duration: 0.3)

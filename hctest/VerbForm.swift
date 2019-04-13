@@ -155,10 +155,10 @@ class VerbForm {
     }
     
     init(_ person:Person, _ number:Number, _ tense:Tense, _ voice:Voice, _ mood:Mood, verb:Int) {
-        self.set(person, number, tense, voice, mood, verb:verb)
+        self.setParams(person, number, tense, voice, mood, verb:verb)
     }
     
-    func set(_ person:Person, _ number:Number, _ tense:Tense, _ voice:Voice, _ mood:Mood, verb:Int)
+    func setParams(_ person:Person, _ number:Number, _ tense:Tense, _ voice:Voice, _ mood:Mood, verb:Int)
     {
         self.person = person
         self.number = number
