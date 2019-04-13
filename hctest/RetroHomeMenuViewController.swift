@@ -43,8 +43,9 @@ class RetroHomeMenuViewController: UIViewController {
     
     @objc func playButtonPressed(sender:UIButton)
     {
-        if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "HopliteChallenge2")
+        if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "HopliteChallenge2") as? HopliteChallenge
         {
+            dvc.vs.isHCGame = true
             self.navigationController?.pushViewController(dvc, animated: false)
         }
     }
@@ -59,8 +60,9 @@ class RetroHomeMenuViewController: UIViewController {
     
     @objc func practiceButtonPressed(sender:UIButton)
     {
-        if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "HopliteChallenge2")
+        if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "HopliteChallenge2") as? HopliteChallenge
         {
+            dvc.vs.isHCGame = false
             self.navigationController?.pushViewController(dvc, animated: false)
         }
     }

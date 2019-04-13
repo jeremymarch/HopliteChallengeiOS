@@ -49,14 +49,10 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     var mfPressed:Bool = false
     var checkXXOffset:NSLayoutConstraint? = nil
     var checkXYOffset:NSLayoutConstraint? = nil
-    var isGame:Bool = false
-    var practiceVerbId:Int = -1
     let typingDelay:TimeInterval = 0.03
     var blockPinch:Bool = true
     var isExpanded:Bool = false
-    
-    
-    
+
     /*
      get rid of practiceID
      
@@ -70,17 +66,6 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
      pass in shuffle
      */
     
-    var verbIDs:[Int32] = [1]
-    var personFilter:[Int32] = [0,1,2]
-    var numberFilter:[Int32] = [0,1]
-    var tenseFilter:[Int32] = [0,1,2,3,4]
-    var voiceFilter:[Int32] = [0,1,2]
-    var moodFilter:[Int32] = [0,1,2,3]
-    var filterByUnit = 0
-    var shuffle:Bool = true
-    var paramsToChange = 2
-    var difficulty = 0
-    
     var vs:VerbSequence = VerbSequence()
     
     func setGame()
@@ -91,14 +76,8 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        vs.setVSOptions(persons: personFilter, numbers: numberFilter, tenses: tenseFilter, voices: voiceFilter, moods: moodFilter, verbs: verbIDs, shuffle:shuffle,reps: 3)
-        
-        vs.options?.practiceVerbID = Int32(practiceVerbId)
-        //vs.options?.units = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
-        //vs.options?.numUnits = 20
-        vs.options?.isHCGame = isGame
-        
-        
+        vs.DBInit()
+        vs.setVSOptions()
  
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
@@ -160,7 +139,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         timerLabel.countDown = true
         NotificationCenter.default.addObserver(self, selector: #selector(handleTimeOut), name: NSNotification.Name(rawValue: "HCTimeOut"), object: nil)
         
-        if isGame == false
+        if vs.isHCGame == false
         {
             headerHeight = 36.0
             topHeaderRowHeightMultiple = 1.0
@@ -422,7 +401,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         
         continueButton.addTarget(self, action: #selector(continuePressed(button:)), for: .touchUpInside)
         
-        if isGame == false
+        if vs.isHCGame == false
         {
             scoreLabel.isHidden = true
             life1.isHidden = true
@@ -433,8 +412,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         
         let pinchRecognizer = UIPinchGestureRecognizer(target:self, action:#selector(handlePinch))
         self.view.addGestureRecognizer(pinchRecognizer)
-        NSLog("hc dbinit")
-        vs.DBInit2()
+
         //DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
         //    self.start()
         //}
@@ -463,7 +441,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     
     @objc func menuButtonPressed(sender:UIButton)
     {
-        if isGame && timerLabel.isRunning == true //vs.lives > 0
+        if vs.isHCGame && timerLabel.isRunning == true //vs.lives > 0
         {
             let isFirstResp = textView.isFirstResponder
             textView.resignFirstResponder()
@@ -598,11 +576,11 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     
     func reloadSettings()
     {
-        //NSLog("load settings start")
+        //print("load settings start")
         let def = UserDefaults.standard.object(forKey: "Levels")
         if def != nil
         {
-            //NSLog("has setting")
+            //print("has setting")
             var units = [Int]()
             let d = def as! [Bool]
             var j = 1
@@ -617,7 +595,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             //vs.setUnits(units: units)
             //print(units)
         }
-        //NSLog("load settings done")
+        //print("load settings done")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -630,7 +608,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         let tv = object as! UITextView
         var topCorrect:CGFloat  = (tv.bounds.size.height - tv.contentSize.height * tv.zoomScale) / 2.0;
         topCorrect = ( topCorrect < 0.0 ? 0.0 : topCorrect )
-        //NSLog(@"content: %f, %f, %f", topCorrect, [tv bounds].size.height, [tv contentSize].height);
+        //print(@"content: %f, %f, %f", topCorrect, [tv bounds].size.height, [tv contentSize].height);
         tv.contentInset = UIEdgeInsets(top: topCorrect,left: 0,bottom: 0,right: 0)
     }
     /*
@@ -674,7 +652,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
                 }
             }
         }
-        NSLog("Count: \(count)")
+        print("Count: \(count)")
  
     }
     */
@@ -739,7 +717,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             offset = (textView.bounds.width / 2) - checkXView.bounds.width
         }
         checkXXOffset?.constant = offset
-        //NSLog("Width: \(textView.bounds.width), \(sizeOfString(v: textView).width), \(offset)")
+        //print("Width: \(textView.bounds.width), \(sizeOfString(v: textView).width), \(offset)")
     }
     
     func enterKeyPressed()
@@ -761,11 +739,11 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         
         if vs.checkVerb(expectedForm: vs.requestedForm.getForm(decomposed:false), enteredForm: textView.text, mfPressed: mfPressed, time: String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB)) == true
         {
-            NSLog("yes!")
+            print("yes!")
             
             checkXView.image = checkImg
             checkXView.isHidden = false
-            if isGame
+            if vs.isHCGame
             {
                 setScore(score: vs.score)
             }
@@ -775,10 +753,10 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             vs.lives = 3 //temp just for testing
             textView.textColor = UIColor.gray
             showAnswer()
-            NSLog("no!")
+            print("no!")
             checkXView.image = xImg
             checkXView.isHidden = false
-            if isGame
+            if vs.isHCGame
             {
                 setLives(lives: vs.lives)
             }
@@ -833,7 +811,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         unexpand() //has to be called before getNext()
         let ret = vs.getNext()
         
-        if isGame && vs.lives == 0
+        if vs.isHCGame && vs.lives == 0
         {
             label2.hide(duration:0.3)
             stemLabel.hide(duration:0.3)
@@ -908,7 +886,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         vs.reset()
         let _ = vs.getNext()
         askForForm(erasePreviousForm: true)
-        if (isGame)
+        if vs.isHCGame
         {
             scoreLabel.text = String(0)
             life1.isHidden = false;
@@ -959,14 +937,14 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     
     @objc func handleTimeOut()
     {
-        NSLog("time out")
+        print("time out")
         
         checkAnswer()
     }
     
     @objc func handlePinch(sender: UIPinchGestureRecognizer)
     {
-        //NSLog("Scale: %.2f | Velocity: %.2f",sender.scale, sender.velocity);
+        //print("Scale: %.2f | Velocity: %.2f",sender.scale, sender.velocity);
         let thresholdVelocity:CGFloat  = 0 //4.0;
         
         if blockPinch == true
@@ -989,7 +967,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         {
             return
         }
-        NSLog("expand")
+        print("expand")
         let a = NSMutableAttributedString.init(string: vs.givenForm.getForm(decomposed: true))
         label1.attributedText = a
         label1.att = a
@@ -1015,7 +993,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         {
             return
         }
-        NSLog("unexpand")
+        print("unexpand")
         
         let a = NSMutableAttributedString.init(string: vs.givenForm.getForm(decomposed: false))
         label1.attributedText = a

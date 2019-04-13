@@ -21,25 +21,28 @@ enum Tense:Int32 {
 class VerbSequence {
     var givenForm = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: -1)
     var requestedForm = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: -1)
-    var options:VerbSeqOptions?
+    
     var seq:Int = 1
     var score:Int32 = 0
     var lives:Int = 3
     var initialLives:Int = 3
     var units = [Int]()
     var gameId:Int = -1
-    var vVerbIDs:[Int] = []
-    
-    var per:[Int32] = [0,1,2]
-    var num:[Int32] = [0,1]
-    var ten:[Int32] = [Tense.imperfect.rawValue,Tense.future.rawValue,Tense.aorist.rawValue,Tense.perfect.rawValue,Tense.pluperfect.rawValue]
-    var voic:[Int32] = [0,1,2]
-    var moo:[Int32] = [3]
-    var vrbs:[Int32] = [3]
-    var _shuffle:Bool = true
+    var isHCGame = false
+
     var repsPerVerb:Int32 = 3
+    var verbIDs:[Int32] = [1]
+    var persons:[Int32] = [0,1,2]
+    var numbers:[Int32] = [0,1]
+    var tenses:[Int32] = [0,1,2,3,4]
+    var voices:[Int32] = [0,1,2]
+    var moods:[Int32] = [0,1,2,3]
+    var filterByUnit = 0
+    var shuffle:Bool = true
+    var paramsToChange = 2
+    //var difficulty = 0
     
-    var gameConfigNew = VerbSeqOptionsNew()
+    //var gameConfigNew = VerbSeqOptionsNew()
     
     init() {
         //DBInit2()
@@ -61,6 +64,7 @@ class VerbSequence {
         */
         
         //defaults:
+        /*
         per = [0,1,2]
         num = [0,1]
         ten = [Tense.present.rawValue,Tense.imperfect.rawValue,Tense.future.rawValue,Tense.aorist.rawValue,Tense.perfect.rawValue,Tense.pluperfect.rawValue]
@@ -68,7 +72,7 @@ class VerbSequence {
         moo = [0,1,2,3]
         vrbs = [0]
         repsPerVerb = 3
-
+*/
         //setVSOptions(persons:per, numbers:num, tenses:ten, voices:voic, moods:moo, verbs:vrbs, shuffle:_shuffle,reps: repsPerVerb)
         
         /*
@@ -85,18 +89,18 @@ class VerbSequence {
  */
 }
     
-    func setVSOptions(persons:[Int32], numbers:[Int32], tenses:[Int32], voices:[Int32], moods:[Int32], verbs:[Int32], shuffle:Bool, reps:Int32)
+    func setVSOptions()
     {
-        per = persons
-        num = numbers
-        ten = tenses
-        voic = voices
-        moo = moods
-        vrbs = verbs
-        _shuffle = shuffle
-        repsPerVerb = reps
-        
-        setOptionsxx(persons, Int32(persons.count), numbers, Int32(numbers.count), tenses, Int32(tenses.count), voices, Int32(voices.count), moods, Int32(moods.count), verbs, Int32(verbs.count), shuffle, reps)
+        setOptionsxx(self.persons, Int32(self.persons.count), self.numbers, Int32(self.numbers.count), self.tenses, Int32(self.tenses.count), self.voices, Int32(self.voices.count), self.moods, Int32(self.moods.count), self.verbIDs, Int32(self.verbIDs.count), self.shuffle, self.repsPerVerb)
+    }
+    
+    func reset()
+    {
+        //swiftResetVerbSeq();
+        givenForm.verbid = -1
+        requestedForm.verbid = -1
+        lives = initialLives
+        score = 0
     }
     
     func getNext() -> Int
@@ -113,17 +117,8 @@ class VerbSequence {
 
         self.seq = Int(a)
 
-        NSLog("Seq sw: \(self.seq)")
+        print("Seq sw: \(self.seq)")
         return Int(x)
-    }
-    
-    func reset()
-    {
-        //swiftResetVerbSeq();
-        givenForm.verbid = -1
-        requestedForm.verbid = -1
-        lives = initialLives
-        score = 0
     }
 
     func checkVerbNoSave(expectedForm:String, enteredForm:String, mfPressed:Bool) -> Bool
@@ -162,15 +157,15 @@ class VerbSequence {
         let a = checkVFResult(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed, newTime, &vScore, &vLives)
         self.score = vScore
         
-        if a == false && options?.isHCGame == true
+        if a == false && isHCGame == true
         {
             lives -= 1
         }
-        else if options?.isHCGame == false
+        else if isHCGame == false
         {
             lives = -1
         }
-        NSLog("score: \(self.score), lives: \(lives)")
+        print("score: \(self.score), lives: \(lives)")
         return a
     }
     
@@ -186,23 +181,25 @@ class VerbSequence {
         return buffer
     }
     
-    func DBInit2()
+    func DBInit()
     {
         let dbname:String = "hcdatadb.sqlite"
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let dbpath = documentsPath + "/" + dbname
-        NSLog("db: \(dbpath)")
+        print("db: \(dbpath)")
         
         
         let cPath = UnsafeMutablePointer<Int8>(mutating: dbpath)
-        NSLog("swift db init")
+        print("swift db init")
         let ret = dbInit(cPath)
         if ret == false
         {
-            NSLog("Couldn't load sqlite db")
+            print("Couldn't load sqlite db")
         }
     }
+    
     /*
+     make a string to send to libseq?
     func setUnits(units:[Int])
     {
         var s:String = ""

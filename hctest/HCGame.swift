@@ -173,10 +173,10 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         vs = VerbSequence() //need this for checkVerb, should move that
         if gameType != .hcgame
         {
-            vs?.options?.practiceVerbID = Int32(practiceVerbId)
-            vs?.options?.isHCGame = isGame
+            //vs?.options?.practiceVerbID = Int32(practiceVerbId)
+            //vs?.options?.isHCGame = isGame
 
-            vs?.setVSOptions(persons: personFilter, numbers: numberFilter, tenses: tenseFilter, voices: voiceFilter, moods: moodFilter, verbs: verbIDs, shuffle:true, reps:3)
+            //vs?.setVSOptions(persons: personFilter, numbers: numberFilter, tenses: tenseFilter, voices: voiceFilter, moods: moodFilter, verbs: verbIDs, shuffle:true, reps:3)
         }
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
@@ -730,7 +730,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         else // if not hcgame
         {
             NSLog("hc dbinit")
-            vs?.DBInit2()
+            vs?.DBInit()
         }
         
         if (gameType == .hcgame || gameType == .oldgame) && gameState != .start
