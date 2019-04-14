@@ -77,6 +77,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         super.viewDidLoad()
         
         vs.DBInit()
+        //vs.verbIDs = [7]
         vs.setVSOptions()
  
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
