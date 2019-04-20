@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HCStemLabel: UILabel {
+class HCStemxLabel: UILabel {
     var str:String? = nil
     var steps:Int = 0
     var timerDisplayLink:CADisplayLink?

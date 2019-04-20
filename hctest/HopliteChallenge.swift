@@ -8,6 +8,16 @@
 
 import UIKit
 
+extension NSRange {
+    func toTextRange(textInput:UITextInput) -> UITextRange? {
+        if let rangeStart = textInput.position(from: textInput.beginningOfDocument, offset: location),
+            let rangeEnd = textInput.position(from: rangeStart, offset: length) {
+            return textInput.textRange(from: rangeStart, to: rangeEnd)
+        }
+        return nil
+    }
+}
+
 class HopliteChallenge: BaseViewController, UITextViewDelegate {
     var kb:KeyboardViewController? = nil
     var gameOverLabel = UILabel()
@@ -483,6 +493,49 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         let _ = self.navigationController?.popViewController(animated: true)
     }
     
+    func animateLabelUp2()
+    {
+        //label1.text = ""
+        stemLabel.text = ""
+        textView.text = ""
+        /*
+        label2Top?.isActive = false
+        label2Top = label2.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0)
+        label2Top?.isActive = true
+        view.bringSubviewToFront(self.label2)
+        
+        UIView.animate(withDuration: animateDuration, delay: 0.0, options: [.curveEaseInOut], animations: {
+            self.view.layoutIfNeeded()
+            
+        }, completion: {
+            (value: Bool) in
+            
+            self.stemLabelTop?.isActive = false
+            self.stemLabelTop = self.stemLabel.topAnchor.constraint(equalTo: self.label2.bottomAnchor, constant: 0.0)
+            self.stemLabelTop?.isActive = true
+            
+            self.label1Top?.isActive = false
+            self.label1Top = self.label1.topAnchor.constraint(equalTo: self.textView.bottomAnchor, constant: 0.0)
+            self.label1Top?.isActive = true
+            
+            var temp:UILabel?
+            temp = self.label2
+            self.label2 = self.label1
+            self.label1 = temp! as! TypeLabel
+            
+            var tempCon:NSLayoutConstraint?
+            tempCon = self.label2Top
+            self.label2Top = self.label1Top
+            self.label1Top = tempCon!
+            self.view.bringSubviewToFront(self.checkXView)
+            self.view.layoutIfNeeded()
+            
+        })
+        */
+        self.askForForm(erasePreviousForm: false)
+
+    }
+
     func animateLabelUp()
     {
         label1.text = ""
@@ -578,23 +631,35 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     func reloadSettings()
     {
         //print("load settings start")
-        let def = UserDefaults.standard.object(forKey: "Levels")
-        if def != nil
+        if let def = UserDefaults.standard.object(forKey: "Levels") as? [Bool]
         {
             //print("has setting")
             var units = [Int]()
-            let d = def as! [Bool]
+            var verbs = [Int]()
             var j = 1
-            for i in d
+            for (idx, u) in def.enumerated()
             {
-                if i == true
+                if u == true
                 {
+                    switch idx {
+                    case 0:
+                        verbs.append(contentsOf:[0,1])
+                    case 1:
+                        verbs.append(contentsOf:[0,1])
+                    default:
+                        verbs.append(contentsOf:[1])
+                    }
+                    
                     units.append(j)
                 }
                 j += 1
             }
             //vs.setUnits(units: units)
             //print(units)
+        }
+        else
+        {
+            
         }
         //print("load settings done")
     }
@@ -673,8 +738,16 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             // Return FALSE so that the final '\n' character doesn't get added
             return false
         }
-        
-        // For any other character return TRUE so that the text gets added to the view
+        /*
+        else if text == "1"
+        {
+            //text = "α"
+            //textView.replace(range.toTextRange(textInput: textView)!, withText: "α")
+            kb?.accentPressed(accent: .acute)
+            return false
+        }
+        */
+        // For any other character return TRUE so that the text is added to the view
         return true
     }
     
@@ -682,6 +755,8 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     {
         var a = orig.components(separatedBy: " ")
         var b = new.components(separatedBy: " ")
+        
+        print("orig: \(orig), new: \(new)")
         
         let att = NSMutableAttributedString.init(string: new)
         var start = 0
@@ -748,8 +823,9 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             {
                 setScore(score: vs.score)
             }
+            vs.givenForm.copyVF(vs.requestedForm) //if correct the requestedForm becomes the next givenForm
         }
-        else
+        else //if incorrect we keep the same givenForm
         {
             //vs.lives = 3 //temp just for testing
             textView.textColor = UIColor.gray
@@ -836,7 +912,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         }
         else
         {
-            if label2.isHidden == true || label2.text == ""
+            if label2.isHidden == true || label2.text == "" //was correct
             {
                 label1.hide(duration: 0.3)
                 stemLabel.hide(duration:0.3)
@@ -844,14 +920,14 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
                     self.animatetextViewUp()
                 }
             }
-            else
+            else //was incorrect
             {
-                label1.hide(duration: 0.3)
                 stemLabel.hide(duration:0.3)
                 //textView.hide(duration: 0.3)
+                label2.hide(duration: 0.3)
                 textView.text = ""
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                    self.animateLabelUp()
+                    self.animateLabelUp2()
                 }
             }
         }

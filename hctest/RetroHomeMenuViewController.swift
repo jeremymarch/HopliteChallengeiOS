@@ -51,7 +51,7 @@ class RetroHomeMenuViewController: UIViewController {
     {
         if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "Settings") as? HCSettingsViewController
         {
-            self.navigationController?.pushViewController(dvc, animated: false)
+            self.navigationController?.pushViewController(dvc, animated: true)
         }
     }
     

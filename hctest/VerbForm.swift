@@ -168,6 +168,16 @@ class VerbForm {
         self.verbid = verb
     }
     
+    func copyVF(_ vf:VerbForm)
+    {
+        self.person = vf.person
+        self.number = vf.number
+        self.tense = vf.tense
+        self.voice = vf.voice
+        self.mood = vf.mood
+        self.verbid = vf.verbid
+    }
+    
     func getVerbFormD() -> VerbFormD
     {
         var vf1 = VerbFormD()

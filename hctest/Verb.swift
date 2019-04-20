@@ -21,6 +21,12 @@ class Verb2 {
     var hqVerbID:Int32 = 0
     let dash = "—"//let dash = "–"
     
+    enum HQVerb: Int32 {
+        case paideuw = 0
+        case pempw = 1
+        
+    }
+    
     init(verbid:Int)
     {
         let mirror = Mirror(reflecting: verbs)
