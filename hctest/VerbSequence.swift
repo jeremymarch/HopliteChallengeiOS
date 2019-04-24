@@ -30,6 +30,7 @@ class VerbSequence {
     var gameId:Int = -1
     var isHCGame = false
 
+    var topUnit = 1
     var repsPerVerb:Int32 = 3
     var verbIDs:[Int32] = [1]
     var persons:[Int32] = [0,1,2]
@@ -91,7 +92,7 @@ class VerbSequence {
     
     func setVSOptions()
     {
-        setOptionsxx(self.persons, Int32(self.persons.count), self.numbers, Int32(self.numbers.count), self.tenses, Int32(self.tenses.count), self.voices, Int32(self.voices.count), self.moods, Int32(self.moods.count), self.verbIDs, Int32(self.verbIDs.count), self.shuffle, self.repsPerVerb)
+        setOptionsxx(self.persons, Int32(self.persons.count), self.numbers, Int32(self.numbers.count), self.tenses, Int32(self.tenses.count), self.voices, Int32(self.voices.count), self.moods, Int32(self.moods.count), self.verbIDs, Int32(self.verbIDs.count), self.shuffle, self.repsPerVerb, Int32(self.topUnit))
     }
     
     func reset()

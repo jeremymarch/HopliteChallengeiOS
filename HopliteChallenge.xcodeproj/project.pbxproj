@@ -41,6 +41,7 @@
 		3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20551FB8E4EA0000615B /* AccentTextField.swift */; };
 		3F74B2D71FDA34EC0044B0FC /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */; };
 		3F74B2D91FDA55580044B0FC /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74B2D81FDA55580044B0FC /* CardView.swift */; };
+		3F76EF81226CEB85001623CB /* xicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F76EF80226CEB84001623CB /* xicon.png */; };
 		3F7A63D220B7BD26003D483C /* HCVerbFormPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */; };
 		3F7A63D420B7DCB5003D483C /* HCStemLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */; };
 		3F85624E20A9318900FE3EE1 /* HCEnterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85623920A9318900FE3EE1 /* HCEnterButton.swift */; };
@@ -127,6 +128,7 @@
 		3F6D20551FB8E4EA0000615B /* AccentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentTextField.swift; sourceTree = "<group>"; };
 		3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		3F74B2D81FDA55580044B0FC /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		3F76EF80226CEB84001623CB /* xicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xicon.png; sourceTree = "<group>"; };
 		3F7A63CF20B79D9A003D483C /* HCGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCGame.swift; sourceTree = "<group>"; };
 		3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCVerbFormPicker.swift; sourceTree = "<group>"; };
 		3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCStemLabel.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 		3F3443A11E6BB17700FFAD04 /* HopliteChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				3F76EF80226CEB84001623CB /* xicon.png */,
 				3F9F2224222C9FB300BB54F1 /* libseq */,
 				3F9F21E6222C9F9F00BB54F1 /* libgreek */,
 				3F304EC521A75C380046A6C4 /* circleblue.png */,
@@ -496,6 +499,7 @@
 				3F304EC621A75C380046A6C4 /* circleblue.png in Resources */,
 				3F1A64721FDA22BE00D38351 /* Podfile in Resources */,
 				3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */,
+				3F76EF81226CEB85001623CB /* xicon.png in Resources */,
 				3FF462E7218D1AA3005B0629 /* circlegreen.png in Resources */,
 				3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */,
 			);

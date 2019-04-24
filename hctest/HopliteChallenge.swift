@@ -29,6 +29,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     let headerView = UIView()
     let timerLabel = HCTimer()
     let quitButton = UIButton(type: UIButton.ButtonType.custom) as UIButton
+    let quitButtonToMenu = true
     let scoreLabel = UILabel()
     let mfLabel = UILabel()
     let checkImg = UIImage(named:"greencheck.png")
@@ -88,7 +89,8 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         
         vs.DBInit()
         //vs.verbIDs = [7]
-        vs.setVSOptions()
+        //vs.setVSOptions()
+        reloadSettings()
  
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
         if #available(iOS 9.0, *)
@@ -198,18 +200,18 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         quitButton.layer.cornerRadius = 4.0
         quitButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
  
-        let image = UIImage(named: "hamburger.png") as UIImage?
-        quitButton.setImage(image, for: .normal)
-        
-        if false //fromVerbDetail == false
+        var image:UIImage?
+        if quitButtonToMenu
         {
+            image = UIImage(named: "hamburger.png") as UIImage?
             quitButton.addTarget(self, action: #selector(menuButtonPressed), for: UIControl.Event.touchUpInside)
         }
         else
         {
-            //pop controller to go back to verb detail
+            image = UIImage(named: "xicon.png") as UIImage?
             quitButton.addTarget(self, action: #selector(goBackToVerbDetail), for: UIControl.Event.touchUpInside)
         }
+        quitButton.setImage(image!, for: .normal)
 
         headerView.addSubview(scoreLabel)
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -635,33 +637,31 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         {
             //print("has setting")
             var units = [Int]()
-            var verbs = [Int]()
+            var verbs = [Int32]()
+            var topUnit = 1
             var j = 1
             for (idx, u) in def.enumerated()
             {
                 if u == true
                 {
-                    switch idx {
-                    case 0:
-                        verbs.append(contentsOf:[0,1])
-                    case 1:
-                        verbs.append(contentsOf:[0,1])
-                    default:
-                        verbs.append(contentsOf:[1])
-                    }
-                    
+                    verbs.append(contentsOf:Verb2(verbid: 0).verbsForUnit(unit:idx, andUnder:false))
                     units.append(j)
+                    topUnit = idx
                 }
                 j += 1
             }
+            vs.verbIDs.removeAll() //do we need this?
+            vs.verbIDs = verbs
+            vs.topUnit = topUnit
+            vs.setVSOptions()
             //vs.setUnits(units: units)
             //print(units)
         }
         else
         {
-            
+            print("reload settings no default???")
         }
-        //print("load settings done")
+        print("load settings done")
     }
     
     override func viewWillDisappear(_ animated: Bool) {

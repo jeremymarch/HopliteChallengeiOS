@@ -24,7 +24,56 @@ class Verb2 {
     enum HQVerb: Int32 {
         case paideuw = 0
         case pempw = 1
-        
+        case keleuw = 2
+        case luw = 3
+        case graphw = 4
+        case thuw = 5
+        case pauw = 6
+        case phulattw = 7
+        case didaskw = 8
+        case ethelw = 9
+        case thaptw = 10
+        case tattw = 11
+        case archw = 12
+        case blaptw = 13
+        case peithw = 14
+        case prattw = 15
+        case douleuw = 16
+        case kwluw = 17
+        case politeuw = 18
+        case choreuw = 19
+        case kleptw = 20
+        case leipw = 21
+        case swzw = 22
+        case agw = 23
+        case hkw = 24
+        case adikew = 25
+        case nikaw = 26
+        case poiew = 27
+        case pimaw = 28
+        case aggellw = 29
+        case axiow = 30
+        case dhlow = 31
+        case kalew = 32
+        case menw = 33
+        case teleutaw = 34
+        case akouw = 35
+        case apodechomai = 36
+        case ballw = 37
+        case boulomai = 38
+        case dechomai = 39
+        case lambanw = 40
+        case paschw = 41
+        case anatithhmi = 42
+        case apodidwmi = 43
+        case aphisthmi = 44
+        case didwmi = 45
+        case isthmi = 46
+        case kathisthmi = 47
+        case kataluw = 48
+        case tithhmi = 49
+        case philew = 50
+        case phobeomai = 51
     }
     
     init(verbid:Int)
@@ -48,6 +97,22 @@ class Verb2 {
                 hqVerbID = Int32(v.hqid)
             }
         }
+    }
+    
+    func verbsForUnit(unit:Int, andUnder:Bool) -> [Int32]
+    {
+        var verbs:[Int32] = []
+        switch unit {
+        case 0:
+            verbs.append(contentsOf:[0,1])
+        case 1:
+            verbs.append(contentsOf:[2,3])
+        case 2:
+            verbs.append(contentsOf:[3,4])
+        default:
+            verbs.append(contentsOf:[0])
+        }
+        return verbs;
     }
     
     func principalParts(seperator:String) -> String
