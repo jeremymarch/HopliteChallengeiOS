@@ -74,6 +74,13 @@ class Verb2 {
         case tithhmi = 49
         case philew = 50
         case phobeomai = 51
+        case gignomai = 52
+        case erchomai = 53
+        case manthanw = 54
+        case machomai = 55
+        case metadidwmi = 56
+        case metanistamai = 57
+        
     }
     
     init(verbid:Int)
@@ -104,13 +111,29 @@ class Verb2 {
         var verbs:[Int32] = []
         switch unit {
         case 0:
-            verbs.append(contentsOf:[0,1])
+            verbs.append(contentsOf:[])
         case 1:
-            verbs.append(contentsOf:[2,3])
+            verbs.append(contentsOf:[0,1])
         case 2:
-            verbs.append(contentsOf:[3,4])
+            verbs.append(contentsOf:[2,3])
+        case 3:
+            verbs.append(contentsOf:[4,5,6,7])
+        case 4:
+            verbs.append(contentsOf:[8,9,10,11])
+        case 5:
+            verbs.append(contentsOf:[12,13,14,15])
+        case 6:
+            verbs.append(contentsOf:[16,17,18,19])
+        case 7:
+            verbs.append(contentsOf:[20,21,22])
+        case 8:
+            verbs.append(contentsOf:[23,24])
+        case 9:
+            verbs.append(contentsOf:[25,26,27,28])
+        case 10:
+            verbs.append(contentsOf:[29,30,31,32,33,34])
         default:
-            verbs.append(contentsOf:[0])
+            verbs.append(contentsOf:[])
         }
         return verbs;
     }
