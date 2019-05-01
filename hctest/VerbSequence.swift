@@ -29,9 +29,11 @@ class VerbSequence {
     var units = [Int]()
     var gameId:Int = -1
     var isHCGame = false
+    var currentVerb = 0
 
     var topUnit = 1
-    var repsPerVerb:Int32 = 3
+    var maxRepsPerVerb:Int32 = 3
+    var repNum:Int32 = -1
     var verbIDs:[Int32] = [1]
     var persons:[Int32] = [0,1,2]
     var numbers:[Int32] = [0,1]
@@ -92,7 +94,7 @@ class VerbSequence {
     
     func setVSOptions()
     {
-        setOptionsxx(self.persons, Int32(self.persons.count), self.numbers, Int32(self.numbers.count), self.tenses, Int32(self.tenses.count), self.voices, Int32(self.voices.count), self.moods, Int32(self.moods.count), self.verbIDs, Int32(self.verbIDs.count), self.shuffle, self.repsPerVerb, Int32(self.topUnit))
+        setOptionsxx(self.persons, Int32(self.persons.count), self.numbers, Int32(self.numbers.count), self.tenses, Int32(self.tenses.count), self.voices, Int32(self.voices.count), self.moods, Int32(self.moods.count), self.verbIDs, Int32(self.verbIDs.count), self.shuffle, self.maxRepsPerVerb, Int32(self.topUnit))
     }
     
     func reset()
@@ -102,15 +104,51 @@ class VerbSequence {
         requestedForm.verbid = -1
         lives = initialLives
         score = 0
+        repNum = -1
     }
     
     func getNext() -> Int
     {
+        print("repnum: \(repNum), \(verbIDs.count)")
+        if verbIDs.count > 1
+        {
+            //are we at end and need to reshuffle?
+            if  repNum >= maxRepsPerVerb && currentVerb >= verbIDs.count - 1
+            {
+                repNum = -1 //reshuffle and restart
+            }
+            
+            //new or time to reshuffle
+            if repNum < 0
+            {
+                verbIDs.shuffle()
+                repNum = 0
+                currentVerb = 0
+            }
+            else if repNum >= maxRepsPerVerb
+            {
+                currentVerb += 1
+                repNum = 0
+            }
+            repNum += 1
+            givenForm.verbid = Int(verbIDs[currentVerb])
+        }
+        else if verbIDs.count == 1
+        {
+            repNum += 1
+            givenForm.verbid = Int(verbIDs[0])
+        }
+        else
+        {
+            repNum += 1
+            givenForm.verbid = 0
+        }
+        
         var vf1 = givenForm.getVerbFormD()
         var vf2 = requestedForm.getVerbFormD()
 
         var a:Int32 = Int32(self.seq)
-        
+
         let x = nextVS(&a, &vf1, &vf2)
         
         givenForm.setFromVFD(verbFormd: vf1)
@@ -118,7 +156,7 @@ class VerbSequence {
 
         self.seq = Int(a)
 
-        print("Seq sw: \(self.seq)")
+        //print("Seq sw: \(self.seq)")
         return Int(x)
     }
 

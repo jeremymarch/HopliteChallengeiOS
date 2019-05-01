@@ -886,6 +886,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         
         checkXView.isHidden = true
         unexpand() //has to be called before getNext()
+
         let ret = vs.getNext()
         
         if vs.isHCGame && vs.lives == 0
@@ -899,7 +900,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
                 self.start()
             }
         }
-        else if ret == VERB_SEQ_CHANGE_NEW
+        else if vs.repNum == 0 //ret == VERB_SEQ_CHANGE_NEW
         {
             label2.hide(duration:0.3)
             stemLabel.hide(duration:0.3)
@@ -961,6 +962,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         continueButton.setTitle("Continue", for: [])
         gameOverLabel.isHidden = true
         vs.reset()
+
         let _ = vs.getNext()
         askForForm(erasePreviousForm: true)
         if vs.isHCGame
