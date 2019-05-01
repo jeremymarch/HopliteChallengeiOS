@@ -36,6 +36,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     let xImg = UIImage(named:"redx.png")
     let checkXView = UIImageView()
     var fromVerbDetail = false
+    var startOnIncorrect = true
     
     let life1 = UIImageView()
     let life2 = UIImageView()
@@ -837,6 +838,10 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             {
                 setLives(lives: vs.lives)
             }
+            if startOnIncorrect == true
+            {
+                vs.givenForm.copyVF(vs.requestedForm) //if correct the requestedForm becomes the next givenForm
+            }
         }
     }
     
@@ -925,10 +930,20 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             {
                 stemLabel.hide(duration:0.3)
                 //textView.hide(duration: 0.3)
-                label2.hide(duration: 0.3)
+                if self.startOnIncorrect == false
+                {
+                    label2.hide(duration: 0.3)
+                }
                 textView.text = ""
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                    self.animateLabelUp2()
+                    if self.startOnIncorrect == true
+                    {
+                        self.animateLabelUp()
+                    }
+                    else
+                    {
+                        self.animateLabelUp2()
+                    }
                 }
             }
         }
