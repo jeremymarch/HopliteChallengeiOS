@@ -32,7 +32,7 @@ class VerbSequence {
     var currentVerb = 0
 
     var topUnit = 1
-    var maxRepsPerVerb:Int32 = 3
+    var maxRepsPerVerb:Int32 = 4
     var repNum:Int32 = -1
     var verbIDs:[Int32] = [1]
     var persons:[Int32] = [0,1,2]

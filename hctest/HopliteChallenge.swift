@@ -905,7 +905,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
                 self.start()
             }
         }
-        else if vs.repNum == 0 //ret == VERB_SEQ_CHANGE_NEW
+        else if vs.repNum == 4 //ret == VERB_SEQ_CHANGE_NEW
         {
             label2.hide(duration:0.3)
             stemLabel.hide(duration:0.3)
