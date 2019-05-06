@@ -757,7 +757,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         var a = orig.components(separatedBy: " ")
         var b = new.components(separatedBy: " ")
         
-        print("orig: \(orig), new: \(new)")
+        //print("orig: \(orig), new: \(new)")
         
         let att = NSMutableAttributedString.init(string: new)
         var start = 0

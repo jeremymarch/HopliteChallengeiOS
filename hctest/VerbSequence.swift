@@ -121,14 +121,23 @@ class VerbSequence {
             //new or time to reshuffle
             if repNum < 0
             {
-                verbIDs.shuffle()
+                //no need to shuffle if there are only two
+                if verbIDs.count > 2
+                {
+                    //we don't want to randomly get same verb twice in a row
+                    repeat {
+                        verbIDs.shuffle()
+                    } while verbIDs[0] == givenForm.verbid
+                }
                 repNum = 0
                 currentVerb = 0
+                givenForm.person = .unset //reset
             }
             else if repNum >= maxRepsPerVerb
             {
                 currentVerb += 1
                 repNum = 0
+                givenForm.person = .unset //reset
             }
             repNum += 1
             givenForm.verbid = Int(verbIDs[currentVerb])
@@ -137,7 +146,6 @@ class VerbSequence {
         {
             repNum += 1
             givenForm.verbid = Int(verbIDs[0])
-            givenForm.person = .unset //reset
         }
         else
         {
