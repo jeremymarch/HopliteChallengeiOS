@@ -137,6 +137,7 @@ class VerbSequence {
         {
             repNum += 1
             givenForm.verbid = Int(verbIDs[0])
+            givenForm.person = .unset //reset
         }
         else
         {

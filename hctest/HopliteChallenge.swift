@@ -892,10 +892,12 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         checkXView.isHidden = true
         unexpand() //has to be called before getNext()
 
-        let ret = vs.getNext()
+        
         
         if vs.isHCGame && vs.lives == 0
         {
+            let ret = vs.getNext()
+            
             label2.hide(duration:0.3)
             stemLabel.hide(duration:0.3)
             label1.hide(duration: 0.3)
@@ -905,8 +907,10 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
                 self.start()
             }
         }
-        else if vs.repNum == 4 //ret == VERB_SEQ_CHANGE_NEW
+        else if vs.repNum == vs.maxRepsPerVerb //ret == VERB_SEQ_CHANGE_NEW
         {
+            let ret = vs.getNext()
+            
             label2.hide(duration:0.3)
             stemLabel.hide(duration:0.3)
             label1.hide(duration: 0.3)
@@ -918,6 +922,8 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         }
         else
         {
+            let ret = vs.getNext()
+            
             if label2.isHidden == true || label2.text == "" //was correct
             {
                 label1.hide(duration: 0.3)
