@@ -16,12 +16,11 @@ struct Game {
 class GameHistoryViewController: UITableViewController {
     
         var games = [Game]()
-        
+        let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
+    
         override func viewDidLoad() {
             super.viewDidLoad()
             title = "Games"
-            
-            let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
             
             //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
             let db = openDatabase(dbpath: dbpath)
@@ -55,6 +54,7 @@ class GameHistoryViewController: UITableViewController {
                 print("SELECT statement could not be prepared")
             }
             sqlite3_finalize(queryStatement)
+            sqlite3_close(db);
         }
     
     func convertDateFormater(date: Int) -> String {
@@ -168,6 +168,42 @@ class GameHistoryViewController: UITableViewController {
 
         let gr = segue.destination as! GameResultsViewController
         gr.gameid = gameid
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            deleteGame(gameid:games[indexPath.row].id)
+            games.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
+    func deleteGame(gameid:Int)
+    {
+        var queryStatement: OpaquePointer? = nil
+        let db = openDatabase(dbpath: dbpath)
+        let queryStatementString:String = "DELETE FROM games WHERE gameid = ?;"
+        
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK
+        {
+            sqlite3_bind_int(queryStatement, 1, Int32(gameid))
+            
+            if sqlite3_step(queryStatement) == SQLITE_DONE
+            {
+                print("deleted game")
+            }
+            else
+            {
+                print("not deleted")
+            }
+        }
+        else
+        {
+            print("delete statement could not be prepared")
+        }
+        sqlite3_finalize(queryStatement)
+        sqlite3_close(db);
     }
 }
 

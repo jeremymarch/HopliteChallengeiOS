@@ -641,12 +641,13 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             var verbs = [Int32]()
             var topUnit = 1
             var j = 1
+            let v2 = Verb2(verbid: 0)
             for (idx, u) in def.enumerated()
             {
                 if u == true
                 {
-                    verbs.append(contentsOf:Verb2(verbid: 0).verbsForUnit(unit:idx, andUnder:false))
-                    units.append(j)
+                    verbs.append(contentsOf:v2.verbsForUnit(unit:idx, andUnder:false))
+                    units.append(idx)
                     topUnit = idx
                 }
                 j += 1
@@ -656,7 +657,8 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             vs.topUnit = topUnit
             vs.setVSOptions()
             //vs.setUnits(units: units)
-            //print(units)
+            print(units)
+            print(vs.verbIDs)
         }
         else
         {
