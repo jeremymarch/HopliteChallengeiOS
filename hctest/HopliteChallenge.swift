@@ -828,7 +828,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             }
             vs.givenForm.copyVF(vs.requestedForm) //if correct the requestedForm becomes the next givenForm
         }
-        else //if incorrect we keep the same givenForm
+        else
         {
             //vs.lives = 3 //temp just for testing
             textView.textColor = UIColor.gray
@@ -838,6 +838,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             checkXView.isHidden = false
             if vs.isHCGame
             {
+                vs.repNum = vs.maxRepsPerVerb //so we start with new verb
                 setLives(lives: vs.lives)
             }
             if startOnIncorrect == true
