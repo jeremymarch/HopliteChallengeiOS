@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 
+/* another way to do this: https://github.com/cl7/CLTypingLabel/blob/master/Example/CLTypingLabel/ViewController.swift
+ */
+
 class TypeLabel: UILabel {
     var str:String? = nil
     var steps:Int = 0

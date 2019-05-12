@@ -627,7 +627,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         textView.addObserver(self, forKeyPath: "contentSize", options: [.new], context: nil)
         self.navigationController?.isNavigationBarHidden = true
         
-        //reloadSettings()
+        reloadSettings()
         //vs.reset()
     }
     
@@ -654,7 +654,8 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             }
             vs.verbIDs.removeAll() //do we need this?
             vs.verbIDs = verbs
-            vs.topUnit = topUnit
+            vs.topUnit = topUnit + 1
+            vs.repNum = vs.maxRepsPerVerb //reset
             vs.setVSOptions()
             //vs.setUnits(units: units)
             print(units)
