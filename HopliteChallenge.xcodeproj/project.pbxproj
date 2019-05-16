@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3F0541641E7A688800DEB439 /* GameResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0541631E7A688800DEB439 /* GameResults.swift */; };
+		3F09BB4D228CFABF00026D0D /* VerbSequenceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F09BB4C228CFABF00026D0D /* VerbSequenceTest.swift */; };
 		3F0A8BBC225C6351003C42CA /* HCGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A63CF20B79D9A003D483C /* HCGame.swift */; };
 		3F0EC6371E7784AE0084347F /* TypeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0EC6361E7784AE0084347F /* TypeTextView.swift */; };
 		3F15E1731E8450A0009760A0 /* hctestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15E1721E8450A0009760A0 /* hctestTests.swift */; };
@@ -94,6 +95,7 @@
 		151C77D90F5A7107DE2C5150 /* Pods-HopliteChallenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HopliteChallenge.release.xcconfig"; path = "Pods/Target Support Files/Pods-HopliteChallenge/Pods-HopliteChallenge.release.xcconfig"; sourceTree = "<group>"; };
 		27075C33C32281AD0F07B97C /* Pods_HopliteChallenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HopliteChallenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F0541631E7A688800DEB439 /* GameResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameResults.swift; sourceTree = "<group>"; };
+		3F09BB4C228CFABF00026D0D /* VerbSequenceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbSequenceTest.swift; sourceTree = "<group>"; };
 		3F0EC6361E7784AE0084347F /* TypeTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeTextView.swift; sourceTree = "<group>"; };
 		3F15E1701E8450A0009760A0 /* HopliteChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HopliteChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F15E1721E8450A0009760A0 /* hctestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hctestTests.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				3F195A261E7610050025EF00 /* TypeLabel.swift */,
 				3F0EC6361E7784AE0084347F /* TypeTextView.swift */,
 				3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */,
+				3F09BB4C228CFABF00026D0D /* VerbSequenceTest.swift */,
 				3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */,
 				3FF71B4A1E7A290300144F7D /* Verb.swift */,
 				3FAA8D301E6D212900254E97 /* HCTimer.swift */,
@@ -585,6 +588,7 @@
 				3F85625C20A9318900FE3EE1 /* HCKeyboardView.swift in Sources */,
 				3F85624E20A9318900FE3EE1 /* HCEnterButton.swift in Sources */,
 				3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */,
+				3F09BB4D228CFABF00026D0D /* VerbSequenceTest.swift in Sources */,
 				3F9F220C222C9F9F00BB54F1 /* augment.c in Sources */,
 				3FF71B4B1E7A290300144F7D /* Verb.swift in Sources */,
 				3F9F2221222C9F9F00BB54F1 /* GreekForms.c in Sources */,

@@ -563,7 +563,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             self.label1Top?.isActive = false
             self.label1Top = self.label1.topAnchor.constraint(equalTo: self.textView.bottomAnchor, constant: 0.0)
             self.label1Top?.isActive = true
-            
+
             var temp:UILabel?
             temp = self.label2
             self.label2 = self.label1
@@ -575,6 +575,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             self.label1Top = tempCon!
             self.view.bringSubviewToFront(self.checkXView)
             self.view.layoutIfNeeded()
+
             self.askForForm(erasePreviousForm: false)
         })
     }
@@ -614,9 +615,9 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         if UIDevice.current.orientation.isLandscape {
-            print("Landscape")
+            //print("Landscape")
         } else {
-            print("Portrait")
+            //print("Portrait")
         }
         positionCheckX()
     }
@@ -938,13 +939,15 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             }
             else //was incorrect
             {
+                label1.hide(duration: 0.3)
                 stemLabel.hide(duration:0.3)
                 //textView.hide(duration: 0.3)
+                textView.text = ""
                 if self.startOnIncorrect == false
                 {
                     label2.hide(duration: 0.3)
                 }
-                textView.text = ""
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     if self.startOnIncorrect == true
                     {
@@ -1005,26 +1008,44 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         isExpanded = false
         if erasePreviousForm
         {
-            label1.type(newText: vs.givenForm.getForm(decomposed: false), duration: 0.3)
+            label1.type(newText: vs.givenForm.getForm(decomposed: false), duration: 0.3, after: 0.3, onComplete: { () -> Void in
+                
+                self.stemLabel.type2(newAttributedText: self.attributedDescription(orig: self.vs.givenForm.getDescription(), new: self.vs.requestedForm.getDescription()), duration: 0.3, after: 0.3, onComplete: { () -> Void in
+                    
+                        self.label1.isHidden = false
+                        self.label2.text = ""
+                        self.textView.isEditable = true
+                        self.textView.isSelectable = true
+                        self.textView.textColor = UIColor.black
+                        self.mfPressed = false
+                        self.mfLabel.isHidden = true
+                        self.timerLabel.reset()
+                    
+                        self.textView.becomeFirstResponder()
+                        self.timerLabel.startTimer()
+                    })
+                })
         }
-        label1.isHidden = false
-        
-        //for testing:
-        //vs.requestedForm.setParams(.first, .plural, .aorist, .passive, .indicative, verb:5)
-        //printVerbs()
-        
-        stemLabel.type(newAttributedText: attributedDescription(orig: vs.givenForm.getDescription(), new: vs.requestedForm.getDescription()), duration: 0.3)
+        else
+        {
+            label1.isHidden = false
+            
+            //for testing:
+            //vs.requestedForm.setParams(.first, .plural, .aorist, .passive, .indicative, verb:5)
+            //printVerbs()
+            stemLabel.type(newAttributedText: attributedDescription(orig: vs.givenForm.getDescription(), new: vs.requestedForm.getDescription()), duration: 0.3)
 
-        label2.text = ""
-        textView.isEditable = true
-        textView.isSelectable = true
-        textView.textColor = UIColor.black
-        mfPressed = false
-        mfLabel.isHidden = true
-        timerLabel.reset()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.textView.becomeFirstResponder()
-            self.timerLabel.startTimer()
+            label2.text = ""
+            textView.isEditable = true
+            textView.isSelectable = true
+            textView.textColor = UIColor.black
+            mfPressed = false
+            mfLabel.isHidden = true
+            timerLabel.reset()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.textView.becomeFirstResponder()
+                self.timerLabel.startTimer()
+            }
         }
     }
     

@@ -59,13 +59,20 @@ class TypeLabel: UILabel {
             self.att = nil
         }
     }
-    
+
     func type(newAttributedText:NSMutableAttributedString, duration:TimeInterval)
+    {
+        self.type2(newAttributedText:newAttributedText, duration:duration, after:0.0, onComplete:nil)
+    }
+    
+    func type2(newAttributedText:NSMutableAttributedString, duration:TimeInterval, after:Double, onComplete: (()->Void)?) /*optional closures are escaping by default*/
     {
         if newAttributedText.length < 1
         {
             return
         }
+        self.after = after
+        self.onComplete = onComplete
         textColor = backgroundColor
         str = nil
         self.duration = duration
@@ -80,18 +87,16 @@ class TypeLabel: UILabel {
         timerDisplayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.default)
     }
     
-    func type(newText:String, duration:TimeInterval, after:Double, onComplete: @escaping ()->Void )
+    func type(newText:String, duration:TimeInterval )
     {
-        self.onComplete = onComplete
-        self.after = after
-        type(newText:newText, duration:duration)
+        type(newText:newText, duration:duration, after:0.0, onComplete: nil)
     }
     
-    func type(newText:String, duration:TimeInterval)
+    func type(newText:String, duration:TimeInterval, after:Double, onComplete: (()->Void)?)
     {
         if newText.count > 0
         {
-            type(newAttributedText:NSMutableAttributedString.init(string: newText), duration:duration)
+            type2(newAttributedText:NSMutableAttributedString.init(string: newText), duration:duration, after: after, onComplete: onComplete)
         }
     }
 
@@ -125,7 +130,7 @@ class TypeLabel: UILabel {
                 {
                     DispatchQueue.main.asyncAfter(deadline: .now() + self.after) {
                         self.onComplete!()
-                        //onComplete = nil
+                        self.onComplete = nil
                     }
                 }
             }
@@ -165,7 +170,7 @@ class TypeLabel: UILabel {
                 {
                     DispatchQueue.main.asyncAfter(deadline: .now() + self.after) {
                         self.onComplete!()
-                        //onComplete = nil
+                        self.onComplete = nil
                     }
                 }
             }

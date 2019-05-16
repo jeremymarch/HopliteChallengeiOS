@@ -17,11 +17,19 @@ enum Tense:Int32 {
     case pluperfect = 5
 }
 
+enum VSState
+{
+    case new
+    case rep
+    case gameover
+}
+
 //test
 class VerbSequence {
     var givenForm = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: -1)
     var requestedForm = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: -1)
     
+    var state:VSState = .new
     var seq:Int = 1
     var score:Int32 = 0
     var lives:Int = 3
@@ -48,6 +56,7 @@ class VerbSequence {
     //var gameConfigNew = VerbSeqOptionsNew()
     
     init() {
+        state = .new
         //DBInit2()
         //self.givenForm =
         //self.requestedForm = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: 0)
@@ -94,6 +103,7 @@ class VerbSequence {
     
     func setVSOptions()
     {
+        state = .new
         setOptionsxx(self.persons, Int32(self.persons.count), self.numbers, Int32(self.numbers.count), self.tenses, Int32(self.tenses.count), self.voices, Int32(self.voices.count), self.moods, Int32(self.moods.count), self.verbIDs, Int32(self.verbIDs.count), self.shuffle, self.maxRepsPerVerb, Int32(self.topUnit))
     }
     
@@ -105,12 +115,26 @@ class VerbSequence {
         lives = initialLives
         score = 0
         repNum = -1
+        state = .new
     }
     
     func getNext() -> Int
     {
+        //assert(verbIDs.count > 0, "Error: getNext no verbIDs")
+        if verbIDs.count < 1
+        {
+            verbIDs.append(0)
+        }
         print("repnum: \(repNum), \(verbIDs.count)")
-        if verbIDs.count > 1
+        
+        if verbIDs.count == 1
+        {
+            //fix me, if very first one check person for .unset to get given form?
+            //repNum += 1
+            givenForm.verbid = Int(verbIDs[0])
+            state = .rep
+        }
+        else
         {
             //are we at end and need to reshuffle?
             if  repNum >= maxRepsPerVerb && currentVerb >= verbIDs.count - 1
@@ -118,7 +142,7 @@ class VerbSequence {
                 repNum = -1 //reshuffle and restart
             }
             
-            //new or time to reshuffle
+            //brand new or time to reshuffle
             if repNum < 0
             {
                 //no need to shuffle if there are only two
@@ -129,29 +153,26 @@ class VerbSequence {
                         verbIDs.shuffle()
                     } while verbIDs[0] == givenForm.verbid
                 }
-                repNum = 0
+                repNum = 1
                 currentVerb = 0
                 givenForm.person = .unset //reset
+                state = .new
             }
             else if repNum >= maxRepsPerVerb
             {
                 currentVerb += 1
-                repNum = 0
+                repNum = 1
                 givenForm.person = .unset //reset
+                state = .new
             }
-            repNum += 1
+            else
+            {
+                //state = .rep????
+                repNum += 1
+            }
             givenForm.verbid = Int(verbIDs[currentVerb])
         }
-        else if verbIDs.count == 1
-        {
-            repNum += 1
-            givenForm.verbid = Int(verbIDs[0])
-        }
-        else
-        {
-            repNum += 1
-            givenForm.verbid = 0
-        }
+
         
         var vf1 = givenForm.getVerbFormD()
         var vf2 = requestedForm.getVerbFormD()
