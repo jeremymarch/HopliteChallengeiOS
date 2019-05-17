@@ -307,7 +307,8 @@ class VerbDetailViewController: UITableViewController {
         let hp = segue.destination as! HopliteChallenge
         hp.vs.isHCGame = false
         hp.vs.verbIDs.removeAll()
-        hp.vs.verbIDs.append( Int32(hqVerbID) )
+        //hp.vs.verbIDs.append( Int32(hqVerbID) )
+        hp.practiceVerbID = Int(hqVerbID)
         hp.fromVerbDetail = true
     }
 }

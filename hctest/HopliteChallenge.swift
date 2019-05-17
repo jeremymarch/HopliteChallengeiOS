@@ -64,6 +64,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     let typingDelay:TimeInterval = 0.03
     var blockPinch:Bool = true
     var isExpanded:Bool = false
+    var practiceVerbID = -1
 
     /*
      get rid of practiceID
@@ -634,6 +635,12 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     
     func reloadSettings()
     {
+        if practiceVerbID > -1
+        {
+            vs.verbIDs = [Int32(practiceVerbID)]
+            return
+        }
+        
         //print("load settings start")
         if let def = UserDefaults.standard.object(forKey: "Levels") as? [Bool]
         {
@@ -996,9 +1003,9 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         if vs.isHCGame
         {
             scoreLabel.text = String(0)
-            life1.isHidden = false;
-            life2.isHidden = false;
-            life3.isHidden = false;
+            life1.isHidden = false
+            life2.isHidden = false
+            life3.isHidden = false
         }
     }
     
