@@ -29,7 +29,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     let headerView = UIView()
     let timerLabel = HCTimer()
     let quitButton = UIButton(type: UIButton.ButtonType.custom) as UIButton
-    let quitButtonToMenu = true
+    let quitButtonToMenu = false
     let scoreLabel = UILabel()
     let mfLabel = UILabel()
     let checkImg = UIImage(named:"greencheck.png")
