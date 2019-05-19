@@ -835,7 +835,6 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             {
                 setScore(score: vs.score)
             }
-            vs.givenForm.copyVF(vs.requestedForm) //if correct the requestedForm becomes the next givenForm
         }
         else
         {
@@ -849,10 +848,6 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             {
                 vs.repNum = vs.maxRepsPerVerb //so we start with new verb
                 setLives(lives: vs.lives)
-            }
-            if startOnIncorrect == true
-            {
-                vs.givenForm.copyVF(vs.requestedForm) //if correct the requestedForm becomes the next givenForm
             }
         }
     }
@@ -934,10 +929,10 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         }
         else
         {
-            let ret = vs.getNext()
-            
             if label2.isHidden == true || label2.text == "" //was correct
             {
+                vs.givenForm.copyVF(vs.requestedForm) //if correct the requestedForm becomes the next givenForm
+                let ret = vs.getNext()
                 label1.hide(duration: 0.3)
                 stemLabel.hide(duration:0.3)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
@@ -954,6 +949,11 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
                 {
                     label2.hide(duration: 0.3)
                 }
+                else
+                {
+                    vs.givenForm.copyVF(vs.requestedForm) //if correct the requestedForm becomes the next givenForm
+                }
+                let ret = vs.getNext()
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     if self.startOnIncorrect == true
