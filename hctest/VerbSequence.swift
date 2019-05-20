@@ -104,7 +104,7 @@ class VerbSequence {
     func setVSOptions()
     {
         state = .new
-        setOptionsxx(self.persons, Int32(self.persons.count), self.numbers, Int32(self.numbers.count), self.tenses, Int32(self.tenses.count), self.voices, Int32(self.voices.count), self.moods, Int32(self.moods.count), self.verbIDs, Int32(self.verbIDs.count), self.shuffle, self.maxRepsPerVerb, Int32(self.topUnit))
+        setOptionsxx(self.persons, Int32(self.persons.count), self.numbers, Int32(self.numbers.count), self.tenses, Int32(self.tenses.count), self.voices, Int32(self.voices.count), self.moods, Int32(self.moods.count), self.verbIDs, Int32(self.verbIDs.count), self.shuffle, self.maxRepsPerVerb, Int32(self.topUnit), isHCGame)
     }
     
     func reset()

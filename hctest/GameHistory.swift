@@ -14,13 +14,22 @@ struct Game {
     var score = 0
 }
 class GameHistoryViewController: UITableViewController {
-    
+        var isHCGame = false
         var games = [Game]()
+        var gameOrPracticeDescription = "Games"
         let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
     
         override func viewDidLoad() {
             super.viewDidLoad()
-            title = "Games"
+            if isHCGame
+            {
+                gameOrPracticeDescription = "Games"
+            }
+            else
+            {
+                gameOrPracticeDescription = "Practice"
+            }
+            title = gameOrPracticeDescription
             
             //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
             let db = openDatabase(dbpath: dbpath)
@@ -30,7 +39,13 @@ class GameHistoryViewController: UITableViewController {
         func query(db:OpaquePointer) {
             var queryStatement: OpaquePointer? = nil
             
-            let queryStatementString:String = "SELECT gameid,timest,score FROM games ORDER BY gameid DESC;"
+            var equalNotEqual = "!="
+            if !isHCGame
+            {
+                equalNotEqual = "="
+            }
+            
+            let queryStatementString:String = "SELECT gameid,timest,score FROM games WHERE score \(equalNotEqual) -1 ORDER BY gameid DESC;"
             
             if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK
             {
@@ -111,18 +126,28 @@ class GameHistoryViewController: UITableViewController {
             cell.tag = games[index].id
             
             let dateTitle : UILabel = cell.contentView.viewWithTag(101) as! UILabel
+            dateTitle.text = games[index].date
             let scoreTitle : UILabel = cell.contentView.viewWithTag(102) as! UILabel
+            if isHCGame
+            {
+                scoreTitle.text = String(games[index].score)
+            }
+            else
+            {
+                scoreTitle.text = ""
+            }
             
+            /*
             if games[index].id == 1
             {
                 dateTitle.text = "Practice History"
                 scoreTitle.text = ""
             }
             else
-            {
-                dateTitle.text = games[index].date
-                scoreTitle.text = String(games[index].score)
-            }
+            {*/
+            
+            
+            //}
             
             
             return cell
@@ -150,7 +175,7 @@ class GameHistoryViewController: UITableViewController {
          override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
          
          let label = UILabel()
-         label.text = "  Games"
+         label.text = "  \(gameOrPracticeDescription)"
          
          label.backgroundColor = UIColor.blue
          label.textColor = UIColor.white
@@ -164,10 +189,22 @@ class GameHistoryViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let indexPath = tableView.indexPathForSelectedRow
         //let id = indexPath.
-        let gameid = games[(indexPath?.row)!].id
 
-        let gr = segue.destination as! GameResultsViewController
-        gr.gameid = gameid
+        if let gr = segue.destination as? GameResultsViewController
+        {
+            let gameid = games[(indexPath?.row)!].id
+            let score = games[(indexPath?.row)!].score
+            
+            gr.gameid = gameid
+            if score < 0
+            {
+                gr.isHCGame = false
+            }
+            else
+            {
+                gr.isHCGame = true
+            }
+        }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

@@ -22,7 +22,9 @@ struct Result {
 
 class GameResultsViewController: UITableViewController {
     
-    var gameid:Int = 1
+    var gameid:Int = 1 //set from previous view controller
+    var isHCGame = false //set from previous view controller
+    
     var res = [Result]()
     let checkImage = UIImage(named:"greencheck.png")
     let xImage = UIImage(named:"redx.png")
@@ -30,13 +32,13 @@ class GameResultsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if gameid == 1
+        if isHCGame
         {
-            title = "Practice History"
+            title = "Game History"
         }
         else
         {
-            title = "Game History"
+            title = "Practice History"
         }
         
         let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
@@ -78,7 +80,6 @@ class GameResultsViewController: UITableViewController {
                 print("\(person),\(number),\(tense),\(voice),\(mood):\(verbid) | \(incorrectString), \(isCorrect), \(timeString)")
                 
             }
-            
         }
         else
         {

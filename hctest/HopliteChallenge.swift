@@ -903,6 +903,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         
         if vs.isHCGame && vs.lives == 0
         {
+            //startNewGame?
             let ret = vs.getNext()
             
             label2.hide(duration:0.3)

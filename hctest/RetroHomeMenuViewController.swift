@@ -66,8 +66,9 @@ class RetroHomeMenuViewController: UIViewController {
     
     @objc func playHistoryButtonPressed(sender:UIButton)
     {
-        if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "GameHistory")
+        if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "GameHistory") as? GameHistoryViewController
         {
+            dvc.isHCGame = true
             self.navigationController?.pushViewController(dvc, animated: false)
         }
     }
@@ -83,8 +84,9 @@ class RetroHomeMenuViewController: UIViewController {
     
     @objc func practiceHistoryButtonPressed(sender:UIButton)
     {
-        if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "GameHistory")
+        if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "GameHistory") as? GameHistoryViewController
         {
+            dvc.isHCGame = false
             self.navigationController?.pushViewController(dvc, animated: false)
         }
     }
