@@ -672,6 +672,14 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         else
         {
             print("reload settings no default???")
+            vs.verbIDs.removeAll() //do we need this?
+            vs.verbIDs = [0,1]
+            vs.topUnit = 2
+            vs.repNum = vs.maxRepsPerVerb //reset
+            vs.setVSOptions()
+            //vs.setUnits(units: units)
+            //print(units)
+            print(vs.verbIDs)
         }
         print("load settings done")
     }
