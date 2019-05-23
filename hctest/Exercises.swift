@@ -51,7 +51,7 @@ class ExercisesViewController: UIViewController, XMLParserDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let path = Bundle.main.url(forResource: "HQEx", withExtension: "xml")
+        if let path = Bundle.main.url(forResource: "DoNOTHQEx", withExtension: "xml")
         {
             if let parser = XMLParser(contentsOf: path) {
                 parser.delegate = self
