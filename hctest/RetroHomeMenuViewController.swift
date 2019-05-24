@@ -52,7 +52,7 @@ class RetroHomeMenuViewController: UIViewController {
         if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "Settings") as? HCSettingsViewController
         {
             self.navigationController?.pushViewController(dvc, animated: true)
-
+            //performSegue(withIdentifier: "HCSettingsSegue", sender: self)
         }
     }
     
@@ -105,6 +105,28 @@ class RetroHomeMenuViewController: UIViewController {
             dvc.segueDest = "synopsis"
             self.navigationController?.pushViewController(dvc, animated: true)
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        /*
+        let indexPath = tableView.indexPathForSelectedRow
+        //let id = indexPath.
+        
+        if let gr = segue.destination as? GameResultsViewController
+        {
+            let gameid = games[(indexPath?.row)!].id
+            let score = games[(indexPath?.row)!].score
+            
+            gr.gameid = gameid
+            if score < 0
+            {
+                gr.isHCGame = false
+            }
+            else
+            {
+                gr.isHCGame = true
+            }
+        } */
     }
 
 }

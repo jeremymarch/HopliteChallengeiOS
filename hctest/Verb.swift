@@ -110,12 +110,10 @@ class Verb2 {
     {
         var verbs:[Int32] = []
         switch unit {
-        case 0: //i.e. unit 1
+        case 1: // unit 1
             verbs.append(contentsOf:[])
-        case 1:
-            verbs.append(contentsOf:[0,1])
         case 2:
-            verbs.append(contentsOf:[2,3])
+            verbs.append(contentsOf:[0,1,2,3])
         case 3:
             verbs.append(contentsOf:[4,5,6,7])
         case 4:

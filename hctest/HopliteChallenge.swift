@@ -647,22 +647,20 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             //print("has setting")
             var units = [Int]()
             var verbs = [Int32]()
-            var topUnit = 1
-            var j = 1
+            var topUnit = 2
             let v2 = Verb2(verbid: 0)
-            for (idx, u) in def.enumerated()
+            for (unitIdx, isSelected) in def.enumerated()
             {
-                if u == true
+                if isSelected == true
                 {
-                    verbs.append(contentsOf:v2.verbsForUnit(unit:idx, andUnder:false))
-                    units.append(idx)
-                    topUnit = idx
+                    verbs.append(contentsOf:v2.verbsForUnit(unit:unitIdx + 1, andUnder:false))
+                    units.append(unitIdx)
+                    topUnit = unitIdx + 1
                 }
-                j += 1
             }
             vs.verbIDs.removeAll() //do we need this?
             vs.verbIDs = verbs
-            vs.topUnit = topUnit + 1
+            vs.topUnit = topUnit
             vs.repNum = vs.maxRepsPerVerb //reset
             vs.setVSOptions()
             //vs.setUnits(units: units)

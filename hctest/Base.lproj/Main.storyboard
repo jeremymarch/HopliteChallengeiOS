@@ -707,6 +707,7 @@
                         <outlet property="practiceHistoryButton" destination="Z7a-9F-Kby" id="IG1-wL-1WQ"/>
                         <outlet property="settingsButton" destination="ieC-gW-R2r" id="lle-rj-1AN"/>
                         <outlet property="verbFormsButton" destination="ya7-pd-o1W" id="dlN-1z-2Yd"/>
+                        <segue destination="hg9-po-93R" kind="presentation" identifier="HCSettingsSegue" id="hHO-7b-FHA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Usw-Yf-BOl" userLabel="First Responder" sceneMemberID="firstResponder"/>

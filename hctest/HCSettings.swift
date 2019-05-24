@@ -14,6 +14,7 @@ class HCSettingsViewController: UITableViewController {
     var toggleStates = [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         tableView?.delegate = self
         tableView?.dataSource = self
@@ -57,27 +58,28 @@ class HCSettingsViewController: UITableViewController {
         
         let switchView = UISwitch()
         cell.accessoryView = switchView
-        switchView.setOn(toggleStates[indexPath.row], animated: true)
+        switchView.setOn(toggleStates[indexPath.row + 1], animated: true)
         switchView.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
         
         let lblTitle : UILabel = cell.contentView.viewWithTag(101) as! UILabel
         
-        lblTitle.text = "Unit \((indexPath.row + 1))"
+        lblTitle.text = "Unit \((indexPath.row + 2))" //+ 2 because zero-indexed array and we are not displaying unit 1
         
         return cell
     }
     
     @objc func switchChanged(sender:UIView)
     {
-        let switch1 = sender as! UISwitch
-        let indexPath = tableView.indexPath(for: switch1.superview as! UITableViewCell)
-        let on = switch1.isOn
-        
-        toggleStates[(indexPath?.row)!] = on
-        
-        let defaults = UserDefaults.standard
-        defaults.set(toggleStates, forKey: "Levels")
-        defaults.synchronize()
+        if let switch1 = sender as? UISwitch, let indexPath = tableView.indexPath(for: switch1.superview as! UITableViewCell)
+        {
+            let onOrOff = switch1.isOn
+            
+            toggleStates[indexPath.row + 1] = onOrOff //+ 1 because we skip unit 1
+            
+            let defaults = UserDefaults.standard
+            defaults.set(toggleStates, forKey: "Levels")
+            defaults.synchronize()
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -88,7 +90,7 @@ class HCSettingsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return 19 //no verb forms in unit 1
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
