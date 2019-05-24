@@ -84,6 +84,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        if (UserDefaults.standard.object(forKey: "Levels") as? [Bool]) == nil
+        {
+            //by default set unit 2
+            let toggleStates = [false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+            
+            let defaults = UserDefaults.standard
+            defaults.set(toggleStates, forKey: "Levels")
+            defaults.synchronize()
+        }
+        
         datasync()
         
         if #available(iOS 10.0, *) {

@@ -654,7 +654,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
                 if isSelected == true
                 {
                     verbs.append(contentsOf:v2.verbsForUnit(unit:unitIdx + 1, andUnder:false))
-                    units.append(unitIdx)
+                    units.append(unitIdx + 1)
                     topUnit = unitIdx + 1
                 }
             }
@@ -663,6 +663,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             vs.topUnit = topUnit
             vs.repNum = vs.maxRepsPerVerb //reset
             vs.setVSOptions()
+            vs.units = units
             //vs.setUnits(units: units)
             print(units)
             print(vs.verbIDs)

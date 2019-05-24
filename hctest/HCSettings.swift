@@ -10,8 +10,8 @@ import UIKit
 
 class HCSettingsViewController: UITableViewController {
     
-    //by default set unit 1
-    var toggleStates = [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+    //by default set unit 2
+    var toggleStates = [false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
     
     override func viewDidLoad() {
         
@@ -19,10 +19,10 @@ class HCSettingsViewController: UITableViewController {
         tableView?.delegate = self
         tableView?.dataSource = self
         
-        if let def = UserDefaults.standard.object(forKey: "Levels")
+        if let unitSettings = UserDefaults.standard.object(forKey: "Levels")
         {
             var i = 0
-            for d in def as! [Bool]
+            for d in unitSettings as! [Bool]
             {
                 toggleStates[i] = d
                 i += 1

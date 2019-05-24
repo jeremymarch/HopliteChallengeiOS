@@ -714,14 +714,18 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             if searchText != nil && searchText! != ""
             {
                 seq = 0
-                guard let findUnit = Int(searchText!)
-                else
+                guard let findUnit = Int(searchText!) else
                 {
                     return
                 }
+                var realFindUnit = findUnit
+                if realFindUnit > 20
+                {
+                    realFindUnit = 20
+                }
                 for (index, val) in unitSections.enumerated()
                 {
-                    if val >= findUnit
+                    if val >= realFindUnit
                     {
                         unit = index
                         break
