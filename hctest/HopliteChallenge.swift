@@ -645,7 +645,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         if let def = UserDefaults.standard.object(forKey: "Levels") as? [Bool]
         {
             //print("has setting")
-            var units = [Int]()
+            var units = [Int32]()
             var verbs = [Int32]()
             var topUnit = 2
             let v2 = Verb2(verbid: 0)
@@ -654,14 +654,14 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
                 if isSelected == true
                 {
                     verbs.append(contentsOf:v2.verbsForUnit(unit:unitIdx + 1, andUnder:false))
-                    units.append(unitIdx + 1)
+                    units.append(Int32(unitIdx + 1))
                     topUnit = unitIdx + 1
                 }
             }
             vs.verbIDs.removeAll() //do we need this?
             vs.verbIDs = verbs
             vs.topUnit = topUnit
-            vs.repNum = vs.maxRepsPerVerb //reset
+            //newvs.repNum = vs.maxRepsPerVerb //reset
             vs.setVSOptions()
             vs.units = units
             //vs.setUnits(units: units)
@@ -674,7 +674,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             vs.verbIDs.removeAll() //do we need this?
             vs.verbIDs = [0,1]
             vs.topUnit = 2
-            vs.repNum = vs.maxRepsPerVerb //reset
+            //newvs.repNum = vs.maxRepsPerVerb //reset
             vs.setVSOptions()
             //vs.setUnits(units: units)
             //print(units)
@@ -853,8 +853,14 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             checkXView.isHidden = false
             if vs.isHCGame
             {
-                vs.repNum = vs.maxRepsPerVerb //so we start with new verb
-                setLives(lives: vs.lives)
+                //vs.repNum = vs.maxRepsPerVerb //so we start with new verb
+                updateLivesDisplay(lives: vs.lives)
+                if vs.state == .gameover
+                {
+                    gameOverLabel.isHidden = false
+                    continueButton.setTitle("Play again?", for: [])
+                    vs.reset()
+                }
             }
         }
     }
@@ -864,7 +870,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         scoreLabel.text = String(score)
     }
     
-    func setLives(lives:Int)
+    func updateLivesDisplay(lives:Int)
     {
         switch lives
         {
@@ -872,23 +878,18 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             life1.isHidden = false
             life2.isHidden = false
             life3.isHidden = false
-            gameOverLabel.isHidden = true
         case 2:
             life1.isHidden = false
             life2.isHidden = false
             life3.isHidden = true
-            gameOverLabel.isHidden = true
         case 1:
             life1.isHidden = false
             life2.isHidden = true
             life3.isHidden = true
-            gameOverLabel.isHidden = true
         case 0:
             life1.isHidden = true
             life2.isHidden = true
             life3.isHidden = true
-            gameOverLabel.isHidden = false
-            continueButton.setTitle("Play again?", for: [])
         default: break
         }
     }
@@ -905,14 +906,21 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         
         checkXView.isHidden = true
         unexpand() //has to be called before getNext()
-
         
-        
-        if vs.isHCGame && vs.lives == 0
+        if continueButton.titleLabel?.text == "Play again?"
         {
-            //startNewGame?
-            startNewGame(true)
-            let ret = vs.getNext()
+            continueButton.setTitle("Continue", for: [])
+            gameOverLabel.isHidden = true
+            updateLivesDisplay(lives: vs.initialLives)
+            scoreLabel.text = "0"
+        }
+
+        let state = vs.getNext()
+        
+        //if vs.isHCGame && vs.lives == 0
+        if state == .gameover
+        {
+            //startNewGame(true)
             
             label2.hide(duration:0.3)
             stemLabel.hide(duration:0.3)
@@ -923,10 +931,8 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
                 self.start()
             }
         }
-        else if vs.repNum == vs.maxRepsPerVerb //ret == VERB_SEQ_CHANGE_NEW
+        else if state == .new
         {
-            let ret = vs.getNext()
-            
             label2.hide(duration:0.3)
             stemLabel.hide(duration:0.3)
             label1.hide(duration: 0.3)
@@ -940,8 +946,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         {
             if label2.isHidden == true || label2.text == "" //was correct
             {
-                vs.givenForm.copyVF(vs.requestedForm) //if correct the requestedForm becomes the next givenForm
-                let ret = vs.getNext()
+                //vs.givenForm.copyVF(vs.requestedForm) //if correct the requestedForm becomes the next givenForm
                 label1.hide(duration: 0.3)
                 stemLabel.hide(duration:0.3)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
@@ -960,9 +965,8 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
                 }
                 else
                 {
-                    vs.givenForm.copyVF(vs.requestedForm) //if correct the requestedForm becomes the next givenForm
+                    //vs.givenForm.copyVF(vs.requestedForm) //if correct the requestedForm becomes the next givenForm
                 }
-                let ret = vs.getNext()
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     if self.startOnIncorrect == true

@@ -1645,7 +1645,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
                 self.start()
             }
         }
-        else if ret == VERB_SEQ_CHANGE_NEW
+        else if true//ret == VERB_SEQ_CHANGE_NEW
         {
             label2.hide(duration:0.3)
             //stemLabel.hide(duration:0.3)

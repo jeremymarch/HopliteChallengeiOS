@@ -19,6 +19,7 @@ enum Tense:Int32 {
 
 enum VSState
 {
+    case error
     case new
     case rep
     case gameover
@@ -34,7 +35,7 @@ class VerbSequence {
     var score:Int32 = 0
     var lives:Int = 3
     var initialLives:Int = 3
-    var units = [Int]()
+    var units = [Int32]()
     var gameId:Int = -1
     var isHCGame = false
     var currentVerb = 0
@@ -104,22 +105,24 @@ class VerbSequence {
     func setVSOptions()
     {
         state = .new
-        setOptionsxx(self.persons, Int32(self.persons.count), self.numbers, Int32(self.numbers.count), self.tenses, Int32(self.tenses.count), self.voices, Int32(self.voices.count), self.moods, Int32(self.moods.count), self.verbIDs, Int32(self.verbIDs.count), self.shuffle, self.maxRepsPerVerb, Int32(self.topUnit), isHCGame)
+        setOptionsxx(self.persons, Int32(self.persons.count), self.numbers, Int32(self.numbers.count), self.tenses, Int32(self.tenses.count), self.voices, Int32(self.voices.count), self.moods, Int32(self.moods.count), self.verbIDs, Int32(self.verbIDs.count), self.units, Int32(self.units.count), self.shuffle, self.maxRepsPerVerb, Int32(self.topUnit), isHCGame)
     }
     
     func reset()
     {
-        //swiftResetVerbSeq();
-        givenForm.verbid = -1
-        requestedForm.verbid = -1
+        resetVerbSeq(isHCGame);
+        
+        //givenForm.verbid = -1
+        //requestedForm.verbid = -1
         lives = initialLives
         score = 0
-        repNum = -1
+        //repNum = -1 */
         state = .new
     }
     
-    func getNext() -> Int
+    func getNext() -> VSState
     {
+        /*
         //assert(verbIDs.count > 0, "Error: getNext no verbIDs")
         if verbIDs.count < 1
         {
@@ -172,22 +175,36 @@ class VerbSequence {
             }
             givenForm.verbid = Int(verbIDs[currentVerb])
         }
-
+*/
         
         var vf1 = givenForm.getVerbFormD()
         var vf2 = requestedForm.getVerbFormD()
 
         var a:Int32 = Int32(self.seq)
-
         let x = nextVS(&a, &vf1, &vf2)
+        self.seq = Int(a)
         
         givenForm.setFromVFD(verbFormd: vf1)
         requestedForm.setFromVFD(verbFormd: vf2)
 
-        self.seq = Int(a)
-
-        //print("Seq sw: \(self.seq)")
-        return Int(x)
+        switch x
+        {
+        case 0:
+            self.state = .error
+            return .error
+        case 1:
+            self.state = .new
+            return .new
+        case 2:
+            self.state = .rep
+            return .rep
+        case 3:
+            self.state = .gameover
+            return .gameover
+        default:
+            self.state = .error
+            return .error
+        }
     }
 
     func checkVerbNoSave(expectedForm:String, enteredForm:String, mfPressed:Bool) -> Bool
@@ -208,8 +225,8 @@ class VerbSequence {
     
     func checkVerb(expectedForm:String, enteredForm:String, mfPressed:Bool, time:String) -> Bool
     {
-        var vScore:Int32 = self.score
-        var vLives:Int32 = Int32(self.lives)
+        var vScore:Int32 = 0
+        var vLives:Int32 = 0
         var expectedLen:Int32 = 0
         let expectedForm1 = stringToUtf16(s: expectedForm, len: &expectedLen)
         let expectedBuffer = UnsafeMutablePointer<UInt16>(mutating: expectedForm1)
@@ -222,20 +239,22 @@ class VerbSequence {
         //print(enteredForm1)
         let newTime = time.replacingOccurrences(of: " sec", with: "")
         
-        //pass c string: http://stackoverflow.com/questions/31378120/convert-swift-string-into-cchar-pointer
-        let a = checkVFResult(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed, newTime, &vScore, &vLives)
+        //pass c string:
+        //http://stackoverflow.com/questions/31378120/convert-swift-string-into-cchar-pointer
+        let isCorrect = checkVFResult(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed, newTime, &vScore, &vLives)
         self.score = vScore
+        self.lives = Int(vLives)
         
-        if a == false && isHCGame == true
+        if isCorrect == false && isHCGame == true
         {
-            lives -= 1
+            if self.lives < 1
+            {
+                self.state = .gameover
+            }
         }
-        else if isHCGame == false
-        {
-            lives = -1
-        }
+
         print("score: \(self.score), lives: \(lives)")
-        return a
+        return isCorrect
     }
     
     func stringToUtf16(s:String, len: inout Int32) -> [UInt16]
