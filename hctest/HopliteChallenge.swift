@@ -638,6 +638,10 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         if practiceVerbID > -1
         {
             vs.verbIDs = [Int32(practiceVerbID)]
+            vs.topUnit = 20
+            vs.setVSOptions()
+            vs.isHCGame = false
+            vs.reset()
             return
         }
         
@@ -912,7 +916,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             continueButton.setTitle("Continue", for: [])
             gameOverLabel.isHidden = true
             updateLivesDisplay(lives: vs.initialLives)
-            scoreLabel.text = "0"
+            setScore(score: 0)
         }
 
         let state = vs.getNext()
@@ -1008,17 +1012,16 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         label2.text = ""
         textView.text = ""
         continueButton.setTitle("Continue", for: [])
-        gameOverLabel.isHidden = true
+        //gameOverLabel.isHidden = true
         vs.reset()
 
         let _ = vs.getNext()
         askForForm(erasePreviousForm: true)
         if vs.isHCGame
         {
+            setScore(score: 0)
+            updateLivesDisplay(lives: vs.initialLives)
             scoreLabel.text = String(0)
-            life1.isHidden = false
-            life2.isHidden = false
-            life3.isHidden = false
         }
     }
     

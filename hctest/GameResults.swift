@@ -29,6 +29,7 @@ class GameResultsViewController: UITableViewController {
     let checkImage = UIImage(named:"greencheck.png")
     let xImage = UIImage(named:"redx.png")
     let vf = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: 0)
+    let prevVF = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: 0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,8 +77,8 @@ class GameResultsViewController: UITableViewController {
                 
                 res.append(Result(person: person, number: number, tense: tense, voice: voice, mood: mood, verbid: verbid, incorrectAns: incorrectString, elapsedTime: timeString, isCorrect: isCorrect))
                 
-                print("Query Result:")
-                print("\(person),\(number),\(tense),\(voice),\(mood):\(verbid) | \(incorrectString), \(isCorrect), \(timeString)")
+                //print("Query Result:")
+                //print("\(person),\(number),\(tense),\(voice),\(mood):\(verbid) | \(incorrectString), \(isCorrect), \(timeString)")
                 
             }
         }
@@ -136,20 +137,61 @@ class GameResultsViewController: UITableViewController {
         vf.setVoice(UInt8(res[index].voice))
         vf.setMood(UInt8(res[index].mood))
         vf.verbid = Int(res[index].verbid)
+        
+        var attribDescription:NSMutableAttributedString?
+        if index < res.count - 1 //also check that it's not a starting form
+        {
+            prevVF.setPerson(UInt8(res[index + 1].person))
+            prevVF.setNumber(UInt8(res[index + 1].number))
+            prevVF.setTense(UInt8(res[index + 1].tense))
+            prevVF.setVoice(UInt8(res[index + 1].voice))
+            prevVF.setMood(UInt8(res[index + 1].mood))
+            prevVF.verbid = Int(res[index + 1].verbid)
+            
+            attribDescription = attributedDescription(orig: prevVF.getDescription(), new: vf.getDescription())
+        }
  
-        print("verb \(vf.verbid)")
+        //print("verb \(vf.verbid)")
         
         if vf.verbid < 0
         {
             return cell
         }
         
-        stemTitle.text = vf.getDescription()
+        if attribDescription != nil
+        {
+            stemTitle.attributedText = attribDescription
+        }
+        else
+        {
+            stemTitle.text = vf.getDescription()
+        }
+        
         correctTitle.text = vf.getForm(decomposed: false)
         incorrectTitle.text = res[index].incorrectAns
         timeTitle.text = res[index].elapsedTime
         isCorrect.image = (res[index].isCorrect == 0) ? xImage : checkImage
         return cell
+    }
+    
+    func attributedDescription(orig:String, new:String) -> NSMutableAttributedString
+    {
+        var a = orig.components(separatedBy: " ")
+        var b = new.components(separatedBy: " ")
+        
+        //print("orig: \(orig), new: \(new)")
+        
+        let att = NSMutableAttributedString.init(string: new)
+        var start = 0
+        for i in 0...4
+        {
+            if a[i] != b[i]
+            {
+                att.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue-Bold", size: 16.0)!, range: NSRange(location: start, length: b[i].count))
+            }
+            start += b[i].count + 1
+        }
+        return att
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -220,7 +220,17 @@ class GameHistoryViewController: UITableViewController {
     {
         var queryStatement: OpaquePointer? = nil
         let db = openDatabase(dbpath: dbpath)
-        let queryStatementString:String = "DELETE FROM games WHERE gameid = ?;"
+        //var zErrMsg:UnsafeMutablePointer<UnsafeMutablePointer<Int8>?>?
+        
+        var rc = sqlite3_exec(db, "BEGIN;", nil, nil, nil)
+        if( rc != SQLITE_OK )
+        {
+            print("Did not delete game. BEGIN\n");
+            //sqlite3_free(zErrMsg);
+            return
+        }
+        
+        var queryStatementString:String = "DELETE FROM games WHERE gameid = ?;"
         
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK
         {
@@ -228,11 +238,13 @@ class GameHistoryViewController: UITableViewController {
             
             if sqlite3_step(queryStatement) == SQLITE_DONE
             {
-                print("deleted game")
+                print("deleted game1")
             }
             else
             {
-                print("not deleted")
+                print("not deleted1")
+                sqlite3_finalize(queryStatement)
+                return
             }
         }
         else
@@ -240,6 +252,37 @@ class GameHistoryViewController: UITableViewController {
             print("delete statement could not be prepared")
         }
         sqlite3_finalize(queryStatement)
+        
+        queryStatementString = "DELETE FROM verbseq WHERE gameid = ?;"
+        
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK
+        {
+            sqlite3_bind_int(queryStatement, 1, Int32(gameid))
+            
+            if sqlite3_step(queryStatement) == SQLITE_DONE
+            {
+                print("deleted game2")
+            }
+            else
+            {
+                print("not deleted2")
+                sqlite3_finalize(queryStatement)
+                return
+            }
+        }
+        else
+        {
+            print("delete statement could not be prepared")
+        }
+        sqlite3_finalize(queryStatement)
+        
+        rc = sqlite3_exec(db, "COMMIT;", nil, nil, nil)
+        if( rc != SQLITE_OK )
+        {
+            print("Did not delete game. COMMIT\n");
+            //sqlite3_free(zErrMsg);
+            return
+        }
         sqlite3_close(db);
     }
 }
