@@ -638,6 +638,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         if practiceVerbID > -1
         {
             vs.verbIDs = [Int32(practiceVerbID)]
+            vs.units = []
             vs.topUnit = 20
             vs.setVSOptions()
             vs.isHCGame = false
@@ -650,39 +651,40 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         {
             //print("has setting")
             var units = [Int32]()
-            var verbs = [Int32]()
+            //var verbs = [Int32]()
             var topUnit = 2
-            let v2 = Verb2(verbid: 0)
+            //let v2 = Verb2(verbid: 0)
             for (unitIdx, isSelected) in def.enumerated()
             {
                 if isSelected == true
                 {
-                    verbs.append(contentsOf:v2.verbsForUnit(unit:unitIdx + 1, andUnder:false))
+                    //verbs.append(contentsOf:v2.verbsForUnit(unit:unitIdx + 1, andUnder:false))
                     units.append(Int32(unitIdx + 1))
                     topUnit = unitIdx + 1
                 }
             }
-            vs.verbIDs.removeAll() //do we need this?
-            vs.verbIDs = verbs
+            //vs.verbIDs.removeAll() //do we need this?
+            //vs.verbIDs = verbs
             vs.topUnit = topUnit
             //newvs.repNum = vs.maxRepsPerVerb //reset
             vs.setVSOptions()
             vs.units = units
             //vs.setUnits(units: units)
             print(units)
-            print(vs.verbIDs)
+            //print(vs.verbIDs)
         }
         else
         {
             print("reload settings no default???")
             vs.verbIDs.removeAll() //do we need this?
-            vs.verbIDs = [0,1]
+            vs.units = [2]
+            //vs.verbIDs = [0,1]
             vs.topUnit = 2
             //newvs.repNum = vs.maxRepsPerVerb //reset
             vs.setVSOptions()
             //vs.setUnits(units: units)
             //print(units)
-            print(vs.verbIDs)
+            //print(vs.verbIDs)
         }
         print("load settings done")
     }
