@@ -52,137 +52,31 @@ class VerbSequence {
     var filterByUnit = 0
     var shuffle:Bool = true
     var paramsToChange = 2
-    //var difficulty = 0
-    
-    //var gameConfigNew = VerbSeqOptionsNew()
     
     init() {
         state = .new
-        //DBInit2()
-        //self.givenForm =
-        //self.requestedForm = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: 0)
-        
-        //self.reset()
-
-        /*
-        options = VerbSeqOptions()
-        options?.repsPerVerb = 4
-        options?.degreesToChange = 2
-        options?.isHCGame = true
-        options?.numUnits = 20
-        options?.practiceVerbID = -1
-        options?.units = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
-        
-        externalSetUnits("19,20")
-        */
-        
-        //defaults:
-        /*
-        per = [0,1,2]
-        num = [0,1]
-        ten = [Tense.present.rawValue,Tense.imperfect.rawValue,Tense.future.rawValue,Tense.aorist.rawValue,Tense.perfect.rawValue,Tense.pluperfect.rawValue]
-        voic = [0,1,2]
-        moo = [0,1,2,3]
-        vrbs = [0]
-        repsPerVerb = 3
-*/
-        //setVSOptions(persons:per, numbers:num, tenses:ten, voices:voic, moods:moo, verbs:vrbs, shuffle:_shuffle,reps: repsPerVerb)
-        
-        /*
-         game mode:
-         reset: set level
-         get: score, lives, verb forms, compare
-         
-         practice mode:
-         reset: set custom verb/forms
-         get: verb forms, compare
-         
-         two-player:
-         receive prompt vf, check answer
- */
-}
+    }
     
     func setVSOptions()
     {
         state = .new
-        setOptionsxx(self.persons, Int32(self.persons.count), self.numbers, Int32(self.numbers.count), self.tenses, Int32(self.tenses.count), self.voices, Int32(self.voices.count), self.moods, Int32(self.moods.count), self.verbIDs, Int32(self.verbIDs.count), self.units, Int32(self.units.count), self.shuffle, self.maxRepsPerVerb, Int32(self.topUnit), isHCGame)
+        setVerbSeqOptions(self.persons, Int32(self.persons.count), self.numbers, Int32(self.numbers.count), self.tenses, Int32(self.tenses.count), self.voices, Int32(self.voices.count), self.moods, Int32(self.moods.count), self.verbIDs, Int32(self.verbIDs.count), self.units, Int32(self.units.count), self.shuffle, self.maxRepsPerVerb, Int32(self.topUnit), isHCGame)
     }
     
     func reset()
     {
         resetVerbSeq(isHCGame);
-        
-        //givenForm.verbid = -1
-        //requestedForm.verbid = -1
         lives = initialLives
         score = 0
-        //repNum = -1 */
         state = .new
     }
     
     func getNext() -> VSState
     {
-        /*
-        //assert(verbIDs.count > 0, "Error: getNext no verbIDs")
-        if verbIDs.count < 1
-        {
-            verbIDs.append(0)
-        }
-        print("repnum: \(repNum), \(verbIDs.count)")
-        
-        if verbIDs.count == 1
-        {
-            //fix me, if very first one check person for .unset to get given form?
-            //repNum += 1
-            givenForm.verbid = Int(verbIDs[0])
-            state = .rep
-        }
-        else
-        {
-            //are we at end and need to reshuffle?
-            if  repNum >= maxRepsPerVerb && currentVerb >= verbIDs.count - 1
-            {
-                repNum = -1 //reshuffle and restart
-            }
-            
-            //brand new or time to reshuffle
-            if repNum < 0
-            {
-                //no need to shuffle if there are only two
-                if verbIDs.count > 2
-                {
-                    //we don't want to randomly get same verb twice in a row
-                    repeat {
-                        verbIDs.shuffle()
-                    } while verbIDs[0] == givenForm.verbid
-                }
-                repNum = 1
-                currentVerb = 0
-                givenForm.person = .unset //reset
-                state = .new
-            }
-            else if repNum >= maxRepsPerVerb
-            {
-                currentVerb += 1
-                repNum = 1
-                givenForm.person = .unset //reset
-                state = .new
-            }
-            else
-            {
-                //state = .rep????
-                repNum += 1
-            }
-            givenForm.verbid = Int(verbIDs[currentVerb])
-        }
-*/
-        
         var vf1 = givenForm.getVerbFormD()
         var vf2 = requestedForm.getVerbFormD()
 
-        var a:Int32 = Int32(self.seq)
-        let x = nextVS(&a, &vf1, &vf2)
-        self.seq = Int(a)
+        let x = nextVerbSeq(&vf1, &vf2)
         
         givenForm.setFromVFD(verbFormd: vf1)
         requestedForm.setFromVFD(verbFormd: vf2)
@@ -218,7 +112,7 @@ class VerbSequence {
         let enteredBuffer = UnsafeMutablePointer<UInt16>(mutating: enteredForm1)
         
         //pass c string: http://stackoverflow.com/questions/31378120/convert-swift-string-into-cchar-pointer
-        let a = checkVFResultNoSave(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed)
+        let a = compareFormsCheckMF(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed)
 
         return a
     }
@@ -241,7 +135,7 @@ class VerbSequence {
         
         //pass c string:
         //http://stackoverflow.com/questions/31378120/convert-swift-string-into-cchar-pointer
-        let isCorrect = checkVFResult(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed, newTime, &vScore, &vLives)
+        let isCorrect = compareFormsRecordResult(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed, newTime, &vScore, &vLives)
         self.score = vScore
         self.lives = Int(vLives)
         
