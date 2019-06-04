@@ -20,6 +20,7 @@
 		3F286B9F20B3314300F580E6 /* Exercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F286B9E20B3314300F580E6 /* Exercises.swift */; };
 		3F286BA120B3F3E800F580E6 /* HQEx.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3F286BA020B3F3E700F580E6 /* HQEx.xml */; };
 		3F28F7F21FD0C1D4008A69D9 /* VocabDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */; };
+		3F2B051622A647EA00AD4BA8 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */; };
 		3F2BF3C51E6DC8E200884CDC /* greencheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C41E6DC8E200884CDC /* greencheck.png */; };
 		3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C61E6DC8EC00884CDC /* redx.png */; };
 		3F304EC321A75C2D0046A6C4 /* circlegrey.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F304EC121A75C2D0046A6C4 /* circlegrey.png */; };
@@ -40,7 +41,6 @@
 		3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */; };
 		3F6D20541FB7B8DA0000615B /* AccentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */; };
 		3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20551FB8E4EA0000615B /* AccentTextField.swift */; };
-		3F74B2D71FDA34EC0044B0FC /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */; };
 		3F74B2D91FDA55580044B0FC /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74B2D81FDA55580044B0FC /* CardView.swift */; };
 		3F76EF81226CEB85001623CB /* xicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F76EF80226CEB84001623CB /* xicon.png */; };
 		3F7A63D220B7BD26003D483C /* HCVerbFormPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */; };
@@ -574,6 +574,7 @@
 				3F0EC6371E7784AE0084347F /* TypeTextView.swift in Sources */,
 				3F0541641E7A688800DEB439 /* GameResults.swift in Sources */,
 				3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */,
+				3F2B051622A647EA00AD4BA8 /* CardViewController.swift in Sources */,
 				3F7A63D420B7DCB5003D483C /* HCStemLabel.swift in Sources */,
 				3FF71B431E78EF3600144F7D /* BaseViewController.swift in Sources */,
 				3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */,
@@ -601,7 +602,6 @@
 				3F3443AB1E6BB17700FFAD04 /* hctest.xcdatamodeld in Sources */,
 				3F9F2230222C9FB300BB54F1 /* VerbSequence.c in Sources */,
 				3F3443CE1E6BB33400FFAD04 /* VerbForm.swift in Sources */,
-				3F74B2D71FDA34EC0044B0FC /* CardViewController.swift in Sources */,
 				3FF71B491E79EF6900144F7D /* VerbDetail.swift in Sources */,
 				3F85625220A9318900FE3EE1 /* HCCapsLockButton.swift in Sources */,
 				3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */,
@@ -819,7 +819,7 @@
 				INFOPLIST_FILE = hctest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplite2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -843,7 +843,7 @@
 				INFOPLIST_FILE = hctest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplite2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

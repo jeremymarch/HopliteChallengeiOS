@@ -68,7 +68,7 @@ extension CardViewController: KolodaViewDelegate {
 extension CardViewController: KolodaViewDataSource {
     
     func kolodaNumberOfCards(_ koloda:KolodaView) -> Int {
-        return 200000000000 //make room for infinite cards
+        return 200000000 //make room for infinite cards
     }
     
     func kolodaSpeedThatCardShouldDrag(_ koloda: KolodaView) -> DragSpeed {
