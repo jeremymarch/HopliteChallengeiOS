@@ -158,7 +158,7 @@ class GameResultsViewController: UITableViewController {
             return cell
         }
         
-        if attribDescription != nil
+        if attribDescription != nil && res[index].incorrectAns != "START"
         {
             stemTitle.attributedText = attribDescription
         }
