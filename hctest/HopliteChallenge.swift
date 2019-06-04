@@ -902,6 +902,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     
     @objc func continuePressed(button: UIButton) {
         continueButton.isEnabled = false
+        continueButton.isHidden = true
         kb?.resetMFButton()
         
         if continueButton.titleLabel?.text == "Play"
