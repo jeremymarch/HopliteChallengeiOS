@@ -167,10 +167,22 @@ class GameResultsViewController: UITableViewController {
             stemTitle.text = vf.getDescription()
         }
         
-        correctTitle.text = vf.getForm(decomposed: false)
+        correctTitle.text = vf.getForm(decomposed: false).replacingOccurrences(of: "\n", with: " ", options: .literal, range: nil)
+        
         incorrectTitle.text = res[index].incorrectAns
-        timeTitle.text = res[index].elapsedTime
-        isCorrect.image = (res[index].isCorrect == 0) ? xImage : checkImage
+        
+        if res[index].incorrectAns == "START"
+        {
+            isCorrect.isHidden = true
+            timeTitle.isHidden = true
+        }
+        else
+        {
+            timeTitle.text = res[index].elapsedTime
+            timeTitle.isHidden = false
+            isCorrect.image = (res[index].isCorrect == 0) ? xImage : checkImage
+            isCorrect.isHidden = false
+        }
         return cell
     }
     
