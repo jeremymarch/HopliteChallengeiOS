@@ -339,7 +339,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         view.addSubview(continueButton)
         continueButton.translatesAutoresizingMaskIntoConstraints = false
         if #available(iOS 11.0, *) {
-            continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0.0).isActive = true
+            continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -6.0).isActive = true
         } else {
             // Fallback on earlier versions
             continueButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -6.0).isActive = true

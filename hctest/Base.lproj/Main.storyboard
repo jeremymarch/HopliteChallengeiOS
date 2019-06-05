@@ -617,7 +617,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zH4-EH-6bu">
-                                <rect key="frame" x="10" y="374.5" width="355" height="69"/>
+                                <rect key="frame" x="10" y="373.5" width="355" height="67.5"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Game History">
@@ -625,7 +625,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTg-0M-RTx">
-                                <rect key="frame" x="10" y="449.5" width="355" height="68.5"/>
+                                <rect key="frame" x="10" y="447" width="355" height="67.5"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Practice">
@@ -633,7 +633,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7a-9F-Kby">
-                                <rect key="frame" x="10" y="524" width="355" height="68.5"/>
+                                <rect key="frame" x="10" y="520.5" width="355" height="67"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Practice History">
@@ -641,7 +641,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ya7-pd-o1W">
-                                <rect key="frame" x="10" y="598.5" width="355" height="68.5"/>
+                                <rect key="frame" x="10" y="593.5" width="355" height="67.5"/>
                                 <color key="backgroundColor" red="0.54901960780000003" green="0.86274509799999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Verb Forms">
@@ -649,7 +649,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7K-DG-iwz">
-                                <rect key="frame" x="10" y="300" width="355" height="68.5"/>
+                                <rect key="frame" x="10" y="300" width="355" height="67.5"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137254901957" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Play">
@@ -694,12 +694,11 @@
                             <constraint firstItem="LTg-0M-RTx" firstAttribute="trailing" secondItem="SlP-ex-5Qt" secondAttribute="trailingMargin" priority="999" constant="6" id="N4x-kb-U4V"/>
                             <constraint firstItem="Z7a-9F-Kby" firstAttribute="height" secondItem="q7K-DG-iwz" secondAttribute="height" id="NbI-k5-H7w"/>
                             <constraint firstItem="Un6-jh-IbI" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="Nrj-t3-ROl"/>
-                            <constraint firstItem="ya7-pd-o1W" firstAttribute="top" secondItem="Z7a-9F-Kby" secondAttribute="bottom" priority="999" constant="6" id="O0F-ON-D3b"/>
                             <constraint firstItem="zH4-EH-6bu" firstAttribute="height" secondItem="q7K-DG-iwz" secondAttribute="height" id="VBO-EK-N9w"/>
                             <constraint firstItem="Z7a-9F-Kby" firstAttribute="trailing" secondItem="SlP-ex-5Qt" secondAttribute="trailingMargin" priority="999" constant="6" id="Vru-dq-SeT"/>
                             <constraint firstItem="Z7a-9F-Kby" firstAttribute="top" secondItem="LTg-0M-RTx" secondAttribute="bottom" priority="999" constant="6" id="aVQ-zw-fnO"/>
                             <constraint firstItem="q7K-DG-iwz" firstAttribute="trailing" secondItem="SlP-ex-5Qt" secondAttribute="trailingMargin" priority="999" constant="6" id="bha-tk-169"/>
-                            <constraint firstItem="yej-NO-eEN" firstAttribute="top" secondItem="ya7-pd-o1W" secondAttribute="bottom" priority="999" id="cNk-Yc-l4T"/>
+                            <constraint firstItem="yej-NO-eEN" firstAttribute="top" secondItem="ya7-pd-o1W" secondAttribute="bottom" priority="999" constant="6" id="cNk-Yc-l4T"/>
                             <constraint firstItem="LTg-0M-RTx" firstAttribute="height" secondItem="q7K-DG-iwz" secondAttribute="height" id="djN-0n-KPy"/>
                             <constraint firstItem="LTg-0M-RTx" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="gol-06-cGK"/>
                             <constraint firstItem="zH4-EH-6bu" firstAttribute="top" secondItem="q7K-DG-iwz" secondAttribute="bottom" priority="999" constant="6" id="h30-ZL-e2v"/>
