@@ -662,10 +662,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ieC-gW-R2r">
-                                <rect key="frame" x="256" y="72" width="75" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ieC-gW-R2r">
+                                <rect key="frame" x="285" y="72" width="80" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="AiO-w7-Vfr"/>
+                                    <constraint firstAttribute="width" constant="80" id="O4l-vO-XLI"/>
+                                </constraints>
                                 <state key="normal" title="Settings"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJ5-em-zGZ">
+                                <rect key="frame" x="10" y="72" width="60" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="LcY-Sd-4iF"/>
+                                    <constraint firstAttribute="width" constant="60" id="UhY-dj-dlj"/>
+                                </constraints>
+                                <state key="normal" title="About"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -677,7 +688,9 @@
                             <constraint firstItem="zH4-EH-6bu" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="9LQ-DT-oce"/>
                             <constraint firstItem="zH4-EH-6bu" firstAttribute="top" secondItem="q7K-DG-iwz" secondAttribute="bottom" priority="999" constant="6" id="ALc-qS-Yec"/>
                             <constraint firstItem="LTg-0M-RTx" firstAttribute="top" secondItem="zH4-EH-6bu" secondAttribute="bottom" priority="999" constant="6" id="BzW-XV-ktE"/>
+                            <constraint firstItem="VJ5-em-zGZ" firstAttribute="top" secondItem="eJ5-n4-vLo" secondAttribute="bottom" constant="8" id="D4d-nD-PBp"/>
                             <constraint firstItem="ya7-pd-o1W" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="FCX-6i-kwT"/>
+                            <constraint firstAttribute="trailing" secondItem="ieC-gW-R2r" secondAttribute="trailing" constant="10" id="Lru-dZ-udT"/>
                             <constraint firstItem="LTg-0M-RTx" firstAttribute="trailing" secondItem="SlP-ex-5Qt" secondAttribute="trailingMargin" priority="999" constant="6" id="N4x-kb-U4V"/>
                             <constraint firstItem="Z7a-9F-Kby" firstAttribute="height" secondItem="q7K-DG-iwz" secondAttribute="height" id="NbI-k5-H7w"/>
                             <constraint firstItem="Un6-jh-IbI" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="Nrj-t3-ROl"/>
@@ -692,7 +705,9 @@
                             <constraint firstItem="zH4-EH-6bu" firstAttribute="top" secondItem="q7K-DG-iwz" secondAttribute="bottom" priority="999" constant="6" id="h30-ZL-e2v"/>
                             <constraint firstItem="ya7-pd-o1W" firstAttribute="top" secondItem="Z7a-9F-Kby" secondAttribute="bottom" priority="999" constant="6" id="hyR-WJ-DCB"/>
                             <constraint firstItem="LTg-0M-RTx" firstAttribute="top" secondItem="zH4-EH-6bu" secondAttribute="bottom" priority="999" constant="6" id="iad-Pw-fvG"/>
+                            <constraint firstItem="ieC-gW-R2r" firstAttribute="top" secondItem="eJ5-n4-vLo" secondAttribute="bottom" constant="8" id="llp-O5-ImR"/>
                             <constraint firstItem="Un6-jh-IbI" firstAttribute="top" secondItem="eJ5-n4-vLo" secondAttribute="bottom" priority="999" constant="106" id="muh-Ra-Fx3"/>
+                            <constraint firstItem="VJ5-em-zGZ" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leading" constant="10" id="pxA-Vn-bs7"/>
                             <constraint firstItem="q7K-DG-iwz" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="rCb-Cg-kD4"/>
                             <constraint firstItem="Un6-jh-IbI" firstAttribute="trailing" secondItem="SlP-ex-5Qt" secondAttribute="trailingMargin" priority="999" constant="6" id="s6z-Cj-cvv"/>
                             <constraint firstItem="q7K-DG-iwz" firstAttribute="top" secondItem="SlP-ex-5Qt" secondAttribute="centerY" multiplier="0.9" id="yq8-Zi-09e"/>
@@ -701,6 +716,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="38l-FH-LEp"/>
                     <connections>
+                        <outlet property="aboutButton" destination="VJ5-em-zGZ" id="gD3-Pa-r1M"/>
                         <outlet property="playButton" destination="q7K-DG-iwz" id="4rM-DN-f43"/>
                         <outlet property="playHistoryButton" destination="zH4-EH-6bu" id="7Jh-Yo-kNJ"/>
                         <outlet property="practiceButton" destination="LTg-0M-RTx" id="fqB-9W-e95"/>
@@ -712,7 +728,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Usw-Yf-BOl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-740" y="-551"/>
+            <point key="canvasLocation" x="-740" y="-551.87406296851577"/>
         </scene>
         <!--Game History View Controller-->
         <scene sceneID="7B4-xf-Sxg">

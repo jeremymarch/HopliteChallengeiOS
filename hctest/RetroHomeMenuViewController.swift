@@ -15,6 +15,7 @@ class RetroHomeMenuViewController: UIViewController {
     @IBOutlet var practiceHistoryButton:UIButton? = nil
     @IBOutlet var verbFormsButton:UIButton? = nil
     @IBOutlet var settingsButton:UIButton? = nil
+    @IBOutlet var aboutButton:UIButton? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,11 @@ class RetroHomeMenuViewController: UIViewController {
         settingsButton?.layer.borderColor = UIColor.init(red: 0.0, green: 0.0, blue: 110.0, alpha: 1.0).cgColor
         settingsButton?.layer.borderWidth = 2.0
         settingsButton?.layer.cornerRadius = 5.0
+        
+        aboutButton?.layer.borderColor = UIColor.init(red: 0.0, green: 0.0, blue: 110.0, alpha: 1.0).cgColor
+        aboutButton?.layer.borderWidth = 2.0
+        aboutButton?.layer.cornerRadius = 5.0
+        aboutButton?.isHidden = true
         
         playButton?.addTarget(self, action: #selector(playButtonPressed), for: UIControl.Event.touchUpInside)
         playHistoryButton?.addTarget(self, action: #selector(playHistoryButtonPressed), for: UIControl.Event.touchUpInside)
