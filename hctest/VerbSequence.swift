@@ -60,12 +60,12 @@ class VerbSequence {
     func setVSOptions()
     {
         state = .new
-        setVerbSeqOptions(self.persons, Int32(self.persons.count), self.numbers, Int32(self.numbers.count), self.tenses, Int32(self.tenses.count), self.voices, Int32(self.voices.count), self.moods, Int32(self.moods.count), self.verbIDs, Int32(self.verbIDs.count), self.units, Int32(self.units.count), self.shuffle, self.maxRepsPerVerb, Int32(self.topUnit), isHCGame)
+        swSetVerbSeqOptions(self.persons, Int32(self.persons.count), self.numbers, Int32(self.numbers.count), self.tenses, Int32(self.tenses.count), self.voices, Int32(self.voices.count), self.moods, Int32(self.moods.count), self.verbIDs, Int32(self.verbIDs.count), self.units, Int32(self.units.count), self.shuffle, self.maxRepsPerVerb, Int32(self.topUnit), isHCGame)
     }
     
     func reset()
     {
-        resetVerbSeq(isHCGame);
+        swvsReset(isHCGame);
         lives = initialLives
         score = 0
         state = .new
@@ -76,7 +76,7 @@ class VerbSequence {
         var vf1 = givenForm.getVerbFormD()
         var vf2 = requestedForm.getVerbFormD()
 
-        let x = nextVerbSeq(&vf1, &vf2)
+        let x = swvsNext(&vf1, &vf2)
         
         givenForm.setFromVFD(verbFormd: vf1)
         requestedForm.setFromVFD(verbFormd: vf2)
@@ -135,7 +135,7 @@ class VerbSequence {
         
         //pass c string:
         //http://stackoverflow.com/questions/31378120/convert-swift-string-into-cchar-pointer
-        let isCorrect = compareFormsRecordResult(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed, newTime, &vScore, &vLives)
+        let isCorrect = swvsCompareFormsRecordResult(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed, newTime, &vScore, &vLives)
         self.score = vScore
         self.lives = Int(vLives)
         
@@ -173,7 +173,7 @@ class VerbSequence {
         
         let cPath = UnsafeMutablePointer<Int8>(mutating: dbpath)
         print("swift db init")
-        let ret = dbInit(cPath)
+        let ret = swvsInit(cPath)
         if ret == false
         {
             print("Couldn't load sqlite db")
