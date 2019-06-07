@@ -163,7 +163,7 @@ class VerbSequence {
         return buffer
     }
     
-    func DBInit()
+    func vsInit() -> Int
     {
         let dbname:String = "hcdatadb.sqlite"
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
@@ -174,10 +174,11 @@ class VerbSequence {
         let cPath = UnsafeMutablePointer<Int8>(mutating: dbpath)
         print("swift db init")
         let ret = swvsInit(cPath)
-        if ret == false
+        if ret != 0
         {
-            print("Couldn't load sqlite db")
+            print("Couldn't initialize sqlite db")
         }
+        return Int(ret)
     }
     
     /*

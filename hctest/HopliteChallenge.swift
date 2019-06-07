@@ -81,15 +81,14 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     
     var vs:VerbSequence = VerbSequence()
     
-    func setGame()
-    {
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        vs.DBInit()
+        if vs.vsInit() != 0
+        {
+            //label1.settext
+            return
+        }
         //vs.verbIDs = [7]
         //vs.setVSOptions()
         reloadSettings()
