@@ -139,7 +139,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         do {
-            try? FileManager.default.removeItem(at: destURL)
+            //try? FileManager.default.removeItem(at: destURL)
             try FileManager.default.copyItem(at: sourceURL, to: destURL)
         } catch {
             print("Unable to copy file")
