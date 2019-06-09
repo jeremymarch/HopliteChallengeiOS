@@ -83,6 +83,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let meta: Meta
         let rows: [Row]
     }
+    
+    func processHQVocabDataSqlite(jsonData:Data)
+    {
+        NSLog("yay2")
+        if let stringData = String(data: jsonData, encoding: String.Encoding.utf8) {
+            print(stringData) //JSONSerialization
+            do {
+                let decoder = JSONDecoder()
+                let rows = try decoder.decode(HQResponse.self, from: jsonData)
+                
+                if let db = openDatabase(dbpath: dbpath)
+                {
+                    tempPrepareInsert(db:db)
+                }
+                
+                var highestTimestamp = 0;
+                for row in rows.rows {
+                    //print("Row: \(row.id), \(row.lemma), \(row.unit)")
+
+                    if row.lastupdated > highestTimestamp
+                    {
+                        highestTimestamp = row.lastupdated
+                    }
+                    if tempInsertWord(hqid:row.id, unit:row.unit, lemma:row.lemma, present:row.present, future:row.future, aorist:row.aorist, perfect:row.perfect, perfectmid:row.perfectmid, aoristpass:row.aoristpass, def:row.def, pos:row.pos, note:row.note, seq:row.seq) == false
+                    {
+                        print("error inserting word")
+                        break
+                    }
+                    
+                }
+                
+                print("Updated: \(rows.meta.updated)")
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+        }
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -98,18 +135,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.synchronize()
         }
         
-        DispatchQueue.global(qos: .background).async {
+        //DispatchQueue.global(qos: .background).async {
             let v = VerbSequence()
             v.vsInit()
-        }
+        //}
         /*
         if let db = openDatabase(dbpath: dbpath)
         {
             tempPrepareInsert(db: db)
         }
         */
+        if let path = Bundle.main.path(forResource: "hqvocab", ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                processHQVocabDataSqlite(jsonData:data)
+                print("file json ok")
+            } catch let error as NSError {
+                print("file json error")
+                print(error.localizedDescription)
+            }
+        }
         
-        datasync()
+        //datasync()
         if #available(iOS 10.0, *) {
             DataManager.shared.backgroundContext = self.persistentContainer.newBackgroundContext()
             DataManager.shared.mainContext = self.persistentContainer.viewContext
@@ -242,7 +289,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         stripped = stripped.trimmingCharacters(in: CharacterSet(charactersIn: "\u{0304}\u{0301}\u{EB00}\u{2014} -,") as CharacterSet)
         return stripped.lowercased()
     }
-    /*
+    
     //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
     func openDatabase(dbpath:String) -> OpaquePointer? {
         var db: OpaquePointer? = nil
@@ -262,38 +309,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func tempPrepareInsert(db:OpaquePointer) -> Bool
     {
-        let queryStatementString:String = "INSERT INTO hqvocab (id,unit,lemma,def,pos,present,future,aorist,perfect,perfectmid,aoristpass,note,seq,sortkey) VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14);"
+        let queryStatementString:String = "REPLACE INTO hqvocab (hqid,unit,lemma,present,future,aorist,perfect,perfectmid,aoristpass,def,pos,note,seq,sortkey) VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14);"
         
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK
         {
+            print("word prepare ok")
             return true
         }
         else
         {
+            print("word prepare failed")
             return false
         }
     }
     
-    func tempInsertWord(id:Int, unit:Int, lemma:String, def:String, pos:String, present:String, future:String, aorist:String, perfect:String, perfectmid:String, aoristpass:String, note:String, seq:Int16, sortkey:String) -> Bool
+    func tempInsertWord(hqid:Int, unit:Int, lemma:String, present:String, future:String, aorist:String, perfect:String, perfectmid:String, aoristpass:String, def:String, pos:String, note:String, seq:Int16) -> Bool
     {
         //https://stackoverflow.com/questions/28142226/sqlite-for-swift-is-unstable
         //let SQLITE_STATIC = unsafeBitCast(0, to: sqlite3_destructor_type.self)
         let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
         
-        sqlite3_bind_int(queryStatement, 1, Int32(id))
+        sqlite3_bind_int(queryStatement, 1, Int32(hqid))
         sqlite3_bind_int(queryStatement, 2, Int32(unit))
         sqlite3_bind_text(queryStatement, 3, lemma, -1, SQLITE_TRANSIENT)
-        sqlite3_bind_text(queryStatement, 4, def, -1, SQLITE_TRANSIENT)
-        sqlite3_bind_text(queryStatement, 5, pos, -1, SQLITE_TRANSIENT)
-        sqlite3_bind_text(queryStatement, 6, present, -1, SQLITE_TRANSIENT)
-        sqlite3_bind_text(queryStatement, 7, future, -1, SQLITE_TRANSIENT)
-        sqlite3_bind_text(queryStatement, 8, aorist, -1, SQLITE_TRANSIENT)
-        sqlite3_bind_text(queryStatement, 9, perfect, -1, SQLITE_TRANSIENT)
-        sqlite3_bind_text(queryStatement, 10, perfectmid, -1, SQLITE_TRANSIENT)
-        sqlite3_bind_text(queryStatement, 11, aoristpass, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 4, present, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 5, future, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 6, aorist, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 7, perfect, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 8, perfectmid, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 9, aoristpass, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 10, def, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 11, pos, -1, SQLITE_TRANSIENT)
         sqlite3_bind_text(queryStatement, 12, note, -1, SQLITE_TRANSIENT)
         sqlite3_bind_int(queryStatement, 13, Int32(seq))
-        sqlite3_bind_text(queryStatement, 14, sortkey, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 14, stripAccent(lemma: lemma), -1, SQLITE_TRANSIENT)
         
         if sqlite3_step(queryStatement) == SQLITE_DONE
         {
@@ -309,7 +358,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         sqlite3_reset(queryStatement);
         return true
     }
-    */
+ 
     func datasync()
     {
         //let time = NSDate.init()
@@ -391,14 +440,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         
                                         let newWord = self.getWordObjectOrNew(hqid:row.id, context:backgroundContext)
                                         
-                                        
                                         newWord.setValue(self.stripAccent(lemma: row.lemma), forKey: "sortkey")
-                                        /*
-                                        if self.tempInsertWord(id:row.id, unit:row.unit, lemma:row.lemma, def:row.def, pos:row.pos, present:row.present, future:row.future, aorist:row.aorist, perfect:row.perfect, perfectmid:row.perfectmid, aoristpass:row.aoristpass, note:row.note, seq:row.seq, sortkey:self.stripAccent(lemma: row.lemma)) == false
-                                        {
-                                            return
-                                        }
-                                        */
                                         newWord.setValue(row.id, forKey: "hqid")
                                         newWord.setValue(row.unit, forKey: "unit")
                                         newWord.setValue(row.lemma, forKey: "lemma")

@@ -16,6 +16,8 @@
 		3F15E17C1E8462F2009760A0 /* VerbForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */; };
 		3F15E1861E85A893009760A0 /* hamburger.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F15E1851E85A893009760A0 /* hamburger.png */; };
 		3F195A271E7610050025EF00 /* TypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195A261E7610050025EF00 /* TypeLabel.swift */; };
+		3F19690422ACAD020075D556 /* hqvocab.json in Resources */ = {isa = PBXBuildFile; fileRef = 3F19690322ACAD010075D556 /* hqvocab.json */; };
+		3F19690622ACE85D0075D556 /* VocabListDataSourceCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F19690522ACE85D0075D556 /* VocabListDataSourceCoreData.swift */; };
 		3F1A64721FDA22BE00D38351 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3F1A64711FDA22BE00D38351 /* Podfile */; };
 		3F286B9F20B3314300F580E6 /* Exercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F286B9E20B3314300F580E6 /* Exercises.swift */; };
 		3F286BA120B3F3E800F580E6 /* HQEx.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3F286BA020B3F3E700F580E6 /* HQEx.xml */; };
@@ -102,6 +104,8 @@
 		3F15E1741E8450A0009760A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F15E1851E85A893009760A0 /* hamburger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hamburger.png; sourceTree = "<group>"; };
 		3F195A261E7610050025EF00 /* TypeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeLabel.swift; sourceTree = "<group>"; };
+		3F19690322ACAD010075D556 /* hqvocab.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hqvocab.json; sourceTree = "<group>"; };
+		3F19690522ACE85D0075D556 /* VocabListDataSourceCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabListDataSourceCoreData.swift; sourceTree = "<group>"; };
 		3F1A64711FDA22BE00D38351 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3F286B9E20B3314300F580E6 /* Exercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercises.swift; sourceTree = "<group>"; };
 		3F286BA020B3F3E700F580E6 /* HQEx.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HQEx.xml; sourceTree = "<group>"; };
@@ -245,6 +249,7 @@
 		3F3443A11E6BB17700FFAD04 /* HopliteChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				3F19690322ACAD010075D556 /* hqvocab.json */,
 				3F76EF80226CEB84001623CB /* xicon.png */,
 				3F9F2224222C9FB300BB54F1 /* libseq */,
 				3F9F21E6222C9F9F00BB54F1 /* libgreek */,
@@ -296,6 +301,7 @@
 				3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */,
 				3FF462E2218CC76E005B0629 /* MoveListViewController.swift */,
 				3F938EE2222DC10B00594AC8 /* RetroHomeMenuViewController.swift */,
+				3F19690522ACE85D0075D556 /* VocabListDataSourceCoreData.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -492,6 +498,7 @@
 				3FF462E6218D1AA3005B0629 /* circlered.png in Resources */,
 				3F3443B01E6BB17700FFAD04 /* LaunchScreen.storyboard in Resources */,
 				3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */,
+				3F19690422ACAD020075D556 /* hqvocab.json in Resources */,
 				3F304EC321A75C2D0046A6C4 /* circlegrey.png in Resources */,
 				3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */,
 				3F85625020A9318900FE3EE1 /* LICENSE in Resources */,
@@ -569,6 +576,7 @@
 				3FCB495820C47A5400FFD266 /* NetworkManager.swift in Sources */,
 				3F938EE3222DC10B00594AC8 /* RetroHomeMenuViewController.swift in Sources */,
 				3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */,
+				3F19690622ACE85D0075D556 /* VocabListDataSourceCoreData.swift in Sources */,
 				3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */,
 				3FCB495A20C47F9F00FFD266 /* DataManager.swift in Sources */,
 				3F0EC6371E7784AE0084347F /* TypeTextView.swift in Sources */,

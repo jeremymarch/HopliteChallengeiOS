@@ -13,12 +13,10 @@ protocol VerbChooserDelegate {
     func onDismissVerbChooser()
 }
 
-class VocabTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate,UITextFieldDelegate {
+class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate {
     let hcblue:UIColor = UIColor(red: 0.0, green: 0.47, blue: 1.0, alpha: 1.0)
     let hcLightBlue:UIColor = UIColor(red: 140/255.0, green: 220/255.0, blue: 255/255.0, alpha: 1.0)
     let hcDarkBlue:UIColor = UIColor.init(red: 0, green: 0, blue: 110.0/255.0, alpha: 1.0)
-    var wordsPerUnit:[Int] = [] //[Int](repeating: 0, count: 20)
-    var unitSections:[Int] = []
     var filterButtons:[UIButton] = []
     var selectedButtonIndex = 0
     var navTitle = "H&Q Vocabulary"
@@ -40,111 +38,44 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     var selectedRow = -1
     var selectedId = -1
     var predicate = ""
-    var sortAlpha = true
+    var sortAlpha = false
     var kb:KeyboardViewController? = nil
     var segueDest:String = ""
+    var dataSource:VocabListDataSource?
     
     let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
-    
-    func countForUnit(unit: Int) -> Int {
-        let moc = self.fetchedResultsController.managedObjectContext
-        if #available(iOS 10.0, *) {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HQWords")
-            if predicate != ""
-            {
-                fetchRequest.predicate = NSPredicate(format: "unit = %d AND \(predicate)", unit)
-            }
-            else
-            {
-                fetchRequest.predicate = NSPredicate(format: "unit = %d", unit)
-            }
-            fetchRequest.includesSubentities = false
-            
-            var entitiesCount = 0
-            
-            do {
-                entitiesCount = try moc.count(for: fetchRequest)
-                print("count: \(entitiesCount)")
-            }
-            catch {
-                print("error executing fetch request: \(error)")
-            }
-            
-            return entitiesCount
-        }
-        else
-        {
-            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "HQWords")
-            if predicate != ""
-            {
-                fetchRequest.predicate = NSPredicate(format: "unit = %d AND \(predicate)", unit)
-            }
-            else
-            {
-                fetchRequest.predicate = NSPredicate(format: "unit = %d", unit)
-            }
-            
-            var results: [NSManagedObject] = []
-            
-            do {
-                results = try moc.fetch(fetchRequest)
-            }
-            catch {
-                print("error executing fetch request: \(error)")
-            }
-            return results.count
-        }
-    }
+
     
     @objc func filterButtonPressed(_ sender: UIButton ) {
         //self.dismiss(animated: true, completion: nil)
-
-        NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: "VocabMaster")
-
+        
         if sender.titleLabel?.text == "Verb"
         {
             selectedButtonIndex = 1
-            predicate = "pos=='Verb'"
+            dataSource!.predicate = "pos=='Verb'"
         }
         else if sender.titleLabel?.text == "Noun"
         {
             selectedButtonIndex = 2
-            predicate = "pos=='Noun'"
+            dataSource!.predicate = "pos=='Noun'"
         }
         else if sender.titleLabel?.text == "Adjective"
         {
             selectedButtonIndex = 3
-            predicate = "pos=='Adjective'"
+            dataSource!.predicate = "pos=='Adjective'"
         }
         else if sender.titleLabel?.text == "Other"
         {
             selectedButtonIndex = 4
-            predicate = "pos!='Adjective' AND pos!='Noun' AND pos!='Verb'"
+            dataSource!.predicate = "pos!='Adjective' AND pos!='Noun' AND pos!='Verb'"
         }
         else if sender.titleLabel?.text == "All"
         {
             selectedButtonIndex = 0
-            predicate = ""
+            dataSource!.predicate = ""
         }
         
-        if predicate != ""
-        {
-            let pred = NSPredicate(format: predicate)
-            _fetchedResultsController?.fetchRequest.predicate = pred
-        }
-        else
-        {
-            _fetchedResultsController?.fetchRequest.predicate = nil
-        }
-        
-        setWordsPerUnit()
-        
-        do {
-            try _fetchedResultsController?.performFetch()
-        } catch let error {
-            NSLog(error.localizedDescription)
-            return
-        }
+        dataSource!.filter()
         self.tableView.reloadData()
         let indexPath = IndexPath(row: 0, section: 0)
         self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
@@ -154,16 +85,12 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     
     @objc func sortTogglePressed(_ sender: UIButton ) {
         //self.dismiss(animated: true, completion: nil)
-        sortAlpha = !sortAlpha
+        dataSource!.sortAlpha = !dataSource!.sortAlpha
         searchTextField.text = ""
-        NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: "VocabMaster")
-        _fetchedResultsController = nil
-        /*
-        let sortDescriptor = NSSortDescriptor(key: sortField, ascending: true)
-        _fetchedResultsController?.fetchRequest.sortDescriptors = [sortDescriptor]
-        _fetchedResultsController?.sectionNameKeyPath = ""
-        */
+        
+        dataSource!.resort()
         self.tableView.reloadData()
+        
         let indexPath = IndexPath(row: 0, section: 0)
         self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
         
@@ -174,7 +101,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     
     func setSortToggleButton()
     {
-        if sortAlpha
+        if dataSource!.sortAlpha
         {
             searchTextField.inputView = kb?.inputView
             searchToggleButton.setTitle("Word: ", for: [])
@@ -183,6 +110,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         {
             searchTextField.inputView = nil
             searchTextField.keyboardType = .numberPad
+            //searchTextField.reloadInputViews()
             searchToggleButton.setTitle("Unit: ", for: [])
         }
     }
@@ -190,8 +118,10 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        dataSource = VocabListDataSource(sortAlpha:sortAlpha, predicate:predicate)
+        tableView.dataSource = dataSource!
         tableView.delegate = self
-        tableView.dataSource = self
+        tableView.reloadData()
         
         filterViewHeight.constant = filterViewHeightValue
         if filterViewHeightValue == 0.0
@@ -307,15 +237,15 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             item.trailingBarButtonGroups = []
         }
         
-        let delegate = UIApplication.shared.delegate as! AppDelegate
-        delegate.datasync()
+        //let delegate = UIApplication.shared.delegate as! AppDelegate
+        //delegate.datasync()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        setWordsPerUnit()
+        //dataSource.setWordsPerUnit()
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: UITextField.textDidChangeNotification, object: nil)
         
@@ -350,23 +280,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
     }
-    
-    func setWordsPerUnit()
-    {
-        //for (u, _) in wordsPerUnit.enumerated()
-        wordsPerUnit = []
-        unitSections = []
-        for u in 0...19
-        {
-            let c = countForUnit(unit: u+1)
-            if c > 0
-            {
-                wordsPerUnit.append(c)
-                unitSections.append(u+1)
-            }
-            //NSLog("words per: \(u), \(wordsPerUnit[u])")
-        }
-    }
+
     
     @objc func textDidChange(_ notification: Notification) {
         //guard let textView = notification.object as? UITextField else { return }
@@ -395,10 +309,10 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        if !sortAlpha
+        if !dataSource!.sortAlpha
         {
             let label = UILabel()
-            label.text = "  Unit \(unitSections[section])"
+            label.text = "  Unit \(dataSource!.unitSections[section])"
             
             label.backgroundColor = hcDarkBlue
             label.textColor = UIColor.white
@@ -407,17 +321,6 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         else
         {
             return nil
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if !sortAlpha
-        {
-            return 34
-        }
-        else
-        {
-            return 0
         }
     }
     
@@ -434,116 +337,6 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
     }
 
     // MARK: - Table view data source
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        if !sortAlpha
-        {
-            return wordsPerUnit.count
-        }
-        else
-        {
-            return 1
-        }
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        //let sectionInfo = fetchedResultsController.sections![section]
-        //NSLog("FRC Count: \(sectionInfo.numberOfObjects)")
-        if !sortAlpha
-        {
-            return wordsPerUnit[section]
-        }
-        else
-        {
-            return (fetchedResultsController.fetchedObjects?.count)!
-        }
-    }
-    
-    var fetchedResultsController: NSFetchedResultsController<HQWords> {
-        if _fetchedResultsController != nil {
-            return _fetchedResultsController!
-        }
-
-        let fetchRequest: NSFetchRequest<HQWords> = HQWords.fetchRequest()
-        
-        // Set the batch size to a suitable number.
-        fetchRequest.fetchBatchSize = 20
-        
-        // Edit the sort key as appropriate.
-        
-        
-        // Edit the section name key path and cache name if appropriate.
-        // nil for section name key path means "no sections".
-        let x = UIApplication.shared.delegate as! AppDelegate
-        
-        var sectionField:String?
-        let sortDescriptorUnit = NSSortDescriptor(key: "unit", ascending: true)
-        let sortDescriptorSeq = NSSortDescriptor(key: "seq", ascending: true)
-        if sortAlpha
-        {
-            sectionField = nil
-            fetchRequest.sortDescriptors = [sortDescriptorSeq]
-        }
-        else
-        {
-            sectionField = "unit"
-            fetchRequest.sortDescriptors = [sortDescriptorUnit,sortDescriptorSeq]
-        }
-        
-        if predicate != ""
-        {
-            let pred = NSPredicate(format: predicate)
-            fetchRequest.predicate = pred
-        }
-
-        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: x.managedObjectContext, sectionNameKeyPath: sectionField, cacheName: "VocabMaster")
-        aFetchedResultsController.delegate = self
-        _fetchedResultsController = aFetchedResultsController
-        
-        do {
-            try _fetchedResultsController!.performFetch()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-        }
-        
-        return _fetchedResultsController!
-    }
-    var _fetchedResultsController: NSFetchedResultsController<HQWords>? = nil
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let gw = fetchedResultsController.object(at: indexPath)
-        configureCell(cell, lemma: gw.lemma!.description, unit: gw.unit.description)
-
-        return cell
-    }
-    
-    func configureCell(_ cell: UITableViewCell, lemma:String, unit:String) {
-        //cell.textLabel!.text = event.timestamp!.description
-        //cell.textLabel!.text = "\(gw.hqid.description) \(gw.lemma!.description)"
-        if !sortAlpha
-        {
-            cell.textLabel!.text = lemma
-        }
-        else
-        {
-            //cell.textLabel!.text = "\(gw.lemma!.description) : \(gw.sortkey!.description) (\(gw.unit.description))"
-            cell.textLabel!.text = "\(lemma) (\(unit))"
-        }
-        
-        let greekFont = UIFont(name: "NewAthenaUnicode", size: 24.0)
-        cell.textLabel?.font = greekFont
-        //cell.tag = Int(gw.wordid)
-        
-        let bgColorView = UIView()
-        bgColorView.backgroundColor = highlightedRowBGColor
-        cell.selectedBackgroundView = bgColorView
-    }
  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //let btn = UIButton(type: UIButtonType.custom)
@@ -551,8 +344,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         
         if delegate != nil //if it's acting as a verb chooser
         {
-            let object = fetchedResultsController.object(at: indexPath)
-            let wordid = Int(object.hqid)
+            let wordid = dataSource!.getSelectedId(path:indexPath)
             delegate?.setSelectedVerb(verbID: wordid)
             //close
             self.presentingViewController?.dismiss(animated: true, completion:delegate?.onDismissVerbChooser)
@@ -613,20 +405,20 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         searchTextField?.resignFirstResponder() //works for pad and phone
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        let indexPath = tableView.indexPathForSelectedRow
-        let object = fetchedResultsController.object(at: indexPath!)
-        let wordid = Int(object.hqid)
-        if segueDest == "synopsis"
+        if let indexPath = tableView.indexPathForSelectedRow
         {
-            let vd = segue.destination as! VerbDetailViewController
-            vd.verbIndex = wordid
+            let wordid = dataSource!.getSelectedId(path:indexPath)
+            if segueDest == "synopsis"
+            {
+                let vd = segue.destination as! VerbDetailViewController
+                vd.verbIndex = wordid
+            }
+            else
+            {
+                let vd = segue.destination as! VocabDetailViewController
+                vd.hqid = wordid
+            }
         }
-        else
-        {
-            let vd = segue.destination as! VocabDetailViewController
-            vd.hqid = wordid
-        }
-
     }
     
     func scrollToWord()
@@ -643,102 +435,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         var seq = 0 //zero-indexed
         var unit = 0 //zero-indexed
         
-        if sortAlpha
-        {
-            let delegate = UIApplication.shared.delegate as! AppDelegate
-            var vc:NSManagedObjectContext
-            if #available(iOS 10.0, *) {
-                vc = delegate.persistentContainer.viewContext
-            } else {
-                vc = delegate.managedObjectContext
-            }
-            
-            let request: NSFetchRequest<HQWords> = HQWords.fetchRequest()
-            if #available(iOS 10.0, *) {
-                request.entity = HQWords.entity()
-            } else {
-                request.entity = NSEntityDescription.entity(forEntityName: "HQWords", in: delegate.managedObjectContext)
-            }
-            
-            let sortDescriptor = NSSortDescriptor(key: "sortkey", ascending: true)
-            request.sortDescriptors = [sortDescriptor]
-            
-            var pred:NSPredicate?
-            if predicate != ""
-            {
-                pred = NSPredicate(format: "(sortkey < %@ AND \(predicate))", searchText!)
-                request.predicate = pred
-                do {
-                    seq = try vc.count(for: request)
-                }
-                catch let error {
-                    NSLog("Error: %@", error.localizedDescription)
-                    return
-                }
-                NSLog("seqA is: \(seq)")
-            }
-            else
-            {
-                pred = NSPredicate(format: "(sortkey >= %@)", searchText!)
-                request.predicate = pred
-                request.fetchLimit = 1
-                
-                var results: [HQWords]? = nil
-                do {
-                    results =
-                        try vc.fetch(request as!
-                            NSFetchRequest<NSFetchRequestResult>) as? [HQWords]
-                    
-                } catch let error {
-                    // Handle error
-                    NSLog("Error: %@", error.localizedDescription)
-                    return
-                }
-                if results != nil && results!.count > 0
-                {
-                    //let match = results?[0]
-                    seq = Int((results?[0].seq)!) - 1
-                    unit = 0
-                }
-                else //past end, select last item
-                {
-                    selectedRow = -1
-                    selectedId = -1
-                    seq = rowCount - 1
-                    NSLog("Error: Word not found by id.");
-                }
-            }
-        }
-        else //scroll to unit
-        {
-            if searchText != nil && searchText! != ""
-            {
-                seq = 0
-                guard let findUnit = Int(searchText!) else
-                {
-                    return
-                }
-                var realFindUnit = findUnit
-                if realFindUnit > 20
-                {
-                    realFindUnit = 20
-                }
-                for (index, val) in unitSections.enumerated()
-                {
-                    if val >= realFindUnit
-                    {
-                        unit = index
-                        break
-                    }
-                }
-            }
-            else
-            {
-                unit = 0
-                seq = 0
-            }
-            print("unit seq: \(seq), \(unit)")
-        }
+        dataSource!.getScrollSeq(searchText:searchText!, seq: &seq, unit: &unit)
         
         if seq < 0
         {
@@ -754,14 +451,14 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         {
             unit = 0
         }
-        else if unit > unitSections.last!
+        else if unit > dataSource!.unitSections.last!
         {
-            unit = unitSections.last!
+            unit = dataSource!.unitSections.last!
         }
         
         let scrollIndexPath = NSIndexPath(row: seq, section: unit) as IndexPath
         //NSLog("scroll to: \(highlightSelectedRow)")
-        if highlightSelectedRow && sortAlpha
+        if highlightSelectedRow && dataSource!.sortAlpha
         {
             if seq == 0 && searchText == ""
             {
@@ -777,7 +474,7 @@ class VocabTableViewController: UIViewController, UITableViewDataSource, UITable
         }
         else
         {
-            if sortAlpha
+            if dataSource!.sortAlpha
             {
                 tableView.scrollToRow(at: scrollIndexPath, at: UITableView.ScrollPosition.middle, animated: animatedScroll)
             }
