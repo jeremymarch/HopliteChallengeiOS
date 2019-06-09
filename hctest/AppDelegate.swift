@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    var queryStatement: OpaquePointer? = nil
+    
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
         let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
@@ -85,6 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        //Initialize defaults
         if (UserDefaults.standard.object(forKey: "Levels") as? [Bool]) == nil
         {
             //by default set unit 2
@@ -95,8 +98,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.synchronize()
         }
         
-        datasync()
+        DispatchQueue.global(qos: .background).async {
+            let v = VerbSequence()
+            v.vsInit()
+        }
+        /*
+        if let db = openDatabase(dbpath: dbpath)
+        {
+            tempPrepareInsert(db: db)
+        }
+        */
         
+        datasync()
         if #available(iOS 10.0, *) {
             DataManager.shared.backgroundContext = self.persistentContainer.newBackgroundContext()
             DataManager.shared.mainContext = self.persistentContainer.viewContext
@@ -229,7 +242,74 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         stripped = stripped.trimmingCharacters(in: CharacterSet(charactersIn: "\u{0304}\u{0301}\u{EB00}\u{2014} -,") as CharacterSet)
         return stripped.lowercased()
     }
+    /*
+    //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
+    func openDatabase(dbpath:String) -> OpaquePointer? {
+        var db: OpaquePointer? = nil
+        if sqlite3_open(dbpath, &db) == SQLITE_OK
+        {
+            print("Successfully opened connection to database at \(dbpath)")
+        }
+        else
+        {
+            print("Unable to open database. Verify that you created the directory described " +
+                "in the Getting Started section.")
+        }
+        //to reset
+        //sqlite3_exec(db, "UPDATE verbseq SET elapsedtime='1.23';", nil, nil, nil)
+        return db
+    }
     
+    func tempPrepareInsert(db:OpaquePointer) -> Bool
+    {
+        let queryStatementString:String = "INSERT INTO hqvocab (id,unit,lemma,def,pos,present,future,aorist,perfect,perfectmid,aoristpass,note,seq,sortkey) VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14);"
+        
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
+    
+    func tempInsertWord(id:Int, unit:Int, lemma:String, def:String, pos:String, present:String, future:String, aorist:String, perfect:String, perfectmid:String, aoristpass:String, note:String, seq:Int16, sortkey:String) -> Bool
+    {
+        //https://stackoverflow.com/questions/28142226/sqlite-for-swift-is-unstable
+        //let SQLITE_STATIC = unsafeBitCast(0, to: sqlite3_destructor_type.self)
+        let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
+        
+        sqlite3_bind_int(queryStatement, 1, Int32(id))
+        sqlite3_bind_int(queryStatement, 2, Int32(unit))
+        sqlite3_bind_text(queryStatement, 3, lemma, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 4, def, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 5, pos, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 6, present, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 7, future, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 8, aorist, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 9, perfect, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 10, perfectmid, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 11, aoristpass, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 12, note, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_int(queryStatement, 13, Int32(seq))
+        sqlite3_bind_text(queryStatement, 14, sortkey, -1, SQLITE_TRANSIENT)
+        
+        if sqlite3_step(queryStatement) == SQLITE_DONE
+        {
+            print("inserted word")
+        }
+        else
+        {
+            print("word not inserted")
+            sqlite3_finalize(queryStatement)
+            return false
+        }
+        sqlite3_clear_bindings(queryStatement);
+        sqlite3_reset(queryStatement);
+        return true
+    }
+    */
     func datasync()
     {
         //let time = NSDate.init()
@@ -313,7 +393,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         
                                         
                                         newWord.setValue(self.stripAccent(lemma: row.lemma), forKey: "sortkey")
-                                        
+                                        /*
+                                        if self.tempInsertWord(id:row.id, unit:row.unit, lemma:row.lemma, def:row.def, pos:row.pos, present:row.present, future:row.future, aorist:row.aorist, perfect:row.perfect, perfectmid:row.perfectmid, aoristpass:row.aoristpass, note:row.note, seq:row.seq, sortkey:self.stripAccent(lemma: row.lemma)) == false
+                                        {
+                                            return
+                                        }
+                                        */
                                         newWord.setValue(row.id, forKey: "hqid")
                                         newWord.setValue(row.unit, forKey: "unit")
                                         newWord.setValue(row.lemma, forKey: "lemma")

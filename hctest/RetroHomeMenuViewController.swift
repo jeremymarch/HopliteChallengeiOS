@@ -16,10 +16,31 @@ class RetroHomeMenuViewController: UIViewController {
     @IBOutlet var verbFormsButton:UIButton? = nil
     @IBOutlet var settingsButton:UIButton? = nil
     @IBOutlet var aboutButton:UIButton? = nil
+    @IBOutlet var hopliteLabel:UILabel? = nil
     
+    var isDBInitialized = false;
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        /*
+        playButton?.isHidden = true
+        practiceButton?.isHidden = true
+        playHistoryButton?.isHidden = true
+        practiceHistoryButton?.isHidden = true
+        
+        DispatchQueue.global(qos: .background).async {
+            let v = VerbSequence()
+            if v.vsInit() == 0
+            {
+                self.isDBInitialized = true
+                DispatchQueue.main.async {
+                    self.playButton?.isHidden = false
+                    self.practiceButton?.isHidden = false
+                    self.playHistoryButton?.isHidden = false
+                    self.practiceHistoryButton?.isHidden = false
+                }
+            }
+        }
+        */
         // Do any additional setup after loading the view.
         
         settingsButton?.layer.borderColor = UIColor.init(red: 0.0, green: 0.0, blue: 110.0, alpha: 1.0).cgColor

@@ -181,6 +181,11 @@ class VerbSequence {
         return Int(ret)
     }
     
+    func vsClose()
+    {
+        vsClose();
+    }
+    
     /*
      make a string to send to libseq?
     func setUnits(units:[Int])

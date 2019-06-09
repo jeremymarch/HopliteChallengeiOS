@@ -716,6 +716,7 @@
                     <navigationItem key="navigationItem" id="38l-FH-LEp"/>
                     <connections>
                         <outlet property="aboutButton" destination="VJ5-em-zGZ" id="gD3-Pa-r1M"/>
+                        <outlet property="hopliteLabel" destination="Un6-jh-IbI" id="nY1-Wy-RlS"/>
                         <outlet property="playButton" destination="q7K-DG-iwz" id="4rM-DN-f43"/>
                         <outlet property="playHistoryButton" destination="zH4-EH-6bu" id="7Jh-Yo-kNJ"/>
                         <outlet property="practiceButton" destination="LTg-0M-RTx" id="fqB-9W-e95"/>

@@ -427,9 +427,11 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         let pinchRecognizer = UIPinchGestureRecognizer(target:self, action:#selector(handlePinch))
         self.view.addGestureRecognizer(pinchRecognizer)
 
-        //DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-        //    self.start()
-        //}
+        //start automatically
+        continueButton.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            self.start()
+        }
     }
     
     //this doesn't work if used in nav controller, so this is blocked in appDelegate
