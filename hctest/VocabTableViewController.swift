@@ -41,7 +41,8 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
     var sortAlpha = false
     var kb:KeyboardViewController? = nil
     var segueDest:String = ""
-    var dataSource:VocabListDataSource?
+    //var dataSource:VocabListDataSource?
+    var dataSource:VocabListDataSourceSqlite?
     
     let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
 
@@ -118,7 +119,9 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataSource = VocabListDataSource(sortAlpha:sortAlpha, predicate:predicate)
+        //dataSource = VocabListDataSource(sortAlpha:sortAlpha, predicate:predicate)
+        dataSource = VocabListDataSourceSqlite(sortAlpha:sortAlpha, predicate:predicate)
+        
         tableView.dataSource = dataSource!
         tableView.delegate = self
         tableView.reloadData()

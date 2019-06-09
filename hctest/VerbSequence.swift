@@ -9,6 +9,7 @@
 //in case we want to try storing libseq verbseqoptions object here
 //https://stackoverflow.com/questions/24746397/how-can-i-convert-an-array-to-a-tuple
 //https://codereview.stackexchange.com/questions/84476/array-to-tuple-in-swift/84528#84528
+//https://www.uraimo.com/2016/04/07/swift-and-c-everything-you-need-to-know/#arrays-and-structs
 
 
 import Foundation

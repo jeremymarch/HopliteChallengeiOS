@@ -18,6 +18,7 @@
 		3F195A271E7610050025EF00 /* TypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195A261E7610050025EF00 /* TypeLabel.swift */; };
 		3F19690422ACAD020075D556 /* hqvocab.json in Resources */ = {isa = PBXBuildFile; fileRef = 3F19690322ACAD010075D556 /* hqvocab.json */; };
 		3F19690622ACE85D0075D556 /* VocabListDataSourceCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F19690522ACE85D0075D556 /* VocabListDataSourceCoreData.swift */; };
+		3F19690822AD50660075D556 /* VocabListDataSourceSqlite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F19690722AD50660075D556 /* VocabListDataSourceSqlite.swift */; };
 		3F1A64721FDA22BE00D38351 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3F1A64711FDA22BE00D38351 /* Podfile */; };
 		3F286B9F20B3314300F580E6 /* Exercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F286B9E20B3314300F580E6 /* Exercises.swift */; };
 		3F286BA120B3F3E800F580E6 /* HQEx.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3F286BA020B3F3E700F580E6 /* HQEx.xml */; };
@@ -106,6 +107,7 @@
 		3F195A261E7610050025EF00 /* TypeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeLabel.swift; sourceTree = "<group>"; };
 		3F19690322ACAD010075D556 /* hqvocab.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hqvocab.json; sourceTree = "<group>"; };
 		3F19690522ACE85D0075D556 /* VocabListDataSourceCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabListDataSourceCoreData.swift; sourceTree = "<group>"; };
+		3F19690722AD50660075D556 /* VocabListDataSourceSqlite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabListDataSourceSqlite.swift; sourceTree = "<group>"; };
 		3F1A64711FDA22BE00D38351 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3F286B9E20B3314300F580E6 /* Exercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercises.swift; sourceTree = "<group>"; };
 		3F286BA020B3F3E700F580E6 /* HQEx.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HQEx.xml; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				3FF462E2218CC76E005B0629 /* MoveListViewController.swift */,
 				3F938EE2222DC10B00594AC8 /* RetroHomeMenuViewController.swift */,
 				3F19690522ACE85D0075D556 /* VocabListDataSourceCoreData.swift */,
+				3F19690722AD50660075D556 /* VocabListDataSourceSqlite.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -588,6 +591,7 @@
 				3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */,
 				3F3443A51E6BB17700FFAD04 /* HopliteChallenge.swift in Sources */,
 				3F0A8BBC225C6351003C42CA /* HCGame.swift in Sources */,
+				3F19690822AD50660075D556 /* VocabListDataSourceSqlite.swift in Sources */,
 				3F9F220B222C9F9F00BB54F1 /* accent.c in Sources */,
 				3F3443A31E6BB17700FFAD04 /* AppDelegate.swift in Sources */,
 				3F85625620A9318900FE3EE1 /* KeyboardViewController.swift in Sources */,
