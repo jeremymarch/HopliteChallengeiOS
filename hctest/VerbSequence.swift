@@ -6,6 +6,11 @@
 //  Copyright © 2017 Jeremy March. All rights reserved.
 //
 
+//in case we want to try storing libseq verbseqoptions object here
+//https://stackoverflow.com/questions/24746397/how-can-i-convert-an-array-to-a-tuple
+//https://codereview.stackexchange.com/questions/84476/array-to-tuple-in-swift/84528#84528
+
+
 import Foundation
 
 enum Tense:Int32 {
