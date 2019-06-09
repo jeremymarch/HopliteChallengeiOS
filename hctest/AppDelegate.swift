@@ -9,6 +9,13 @@
 import UIKit
 import CoreData
 
+enum HCInitMethod {
+    case copyFromBundle
+    case downloadFromCloud
+    case copyJSONFromBundle
+    case generateWithvsInit
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let appName = "hctest"
@@ -120,6 +127,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    func copyFileFromBundle(nameForFile: String, extForFile: String) {
+        
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        
+        let destURL = documentsURL!.appendingPathComponent(nameForFile).appendingPathExtension(extForFile)
+        guard let sourceURL = Bundle.main.url(forResource: nameForFile, withExtension: extForFile) else {
+            print("Source File not found.")
+            return
+        }
+        
+        do {
+            try? FileManager.default.removeItem(at: destURL)
+            try FileManager.default.copyItem(at: sourceURL, to: destURL)
+        } catch {
+            print("Unable to copy file")
+        }
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -135,28 +160,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.synchronize()
         }
         
-        //DispatchQueue.global(qos: .background).async {
-            let v = VerbSequence()
-            v.vsInit()
-        //}
-        /*
-        if let db = openDatabase(dbpath: dbpath)
+        let initMethodx:HCInitMethod = .copyFromBundle
+        switch initMethodx
         {
-            tempPrepareInsert(db: db)
-        }
-        */
-        if let path = Bundle.main.path(forResource: "hqvocab", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                processHQVocabDataSqlite(jsonData:data)
-                print("file json ok")
-            } catch let error as NSError {
-                print("file json error")
-                print(error.localizedDescription)
+        case .copyFromBundle:
+            copyFileFromBundle(nameForFile: "hcdatadb", extForFile: "sqlite")
+        case .generateWithvsInit:
+            //DispatchQueue.global(qos: .background).async {
+                let v = VerbSequence()
+                v.vsInit()
+            //}
+        case .downloadFromCloud:
+            datasync() //saves in core data
+        case .copyJSONFromBundle:
+            if let path = Bundle.main.path(forResource: "hqvocab", ofType: "json") {
+                do {
+                    let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                    processHQVocabDataSqlite(jsonData:data)
+                    print("file json ok")
+                } catch let error as NSError {
+                    print("file json error")
+                    print(error.localizedDescription)
+                }
             }
+        default:
+            print("not initialized")
         }
-        
-        //datasync()
+
         if #available(iOS 10.0, *) {
             DataManager.shared.backgroundContext = self.persistentContainer.newBackgroundContext()
             DataManager.shared.mainContext = self.persistentContainer.viewContext

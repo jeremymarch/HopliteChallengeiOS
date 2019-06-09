@@ -19,6 +19,7 @@
 		3F19690422ACAD020075D556 /* hqvocab.json in Resources */ = {isa = PBXBuildFile; fileRef = 3F19690322ACAD010075D556 /* hqvocab.json */; };
 		3F19690622ACE85D0075D556 /* VocabListDataSourceCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F19690522ACE85D0075D556 /* VocabListDataSourceCoreData.swift */; };
 		3F19690822AD50660075D556 /* VocabListDataSourceSqlite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F19690722AD50660075D556 /* VocabListDataSourceSqlite.swift */; };
+		3F19690A22ADB46C0075D556 /* hcdatadb.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3F19690922ADB46A0075D556 /* hcdatadb.sqlite */; };
 		3F1A64721FDA22BE00D38351 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3F1A64711FDA22BE00D38351 /* Podfile */; };
 		3F286B9F20B3314300F580E6 /* Exercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F286B9E20B3314300F580E6 /* Exercises.swift */; };
 		3F286BA120B3F3E800F580E6 /* HQEx.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3F286BA020B3F3E700F580E6 /* HQEx.xml */; };
@@ -108,6 +109,7 @@
 		3F19690322ACAD010075D556 /* hqvocab.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hqvocab.json; sourceTree = "<group>"; };
 		3F19690522ACE85D0075D556 /* VocabListDataSourceCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabListDataSourceCoreData.swift; sourceTree = "<group>"; };
 		3F19690722AD50660075D556 /* VocabListDataSourceSqlite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabListDataSourceSqlite.swift; sourceTree = "<group>"; };
+		3F19690922ADB46A0075D556 /* hcdatadb.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = hcdatadb.sqlite; sourceTree = "<group>"; };
 		3F1A64711FDA22BE00D38351 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3F286B9E20B3314300F580E6 /* Exercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercises.swift; sourceTree = "<group>"; };
 		3F286BA020B3F3E700F580E6 /* HQEx.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HQEx.xml; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 		3F3443A11E6BB17700FFAD04 /* HopliteChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				3F19690922ADB46A0075D556 /* hcdatadb.sqlite */,
 				3F19690322ACAD010075D556 /* hqvocab.json */,
 				3F76EF80226CEB84001623CB /* xicon.png */,
 				3F9F2224222C9FB300BB54F1 /* libseq */,
@@ -502,6 +505,7 @@
 				3F3443B01E6BB17700FFAD04 /* LaunchScreen.storyboard in Resources */,
 				3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */,
 				3F19690422ACAD020075D556 /* hqvocab.json in Resources */,
+				3F19690A22ADB46C0075D556 /* hcdatadb.sqlite in Resources */,
 				3F304EC321A75C2D0046A6C4 /* circlegrey.png in Resources */,
 				3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */,
 				3F85625020A9318900FE3EE1 /* LICENSE in Resources */,
