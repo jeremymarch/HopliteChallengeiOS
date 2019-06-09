@@ -82,6 +82,8 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
         
         setFilterButtons()
+        
+        scrollToWord()
     }
     
     @objc func sortTogglePressed(_ sender: UIButton ) {
