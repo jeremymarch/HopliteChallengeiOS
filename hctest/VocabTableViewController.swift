@@ -118,12 +118,21 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if dataSource!.sortAlpha {
+            return 0.0
+        } else {
+            return 34.0
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //dataSource = VocabListDataSource(sortAlpha:sortAlpha, predicate:predicate)
         dataSource = VocabListDataSourceSqlite(sortAlpha:sortAlpha, predicate:predicate)
         
+        tableView.sectionHeaderHeight = 34.0
         tableView.dataSource = dataSource!
         tableView.delegate = self
         tableView.reloadData()

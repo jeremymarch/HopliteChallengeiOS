@@ -228,7 +228,7 @@ class VocabListDataSourceSqlite: NSObject, UITableViewDataSource {
         }
         else
         {
-            return 1
+            return 1 //must have at least one section
         }
     }
     
