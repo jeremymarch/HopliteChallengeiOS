@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class VocabListDataSource: NSObject, UITableViewDataSource {
+class VocabListDataSourceCoreData: NSObject, VocabDataSourceProtocol {
     // We keep this public and mutable, to enable our data
     // source to be updated as new data comes in.
     var sortAlpha = false

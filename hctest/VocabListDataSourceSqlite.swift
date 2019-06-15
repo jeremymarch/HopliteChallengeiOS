@@ -15,7 +15,17 @@ struct Word {
     var lemma:String = ""
 }
 
-class VocabListDataSourceSqlite: NSObject, UITableViewDataSource {
+protocol VocabDataSourceProtocol:UITableViewDataSource {
+    var sortAlpha:Bool { get set }
+    var predicate: String { get set }
+    var unitSections:[Int] { get set }
+    func filter()
+    func resort()
+    func getSelectedId(path:IndexPath) ->Int
+    func getScrollSeq(searchText:String, seq: inout Int, unit: inout Int)
+}
+
+class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
     // We keep this public and mutable, to enable our data
     // source to be updated as new data comes in.
     var sortAlpha = false
