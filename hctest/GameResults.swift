@@ -55,7 +55,7 @@ class GameResultsViewController: UITableViewController {
     func query(db:OpaquePointer, gameid:Int) {
         var queryStatement: OpaquePointer? = nil
 
-        let queryStatementString:String = "SELECT person,number,tense,voice,mood,verbid,incorrectAns,elapsedtime,correct FROM verbseq WHERE gameid=? ORDER BY ID DESC LIMIT 100;"
+        let queryStatementString:String = "SELECT person,number,tense,voice,mood,verbid,answerGiven,elapsedtime,correct FROM verbseq WHERE gameid=? ORDER BY ID DESC LIMIT 100;"
         
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK
         {

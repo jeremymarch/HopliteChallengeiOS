@@ -168,18 +168,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Unable to copy file")
             }
             
-            //let toNewTempPath = UnsafePointer<Int8>(tempDestURL.path)
-            //let fromOldPath = UnsafePointer<Int8>(destURL.path)
-            
-            //print("files \(tempDestURL.path), \(destURL.path)")
-            if !upgradedb2(destURL.path, tempDestURL.path)
+            let upgradeRes = upgradedb(destURL.path, tempDestURL.path)
+            if upgradeRes != 0
             {
-                print("Error upgrading db")
+                print("Error upgrading db.  Error code: \(upgradeRes)")
                 return
+            }
+
+            do {
+                try FileManager.default.removeItem(at: destURL)
+            } catch {
+                print(error)
             }
             
             do {
-                try FileManager.default.removeItem(at: destURL)
                 try FileManager.default.moveItem(at: tempDestURL, to: destURL)
             } catch {
                 print(error)
