@@ -128,21 +128,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    
     func copyFileFromBundle(nameForFile: String, extForFile: String) {
+        
+        //let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
         
         let destURL = documentsURL!.appendingPathComponent(nameForFile).appendingPathExtension(extForFile)
+        
         guard let sourceURL = Bundle.main.url(forResource: nameForFile, withExtension: extForFile) else {
             print("Source File not found.")
             return
         }
         
-        do {
-            //try? FileManager.default.removeItem(at: destURL)
-            try FileManager.default.copyItem(at: sourceURL, to: destURL)
-        } catch {
-            print("Unable to copy file")
+        if !FileManager.default.fileExists(atPath: destURL.path) {
+            do {
+                try FileManager.default.copyItem(at: sourceURL, to: destURL)
+            } catch {
+                print("Unable to copy file")
+            }
+            print("copied db from bundle")
+        }
+        else
+        {
+            let tempFile = nameForFile + "_temp"
+            
+            let tempDestURL = documentsURL!.appendingPathComponent(tempFile).appendingPathExtension(extForFile)
+            
+            do {
+                try FileManager.default.removeItem(at: tempDestURL)
+            } catch {
+                print("Unable to delete file")
+            }
+            
+            do {
+                try FileManager.default.copyItem(at: sourceURL, to: tempDestURL)
+            } catch {
+                print("Unable to copy file")
+            }
+            
+            //let toNewTempPath = UnsafePointer<Int8>(tempDestURL.path)
+            //let fromOldPath = UnsafePointer<Int8>(destURL.path)
+            
+            //print("files \(tempDestURL.path), \(destURL.path)")
+            if !upgradedb2(destURL.path, tempDestURL.path)
+            {
+                print("Error upgrading db")
+                return
+            }
+            
+            do {
+                try FileManager.default.removeItem(at: destURL)
+                try FileManager.default.moveItem(at: tempDestURL, to: destURL)
+            } catch {
+                print(error)
+            }
+            
+            print("Finished upgrading db")
         }
     }
 
