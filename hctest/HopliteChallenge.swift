@@ -84,7 +84,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if vs.vsInit() != 0
+        if vs.vsInit(vDBPath: (UIApplication.shared.delegate as! AppDelegate).dbpath) != 0
         {
             //label1.settext
             return

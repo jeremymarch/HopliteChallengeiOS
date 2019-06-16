@@ -169,11 +169,9 @@ class VerbSequence {
         return buffer
     }
     
-    func vsInit() -> Int
+    func vsInit(vDBPath:String) -> Int
     {
-        let dbname:String = "hcdatadb.sqlite"
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let dbpath = documentsPath + "/" + dbname
+        let dbpath = vDBPath
         print("db: \(dbpath)")
         
         

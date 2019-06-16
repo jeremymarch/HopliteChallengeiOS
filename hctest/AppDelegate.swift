@@ -18,10 +18,11 @@ enum HCInitMethod {
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    let appName = "hctest"
-    let dbname:String = "hcdatadb.sqlite"
+    let dbfile = "hcdatadb1-5"
+    let dbext = "sqlite"
+    let dbname:String = "hcdatadb1-5.sqlite"
     let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-    let dbpath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" + "hcdatadb.sqlite"
+    let dbpath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" + "hcdatadb1-5.sqlite"
     
     var window: UIWindow?
     
@@ -128,47 +129,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func needToUpgradeDB() -> Bool
+    {
+        if FileManager.default.fileExists(atPath: dbpath) {
+            return false
+        }
+        else
+        {
+            return true
+        }
+    }
     
-    func copyFileFromBundle(nameForFile: String, extForFile: String) {
+    
+    func copyFileFromBundle(bundledDBName: String, extForFile: String) {
         
         //let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        let previousVersionDBName = "hcdatadb"
         
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        if needToUpgradeDB() == false
+        {
+            print("no need to upgrade db")
+            return
+        }
+        else
+        {
+            print("need to upgrade db")
+        }
         
-        let destURL = documentsURL!.appendingPathComponent(nameForFile).appendingPathExtension(extForFile)
-        
-        guard let sourceURL = Bundle.main.url(forResource: nameForFile, withExtension: extForFile) else {
+        guard let dbInBundleURL = Bundle.main.url(forResource: bundledDBName, withExtension: extForFile) else {
             print("Source File not found.")
             return
         }
         
-        if !FileManager.default.fileExists(atPath: destURL.path) {
-            do {
-                try FileManager.default.copyItem(at: sourceURL, to: destURL)
-            } catch {
-                print("Unable to copy file")
-            }
-            print("copied db from bundle")
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        let newDBURL = documentsURL!.appendingPathComponent(dbfile).appendingPathExtension(dbext)
+        
+        //copy db from bundle to documents directory
+        do {
+            try FileManager.default.copyItem(at: dbInBundleURL, to: newDBURL)
+        } catch {
+            print("Unable to copy file")
         }
-        else
+        print("copied db from bundle")
+        
+        let previousVersionURL = documentsURL!.appendingPathComponent(previousVersionDBName).appendingPathExtension(extForFile)
+        
+        //if previous version exists, import it in, then delete it.
+        if FileManager.default.fileExists(atPath: previousVersionURL.path)
         {
-            let tempFile = nameForFile + "_temp"
-            
-            let tempDestURL = documentsURL!.appendingPathComponent(tempFile).appendingPathExtension(extForFile)
-            
-            do {
-                try FileManager.default.removeItem(at: tempDestURL)
-            } catch {
-                print("Unable to delete file")
-            }
-            
-            do {
-                try FileManager.default.copyItem(at: sourceURL, to: tempDestURL)
-            } catch {
-                print("Unable to copy file")
-            }
-            
-            let upgradeRes = upgradedb(destURL.path, tempDestURL.path)
+            let upgradeRes = upgradedb(previousVersionURL.path, newDBURL.path)
             if upgradeRes != 0
             {
                 print("Error upgrading db.  Error code: \(upgradeRes)")
@@ -176,13 +185,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
 
             do {
-                try FileManager.default.removeItem(at: destURL)
-            } catch {
-                print(error)
-            }
-            
-            do {
-                try FileManager.default.moveItem(at: tempDestURL, to: destURL)
+                try FileManager.default.removeItem(at: previousVersionURL)
             } catch {
                 print(error)
             }
@@ -209,11 +212,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         switch initMethodx
         {
         case .copyFromBundle:
-            copyFileFromBundle(nameForFile: "hcdatadb", extForFile: "sqlite")
+            copyFileFromBundle(bundledDBName: dbfile, extForFile: dbext)
         case .generateWithvsInit:
             //DispatchQueue.global(qos: .background).async {
-                let v = VerbSequence()
-                v.vsInit()
+            let v = VerbSequence()
+            v.vsInit(vDBPath: dbpath)
             //}
         case .downloadFromCloud:
             datasync() //saves in core data

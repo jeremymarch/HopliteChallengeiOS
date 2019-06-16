@@ -730,7 +730,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         else // if not hcgame
         {
             NSLog("hc dbinit")
-            vs?.vsInit()
+            vs?.vsInit(vDBPath:(UIApplication.shared.delegate as! AppDelegate).dbpath)
         }
         
         if (gameType == .hcgame || gameType == .oldgame) && gameState != .start
