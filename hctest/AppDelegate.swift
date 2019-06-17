@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-    //http://stackoverflow.com/questions/34037274/shouldautorotate-not-working-with-navigation-controllar-swift-2
+//http://stackoverflow.com/questions/34037274/shouldautorotate-not-working-with-navigation-controllar-swift-2
     //var shouldSupportAllOrientation = false
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone
@@ -128,71 +128,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
-    func needToUpgradeDB() -> Bool
-    {
-        if FileManager.default.fileExists(atPath: dbpath) {
-            return false
-        }
-        else
-        {
-            return true
-        }
-    }
-    
-    
-    func copyFileFromBundle(bundledDBName: String, extForFile: String) {
-        
-        //let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        let previousVersionDBName = "hcdatadb"
-        
-        if needToUpgradeDB() == false
-        {
-            print("no need to upgrade db")
-            return
-        }
-        else
-        {
-            print("need to upgrade db")
-        }
-        
-        guard let dbInBundleURL = Bundle.main.url(forResource: bundledDBName, withExtension: extForFile) else {
-            print("Source File not found.")
-            return
-        }
-        
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        let newDBURL = documentsURL!.appendingPathComponent(dbfile).appendingPathExtension(dbext)
-        
-        //copy db from bundle to documents directory
-        do {
-            try FileManager.default.copyItem(at: dbInBundleURL, to: newDBURL)
-        } catch {
-            print("Unable to copy file")
-        }
-        print("copied db from bundle")
-        
-        let previousVersionURL = documentsURL!.appendingPathComponent(previousVersionDBName).appendingPathExtension(extForFile)
-        
-        //if previous version exists, import it in, then delete it.
-        if FileManager.default.fileExists(atPath: previousVersionURL.path)
-        {
-            let upgradeRes = upgradedb(previousVersionURL.path, newDBURL.path)
-            if upgradeRes != 0
-            {
-                print("Error upgrading db.  Error code: \(upgradeRes)")
-                return
-            }
-
-            do {
-                try FileManager.default.removeItem(at: previousVersionURL)
-            } catch {
-                print(error)
-            }
-            
-            print("Finished upgrading db")
-        }
-    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -212,7 +147,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         switch initMethodx
         {
         case .copyFromBundle:
-            copyFileFromBundle(bundledDBName: dbfile, extForFile: dbext)
+            //abc
+            print("nope")
         case .generateWithvsInit:
             //DispatchQueue.global(qos: .background).async {
             let v = VerbSequence()
