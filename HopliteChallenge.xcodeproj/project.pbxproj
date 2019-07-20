@@ -70,6 +70,7 @@
 		3F9F222E222C9FB300BB54F1 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2226222C9FB300BB54F1 /* sqlite3.c */; };
 		3F9F222F222C9FB300BB54F1 /* swiftVSeqLayer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2228222C9FB300BB54F1 /* swiftVSeqLayer.c */; };
 		3F9F2230222C9FB300BB54F1 /* VerbSequence.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F222A222C9FB300BB54F1 /* VerbSequence.c */; };
+		3FA6EE3A22D18A2400C7B9CF /* CustomizeSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA6EE3922D18A2400C7B9CF /* CustomizeSelection.swift */; };
 		3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FAA8D2E1E6D046300254E97 /* Life4X.png */; };
 		3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAA8D301E6D212900254E97 /* HCTimer.swift */; };
 		3FCB495820C47A5400FFD266 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCB495720C47A5400FFD266 /* NetworkManager.swift */; };
@@ -183,6 +184,7 @@
 		3F9F2229222C9FB300BB54F1 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
 		3F9F222A222C9FB300BB54F1 /* VerbSequence.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = VerbSequence.c; sourceTree = "<group>"; };
 		3F9F222B222C9FB300BB54F1 /* swiftVSeqLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = swiftVSeqLayer.h; sourceTree = "<group>"; };
+		3FA6EE3922D18A2400C7B9CF /* CustomizeSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeSelection.swift; sourceTree = "<group>"; };
 		3FAA8D2E1E6D046300254E97 /* Life4X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Life4X.png; sourceTree = "<group>"; };
 		3FAA8D301E6D212900254E97 /* HCTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCTimer.swift; sourceTree = "<group>"; };
 		3FCB495720C47A5400FFD266 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				3F938EE2222DC10B00594AC8 /* RetroHomeMenuViewController.swift */,
 				3F19690522ACE85D0075D556 /* VocabListDataSourceCoreData.swift */,
 				3F19690722AD50660075D556 /* VocabListDataSourceSqlite.swift */,
+				3FA6EE3922D18A2400C7B9CF /* CustomizeSelection.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -610,6 +613,7 @@
 				3FF71B4B1E7A290300144F7D /* Verb.swift in Sources */,
 				3F9F2221222C9F9F00BB54F1 /* GreekForms.c in Sources */,
 				3F9F2222222C9F9F00BB54F1 /* libmorph.c in Sources */,
+				3FA6EE3A22D18A2400C7B9CF /* CustomizeSelection.swift in Sources */,
 				3F4205361FDDA57200BCA548 /* CardController.swift in Sources */,
 				3F9F222E222C9FB300BB54F1 /* sqlite3.c in Sources */,
 				3F9F2220222C9F9F00BB54F1 /* specialverbs.c in Sources */,

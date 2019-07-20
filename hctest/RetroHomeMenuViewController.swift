@@ -22,7 +22,7 @@ class RetroHomeMenuViewController: UIViewController {
         
         let upgradeRes = copyFileFromBundle(bundledDBName: (UIApplication.shared.delegate as! AppDelegate).dbfile, extForFile: (UIApplication.shared.delegate as! AppDelegate).dbext)
         
-        if upgradeRes > -2
+        if upgradeRes > 0
         {
             let alertController = UIAlertController(title: "Database Upgrade Error", message:
                 "Error upgrading database: error code \(upgradeRes)", preferredStyle: .alert)

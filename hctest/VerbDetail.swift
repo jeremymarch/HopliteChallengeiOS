@@ -153,14 +153,21 @@ class VerbDetailViewController: UITableViewController {
                 {
                     if mood == .unset { continue }
                     vf.mood = mood
-                    if !isOida && mood != .indicative && (tense == .perfect || tense == .pluperfect || tense == .imperfect || (tense == .future && mood != .optative))
+                    if (mood == .infinitive || mood == .participle)
                     {
                         continue
                     }
-                    else if isOida && mood != .indicative && (tense == .pluperfect || tense == .imperfect || tense == .future)
+                    else if !isOida && mood != .indicative && (tense == .perfect || tense == .pluperfect || tense == .imperfect || (tense == .future && mood != .optative))
                     {
                         continue
                     }
+                    else if isOida && mood != .indicative && (tense == .pluperfect || tense == .imperfect || (tense == .future && mood != .optative))
+                    /*else if isOida && ((mood != .indicative && (tense == .pluperfect || tense == .imperfect)) && (tense == .future && (mood == .subjunctive || mood == .imperative)))*/
+                        
+                    {
+                        continue
+                    }
+
                     var s:String?
                     if voice == .active || tense == .aorist || tense == .future
                     {
