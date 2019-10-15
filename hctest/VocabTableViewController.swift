@@ -152,16 +152,7 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         
         setFilterButtons()
         
-        //searchToggleButton.backgroundColor = UIColor.clear
         searchToggleButton.clipsToBounds = true
-        /*
-        if #available(iOS 13.0, *) {
-            searchToggleButton.setTitleColor(UIColor.label, for: .normal)
-        } else {
-            // Fallback on earlier versions
-            searchToggleButton.setTitleColor(UIColor.black, for: .normal)
-        }
-        */
         searchToggleButton.titleLabel?.textAlignment = .right
         searchToggleButton.setTitle("Word: ", for: .normal)
         let titleFont = UIFont(name: "Helvetica-Bold", size: 18.0)
@@ -192,7 +183,12 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         searchTextField.contentVerticalAlignment = .center
         //searchTextField.placeholder = "Search: "
         
-        searchView.layer.borderColor = UIColor.black.cgColor
+        if #available(iOS 13.0, *) {
+            searchView.layer.borderColor = UIColor.label.cgColor
+        } else {
+            // Fallback on earlier versions
+            searchView.layer.borderColor = UIColor.black.cgColor
+        }
         searchView.layer.borderWidth = 2.0
         searchView.layer.cornerRadius = 20
         
