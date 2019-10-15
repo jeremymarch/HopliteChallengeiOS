@@ -152,9 +152,16 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         
         setFilterButtons()
         
-        searchToggleButton.backgroundColor = UIColor.clear
+        //searchToggleButton.backgroundColor = UIColor.clear
         searchToggleButton.clipsToBounds = true
-        searchToggleButton.setTitleColor(UIColor.black, for: .normal)
+        /*
+        if #available(iOS 13.0, *) {
+            searchToggleButton.setTitleColor(UIColor.label, for: .normal)
+        } else {
+            // Fallback on earlier versions
+            searchToggleButton.setTitleColor(UIColor.black, for: .normal)
+        }
+        */
         searchToggleButton.titleLabel?.textAlignment = .right
         searchToggleButton.setTitle("Word: ", for: .normal)
         let titleFont = UIFont(name: "Helvetica-Bold", size: 18.0)

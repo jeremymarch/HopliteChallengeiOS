@@ -817,7 +817,9 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUp-2H-IPv">
                                         <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
-                                        <state key="normal" title="Word"/>
+                                        <state key="normal" title="Word">
+                                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nzl-XT-zWx">
                                         <rect key="frame" x="48" y="0.0" width="309" height="44"/>
@@ -828,7 +830,6 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Nzl-XT-zWx" firstAttribute="leading" secondItem="cUp-2H-IPv" secondAttribute="trailing" constant="4" id="3cR-0N-X7K"/>
                                     <constraint firstAttribute="trailing" secondItem="Nzl-XT-zWx" secondAttribute="trailing" constant="6" id="54R-ha-yCh"/>
@@ -893,6 +894,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="jeZ-vi-Fwg" firstAttribute="leading" secondItem="Q7Y-Yc-eDh" secondAttribute="leading" id="1ku-YA-PCk"/>
                             <constraint firstAttribute="trailing" secondItem="jeZ-vi-Fwg" secondAttribute="trailing" id="4Es-jD-QIe"/>
