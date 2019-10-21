@@ -132,6 +132,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        // set up your background color view for selected table cells
+        //https://stackoverflow.com/questions/2553746/how-to-change-the-blue-highlight-color-of-a-uitableviewcell
+        let colorView = UIView()
+        colorView.backgroundColor = GlobalTheme.rowHighlightBG
+        // use UITableViewCell.appearance() to configure
+        // the default appearance of all UITableViewCells in your app
+        UITableViewCell.appearance().selectedBackgroundView = colorView
+        
+        
         //Initialize defaults
         if (UserDefaults.standard.object(forKey: "Levels") as? [Bool]) == nil
         {

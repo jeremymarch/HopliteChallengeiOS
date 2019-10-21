@@ -43,7 +43,7 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
     var segueDest:String = ""
     var dataSource:VocabDataSourceProtocol?
     
-    let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
+    let highlightedRowBGColor = GlobalTheme.rowHighlightBG // UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
 
     
     @objc func filterButtonPressed(_ sender: UIButton ) {
@@ -282,17 +282,17 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         {
             if i == selectedButtonIndex
             {
-                filterButtons[i].backgroundColor = hcDarkBlue
-                filterButtons[i].layer.borderColor = hcDarkBlue.cgColor
+                filterButtons[i].backgroundColor = GlobalTheme.secondaryBG
+                filterButtons[i].layer.borderColor = GlobalTheme.secondaryBG.cgColor
                 filterButtons[i].layer.borderWidth = 0.5
                 filterButtons[i].setTitleColor(UIColor.white, for: [])
             }
             else
             {
                 filterButtons[i].backgroundColor = hcLightBlue
-                filterButtons[i].layer.borderColor = hcDarkBlue.cgColor
+                filterButtons[i].layer.borderColor = GlobalTheme.secondaryBG.cgColor
                 filterButtons[i].layer.borderWidth = 0.5
-                filterButtons[i].setTitleColor(hcDarkBlue, for: [])
+                filterButtons[i].setTitleColor(GlobalTheme.secondaryBG, for: [])
             }
         }
     }
@@ -330,8 +330,8 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
             let label = UILabel()
             label.text = "  Unit \(dataSource!.unitSections[section])"
             
-            label.backgroundColor = hcDarkBlue
-            label.textColor = UIColor.white
+            label.backgroundColor = GlobalTheme.secondaryBG// hcDarkBlue
+            label.textColor = GlobalTheme.secondaryText
             return label
         }
         else

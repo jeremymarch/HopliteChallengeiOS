@@ -289,6 +289,25 @@
             </objects>
             <point key="canvasLocation" x="-2380" y="937"/>
         </scene>
+        <!--About Page View Controller-->
+        <scene sceneID="ngE-75-dyH">
+            <objects>
+                <viewController id="S50-tS-7Wp" customClass="AboutPageViewController" customModule="HopliteChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pAY-zR-uwk"/>
+                        <viewControllerLayoutGuide type="bottom" id="FFh-l0-RIU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CNG-0d-rOa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="4Ig-zL-8i5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vDk-P3-MvK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1524" y="-847"/>
+        </scene>
         <!--Game View Controller-->
         <scene sceneID="OX1-Is-INc">
             <objects>
@@ -719,6 +738,7 @@
                         <outlet property="settingsButton" destination="ieC-gW-R2r" id="lle-rj-1AN"/>
                         <outlet property="verbFormsButton" destination="ya7-pd-o1W" id="dlN-1z-2Yd"/>
                         <segue destination="hg9-po-93R" kind="presentation" identifier="HCSettingsSegue" id="hHO-7b-FHA"/>
+                        <segue destination="S50-tS-7Wp" kind="show" identifier="showTutorialSegue" id="00l-ak-Dcb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Usw-Yf-BOl" userLabel="First Responder" sceneMemberID="firstResponder"/>

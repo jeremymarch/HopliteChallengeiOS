@@ -33,7 +33,7 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
     let highlightSelectedRow = true
     let animatedScroll = false
     
-    let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
+    //let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
     
     @objc func refresh(_ refreshControl: UIRefreshControl) {
         // Do your job, when done:
@@ -788,9 +788,9 @@ class HCGameListViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
         //cell.tag = Int(gw.wordid)
-        
+
         let bgColorView = UIView()
-        bgColorView.backgroundColor = highlightedRowBGColor
+        bgColorView.backgroundColor = GlobalTheme.rowHighlightBG //highlightedRowBGColor
         cell.selectedBackgroundView = bgColorView
     }
     

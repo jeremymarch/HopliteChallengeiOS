@@ -6,6 +6,80 @@
 //  Copyright © 2019 Jeremy March. All rights reserved.
 import UIKit
 
+extension UIViewController {
+    var isDarkMode:Bool { if #available(iOS 13.0, *) {
+        return traitCollection.userInterfaceStyle != .light
+    } else {
+        return false
+        }
+    }
+}
+
+class DefaultTheme {
+    class var primaryBG: UIColor {
+        return UIColor.white
+    }
+    class var primaryText: UIColor {
+        return UIColor.black
+    }
+    class var secondaryBG: UIColor {
+        return UIColor.init(red: 0, green: 0, blue: 110.0/255.0, alpha: 1.0)
+    }
+    class var secondaryText: UIColor {
+        return UIColor.white
+    }
+    class var rowHighlightBG: UIColor {
+        return UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
+    }
+}
+
+class DarkTheme:DefaultTheme {
+    override class var primaryBG: UIColor {
+        return UIColor.black
+    }
+    override class var primaryText: UIColor {
+        return UIColor.white
+    }
+    override class var secondaryBG: UIColor {
+        return UIColor.darkGray
+    }
+    override class var secondaryText: UIColor {
+        return UIColor.white
+    }
+    override class var rowHighlightBG: UIColor {
+        return UIColor.gray
+    }
+
+}
+
+var GlobalTheme:DefaultTheme.Type = DefaultTheme.self
+//var GlobalTheme:DefaultTheme.Type = DefaultTheme.self
+/*
+class GlobalTheme  {
+    static let shared = GlobalTheme()
+    var colors:GlobalColors = GlobalColors
+    private init() {
+}
+*/
+/*
+class GlobalColors: NSObject {
+    class var lightModeRegularKey: UIColor { get { return UIColor.white } }
+    class func regularKey(_ darkMode: Bool, solidColorMode: Bool) -> UIColor {
+        if darkMode {
+            if solidColorMode {
+                return self.lightModeRegularKey //darkModeSolidColorRegularKey
+            }
+            else {
+                return self.lightModeRegularKey //darkModeRegularKey
+            }
+        }
+        else {
+            return self.lightModeRegularKey //lightModeRegularKey
+        }
+    }
+    
+}
+*/
 class RetroHomeMenuViewController: UIViewController {
     @IBOutlet var playButton:UIButton? = nil
     @IBOutlet var playHistoryButton:UIButton? = nil
@@ -19,6 +93,11 @@ class RetroHomeMenuViewController: UIViewController {
     //var isDBInitialized = false;
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        GlobalTheme = (isDarkMode) ? DarkTheme.self : DefaultTheme.self
+        
+        view.backgroundColor = GlobalTheme.primaryBG
+        hopliteLabel?.textColor = GlobalTheme.primaryText
         
         let upgradeRes = copyFileFromBundle(bundledDBName: (UIApplication.shared.delegate as! AppDelegate).dbfile, extForFile: (UIApplication.shared.delegate as! AppDelegate).dbext)
         
@@ -60,7 +139,7 @@ class RetroHomeMenuViewController: UIViewController {
         aboutButton?.layer.borderColor = UIColor.init(red: 0.0, green: 0.0, blue: 110.0, alpha: 1.0).cgColor
         aboutButton?.layer.borderWidth = 2.0
         aboutButton?.layer.cornerRadius = 5.0
-        aboutButton?.isHidden = true
+        //aboutButton?.isHidden = true
         
         playButton?.addTarget(self, action: #selector(playButtonPressed), for: UIControl.Event.touchUpInside)
         playHistoryButton?.addTarget(self, action: #selector(playHistoryButtonPressed), for: UIControl.Event.touchUpInside)
@@ -68,6 +147,7 @@ class RetroHomeMenuViewController: UIViewController {
         practiceHistoryButton?.addTarget(self, action: #selector(practiceHistoryButtonPressed), for: UIControl.Event.touchUpInside)
         verbFormsButton?.addTarget(self, action: #selector(verbFormsButtonPressed), for: UIControl.Event.touchUpInside)
         settingsButton?.addTarget(self, action: #selector(settingsButtonPressed), for: UIControl.Event.touchUpInside)
+        aboutButton?.addTarget(self, action: #selector(aboutButtonPressed), for: UIControl.Event.touchUpInside)
     }
     
     func needToUpgradeDB() -> Bool
@@ -152,7 +232,11 @@ class RetroHomeMenuViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    @objc func aboutButtonPressed(sender:UIButton)
+    {
+        self.performSegue(withIdentifier: "showTutorialSegue", sender: self)
+    }
+    
     @objc func settingsButtonPressed(sender:UIButton)
     {
         if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "Settings") as? HCSettingsViewController

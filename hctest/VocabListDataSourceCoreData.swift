@@ -267,7 +267,7 @@ class VocabListDataSourceCoreData: NSObject, VocabDataSourceProtocol {
         return Int(object.hqid)
     }
     
-    let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
+    //let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
     
     func configureCell(_ cell: UITableViewCell, lemma:String, unit:String) {
         //cell.textLabel!.text = event.timestamp!.description
@@ -287,8 +287,9 @@ class VocabListDataSourceCoreData: NSObject, VocabDataSourceProtocol {
         //cell.tag = Int(gw.wordid)
         
         let bgColorView = UIView()
-        bgColorView.backgroundColor = highlightedRowBGColor
+        bgColorView.backgroundColor = GlobalTheme.rowHighlightBG //highlightedRowBGColor
         cell.selectedBackgroundView = bgColorView
+        
     }
     
     var fetchedResultsController: NSFetchedResultsController<HQWords> {

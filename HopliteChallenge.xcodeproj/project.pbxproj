@@ -21,6 +21,13 @@
 		3F19690822AD50660075D556 /* VocabListDataSourceSqlite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F19690722AD50660075D556 /* VocabListDataSourceSqlite.swift */; };
 		3F19690A22ADB46C0075D556 /* hcdatadb1-5.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3F19690922ADB46A0075D556 /* hcdatadb1-5.sqlite */; };
 		3F1A64721FDA22BE00D38351 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3F1A64711FDA22BE00D38351 /* Podfile */; };
+		3F24315B235D2342001BFE8A /* AboutChild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24315A235D2342001BFE8A /* AboutChild.swift */; };
+		3F243163235D2A86001BFE8A /* tutorialTitlePage.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F24315D235D2A85001BFE8A /* tutorialTitlePage.html */; };
+		3F243164235D2A86001BFE8A /* tutorialGamePlay.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F24315E235D2A85001BFE8A /* tutorialGamePlay.html */; };
+		3F243165235D2A86001BFE8A /* tutorialPractice.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F24315F235D2A85001BFE8A /* tutorialPractice.html */; };
+		3F243166235D2A86001BFE8A /* tutorialAcknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F243160235D2A86001BFE8A /* tutorialAcknowledgements.html */; };
+		3F243167235D2A86001BFE8A /* TutorialKeyboard.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F243161235D2A86001BFE8A /* TutorialKeyboard.html */; };
+		3F243168235D2A86001BFE8A /* tutorialPinch.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F243162235D2A86001BFE8A /* tutorialPinch.html */; };
 		3F286B9F20B3314300F580E6 /* Exercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F286B9E20B3314300F580E6 /* Exercises.swift */; };
 		3F286BA120B3F3E800F580E6 /* HQEx.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3F286BA020B3F3E700F580E6 /* HQEx.xml */; };
 		3F28F7F21FD0C1D4008A69D9 /* VocabDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */; };
@@ -113,6 +120,13 @@
 		3F19690722AD50660075D556 /* VocabListDataSourceSqlite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabListDataSourceSqlite.swift; sourceTree = "<group>"; };
 		3F19690922ADB46A0075D556 /* hcdatadb1-5.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = "hcdatadb1-5.sqlite"; sourceTree = "<group>"; };
 		3F1A64711FDA22BE00D38351 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		3F24315A235D2342001BFE8A /* AboutChild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutChild.swift; sourceTree = "<group>"; };
+		3F24315D235D2A85001BFE8A /* tutorialTitlePage.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tutorialTitlePage.html; sourceTree = "<group>"; };
+		3F24315E235D2A85001BFE8A /* tutorialGamePlay.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tutorialGamePlay.html; sourceTree = "<group>"; };
+		3F24315F235D2A85001BFE8A /* tutorialPractice.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tutorialPractice.html; sourceTree = "<group>"; };
+		3F243160235D2A86001BFE8A /* tutorialAcknowledgements.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tutorialAcknowledgements.html; sourceTree = "<group>"; };
+		3F243161235D2A86001BFE8A /* TutorialKeyboard.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TutorialKeyboard.html; sourceTree = "<group>"; };
+		3F243162235D2A86001BFE8A /* tutorialPinch.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tutorialPinch.html; sourceTree = "<group>"; };
 		3F286B9E20B3314300F580E6 /* Exercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercises.swift; sourceTree = "<group>"; };
 		3F286BA020B3F3E700F580E6 /* HQEx.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HQEx.xml; sourceTree = "<group>"; };
 		3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabDetailViewController.swift; sourceTree = "<group>"; };
@@ -232,6 +246,19 @@
 			path = hctestTests;
 			sourceTree = "<group>";
 		};
+		3F24315C235D2A13001BFE8A /* AboutHTML */ = {
+			isa = PBXGroup;
+			children = (
+				3F243160235D2A86001BFE8A /* tutorialAcknowledgements.html */,
+				3F24315E235D2A85001BFE8A /* tutorialGamePlay.html */,
+				3F243161235D2A86001BFE8A /* TutorialKeyboard.html */,
+				3F243162235D2A86001BFE8A /* tutorialPinch.html */,
+				3F24315F235D2A85001BFE8A /* tutorialPractice.html */,
+				3F24315D235D2A85001BFE8A /* tutorialTitlePage.html */,
+			);
+			path = AboutHTML;
+			sourceTree = "<group>";
+		};
 		3F3443961E6BB17700FFAD04 = {
 			isa = PBXGroup;
 			children = (
@@ -257,6 +284,7 @@
 		3F3443A11E6BB17700FFAD04 /* HopliteChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				3F24315C235D2A13001BFE8A /* AboutHTML */,
 				3F19690922ADB46A0075D556 /* hcdatadb1-5.sqlite */,
 				3F19690322ACAD010075D556 /* hqvocab.json */,
 				3F76EF80226CEB84001623CB /* xicon.png */,
@@ -314,6 +342,7 @@
 				3F19690722AD50660075D556 /* VocabListDataSourceSqlite.swift */,
 				3FA6EE3922D18A2400C7B9CF /* CustomizeSelection.swift */,
 				3F65593D22E3FF5E0032F3F8 /* About.swift */,
+				3F24315A235D2342001BFE8A /* AboutChild.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -510,15 +539,21 @@
 				3FF462E6218D1AA3005B0629 /* circlered.png in Resources */,
 				3F3443B01E6BB17700FFAD04 /* LaunchScreen.storyboard in Resources */,
 				3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */,
+				3F243168235D2A86001BFE8A /* tutorialPinch.html in Resources */,
 				3F19690422ACAD020075D556 /* hqvocab.json in Resources */,
 				3F19690A22ADB46C0075D556 /* hcdatadb1-5.sqlite in Resources */,
 				3F304EC321A75C2D0046A6C4 /* circlegrey.png in Resources */,
 				3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */,
+				3F243166235D2A86001BFE8A /* tutorialAcknowledgements.html in Resources */,
+				3F243163235D2A86001BFE8A /* tutorialTitlePage.html in Resources */,
 				3F85625020A9318900FE3EE1 /* LICENSE in Resources */,
 				3F286BA120B3F3E800F580E6 /* HQEx.xml in Resources */,
 				3F304EC421A75C2D0046A6C4 /* circleorange.png in Resources */,
+				3F243167235D2A86001BFE8A /* TutorialKeyboard.html in Resources */,
 				3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */,
+				3F243164235D2A86001BFE8A /* tutorialGamePlay.html in Resources */,
 				3F15E1861E85A893009760A0 /* hamburger.png in Resources */,
+				3F243165235D2A86001BFE8A /* tutorialPractice.html in Resources */,
 				3F304EC621A75C380046A6C4 /* circleblue.png in Resources */,
 				3F1A64721FDA22BE00D38351 /* Podfile in Resources */,
 				3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */,
@@ -604,6 +639,7 @@
 				3F19690822AD50660075D556 /* VocabListDataSourceSqlite.swift in Sources */,
 				3F9F220B222C9F9F00BB54F1 /* accent.c in Sources */,
 				3F3443A31E6BB17700FFAD04 /* AppDelegate.swift in Sources */,
+				3F24315B235D2342001BFE8A /* AboutChild.swift in Sources */,
 				3F85625620A9318900FE3EE1 /* KeyboardViewController.swift in Sources */,
 				3F195A271E7610050025EF00 /* TypeLabel.swift in Sources */,
 				3F7A63D220B7BD26003D483C /* HCVerbFormPicker.swift in Sources */,

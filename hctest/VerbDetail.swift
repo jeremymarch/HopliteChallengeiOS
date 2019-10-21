@@ -296,8 +296,8 @@ class VerbDetailViewController: UITableViewController {
         label.text = sections[section]
         
         //label.backgroundColor = UIColor.blue
-        label.backgroundColor = UIColor.init(red: 0, green: 0, blue: 110.0/255.0, alpha: 1.0)
-        label.textColor = UIColor.white
+        label.backgroundColor = GlobalTheme.secondaryBG
+        label.textColor = GlobalTheme.secondaryText
         return label
     }
     
