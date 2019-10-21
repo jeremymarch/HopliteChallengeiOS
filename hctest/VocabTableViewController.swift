@@ -45,13 +45,20 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
     
     let highlightedRowBGColor = GlobalTheme.rowHighlightBG // UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
     
+    func resetColors()
+    {
+        GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
+        //UINavigationBar.appearance().tintColor = GlobalTheme.primaryText
+        navigationController?.navigationBar.tintColor  = GlobalTheme.primaryText
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
         if #available(iOS 13.0, *) {
             if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
             {
-                GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
+                resetColors()
                 self.tableView.reloadData()
             }
         }
@@ -139,6 +146,7 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        resetColors()
         
         //dataSource = VocabListDataSourceCoreData(sortAlpha:sortAlpha, predicate:predicate)
         dataSource = VocabListDataSourceSqlite(sortAlpha:sortAlpha, predicate:predicate)

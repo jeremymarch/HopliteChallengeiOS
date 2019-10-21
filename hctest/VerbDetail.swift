@@ -37,13 +37,20 @@ class VerbDetailViewController: UITableViewController {
     var attributesLabel: [NSAttributedString.Key: Any]? = nil
     var attributesPara: [NSAttributedString.Key: Any]? = nil
     
+    func resetColors()
+    {
+        GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
+        //UINavigationBar.appearance().tintColor = GlobalTheme.primaryText
+        navigationController?.navigationBar.tintColor  = GlobalTheme.primaryText
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
         if #available(iOS 13.0, *) {
             if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
             {
-                GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
+                resetColors()
                 self.tableView.reloadData()
             }
         }
@@ -51,6 +58,7 @@ class VerbDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        resetColors()
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.tabStops = [NSTextTab(textAlignment: NSTextAlignment.left, location: 30, options: [:])]

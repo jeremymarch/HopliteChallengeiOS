@@ -18,7 +18,11 @@ class AboutPageViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        /*
+        var appearance = UIPageControl.appearance(whenContainedInInstancesOf: [UIPageViewController.self])
+        appearance.pageIndicatorTintColor = UIColor.red
+        appearance.currentPageIndicatorTintColor = UIColor.red
+        */
         dataSource = self
         
         
@@ -50,19 +54,6 @@ class AboutPageViewController: UIPageViewController {
         let att = [ NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20)! ]
         self.navigationController?.navigationBar.titleTextAttributes = att
         self.navigationController?.isNavigationBarHidden = false
-    }
-    
-    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return orderedViewControllers.count
-    }
-
-    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-                guard let firstViewController = viewControllers?.first,
-                    let firstViewControllerIndex = orderedViewControllers.firstIndex(of:firstViewController) else {
-                        return 0
-                }
-                
-                return firstViewControllerIndex
     }
 }
 
@@ -113,5 +104,18 @@ extension AboutPageViewController: UIPageViewControllerDataSource {
         }
         
         return orderedViewControllers[nextIndex]
+    }
+    
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
+        return orderedViewControllers.count
+    }
+
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+                guard let firstViewController = viewControllers?.first,
+                    let firstViewControllerIndex = orderedViewControllers.firstIndex(of:firstViewController) else {
+                        return 0
+                }
+                
+                return firstViewControllerIndex
     }
 }
