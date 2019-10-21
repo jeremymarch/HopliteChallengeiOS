@@ -9,9 +9,8 @@
 import UIKit
 
 class AboutPageViewController: UIPageViewController {
-    let pageNames = ["tutorialTitlePage", "tutorialAcknowledgements", "tutorialGamePlay", "tutorialPractice", "TutorialKeyboard", "tutorialPinch" /*, "tutorialchild", "tutorialchild2",*/]
+    let pageNames = [ "tutorialTitlePage", "tutorialAcknowledgements", "tutorialGamePlay", "tutorialPractice", "TutorialKeyboard", "tutorialPinch" ]
     var index = 0
-    
     //https://stackoverflow.com/questions/28014852/transition-pagecurl-to-scroll-with-uipageviewcontroller
     required init?(coder: NSCoder) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
@@ -32,17 +31,17 @@ class AboutPageViewController: UIPageViewController {
     }
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
-        return [self.newColoredViewController(color: pageNames[0]),
-                self.newColoredViewController(color: pageNames[1]),
-                self.newColoredViewController(color: pageNames[2]),
-                self.newColoredViewController(color: pageNames[3]),
-                self.newColoredViewController(color: pageNames[4]),
-                self.newColoredViewController(color: pageNames[5])]
+        return [self.newColoredViewController(html: pageNames[0]),
+                self.newColoredViewController(html: pageNames[1]),
+                self.newColoredViewController(html: pageNames[2]),
+                self.newColoredViewController(html: pageNames[3]),
+                self.newColoredViewController(html: pageNames[4]),
+                self.newColoredViewController(html: pageNames[5])]
     }()
 
-    private func newColoredViewController(color: String) -> UIViewController {
+    private func newColoredViewController(html: String) -> UIViewController {
         let a = AboutChildViewController()
-        a.htmlFileName = color
+        a.htmlFileName = html
         return a
     }
     
@@ -58,11 +57,12 @@ class AboutPageViewController: UIPageViewController {
     }
 
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-
-                return 0
-        
-        
-        //return firstViewControllerIndex
+                guard let firstViewController = viewControllers?.first,
+                    let firstViewControllerIndex = orderedViewControllers.firstIndex(of:firstViewController) else {
+                        return 0
+                }
+                
+                return firstViewControllerIndex
     }
 }
 

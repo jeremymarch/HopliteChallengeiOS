@@ -27,7 +27,9 @@ class AboutChildViewController: UIViewController {
             {
                 if let html = try? String(contentsOfFile: htmlFile, encoding: String.Encoding.utf8)
                 {
-                    webView.loadHTMLString(html, baseURL: nil)
+                    let path = Bundle.main.bundlePath
+                    let baseURL = URL(fileURLWithPath: path)
+                    webView.loadHTMLString(html, baseURL: baseURL)
                 }
             }
         }

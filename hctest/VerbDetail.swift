@@ -34,10 +34,20 @@ class VerbDetailViewController: UITableViewController {
     var sectionCounts = [Int]()
     var isExpanded:Bool = false
     
-
-    
     var attributesLabel: [NSAttributedString.Key: Any]? = nil
     var attributesPara: [NSAttributedString.Key: Any]? = nil
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
+            {
+                GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
+                self.tableView.reloadData()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

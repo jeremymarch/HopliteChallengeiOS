@@ -44,6 +44,18 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
     var dataSource:VocabDataSourceProtocol?
     
     let highlightedRowBGColor = GlobalTheme.rowHighlightBG // UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
+            {
+                GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
+                self.tableView.reloadData()
+            }
+        }
+    }
 
     
     @objc func filterButtonPressed(_ sender: UIButton ) {

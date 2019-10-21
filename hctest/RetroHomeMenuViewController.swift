@@ -7,10 +7,13 @@
 import UIKit
 
 extension UIViewController {
-    var isDarkMode:Bool { if #available(iOS 13.0, *) {
-        return traitCollection.userInterfaceStyle != .light
-    } else {
-        return false
+    
+    func isDarkMode() -> Bool
+    {
+        if #available(iOS 13.0, *) {
+            return (traitCollection.userInterfaceStyle == .dark)
+        } else {
+            return false
         }
     }
 }
@@ -91,13 +94,29 @@ class RetroHomeMenuViewController: UIViewController {
     @IBOutlet var hopliteLabel:UILabel? = nil
     
     //var isDBInitialized = false;
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
+            {
+                resetColors()
+            }
+        }
+    }
+    
+    func resetColors()
+    {
+        GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
+        view.backgroundColor = GlobalTheme.primaryBG
+        hopliteLabel?.textColor = GlobalTheme.primaryText
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        GlobalTheme = (isDarkMode) ? DarkTheme.self : DefaultTheme.self
-        
-        view.backgroundColor = GlobalTheme.primaryBG
-        hopliteLabel?.textColor = GlobalTheme.primaryText
+        resetColors()
         
         let upgradeRes = copyFileFromBundle(bundledDBName: (UIApplication.shared.delegate as! AppDelegate).dbfile, extForFile: (UIApplication.shared.delegate as! AppDelegate).dbext)
         
