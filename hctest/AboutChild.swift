@@ -10,10 +10,29 @@ import UIKit
 
 class AboutChildViewController: UIViewController {
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
+            {
+                resetColors()
+            }
+        }
+    }
+    
+    func resetColors()
+    {
+        GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
+        //view.backgroundColor = GlobalTheme.primaryBG //not needed?
+        webView.backgroundColor = GlobalTheme.primaryBG
+    }
+    
     var webView = UIWebView()
     var htmlFileName:String?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.addSubview(webView)
         webView.translatesAutoresizingMaskIntoConstraints = false
         webView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -33,5 +52,7 @@ class AboutChildViewController: UIViewController {
                 }
             }
         }
+        resetColors()
     }
+    
 }

@@ -9,6 +9,7 @@
 import UIKit
 
 class AboutPageViewController: UIPageViewController {
+    
     let pageNames = [ "tutorialTitlePage", "tutorialAcknowledgements", "tutorialGamePlay", "tutorialPractice", "TutorialKeyboard", "tutorialPinch" ]
     var index = 0
     //https://stackoverflow.com/questions/28014852/transition-pagecurl-to-scroll-with-uipageviewcontroller
@@ -63,7 +64,7 @@ class AboutPageViewController: UIPageViewController {
 extension AboutPageViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController,
-                            viewControllerAfter viewController: UIViewController) -> UIViewController? {
+                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         guard let viewControllerIndex = orderedViewControllers.firstIndex(of:viewController) else {
             return nil
@@ -85,7 +86,7 @@ extension AboutPageViewController: UIPageViewControllerDataSource {
     }
     
     func pageViewController(_ pageViewController: UIPageViewController,
-                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
+                            viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
         guard let viewControllerIndex = orderedViewControllers.firstIndex(of:viewController) else {
             return nil
