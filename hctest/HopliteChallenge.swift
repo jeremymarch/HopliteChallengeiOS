@@ -81,6 +81,57 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     
     var vs:VerbSequence = VerbSequence()
     
+    func resetColors()
+    {
+        GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
+        view.backgroundColor = GlobalTheme.primaryBG
+        textView.backgroundColor = GlobalTheme.primaryBG
+        textView.attTextColor = GlobalTheme.primaryText
+        textView.textColor = GlobalTheme.primaryText
+        headerView.backgroundColor = GlobalTheme.primaryBG
+        
+        timerLabel.backgroundColor = GlobalTheme.primaryBG
+        timerLabel.textColor = GlobalTheme.primaryText
+        
+        scoreLabel.backgroundColor = GlobalTheme.primaryBG
+        scoreLabel.textColor = GlobalTheme.primaryText
+        
+        quitButton.backgroundColor = UIColor.white
+        quitButton.layer.borderColor = UIColor(red: 0.88, green: 0.88, blue: 0.88, alpha: 1.0).cgColor
+        
+        gameOverLabel.backgroundColor = GlobalTheme.primaryBG
+        gameOverLabel.textColor = UIColor.red
+        
+        mfLabel.backgroundColor = GlobalTheme.primaryBG
+        mfLabel.textColor = hcorange
+        mfLabel.layer.borderColor = hcorange.cgColor
+        
+        stemLabel.attTextColor = UIColor.gray
+        stemLabel.backgroundColor = GlobalTheme.primaryBG
+        
+        label1.backgroundColor = GlobalTheme.primaryBG
+        label1.textColor = GlobalTheme.primaryText
+        label1.attTextColor = GlobalTheme.primaryText
+        label2.backgroundColor = GlobalTheme.primaryBG
+        label2.textColor = GlobalTheme.primaryText
+        label2.attTextColor = GlobalTheme.primaryText
+        
+        continueButton.backgroundColor = hcblue
+        continueButton.titleLabel?.textColor = UIColor.white
+        
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
+            {
+                resetColors()
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -91,6 +142,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         }
         //vs.verbIDs = [7]
         //vs.setVSOptions()
+        
         reloadSettings()
  
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
@@ -171,7 +223,6 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         headerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0).isActive = true
         headerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0.0).isActive = true
         headerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.0, constant: headerHeight).isActive = true
-        headerView.backgroundColor = UIColor.white
         
         headerView.addSubview(timerLabel)
         timerLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -179,8 +230,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         timerLabel.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -6.0).isActive = true
         timerLabel.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: topHeaderRowHeightMultiple, constant: 0.0).isActive = true
         timerLabel.widthAnchor.constraint(equalToConstant: timerLabelWidth).isActive = true
-        timerLabel.backgroundColor = UIColor.white
-        timerLabel.textColor = UIColor.black
+
         timerLabel.reset()
         timerLabel.textAlignment = NSTextAlignment.right
         timerLabel.font = headerFont
@@ -191,13 +241,13 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         quitButton.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 6.0).isActive = true
         quitButton.heightAnchor.constraint(equalToConstant: 36.0).isActive = true
         quitButton.widthAnchor.constraint(equalToConstant: 40.0).isActive = true
-        quitButton.backgroundColor = UIColor.white
+        
         //quitButton.setTitleColor(UIColor.black, for: [])
         //quitButton.setTitle("X", for: [])
         //quitButton.titleLabel?.font = headerFont
         
         quitButton.layer.borderWidth = 2.0
-        quitButton.layer.borderColor = UIColor(red: 0.88, green: 0.88, blue: 0.88, alpha: 1.0).cgColor
+        
         quitButton.layer.cornerRadius = 4.0
         quitButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
  
@@ -220,8 +270,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         scoreLabel.leftAnchor.constraint(equalTo: quitButton.rightAnchor, constant: 8.0).isActive = true
         scoreLabel.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: topHeaderRowHeightMultiple, constant: 0.0).isActive = true
         scoreLabel.widthAnchor.constraint(equalToConstant: 90.0).isActive = true
-        scoreLabel.backgroundColor = UIColor.white
-        scoreLabel.textColor = UIColor.black
+
         scoreLabel.text = "0"
         scoreLabel.textAlignment = NSTextAlignment.left
         scoreLabel.font = headerFont
@@ -232,8 +281,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         gameOverLabel.rightAnchor.constraint(equalTo: headerView.rightAnchor, constant: -6.0).isActive = true
         gameOverLabel.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
         gameOverLabel.widthAnchor.constraint(equalToConstant: 130.0).isActive = true
-        gameOverLabel.backgroundColor = UIColor.white
-        gameOverLabel.textColor = UIColor.red
+
         gameOverLabel.text = "Game Over"
         gameOverLabel.textAlignment = NSTextAlignment.right
         gameOverLabel.font = headerFont
@@ -245,13 +293,10 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         mfLabel.rightAnchor.constraint(equalTo: timerLabel.leftAnchor, constant: -6.0).isActive = true
         mfLabel.heightAnchor.constraint(equalToConstant: 34.0).isActive = true
         mfLabel.widthAnchor.constraint(equalToConstant: 40.0).isActive = true
-        mfLabel.backgroundColor = UIColor.white
-        mfLabel.textColor = hcorange
         mfLabel.text = "MF"
         mfLabel.textAlignment = NSTextAlignment.center
         mfLabel.font = headerFont
         mfLabel.layer.borderWidth = 2.0
-        mfLabel.layer.borderColor = hcorange.cgColor
         mfLabel.layer.cornerRadius = 4.0
         mfLabel.isHidden = true
         
@@ -290,7 +335,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         label1.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
         label1.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
         label1.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.22).isActive = true
-        label1.backgroundColor = UIColor.white
+        
         label1.font = greekFont
         label1.lineBreakMode = .byWordWrapping // or NSLineBreakMode.ByWordWrapping
         label1.numberOfLines = 0
@@ -303,8 +348,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         stemLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
         stemLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
         stemLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08).isActive = true
-        stemLabel.attTextColor = UIColor.gray
-        stemLabel.backgroundColor = UIColor.white
+
         stemLabel.text = ""
         stemLabel.font = stemFont
 
@@ -318,7 +362,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         textView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
         textView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
         textView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.22).isActive = true
-        textView.backgroundColor = UIColor.white
+        
         textView.font = greekFont
         textView.delegate = self
         
@@ -330,7 +374,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         label2.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
         label2.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
         label2.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.22).isActive = true
-        label2.backgroundColor = UIColor.white
+        
         label2.font = greekFont
         label2.lineBreakMode = .byWordWrapping // or NSLineBreakMode.ByWordWrapping
         label2.numberOfLines = 0
@@ -346,10 +390,10 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         continueButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
         continueButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
         continueButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.0, constant:60.0).isActive = true
-        continueButton.backgroundColor = hcblue
+
         continueButton.layer.cornerRadius = 2.0
         continueButton.setTitle("Play", for: [])
-        continueButton.titleLabel?.textColor = UIColor.white
+
         continueButton.titleLabel?.font = continueFont
         //continueButton.isEnabled = false
         //continueButton.isHidden = true
@@ -432,6 +476,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
             self.start()
         }
+        resetColors()
     }
     
     //this doesn't work if used in nav controller, so this is blocked in appDelegate
@@ -599,7 +644,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         }, completion: {
             (value: Bool) in
             
-            self.label1.textColor = UIColor.black
+            self.label1.textColor = GlobalTheme.primaryText
             //self.label1.text = self.textView.text
             let a = NSMutableAttributedString.init(string: self.textView.text)
             self.label1.attributedText = a
@@ -1043,7 +1088,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
                         self.label2.text = ""
                         self.textView.isEditable = true
                         self.textView.isSelectable = true
-                        self.textView.textColor = UIColor.black
+                        self.textView.textColor = GlobalTheme.primaryText
                         self.mfPressed = false
                         self.mfLabel.isHidden = true
                         self.timerLabel.reset()
@@ -1065,7 +1110,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             label2.text = ""
             textView.isEditable = true
             textView.isSelectable = true
-            textView.textColor = UIColor.black
+            textView.textColor = GlobalTheme.primaryText
             mfPressed = false
             mfLabel.isHidden = true
             timerLabel.reset()
@@ -1118,7 +1163,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         let a = NSMutableAttributedString.init(string: vs.givenForm.getForm(decomposed: true))
         label1.attributedText = a
         label1.att = a
-        label1.textColor = UIColor.black
+        label1.textColor = GlobalTheme.primaryText
         if label2.attributedText?.string == ""
         {
             textView.text = vs.requestedForm.getForm(decomposed: true)
@@ -1129,7 +1174,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             let b = NSMutableAttributedString.init(string: vs.requestedForm.getForm(decomposed: true))
             label2.attributedText = b
             label2.att = b
-            label2.textColor = UIColor.black
+            label2.textColor = GlobalTheme.primaryText
         }
         isExpanded = true
     }
@@ -1145,7 +1190,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         let a = NSMutableAttributedString.init(string: vs.givenForm.getForm(decomposed: false))
         label1.attributedText = a
         label1.att = a
-        label1.textColor = UIColor.black
+        label1.textColor = GlobalTheme.primaryText
         
         if label2.attributedText?.string == ""
         {
@@ -1157,7 +1202,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             let b = NSMutableAttributedString.init(string: vs.requestedForm.getForm(decomposed: false))
             label2.attributedText = b
             label2.att = b
-            label2.textColor = UIColor.black
+            label2.textColor = GlobalTheme.primaryText
         }
         isExpanded = false
     }

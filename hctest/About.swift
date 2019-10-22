@@ -19,6 +19,7 @@ class AboutPageViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         /*
+         //dot appearance
         var appearance = UIPageControl.appearance(whenContainedInInstancesOf: [UIPageViewController.self])
         appearance.pageIndicatorTintColor = UIColor.red
         appearance.currentPageIndicatorTintColor = UIColor.red

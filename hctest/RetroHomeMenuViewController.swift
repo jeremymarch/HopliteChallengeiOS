@@ -111,6 +111,13 @@ class RetroHomeMenuViewController: UIViewController {
         GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
         view.backgroundColor = GlobalTheme.primaryBG
         hopliteLabel?.textColor = GlobalTheme.primaryText
+        
+        settingsButton?.layer.borderColor = GlobalTheme.primaryText.cgColor
+        settingsButton?.setTitleColor(GlobalTheme.primaryText, for: [])
+        aboutButton?.layer.borderColor = GlobalTheme.primaryText.cgColor
+        aboutButton?.setTitleColor(GlobalTheme.primaryText, for: [])
+        
+        navigationController?.navigationBar.tintColor  = GlobalTheme.primaryText
     }
     
     override func viewDidLoad() {
@@ -150,12 +157,9 @@ class RetroHomeMenuViewController: UIViewController {
         }
         */
         // Do any additional setup after loading the view.
-        
-        settingsButton?.layer.borderColor = UIColor.init(red: 0.0, green: 0.0, blue: 110.0, alpha: 1.0).cgColor
         settingsButton?.layer.borderWidth = 2.0
         settingsButton?.layer.cornerRadius = 5.0
         
-        aboutButton?.layer.borderColor = UIColor.init(red: 0.0, green: 0.0, blue: 110.0, alpha: 1.0).cgColor
         aboutButton?.layer.borderWidth = 2.0
         aboutButton?.layer.cornerRadius = 5.0
         //aboutButton?.isHidden = true
