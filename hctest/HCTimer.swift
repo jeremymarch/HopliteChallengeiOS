@@ -36,7 +36,7 @@ class HCTimer: UILabel {
         {
             self.text = "0.00 sec"
         }
-        self.textColor = UIColor.black
+        self.textColor = GlobalTheme.primaryText
         
         stopTimer()
         startTime = CACurrentMediaTime()
