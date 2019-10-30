@@ -19,6 +19,25 @@ class GameHistoryViewController: UITableViewController {
         var gameOrPracticeDescription = "Games"
         let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
     
+    func resetColors()
+    {
+        GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
+        //UINavigationBar.appearance().tintColor = GlobalTheme.primaryText
+        navigationController?.navigationBar.tintColor  = GlobalTheme.primaryText
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
+            {
+                resetColors()
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
         override func viewDidLoad() {
             super.viewDidLoad()
             if isHCGame
@@ -177,8 +196,8 @@ class GameHistoryViewController: UITableViewController {
          let label = UILabel()
          label.text = "  \(gameOrPracticeDescription)"
          
-         label.backgroundColor = UIColor.blue
-         label.textColor = UIColor.white
+         label.backgroundColor = GlobalTheme.secondaryBG// hcDarkBlue
+         label.textColor = GlobalTheme.secondaryText
          return label
          }
          
