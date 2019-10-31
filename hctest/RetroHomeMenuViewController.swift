@@ -31,6 +31,18 @@ class DefaultTheme {
     class var secondaryText: UIColor {
         return UIColor.white
     }
+    class var tertiaryBG: UIColor {
+        return UIColor.init(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+    }
+    class var tertiaryText: UIColor {
+        return UIColor.white
+    }
+    class var quarternaryBG: UIColor {
+        return UIColor.init(red: 120.0/255.0, green: 240.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+    }
+    class var quarternaryText: UIColor {
+        return UIColor.black
+    }
     class var rowHighlightBG: UIColor {
         return UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
     }
@@ -47,6 +59,18 @@ class DarkTheme:DefaultTheme {
         return UIColor.darkGray
     }
     override class var secondaryText: UIColor {
+        return UIColor.white
+    }
+    override class var tertiaryBG: UIColor {
+        return UIColor.gray
+    }
+    override class var tertiaryText: UIColor {
+        return UIColor.white
+    }
+    override class var quarternaryBG: UIColor {
+        return UIColor.darkGray
+    }
+    override class var quarternaryText: UIColor {
         return UIColor.white
     }
     override class var rowHighlightBG: UIColor {
@@ -116,6 +140,19 @@ class RetroHomeMenuViewController: UIViewController {
         settingsButton?.setTitleColor(GlobalTheme.primaryText, for: [])
         aboutButton?.layer.borderColor = GlobalTheme.primaryText.cgColor
         aboutButton?.setTitleColor(GlobalTheme.primaryText, for: [])
+
+        playButton?.backgroundColor = GlobalTheme.tertiaryBG
+        playButton?.setTitleColor(GlobalTheme.tertiaryText, for: [])
+        practiceButton?.backgroundColor = GlobalTheme.tertiaryBG
+        practiceButton?.setTitleColor(GlobalTheme.tertiaryText, for: [])
+        
+        playHistoryButton?.backgroundColor = GlobalTheme.secondaryBG
+        playHistoryButton?.setTitleColor(GlobalTheme.secondaryText, for: [])
+        practiceHistoryButton?.backgroundColor = GlobalTheme.secondaryBG
+        practiceHistoryButton?.setTitleColor(GlobalTheme.secondaryText, for: [])
+        
+        verbFormsButton?.backgroundColor = GlobalTheme.quarternaryBG
+        verbFormsButton?.setTitleColor(GlobalTheme.quarternaryText, for: [])
         
         navigationController?.navigationBar.tintColor  = GlobalTheme.primaryText
     }
