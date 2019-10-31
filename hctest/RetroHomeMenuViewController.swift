@@ -62,13 +62,13 @@ class DarkTheme:DefaultTheme {
         return UIColor.white
     }
     override class var tertiaryBG: UIColor {
-        return UIColor.gray
+        return UIColor.init(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1.0)
     }
     override class var tertiaryText: UIColor {
         return UIColor.white
     }
     override class var quarternaryBG: UIColor {
-        return UIColor.darkGray
+        return UIColor.gray
     }
     override class var quarternaryText: UIColor {
         return UIColor.white
