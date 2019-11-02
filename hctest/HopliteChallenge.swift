@@ -96,8 +96,9 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         scoreLabel.backgroundColor = GlobalTheme.primaryBG
         scoreLabel.textColor = GlobalTheme.primaryText
         
-        quitButton.backgroundColor = UIColor.white
-        quitButton.layer.borderColor = UIColor(red: 0.88, green: 0.88, blue: 0.88, alpha: 1.0).cgColor
+        quitButton.backgroundColor = GlobalTheme.primaryBG
+        quitButton.layer.borderColor = GlobalTheme.primaryText.cgColor
+                quitButton.setTitleColor(GlobalTheme.primaryText, for: [])
         
         gameOverLabel.backgroundColor = GlobalTheme.primaryBG
         gameOverLabel.textColor = UIColor.red
@@ -239,8 +240,8 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         quitButton.translatesAutoresizingMaskIntoConstraints = false
         quitButton.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 0.0).isActive = true
         quitButton.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 6.0).isActive = true
-        quitButton.heightAnchor.constraint(equalToConstant: 36.0).isActive = true
-        quitButton.widthAnchor.constraint(equalToConstant: 40.0).isActive = true
+        quitButton.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
+        quitButton.widthAnchor.constraint(equalToConstant: 36.0).isActive = true
         
         //quitButton.setTitleColor(UIColor.black, for: [])
         //quitButton.setTitle("X", for: [])
@@ -251,18 +252,20 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         quitButton.layer.cornerRadius = 4.0
         quitButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
  
-        var image:UIImage?
+        //var image:UIImage?
         if quitButtonToMenu
         {
-            image = UIImage(named: "hamburger.png") as UIImage?
+            //image = UIImage(named: "hamburger.png") as UIImage?
             quitButton.addTarget(self, action: #selector(menuButtonPressed), for: UIControl.Event.touchUpInside)
         }
         else
         {
-            image = UIImage(named: "xicon.png") as UIImage?
+            //image = UIImage(named: "xicon.png") as UIImage?
             quitButton.addTarget(self, action: #selector(goBackToVerbDetail), for: UIControl.Event.touchUpInside)
         }
-        quitButton.setImage(image!, for: .normal)
+        //quitButton.setImage(image!, for: .normal)
+        quitButton.setTitle("X", for: [])
+        quitButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 20.0)
 
         headerView.addSubview(scoreLabel)
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
