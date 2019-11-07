@@ -117,8 +117,8 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         label2.textColor = GlobalTheme.primaryText
         label2.attTextColor = GlobalTheme.primaryText
         
-        continueButton.backgroundColor = GlobalTheme.secondaryBG
-        continueButton.titleLabel?.textColor = UIColor.white
+        continueButton.backgroundColor = GlobalTheme.continueButtonBG
+        continueButton.titleLabel?.textColor = GlobalTheme.continueButtonText
         
     }
     

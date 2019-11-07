@@ -46,6 +46,25 @@ class DefaultTheme {
     class var rowHighlightBG: UIColor {
         return UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
     }
+    class var menuButtonBG: UIColor {
+        return tertiaryBG
+    }
+    class var menuButtonText: UIColor {
+        return tertiaryText
+    }
+    class var menuButtonHistoryBG: UIColor {
+        return secondaryBG
+    }
+    class var menuButtonHistoryText: UIColor {
+        return secondaryText
+    }
+    
+    class var continueButtonBG: UIColor {
+        return tertiaryBG
+    }
+    class var continueButtonText: UIColor {
+        return tertiaryText
+    }
 }
 
 class DarkTheme:DefaultTheme {
@@ -76,7 +95,24 @@ class DarkTheme:DefaultTheme {
     override class var rowHighlightBG: UIColor {
         return UIColor.gray
     }
-
+    override class var menuButtonBG: UIColor {
+        return secondaryBG
+    }
+    override class var menuButtonText: UIColor {
+        return secondaryText
+    }
+    override class var menuButtonHistoryBG: UIColor {
+        return tertiaryBG
+    }
+    override class var menuButtonHistoryText: UIColor {
+        return tertiaryText
+    }
+    override class var continueButtonBG: UIColor {
+        return secondaryBG
+    }
+    override class var continueButtonText: UIColor {
+        return secondaryText
+    }
 }
 
 var GlobalTheme:DefaultTheme.Type = DefaultTheme.self
@@ -141,15 +177,15 @@ class RetroHomeMenuViewController: UIViewController {
         aboutButton?.layer.borderColor = GlobalTheme.primaryText.cgColor
         aboutButton?.setTitleColor(GlobalTheme.primaryText, for: [])
 
-        playHistoryButton?.backgroundColor = GlobalTheme.tertiaryBG
-        playHistoryButton?.setTitleColor(GlobalTheme.tertiaryText, for: [])
-        practiceHistoryButton?.backgroundColor = GlobalTheme.tertiaryBG
-        practiceHistoryButton?.setTitleColor(GlobalTheme.tertiaryText, for: [])
+        playHistoryButton?.backgroundColor = GlobalTheme.menuButtonHistoryBG
+        playHistoryButton?.setTitleColor(GlobalTheme.menuButtonHistoryText, for: [])
+        practiceHistoryButton?.backgroundColor = GlobalTheme.menuButtonHistoryBG
+        practiceHistoryButton?.setTitleColor(GlobalTheme.menuButtonHistoryText, for: [])
         
-        playButton?.backgroundColor = GlobalTheme.secondaryBG
-        playButton?.setTitleColor(GlobalTheme.secondaryText, for: [])
-        practiceButton?.backgroundColor = GlobalTheme.secondaryBG
-        practiceButton?.setTitleColor(GlobalTheme.secondaryText, for: [])
+        playButton?.backgroundColor = GlobalTheme.menuButtonBG
+        playButton?.setTitleColor(GlobalTheme.menuButtonText, for: [])
+        practiceButton?.backgroundColor = GlobalTheme.menuButtonBG
+        practiceButton?.setTitleColor(GlobalTheme.menuButtonText, for: [])
         
         verbFormsButton?.backgroundColor = GlobalTheme.quarternaryBG
         verbFormsButton?.setTitleColor(GlobalTheme.quarternaryText, for: [])

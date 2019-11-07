@@ -26,7 +26,12 @@ class AboutPageViewController: UIPageViewController {
         appearance.currentPageIndicatorTintColor = UIColor.red
         */
         dataSource = self
-        
+        /*
+        let proxy: UIPageControl = UIPageControl.appearanceWhenContainedInInstancesOfClasses(self.pageViewController.self)
+        proxy.pageIndicatorTintColor = UIColor.lightGray
+        proxy.currentPageIndicatorTintColor = UIColor.black
+        proxy.backgroundColor = UIColor.white
+        */
         
         if let firstViewController = orderedViewControllers.first {
             setViewControllers([firstViewController],
