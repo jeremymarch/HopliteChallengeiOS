@@ -68,6 +68,7 @@
 		3F85625C20A9318900FE3EE1 /* HCKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85624D20A9318900FE3EE1 /* HCKeyboardView.swift */; };
 		3F85625E20A93FCC00FE3EE1 /* HCMFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F85625D20A93FCC00FE3EE1 /* HCMFButton.swift */; };
 		3F938EE3222DC10B00594AC8 /* RetroHomeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F938EE2222DC10B00594AC8 /* RetroHomeMenuViewController.swift */; };
+		3F9713AC237471BA00DF32DE /* GlobalColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9713AB237471BA00DF32DE /* GlobalColors.swift */; };
 		3F9F220B222C9F9F00BB54F1 /* accent.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F21EA222C9F9F00BB54F1 /* accent.c */; };
 		3F9F220C222C9F9F00BB54F1 /* augment.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F21EB222C9F9F00BB54F1 /* augment.c */; };
 		3F9F221F222C9F9F00BB54F1 /* utilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2203222C9F9F00BB54F1 /* utilities.c */; };
@@ -179,6 +180,7 @@
 		3F85624D20A9318900FE3EE1 /* HCKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCKeyboardView.swift; sourceTree = "<group>"; };
 		3F85625D20A93FCC00FE3EE1 /* HCMFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCMFButton.swift; sourceTree = "<group>"; };
 		3F938EE2222DC10B00594AC8 /* RetroHomeMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroHomeMenuViewController.swift; sourceTree = "<group>"; };
+		3F9713AB237471BA00DF32DE /* GlobalColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalColors.swift; sourceTree = "<group>"; };
 		3F9F21E7222C9F9F00BB54F1 /* GreekUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreekUnicode.h; sourceTree = "<group>"; };
 		3F9F21E9222C9F9F00BB54F1 /* libmorph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libmorph.h; sourceTree = "<group>"; };
 		3F9F21EA222C9F9F00BB54F1 /* accent.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accent.c; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				3FA6EE3922D18A2400C7B9CF /* CustomizeSelection.swift */,
 				3F65593D22E3FF5E0032F3F8 /* About.swift */,
 				3F24315A235D2342001BFE8A /* AboutChild.swift */,
+				3F9713AB237471BA00DF32DE /* GlobalColors.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -631,6 +634,7 @@
 				3F0541641E7A688800DEB439 /* GameResults.swift in Sources */,
 				3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */,
 				3F2B051622A647EA00AD4BA8 /* CardViewController.swift in Sources */,
+				3F9713AC237471BA00DF32DE /* GlobalColors.swift in Sources */,
 				3F7A63D420B7DCB5003D483C /* HCStemLabel.swift in Sources */,
 				3FF71B431E78EF3600144F7D /* BaseViewController.swift in Sources */,
 				3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */,
