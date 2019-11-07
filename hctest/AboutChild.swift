@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 class AboutChildViewController: UIViewController {
 
@@ -28,11 +29,15 @@ class AboutChildViewController: UIViewController {
         webView.backgroundColor = GlobalTheme.primaryBG
     }
     
-    var webView = UIWebView()
+    var webView = WKWebView() //UIWebView()
     var htmlFileName:String?
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //prevent flashing in dark mode
+        //https://forums.developer.apple.com/thread/121139
+        webView.isOpaque = false
+
         view.addSubview(webView)
         webView.translatesAutoresizingMaskIntoConstraints = false
         webView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -53,6 +58,17 @@ class AboutChildViewController: UIViewController {
             }
         }
         resetColors()
+    }
+    
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
+        guard let url = request.url, navigationType == .linkClicked else { return true }
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            // Fallback on earlier versions
+            UIApplication.shared.openURL(url)
+        }
+        return false
     }
     
 }
