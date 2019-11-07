@@ -197,6 +197,10 @@ class RetroHomeMenuViewController: UIViewController {
         
         if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "AboutPage") as? AboutPageViewController
         {
+            //preload first page
+            //dvc.orderedViewControllers2.append(dvc.newColoredViewController(html: dvc.pageNames[0]))
+            //dvc.orderedViewControllers2[0].view.layoutSubviews()
+            
             self.navigationController?.pushViewController(dvc, animated: true)
             //performSegue(withIdentifier: "HCSettingsSegue", sender: self)
         }
