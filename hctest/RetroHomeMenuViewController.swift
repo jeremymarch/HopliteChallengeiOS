@@ -141,15 +141,15 @@ class RetroHomeMenuViewController: UIViewController {
         aboutButton?.layer.borderColor = GlobalTheme.primaryText.cgColor
         aboutButton?.setTitleColor(GlobalTheme.primaryText, for: [])
 
-        playButton?.backgroundColor = GlobalTheme.tertiaryBG
-        playButton?.setTitleColor(GlobalTheme.tertiaryText, for: [])
-        practiceButton?.backgroundColor = GlobalTheme.tertiaryBG
-        practiceButton?.setTitleColor(GlobalTheme.tertiaryText, for: [])
+        playHistoryButton?.backgroundColor = GlobalTheme.tertiaryBG
+        playHistoryButton?.setTitleColor(GlobalTheme.tertiaryText, for: [])
+        practiceHistoryButton?.backgroundColor = GlobalTheme.tertiaryBG
+        practiceHistoryButton?.setTitleColor(GlobalTheme.tertiaryText, for: [])
         
-        playHistoryButton?.backgroundColor = GlobalTheme.secondaryBG
-        playHistoryButton?.setTitleColor(GlobalTheme.secondaryText, for: [])
-        practiceHistoryButton?.backgroundColor = GlobalTheme.secondaryBG
-        practiceHistoryButton?.setTitleColor(GlobalTheme.secondaryText, for: [])
+        playButton?.backgroundColor = GlobalTheme.secondaryBG
+        playButton?.setTitleColor(GlobalTheme.secondaryText, for: [])
+        practiceButton?.backgroundColor = GlobalTheme.secondaryBG
+        practiceButton?.setTitleColor(GlobalTheme.secondaryText, for: [])
         
         verbFormsButton?.backgroundColor = GlobalTheme.quarternaryBG
         verbFormsButton?.setTitleColor(GlobalTheme.quarternaryText, for: [])
@@ -294,7 +294,13 @@ class RetroHomeMenuViewController: UIViewController {
     */
     @objc func aboutButtonPressed(sender:UIButton)
     {
-        self.performSegue(withIdentifier: "showTutorialSegue", sender: self)
+        //self.performSegue(withIdentifier: "showTutorialSegue", sender: self)
+        
+        if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "AboutPage") as? AboutPageViewController
+        {
+            self.navigationController?.pushViewController(dvc, animated: true)
+            //performSegue(withIdentifier: "HCSettingsSegue", sender: self)
+        }
     }
     
     @objc func settingsButtonPressed(sender:UIButton)
