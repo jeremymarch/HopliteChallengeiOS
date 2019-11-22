@@ -19,7 +19,9 @@ extension NSRange {
 }
 
 class HopliteChallenge: BaseViewController, UITextViewDelegate {
-    var kb:KeyboardViewController? = nil
+    //var kb:KeyboardViewController? = nil
+    var kb:HopliteChallengeKB? = nil
+    //var kb:HopliteKB? = nil
     var gameOverLabel = UILabel()
     var label1 = TypeLabel()
     var label2 = TypeLabel()
@@ -414,8 +416,16 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         view.addConstraint(checkXXOffset!)
         checkXView.isHidden = true
         
-        kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
+        //kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
+        kb = HopliteChallengeKB(isAppExtension: false)
+        kb?.inputView?.translatesAutoresizingMaskIntoConstraints = false
         kb?.appExt = false
+        kb?.topRowButtonDepressNotAppExt = false //prevent top row button expansion in app, to simulate app extension behavior
+        //textView!.inputView = kb?.inputView
+        
+        
+        //kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
+        //kb?.appExt = false
         //kb?.mfDelegate = self we dont' need this, see shouldChangeTextIn
         
         var portraitHeight:CGFloat = 222.0
@@ -447,18 +457,18 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         kb?.portraitHeightOverride = portraitHeight
         kb?.landscapeHeightOverride = landscapeHeight
         kb?.unicodeMode = 3 //hc mode
-        textView.inputView = kb?.view
+        textView.inputView = kb!.view
         let keys: [[String]] = [["MF", "῾", "᾿", "´", "˜", "¯", "ͺ", "enter"],
                                 ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                                 ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
                                 ["ζ", "χ", "ψ", "ω", "β", "ν", "μ" , "( )", "BK" ]]
-        
+ /*
         kb?.accentBGColor = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
         kb?.accentBGColorDown = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
         kb?.accentTextColor = UIColor.black
         kb?.accentTextColorDown = UIColor.black
- 
-        kb?.setButtons(keys: keys) //has to be after set as inputView
+ */
+        //kb?.setButtons(keys: keys) //has to be after set as inputView
         
         continueButton.addTarget(self, action: #selector(continuePressed(button:)), for: .touchUpInside)
         

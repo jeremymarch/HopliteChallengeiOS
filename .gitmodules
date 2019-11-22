@@ -7,3 +7,6 @@
 [submodule "hctest/libseq"]
 	path = hctest/libseq
 	url = git@github.com:jeremymarch/libseq.git
+[submodule "hoplitekb2"]
+	path = hoplitekb2
+	url = git@github.com:jeremymarch/hoplitekb-2.0.git

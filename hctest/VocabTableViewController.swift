@@ -39,7 +39,8 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
     var selectedId = -1
     var predicate = ""
     var sortAlpha = false
-    var kb:KeyboardViewController? = nil
+    //var kb:KeyboardViewController? = nil
+    var kb:HopliteChallengeKB? = nil
     var segueDest:String = ""
     var dataSource:VocabDataSourceProtocol?
     
@@ -228,7 +229,8 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
                          ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
                          ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "BK"]]
         
-        kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
+        //kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
+        kb = HopliteChallengeKB(isAppExtension: false)
         kb?.appExt = false
         var portraitHeight:CGFloat = 250.0
         var landscapeHeight:CGFloat = 250.0

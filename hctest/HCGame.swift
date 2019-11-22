@@ -30,7 +30,8 @@ enum gameTypes {
 class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDelegate  {
     let idTranslation:[Int] = [43, 45, 36, 37]
     var gameState:gameStates = .start
-    var kb:KeyboardViewController? = nil
+    //var kb:KeyboardViewController? = nil
+    var kb:HopliteChallengeKB? = nil
     var selectedVerb = -1
     var selectedVerbIndex = -1 //the old verb id before hqid
     var gameOverLabel = UILabel()
@@ -464,7 +465,8 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         view.addConstraint(checkXXOffset!)
         checkXView.isHidden = true
         
-        kb = KeyboardViewController() //kb needs to be member variable of vc
+        //kb = KeyboardViewController() //kb needs to be member variable of vc
+        kb = HopliteChallengeKB(isAppExtension: false)
         kb?.appExt = false
         kb?.unicodeMode = 3
         
