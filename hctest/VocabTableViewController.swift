@@ -40,7 +40,7 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
     var predicate = ""
     var sortAlpha = false
     //var kb:KeyboardViewController? = nil
-    var kb:HopliteChallengeKB? = nil
+    var kb:HopliteKB? = nil
     var segueDest:String = ""
     var dataSource:VocabDataSourceProtocol?
     
@@ -230,7 +230,8 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
                          ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "BK"]]
         
         //kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
-        kb = HopliteChallengeKB(isAppExtension: false)
+        kb = HopliteKB(isAppExtension: false)
+        kb?.view.translatesAutoresizingMaskIntoConstraints = false
         kb?.appExt = false
         var portraitHeight:CGFloat = 250.0
         var landscapeHeight:CGFloat = 250.0
@@ -261,10 +262,10 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         }
         kb?.portraitHeightOverride = portraitHeight
         kb?.landscapeHeightOverride = landscapeHeight
-        kb?.forceLowercase = true
+        //kb?.forceLowercase = true
         
         searchTextField?.inputView = kb?.inputView
-        kb?.setButtons(keys: greekKeys) //has to be after set as inputView
+        //kb?.setButtons(keys: greekKeys) //has to be after set as inputView
         searchTextField?.delegate = self
 
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
