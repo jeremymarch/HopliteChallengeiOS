@@ -50,6 +50,8 @@
 		3F4205361FDDA57200BCA548 /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4205351FDDA57200BCA548 /* CardController.swift */; };
 		3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4869CD1E7C9A020051B46A /* HCSettings.swift */; };
 		3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */; };
+		3F63C60C238C36C500BC9EBB /* minimalGreekKB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C60B238C36C500BC9EBB /* minimalGreekKB.swift */; };
+		3F63C60E238C36E600BC9EBB /* minimalGreekKeyboardKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C60D238C36E600BC9EBB /* minimalGreekKeyboardKeys.swift */; };
 		3F65593E22E3FF5E0032F3F8 /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F65593D22E3FF5E0032F3F8 /* About.swift */; };
 		3F6D20541FB7B8DA0000615B /* AccentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */; };
 		3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20551FB8E4EA0000615B /* AccentTextField.swift */; };
@@ -167,6 +169,8 @@
 		3F4205351FDDA57200BCA548 /* CardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
 		3F4869CD1E7C9A020051B46A /* HCSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCSettings.swift; sourceTree = "<group>"; };
 		3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabTableViewController.swift; sourceTree = "<group>"; };
+		3F63C60B238C36C500BC9EBB /* minimalGreekKB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = minimalGreekKB.swift; sourceTree = "<group>"; };
+		3F63C60D238C36E600BC9EBB /* minimalGreekKeyboardKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = minimalGreekKeyboardKeys.swift; path = hoplitekb2/Keyboard/minimalGreekKeyboardKeys.swift; sourceTree = SOURCE_ROOT; };
 		3F65593D22E3FF5E0032F3F8 /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
 		3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentsViewController.swift; sourceTree = "<group>"; };
 		3F6D20551FB8E4EA0000615B /* AccentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentTextField.swift; sourceTree = "<group>"; };
@@ -386,6 +390,7 @@
 		3F7813CD23877DF90094173E /* HopliteKB */ = {
 			isa = PBXGroup;
 			children = (
+				3F63C60D238C36E600BC9EBB /* minimalGreekKeyboardKeys.swift */,
 				3F78141123886FD70094173E /* hckeyboard.swift */,
 				3F7813D623877E650094173E /* Catboard.swift */,
 				3F7813E923877E660094173E /* CatboardBanner.swift */,
@@ -434,6 +439,7 @@
 		3F7813ED23877E660094173E /* HopliteKB */ = {
 			isa = PBXGroup;
 			children = (
+				3F63C60B238C36C500BC9EBB /* minimalGreekKB.swift */,
 				3F7813EE23877E660094173E /* vu3r.ttf */,
 				3F7813EF23877E660094173E /* HopliteKB.swift */,
 				3F7813F023877E660094173E /* IFAOGrec.ttf */,
@@ -701,6 +707,7 @@
 				3F7A63D420B7DCB5003D483C /* HCStemLabel.swift in Sources */,
 				3F78140523877E660094173E /* ForwardingView.swift in Sources */,
 				3FF71B431E78EF3600144F7D /* BaseViewController.swift in Sources */,
+				3F63C60C238C36C500BC9EBB /* minimalGreekKB.swift in Sources */,
 				3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */,
 				3F3443A51E6BB17700FFAD04 /* HopliteChallenge.swift in Sources */,
 				3F0A8BBC225C6351003C42CA /* HCGame.swift in Sources */,
@@ -735,6 +742,7 @@
 				3F3443CE1E6BB33400FFAD04 /* VerbForm.swift in Sources */,
 				3FF71B491E79EF6900144F7D /* VerbDetail.swift in Sources */,
 				3F7813F623877E660094173E /* ExtraView.swift in Sources */,
+				3F63C60E238C36E600BC9EBB /* minimalGreekKeyboardKeys.swift in Sources */,
 				3F7813F823877E660094173E /* Catboard.swift in Sources */,
 				3F78140923877E660094173E /* KeyboardKey.swift in Sources */,
 				3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */,

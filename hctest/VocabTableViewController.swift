@@ -40,7 +40,7 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
     var predicate = ""
     var sortAlpha = false
     //var kb:KeyboardViewController? = nil
-    var kb:HopliteKB? = nil
+    var kb:minimalGreekKB? = nil
     var segueDest:String = ""
     var dataSource:VocabDataSourceProtocol?
     
@@ -230,7 +230,7 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
                          ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "BK"]]
         
         //kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
-        kb = HopliteKB(isAppExtension: false)
+        kb = minimalGreekKB(isAppExtension: false)
         kb?.view.translatesAutoresizingMaskIntoConstraints = false
         kb?.appExt = false
         var portraitHeight:CGFloat = 250.0
@@ -245,7 +245,7 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
             //iPhone X
             if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
             {
-                portraitHeight = 214.0
+                portraitHeight = 194.0
                 landscapeHeight = portraitHeight
             }
             else if UIScreen.main.nativeBounds.width < 641
@@ -260,8 +260,10 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
                 landscapeHeight = portraitHeight
             }
         }
+
         kb?.portraitHeightOverride = portraitHeight
         kb?.landscapeHeightOverride = landscapeHeight
+        kb?.needsInputSwitch = false
         //kb?.forceLowercase = true
         
         searchTextField?.inputView = kb?.inputView
