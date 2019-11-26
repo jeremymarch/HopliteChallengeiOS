@@ -36,6 +36,11 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
     var wordsPerSection:[Int] = [Int](repeating: 0, count: 20)
     var words:[Word] = []
     
+    let font = UIFont(name: "HelveticaNeue", size: 20.0)
+    let greekFont = UIFont(name: "NewAthenaUnicode", size: 24.0)
+    lazy var unitAttributes:[NSAttributedString.Key : Any] = [ NSAttributedString.Key.foregroundColor: UIColor.gray, NSAttributedString.Key.font: font as Any]
+    lazy var lemmaAttributes:[NSAttributedString.Key : Any] = [ NSAttributedString.Key.font: greekFont as Any]
+    
     init(sortAlpha:Bool, predicate:String) {
         super.init()
         self.sortAlpha = sortAlpha
@@ -289,26 +294,30 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
     //let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
     
     func configureCell(_ cell: UITableViewCell, lemma:String, unit:String) {
-        //cell.textLabel!.text = event.timestamp!.description
-        //cell.textLabel!.text = "\(gw.hqid.description) \(gw.lemma!.description)"
         if !sortAlpha
         {
             cell.textLabel!.text = lemma
+            cell.textLabel?.font = greekFont
         }
         else
         {
-            //cell.textLabel!.text = "\(gw.lemma!.description) : \(gw.sortkey!.description) (\(gw.unit.description))"
-            cell.textLabel!.text = "\(lemma) (\(unit))"
+            let nsstring = NSString(string: lemma)  //doesn't work with swift string len
+            let unitLen = unit.count
+            let attStr = NSMutableAttributedString(string: "\(lemma) (\(unit))")
+            
+            attStr.addAttributes(lemmaAttributes, range: NSRange(location: 0, length: nsstring.length))
+            attStr.addAttributes(unitAttributes, range: NSRange(location: (nsstring.length + unitLen + 3) - (unitLen + 2) , length: unitLen + 2))
+            cell.textLabel!.attributedText = attStr
         }
         
-        let greekFont = UIFont(name: "NewAthenaUnicode", size: 24.0)
-        cell.textLabel?.font = greekFont
+        //let greekFont = UIFont(name: "NewAthenaUnicode", size: 24.0)
+        //cell.textLabel?.font = greekFont
         //cell.tag = Int(gw.wordid)
         
+        //highlightedRowBGColor
         let bgColorView = UIView()
-        bgColorView.backgroundColor = GlobalTheme.rowHighlightBG //highlightedRowBGColor
+        bgColorView.backgroundColor = GlobalTheme.rowHighlightBG
         cell.selectedBackgroundView = bgColorView
-        
     }
     
 
