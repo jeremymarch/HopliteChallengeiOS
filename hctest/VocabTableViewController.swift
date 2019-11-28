@@ -233,6 +233,7 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         kb = minimalGreekKB(isAppExtension: false)
         kb?.view.translatesAutoresizingMaskIntoConstraints = false
         kb?.appExt = false
+        kb?.topRowButtonDepressNotAppExt = true
         var portraitHeight:CGFloat = 250.0
         var landscapeHeight:CGFloat = 250.0
         if UIDevice.current.userInterfaceIdiom == .pad

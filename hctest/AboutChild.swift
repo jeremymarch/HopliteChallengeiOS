@@ -49,8 +49,19 @@ class AboutChildViewController: UIViewController {
         {
             if let htmlFile = Bundle.main.path(forResource: htmlFileName!, ofType: "html")
             {
-                if let html = try? String(contentsOfFile: htmlFile, encoding: String.Encoding.utf8)
+                if var html = try? String(contentsOfFile: htmlFile, encoding: String.Encoding.utf8)
                 {
+                    if htmlFileName == "tutorialTitlePage"
+                    {
+                        var realVersion = ""
+                        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+                        {
+                            //NSLog("Version: \(version)")
+                            realVersion = "<div>Version: " + version + "</div>"
+                        }
+                        html = html.replacingOccurrences(of: "%version%", with: realVersion)
+                    }
+                    
                     let path = Bundle.main.bundlePath
                     let baseURL = URL(fileURLWithPath: path)
                     webView.loadHTMLString(html, baseURL: baseURL)

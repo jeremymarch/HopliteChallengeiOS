@@ -420,7 +420,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         kb = HopliteChallengeKB(isAppExtension: false)
         kb?.inputView?.translatesAutoresizingMaskIntoConstraints = false
         kb?.appExt = false
-        kb?.topRowButtonDepressNotAppExt = false //prevent top row button expansion in app, to simulate app extension behavior
+        kb?.topRowButtonDepressNotAppExt = true //allow top row button expansion above top ok kb
         //textView!.inputView = kb?.inputView
         
         
