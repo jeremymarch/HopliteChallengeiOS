@@ -95,7 +95,7 @@ class DarkTheme:DefaultTheme {
         return UIColor.white
     }
     override class var rowHighlightBG: UIColor {
-        return UIColor.gray
+        return UIColor.darkGray
     }
     override class var menuButtonBG: UIColor {
         return secondaryBG

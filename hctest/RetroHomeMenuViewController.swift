@@ -255,8 +255,10 @@ class RetroHomeMenuViewController: UIViewController {
     {
         if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "Vocabulary") as? VocabTableViewController
         {
+            let sortAlpha = UserDefaults.standard.object(forKey: "sortAlpha") as? Bool ?? false
+            
             //we can set these values before showing
-            dvc.sortAlpha = false
+            dvc.sortAlpha = sortAlpha
             dvc.predicate = "pos=='Verb'"
             dvc.selectedButtonIndex = 1
             dvc.navTitle = "H&Q Verbs"
