@@ -107,12 +107,13 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
     
     @objc func sortTogglePressed(_ sender: UIButton ) {
         //self.dismiss(animated: true, completion: nil)
+        
         sortAlpha = !dataSource!.sortAlpha
         let d = UserDefaults.standard
         d.set(sortAlpha, forKey: "sortAlpha")
         d.synchronize()
-        
         dataSource!.sortAlpha = sortAlpha
+        
         searchTextField.text = ""
         
         dataSource!.resort()
