@@ -434,6 +434,9 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         {
             portraitHeight = 340.0
             landscapeHeight = 290.0
+            
+            //canonicalPortraitHeight = 264
+            //canonicalLandscapeHeight = 352
         }
         else
         {
