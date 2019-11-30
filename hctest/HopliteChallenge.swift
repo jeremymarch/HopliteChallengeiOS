@@ -432,7 +432,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         var landscapeHeight:CGFloat = 157.0
         if UIDevice.current.userInterfaceIdiom == .pad
         {
-            portraitHeight = 340.0
+            portraitHeight = 240.0
             landscapeHeight = 290.0
             
             //canonicalPortraitHeight = 264
