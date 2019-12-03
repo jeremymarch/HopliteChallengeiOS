@@ -51,6 +51,8 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
         //UINavigationBar.appearance().tintColor = GlobalTheme.primaryText
         navigationController?.navigationBar.tintColor  = GlobalTheme.primaryText
+        
+        searchView.layer.borderColor = GlobalTheme.primaryText.cgColor
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -210,12 +212,6 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         searchTextField.contentVerticalAlignment = .center
         //searchTextField.placeholder = "Search: "
         
-        if #available(iOS 13.0, *) {
-            searchView.layer.borderColor = UIColor.label.cgColor
-        } else {
-            // Fallback on earlier versions
-            searchView.layer.borderColor = UIColor.black.cgColor
-        }
         searchView.layer.borderWidth = 2.0
         searchView.layer.cornerRadius = 20
         
