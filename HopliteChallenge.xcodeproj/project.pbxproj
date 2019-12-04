@@ -49,7 +49,6 @@
 		3F3B30EE20D7033700EEB1E7 /* HCGameList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */; };
 		3F4205361FDDA57200BCA548 /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4205351FDDA57200BCA548 /* CardController.swift */; };
 		3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4869CD1E7C9A020051B46A /* HCSettings.swift */; };
-		3F614D5823975CE400D3358C /* sqliteGK.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F614D552397472A00D3358C /* sqliteGK.c */; };
 		3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */; };
 		3F63C60C238C36C500BC9EBB /* minimalGreekKB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C60B238C36C500BC9EBB /* minimalGreekKB.swift */; };
 		3F63C60E238C36E600BC9EBB /* minimalGreekKeyboardKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C60D238C36E600BC9EBB /* minimalGreekKeyboardKeys.swift */; };
@@ -744,7 +743,6 @@
 				3F9F222F222C9FB300BB54F1 /* swiftVSeqLayer.c in Sources */,
 				3F65593E22E3FF5E0032F3F8 /* About.swift in Sources */,
 				3F74B2D91FDA55580044B0FC /* CardView.swift in Sources */,
-				3F614D5823975CE400D3358C /* sqliteGK.c in Sources */,
 				3F3443AB1E6BB17700FFAD04 /* hctest.xcdatamodeld in Sources */,
 				3F9F2230222C9FB300BB54F1 /* VerbSequence.c in Sources */,
 				3F3443CE1E6BB33400FFAD04 /* VerbForm.swift in Sources */,
