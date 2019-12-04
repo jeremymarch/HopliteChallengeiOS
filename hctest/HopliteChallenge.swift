@@ -137,7 +137,6 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if vs.vsInit(vDBPath: (UIApplication.shared.delegate as! AppDelegate).dbpath) != 0
         {
             //label1.settext
@@ -813,6 +812,9 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     //this lets us catch the enter key
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
+        let roman = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+        let greek = ["α","β","ψ","δ","ε","φ","γ","η","ι","ξ","κ","λ","μ","ν","ο","π","","ρ","σ","τ","θ","ω","ς","χ","υ","ζ"]
+        
         if text == "\n"
         {
             enterKeyPressed()
@@ -825,11 +827,15 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             // Return FALSE so that the final '\n' character doesn't get added
             return false
         }
+        //transliterate for external bluetooth keyboards
+        else if let letterIndex = roman.firstIndex(of: text)
+        {
+            textView.replace(range.toTextRange(textInput: textView)!, withText: greek[letterIndex])
+            return false
+        }
         /*
         else if text == "1"
         {
-            //text = "α"
-            //textView.replace(range.toTextRange(textInput: textView)!, withText: "α")
             kb?.accentPressed(accent: .acute)
             return false
         }
@@ -840,20 +846,27 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     
     func attributedDescription(orig:String, new:String) -> NSMutableAttributedString
     {
-        var a = orig.components(separatedBy: " ")
-        var b = new.components(separatedBy: " ")
+        let origComponents = orig.components(separatedBy: " ")
+        let newComponents = new.components(separatedBy: " ")
         
         //print("orig: \(orig), new: \(new)")
         
         let att = NSMutableAttributedString.init(string: new)
         var start = 0
-        for i in 0...4
+        let numParams = 5
+        let font = UIFont(name: "HelveticaNeue-Bold", size: fontSize)!
+        
+        //add error check? or better to crash here?
+        if origComponents.count == numParams && newComponents.count == numParams
         {
-            if a[i] != b[i]
+            for i in 0...(numParams - 1)
             {
-                att.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue-Bold", size: fontSize)!, range: NSRange(location: start, length: b[i].count))
+                if origComponents[i] != newComponents[i]
+                {
+                    att.addAttribute(NSAttributedString.Key.font, value: font, range: NSRange(location: start, length:  newComponents[i].count))
+                }
+                start += newComponents[i].count + 1
             }
-            start += b[i].count + 1
         }
         return att
     }

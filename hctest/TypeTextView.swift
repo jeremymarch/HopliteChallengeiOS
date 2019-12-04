@@ -21,10 +21,39 @@ class TypeTextView: UITextView {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
+        self.autocorrectionType = .no
+        self.autocapitalizationType = .none
+    }
+    
+//https://stablekernel.com/creating-a-delightful-user-experience-with-ios-keyboard-shortcuts/
+    override var keyCommands: [UIKeyCommand]? {
+        return [
+            UIKeyCommand(input: "1", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Rough Breathing"),
+            UIKeyCommand(input: "2", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Smooth Breathing"),
+            UIKeyCommand(input: "3", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Acute"),
+            UIKeyCommand(input: "4", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Grave"),
+            UIKeyCommand(input: "5", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Circumflex"),
+            UIKeyCommand(input: "6", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Macron"),
+            UIKeyCommand(input: "7", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Breve"),
+            UIKeyCommand(input: "8", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Iota Subscript"),
+            UIKeyCommand(input: "9", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Diaeresis")]
+    }
+
+    @objc func extDiacriticKeyPressed(sender: UIKeyCommand) {
+        switch (sender.input)
+        {
+        case "1":
+            print("Rough Breathing Pressed")
+        default:
+            print("other key Pressed")
+        }
+        
     }
     
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
+        self.autocorrectionType = .no
+        self.autocapitalizationType = .none
     }
     
     func hide(duration:TimeInterval)
