@@ -327,6 +327,7 @@ class VerbForm {
         }
         else
         {
+            assertionFailure("Verb Form Description is empty.")
             return ""
         }
     }
@@ -344,6 +345,7 @@ class VerbForm {
     {
         if !allParamsAreSet()
         {
+            assertionFailure("Get Form failure.  Params not set.")
             return ""
         }
         
@@ -359,12 +361,19 @@ class VerbForm {
             //let s = String(data: data, encoding: String.Encoding.utf8)
             let s = String(cString: buffer)
             
+            assert((s.firstIndex(of: "-") == nil), "getFrom contains invalid character: 0x002D") //002D
+            assert((s.firstIndex(of: "‐") == nil), "getFrom contains invalid character: 0x2010") //2010
+            assert((s.firstIndex(of: "–") == nil), "getFrom contains invalid character: 0x2013") //2013
+            assert((s.firstIndex(of: "—") == nil), "getFrom contains invalid character: 0x2014") //2014
+            assert((s.count < 1), "getFrom length is less than 1") //2014
+            
             //NSLog("len: \(s.characters.count)")
         
             return s.replacingOccurrences(of: ", ", with: ",\n")
         }
         else
         {
+            assertionFailure("getForm failure. Empty form.")
             return ""
         }
     }
@@ -373,6 +382,7 @@ class VerbForm {
     {
         if !allParamsAreSet()
         {
+            assertionFailure("Params not set.")
             return ""
         }
         

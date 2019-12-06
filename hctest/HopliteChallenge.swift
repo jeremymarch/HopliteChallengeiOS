@@ -849,6 +849,9 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         let origComponents = orig.components(separatedBy: " ")
         let newComponents = new.components(separatedBy: " ")
         
+        assert(origComponents.count == 5, "Verb Params must be 5. orig: \"\(orig)\".")
+        assert(newComponents.count == 5, "Verb Params must be 5. new: \"\(new)\".")
+        
         //print("orig: \(orig), new: \(new)")
         
         let att = NSMutableAttributedString.init(string: new)
