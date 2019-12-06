@@ -362,10 +362,13 @@ class VerbForm {
             let s = String(cString: buffer)
             
             assert((s.firstIndex(of: "-") == nil), "getFrom contains invalid character: 0x002D") //002D
-            assert((s.firstIndex(of: "‐") == nil), "getFrom contains invalid character: 0x2010") //2010
+            if !decomposed
+            {
+                assert((s.firstIndex(of: "‐") == nil), "getFrom contains invalid character: 0x2010") //2010
+            }
             assert((s.firstIndex(of: "–") == nil), "getFrom contains invalid character: 0x2013") //2013
             assert((s.firstIndex(of: "—") == nil), "getFrom contains invalid character: 0x2014") //2014
-            assert((s.count < 1), "getFrom length is less than 1") //2014
+            assert((s.count > 0), "getFrom length is less than 1")
             
             //NSLog("len: \(s.characters.count)")
         
