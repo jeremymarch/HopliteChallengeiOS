@@ -29,6 +29,7 @@ class GKTextView:UITextView, UITextViewDelegate
     let HYPHEN =                     0x2010
     let COMMA =                      0x002C
     
+    var forceLowercase = true
     var transliterate = true
     let romanLetters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
     let greekLetters = ["α","β","ψ","δ","ε","φ","γ","η","ι","ξ","κ","λ","μ","ν","ο","π","","ρ","σ","τ","θ","ω","ς","χ","υ","ζ","Α","Β","Ψ","Δ","Ε","Φ","Γ","Η","Ι","Ξ","Κ","Λ","Μ","Ν","Ο","Π","","Ρ","Σ","Τ","Θ","Ω","Σ","Χ","Υ","Ζ"]
@@ -62,8 +63,13 @@ class GKTextView:UITextView, UITextViewDelegate
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if transliterate
         {
+            var realText = text
+            if forceLowercase
+            {
+                realText = text.lowercased()
+            }
             //transliterate for external bluetooth keyboards
-            if let transliteratedText = transliterate(roman: text), let uirange = range.toTextRange(textInput: textView)
+            if let transliteratedText = transliterate(roman: realText), let uirange = range.toTextRange(textInput: textView)
             {
                 self.replace(uirange, withText: transliteratedText)
                 return false //false prevents character from being added

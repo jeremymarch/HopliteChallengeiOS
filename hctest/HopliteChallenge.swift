@@ -57,6 +57,15 @@ class HopliteChallenge: BaseViewController, hckeys {
     var blockPinch:Bool = true
     var isExpanded:Bool = false
     var practiceVerbID = -1
+    
+    //https://stablekernel.com/creating-a-delightful-user-experience-with-ios-keyboard-shortcuts/
+    override var keyCommands: [UIKeyCommand]? {
+        
+        return [
+            //UIKeyCommand(title: "Rough Breathing", image: nil, action: #selector(extDiacriticKeyPressed), input: "1", modifierFlags: [], propertyList: [], alternates: [], discoverabilityTitle: "Rough Breathing", attributes: [], state: .on),
+            
+            UIKeyCommand(input: " ", modifierFlags: [], action: #selector(continuePressed(button:)), discoverabilityTitle: "Continue")]
+    }
 
     /*
      get rid of practiceID
@@ -963,6 +972,10 @@ class HopliteChallenge: BaseViewController, hckeys {
     }
     
     @objc func continuePressed(button: UIButton) {
+        if !continueButton.isEnabled
+        {
+            return
+        }
         continueButton.isEnabled = false
         continueButton.isHidden = true
         kb?.resetMFButton()
