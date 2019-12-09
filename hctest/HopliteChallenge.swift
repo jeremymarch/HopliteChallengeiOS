@@ -417,6 +417,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         
         //kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb = HopliteChallengeKB(isAppExtension: false)
+        textView.setKB(kb: kb!)
         kb?.inputView?.translatesAutoresizingMaskIntoConstraints = false
         kb?.appExt = false
         kb?.topRowButtonDepressNotAppExt = true //allow top row button expansion above top ok kb
@@ -791,7 +792,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
                             {
                                 let z:Int = Int(v)
                                 vf = VerbForm(.first /*fix me*/, number: UInt8(number), tense: UInt8(t), voice: UInt8(voice), mood: UInt8(mood), verb: z)
-                                s = vf?.getForm(decomposed:false)
+                                s = vf?.getFormForGame(decomposed:false)
                                 if s != nil && (s?.count)! > 0
                                 {
                                     label1.text = s
@@ -916,7 +917,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         
         positionCheckX()
         
-        if vs.checkVerb(expectedForm: vs.requestedForm.getForm(decomposed:false), enteredForm: textView.text, mfPressed: mfPressed, time: String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB)) == true
+        if vs.checkVerb(expectedForm: vs.requestedForm.getFormForGame(decomposed:false), enteredForm: textView.text, mfPressed: mfPressed, time: String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB)) == true
         {
             print("correct!")
             
@@ -1073,7 +1074,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         {
             mfPressed = true
             mfLabel.isHidden = false
-            if vs.requestedForm.getForm(decomposed:false).contains(",") == false
+            if vs.requestedForm.getFormForGame(decomposed:false).contains(",") == false
             {
                 timerLabel.stopTimer()
                 checkAnswer()
@@ -1112,7 +1113,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         isExpanded = false
         if erasePreviousForm
         {
-            label1.type(newText: vs.givenForm.getForm(decomposed: false), duration: 0.3, after: 0.3, onComplete: { () -> Void in
+            label1.type(newText: vs.givenForm.getFormForGame(decomposed: false), duration: 0.3, after: 0.3, onComplete: { () -> Void in
                 
                 self.stemLabel.type2(newAttributedText: self.attributedDescription(orig: self.vs.givenForm.getDescription(), new: self.vs.requestedForm.getDescription()), duration: 0.3, after: 0.3, onComplete: { () -> Void in
                     
@@ -1156,7 +1157,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
     func showAnswer()
     {
         label2.isHidden = false
-        label2.type(newText: vs.requestedForm.getForm(decomposed: false), duration: 0.3)
+        label2.type(newText: vs.requestedForm.getFormForGame(decomposed: false), duration: 0.3)
     }
     
     @objc func handleTimeOut()
@@ -1192,18 +1193,18 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             return
         }
         print("expand")
-        let a = NSMutableAttributedString.init(string: vs.givenForm.getForm(decomposed: true))
+        let a = NSMutableAttributedString.init(string: vs.givenForm.getFormForGame(decomposed: true))
         label1.attributedText = a
         label1.att = a
         label1.textColor = GlobalTheme.primaryText
         if label2.attributedText?.string == ""
         {
-            textView.text = vs.requestedForm.getForm(decomposed: true)
+            textView.text = vs.requestedForm.getFormForGame(decomposed: true)
             positionCheckX()
         }
         else
         {
-            let b = NSMutableAttributedString.init(string: vs.requestedForm.getForm(decomposed: true))
+            let b = NSMutableAttributedString.init(string: vs.requestedForm.getFormForGame(decomposed: true))
             label2.attributedText = b
             label2.att = b
             label2.textColor = GlobalTheme.primaryText
@@ -1219,19 +1220,19 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         }
         print("unexpand")
         
-        let a = NSMutableAttributedString.init(string: vs.givenForm.getForm(decomposed: false))
+        let a = NSMutableAttributedString.init(string: vs.givenForm.getFormForGame(decomposed: false))
         label1.attributedText = a
         label1.att = a
         label1.textColor = GlobalTheme.primaryText
         
         if label2.attributedText?.string == ""
         {
-            textView.text = vs.requestedForm.getForm(decomposed: false)
+            textView.text = vs.requestedForm.getFormForGame(decomposed: false)
             positionCheckX()
         }
         else
         {
-            let b = NSMutableAttributedString.init(string: vs.requestedForm.getForm(decomposed: false))
+            let b = NSMutableAttributedString.init(string: vs.requestedForm.getFormForGame(decomposed: false))
             label2.attributedText = b
             label2.att = b
             label2.textColor = GlobalTheme.primaryText

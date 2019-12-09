@@ -341,11 +341,27 @@ class VerbForm {
         return true
     }
     
+    func getFormForGame(decomposed:Bool) -> String
+    {
+        let a = self.getForm(decomposed:decomposed)
+        
+        assert((a.firstIndex(of: "-") == nil), "getFrom contains invalid character: 0x002D") //002D dash (hyphen-minus)
+        if !decomposed
+        {
+            assert((a.firstIndex(of: "‐") == nil), "getFrom contains invalid character: 0x2010") //2010 (hyphen)
+        }
+        assert((a.firstIndex(of: "–") == nil), "getFrom contains invalid character: 0x2013") //2013 (en-dash)
+        assert((a.firstIndex(of: "—") == nil), "getFrom contains invalid character: 0x2014") //2014 = blank (em-dash)
+        assert((a.count > 0), "getFrom length is less than 1")
+        
+        return a
+    }
+    
     func getForm(decomposed:Bool) -> String
     {
         if !allParamsAreSet()
         {
-            assertionFailure("Get Form failure.  Params not set.")
+            assertionFailure("Get Form failure. Params not set.")
             return ""
         }
         
@@ -361,13 +377,6 @@ class VerbForm {
             //let s = String(data: data, encoding: String.Encoding.utf8)
             let s = String(cString: buffer)
             
-            assert((s.firstIndex(of: "-") == nil), "getFrom contains invalid character: 0x002D") //002D
-            if !decomposed
-            {
-                assert((s.firstIndex(of: "‐") == nil), "getFrom contains invalid character: 0x2010") //2010
-            }
-            assert((s.firstIndex(of: "–") == nil), "getFrom contains invalid character: 0x2013") //2013
-            assert((s.firstIndex(of: "—") == nil), "getFrom contains invalid character: 0x2014") //2014
             assert((s.count > 0), "getFrom length is less than 1")
             
             //NSLog("len: \(s.characters.count)")
@@ -376,7 +385,6 @@ class VerbForm {
         }
         else
         {
-            assertionFailure("getForm failure. Empty form.")
             return ""
         }
     }

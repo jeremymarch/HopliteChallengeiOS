@@ -30,6 +30,8 @@ class GameResultsViewController: UITableViewController {
     let xImage = UIImage(named:"redx.png")
     let vf = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: 0)
     let prevVF = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: 0)
+    let f = UIFont(name: "HelveticaNeue", size: 16.0)!
+    lazy var startTextAttributes = [NSAttributedString.Key.font: f]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,15 +171,18 @@ class GameResultsViewController: UITableViewController {
         
         correctTitle.text = vf.getForm(decomposed: false).replacingOccurrences(of: "\n", with: " ", options: .literal, range: nil)
         
-        incorrectTitle.text = res[index].incorrectAns
-        
         if res[index].incorrectAns == "START"
         {
             isCorrect.isHidden = true
             timeTitle.isHidden = true
+            
+            let attributedQuote = NSAttributedString(string: res[index].incorrectAns, attributes: startTextAttributes)
+            incorrectTitle.attributedText = attributedQuote
         }
         else
         {
+            incorrectTitle.text = res[index].incorrectAns.replacingOccurrences(of: "\n", with: " ", options: .literal, range: nil)
+            
             timeTitle.text = res[index].elapsedTime
             timeTitle.isHidden = false
             isCorrect.image = (res[index].isCorrect == 0) ? xImage : checkImage
