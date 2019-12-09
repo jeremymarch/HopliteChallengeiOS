@@ -8,17 +8,7 @@
 
 import UIKit
 
-extension NSRange {
-    func toTextRange(textInput:UITextInput) -> UITextRange? {
-        if let rangeStart = textInput.position(from: textInput.beginningOfDocument, offset: location),
-            let rangeEnd = textInput.position(from: rangeStart, offset: length) {
-            return textInput.textRange(from: rangeStart, to: rangeEnd)
-        }
-        return nil
-    }
-}
-
-class HopliteChallenge: BaseViewController, UITextViewDelegate {
+class HopliteChallenge: BaseViewController, hckeys {
     //var kb:KeyboardViewController? = nil
     var kb:HopliteChallengeKB? = nil
     //var kb:HopliteKB? = nil
@@ -368,7 +358,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         textView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.22).isActive = true
         
         textView.font = greekFont
-        textView.delegate = self
+        textView.hckeysdelegate = self
         
         view.addSubview(label2)
         label2.translatesAutoresizingMaskIntoConstraints = false
@@ -417,7 +407,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         
         //kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb = HopliteChallengeKB(isAppExtension: false)
-        textView.setKB(kb: kb!)
+        //textView.setKB(kb: kb!)
         kb?.inputView?.translatesAutoresizingMaskIntoConstraints = false
         kb?.appExt = false
         kb?.topRowButtonDepressNotAppExt = true //allow top row button expansion above top ok kb
@@ -809,13 +799,11 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
  
     }
     */
-    
+    /*
     //this lets us catch the enter key
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
-        let roman = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-        let greek = ["α","β","ψ","δ","ε","φ","γ","η","ι","ξ","κ","λ","μ","ν","ο","π","","ρ","σ","τ","θ","ω","ς","χ","υ","ζ"]
-        
+        //textView.superclass?.textView(self, shouldChangeTextIn: range, replacementText: text)
         if text == "\n"
         {
             enterKeyPressed()
@@ -828,12 +816,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
             // Return FALSE so that the final '\n' character doesn't get added
             return false
         }
-        //transliterate for external bluetooth keyboards
-        else if let letterIndex = roman.firstIndex(of: text)
-        {
-            textView.replace(range.toTextRange(textInput: textView)!, withText: greek[letterIndex])
-            return false
-        }
+ 
         /*
         else if text == "1"
         {
@@ -844,7 +827,7 @@ class HopliteChallenge: BaseViewController, UITextViewDelegate {
         // For any other character return TRUE so that the text is added to the view
         return true
     }
-    
+    */
     func attributedDescription(orig:String, new:String) -> NSMutableAttributedString
     {
         let origComponents = orig.components(separatedBy: " ")
