@@ -245,10 +245,10 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         }
         else
         {
-            //iPhone X
+            //iPhone X, XS
             if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
             {
-                portraitHeight = 194.0
+                portraitHeight = 234.0
                 landscapeHeight = portraitHeight
             }
             else if UIScreen.main.nativeBounds.width < 641
@@ -259,11 +259,11 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
             }
             else //larger iPhones
             {
-                portraitHeight = 174.0
+                portraitHeight = 182.0
                 landscapeHeight = portraitHeight
             }
         }
-
+        
         kb?.portraitHeightOverride = portraitHeight
         kb?.landscapeHeightOverride = landscapeHeight
         kb?.needsInputSwitch = false

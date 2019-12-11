@@ -8,6 +8,19 @@
 
 import UIKit
 
+enum diacriticKey:Int {
+    case roughBreathingKey = 1
+    case smoothBreathingKey = 2
+    case acuteKey = 3
+    case graveKey = 4
+    case circumflexKey = 5
+    case macronKey = 6
+    case breveKey = 7
+    case iotaSubscriptKey = 8
+    case diaeresisKey = 9
+    case parensKey = 0
+}
+
 class GKTextView:UITextView, UITextViewDelegate
 {
     let unicodeMode = 3
@@ -31,6 +44,29 @@ class GKTextView:UITextView, UITextViewDelegate
     
     var forceLowercase = true
     var transliterate = true
+    var keyInputForDiacritics = false
+    var commandInputForDiacritics = false
+    let gkkeyCommands = [UIKeyCommand(input: "1", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Rough Breathing"),
+    UIKeyCommand(input: "2", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Smooth Breathing"),
+    UIKeyCommand(input: "3", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Acute"),
+    UIKeyCommand(input: "4", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Grave"),
+    UIKeyCommand(input: "5", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Circumflex"),
+    UIKeyCommand(input: "6", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Macron"),
+    UIKeyCommand(input: "7", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Breve"),
+    UIKeyCommand(input: "8", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Iota Subscript"),
+    UIKeyCommand(input: "9", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Diaeresis"),
+    UIKeyCommand(input: "0", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Parentheses")]
+    /*
+    var diacritics:[diacriticKey] = [.circumflexKey, .acuteKey] {
+        didSet {
+            keyCommands?.removeAll()
+            for i in diacritics
+            {
+                
+            }
+        }
+    }
+    */
     let romanLetters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
     let greekLetters = ["α","β","ψ","δ","ε","φ","γ","η","ι","ξ","κ","λ","μ","ν","ο","π","","ρ","σ","τ","θ","ω","ς","χ","υ","ζ","Α","Β","Ψ","Δ","Ε","Φ","Γ","Η","Ι","Ξ","Κ","Λ","Μ","Ν","Ο","Π","","Ρ","Σ","Τ","Θ","Ω","Σ","Χ","Υ","Ζ"]
     
@@ -63,6 +99,12 @@ class GKTextView:UITextView, UITextViewDelegate
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if transliterate
         {
+            if keyInputForDiacritics, let _ = Int(text)
+            {
+                accentChar(type: text)
+                return false
+            }
+            
             var realText = text
             if forceLowercase
             {
@@ -81,57 +123,22 @@ class GKTextView:UITextView, UITextViewDelegate
             return true
         }
     }
-    
     //https://stablekernel.com/creating-a-delightful-user-experience-with-ios-keyboard-shortcuts/
     override var keyCommands: [UIKeyCommand]? {
         
-        return [
+        return gkkeyCommands
             //UIKeyCommand(title: "Rough Breathing", image: nil, action: #selector(extDiacriticKeyPressed), input: "1", modifierFlags: [], propertyList: [], alternates: [], discoverabilityTitle: "Rough Breathing", attributes: [], state: .on),
             
-            UIKeyCommand(input: "1", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Rough Breathing"),
-            UIKeyCommand(input: "2", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Smooth Breathing"),
-            UIKeyCommand(input: "3", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Acute"),
-            UIKeyCommand(input: "4", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Grave"),
-            UIKeyCommand(input: "5", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Circumflex"),
-            UIKeyCommand(input: "6", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Macron"),
-            UIKeyCommand(input: "7", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Breve"),
-            UIKeyCommand(input: "8", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Iota Subscript"),
-            UIKeyCommand(input: "9", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Diaeresis"),
-            UIKeyCommand(input: "0", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Parentheses")]
+            //]
     }
 
     @objc func extDiacriticKeyPressed(sender: UIKeyCommand) {
-        let i = sender.input
-        
-        var diacritic = -1
-        switch ( i! )
+        if let i = sender.input
         {
-        case "1":
-            diacritic = 5 //rough
-        case "2":
-            diacritic = 6 //smooth
-        case "3":
-            diacritic = 1 //acute
-        case "4":
-            diacritic = 3 //grave
-        case "5":
-            diacritic = 2 //circumflex
-        case "6":
-            diacritic = 4 //macron
-        case "7":
-            diacritic = 10//breve
-        case "8":
-            diacritic = 7//iota subscript
-        case "9":
-            diacritic = 9//diaeresis
-        case "0":
-            diacritic = 8//parens
-        default:
-            return
+            //self.kb!.sendButton(button: a)
+            accentChar(type: i)
+            //self.kb!.diacriticPressed(accent: a)
         }
-        //self.kb!.sendButton(button: a)
-        accentChar(type: diacritic)
-        //self.kb!.diacriticPressed(accent: a)
     }
     
     func charactersBeforeCursor() -> String? {
@@ -158,12 +165,39 @@ class GKTextView:UITextView, UITextViewDelegate
         return nil
     }
     
-    func accentChar(type:Int)
+    func accentChar(type:String)
     {
+        var diacritic = -1
+        switch ( type )
+        {
+        case "1":
+            diacritic = 5 //rough
+        case "2":
+            diacritic = 6 //smooth
+        case "3":
+            diacritic = 1 //acute
+        case "4":
+            diacritic = 3 //grave
+        case "5":
+            diacritic = 2 //circumflex
+        case "6":
+            diacritic = 4 //macron
+        case "7":
+            diacritic = 10//breve
+        case "8":
+            diacritic = 7//iota subscript
+        case "9":
+            diacritic = 9//diaeresis
+        case "0":
+            diacritic = 8//parens
+        default:
+            return
+        }
+        
         if let a = charactersBeforeCursor(), a.count > 0
         {
             var replaceLen = 0
-            let b = diacriticPressed(accent: type, context: a, replaceLen: &replaceLen)
+            let b = diacriticPressed(accent: diacritic, context: a, replaceLen: &replaceLen)
 
             if let range = rangeBeforeCursor(replaceLen: replaceLen)
             {

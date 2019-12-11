@@ -455,6 +455,23 @@ class HopliteChallenge: BaseViewController, hckeys {
                 portraitHeight = 260.0
                 landscapeHeight = 157.0
             }
+            //iPhone X, XS
+            if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
+            {
+                portraitHeight = 234.0
+                landscapeHeight = portraitHeight
+            }
+            else if UIScreen.main.nativeBounds.width < 641
+            {
+                //for iphone 5s and narrower
+                portraitHeight = 174.0
+                landscapeHeight = portraitHeight
+            }
+            else //larger iPhones
+            {
+                portraitHeight = 182.0
+                landscapeHeight = portraitHeight
+            }
         }
         kb?.portraitHeightOverride = portraitHeight
         kb?.landscapeHeightOverride = landscapeHeight
