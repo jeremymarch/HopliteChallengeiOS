@@ -447,7 +447,7 @@ class HopliteChallenge: BaseViewController, hckeys {
             }
             else  if UIScreen.main.nativeBounds.height < 2688//larger iPhones
             {
-                portraitHeight = 238.0
+                portraitHeight = 228.0
                 landscapeHeight = 157.0
             }
             else //xsMax
@@ -455,32 +455,16 @@ class HopliteChallenge: BaseViewController, hckeys {
                 portraitHeight = 260.0
                 landscapeHeight = 157.0
             }
-            //iPhone X, XS
-            if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
-            {
-                portraitHeight = 234.0
-                landscapeHeight = portraitHeight
-            }
-            else if UIScreen.main.nativeBounds.width < 641
-            {
-                //for iphone 5s and narrower
-                portraitHeight = 174.0
-                landscapeHeight = portraitHeight
-            }
-            else //larger iPhones
-            {
-                portraitHeight = 182.0
-                landscapeHeight = portraitHeight
-            }
         }
         kb?.portraitHeightOverride = portraitHeight
         kb?.landscapeHeightOverride = landscapeHeight
         kb?.unicodeMode = 3 //hc mode
         textView.inputView = kb!.view
-        let keys: [[String]] = [["MF", "῾", "᾿", "´", "˜", "¯", "ͺ", "enter"],
+        /*let keys: [[String]] = [["MF", "῾", "᾿", "´", "˜", "¯", "ͺ", "enter"],
                                 ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                                 ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
                                 ["ζ", "χ", "ψ", "ω", "β", "ν", "μ" , "( )", "BK" ]]
+         */
  /*
         kb?.accentBGColor = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
         kb?.accentBGColorDown = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
