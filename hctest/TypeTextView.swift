@@ -45,6 +45,10 @@ class TypeTextView: GKTextView {
             // Return FALSE so that the final '\n' character doesn't get added
             return false
         }
+        else if text == "," //to allow comma from bluetooth keyboard
+        {
+            return true
+        }
         
         return super.textView(textView, shouldChangeTextIn: range, replacementText: text)
     }

@@ -64,7 +64,8 @@ class HopliteChallenge: BaseViewController, hckeys {
         return [
             //UIKeyCommand(title: "Rough Breathing", image: nil, action: #selector(extDiacriticKeyPressed), input: "1", modifierFlags: [], propertyList: [], alternates: [], discoverabilityTitle: "Rough Breathing", attributes: [], state: .on),
             
-            UIKeyCommand(input: " ", modifierFlags: [], action: #selector(continuePressed(button:)), discoverabilityTitle: "Continue")]
+            UIKeyCommand(input: " ", modifierFlags: [], action: #selector(continuePressed(button:)), discoverabilityTitle: "Continue"),
+            UIKeyCommand(input: "\t", modifierFlags: [], action: #selector(mfKeyPressed), discoverabilityTitle: "Multiple Forms")]
     }
 
     /*
@@ -419,6 +420,7 @@ class HopliteChallenge: BaseViewController, hckeys {
         //kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         textView.inputView = kb!.view
 
+        continueButton.isEnabled = false
         continueButton.addTarget(self, action: #selector(continuePressed(button:)), for: .touchUpInside)
         
         if vs.isHCGame == false
@@ -1011,8 +1013,13 @@ class HopliteChallenge: BaseViewController, hckeys {
         }
     }
     
-    func mfKeyPressed()
+    @objc func mfKeyPressed()
     {
+        if continueButton.isEnabled //this is solely to block mf from external keyboard between moves
+        {
+            return
+        }
+        
         if mfPressed == false
         {
             mfPressed = true

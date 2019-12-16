@@ -44,17 +44,18 @@ class GKTextView:UITextView, UITextViewDelegate
     
     var forceLowercase = true
     var transliterate = true
+    var otherwiseBlockKeys = true
     var keyInputForDiacritics = false
     var commandInputForDiacritics = false
     let gkkeyCommands = [UIKeyCommand(input: "1", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Rough Breathing"),
     UIKeyCommand(input: "2", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Smooth Breathing"),
     UIKeyCommand(input: "3", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Acute"),
-    UIKeyCommand(input: "4", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Grave"),
+    /*UIKeyCommand(input: "4", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Grave"),*/
     UIKeyCommand(input: "5", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Circumflex"),
     UIKeyCommand(input: "6", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Macron"),
-    UIKeyCommand(input: "7", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Breve"),
+    /*UIKeyCommand(input: "7", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Breve"),*/
     UIKeyCommand(input: "8", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Iota Subscript"),
-    UIKeyCommand(input: "9", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Diaeresis"),
+    /*UIKeyCommand(input: "9", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Diaeresis"),*/
     UIKeyCommand(input: "0", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Parentheses")]
     /*
     var diacritics:[diacriticKey] = [.circumflexKey, .acuteKey] {
@@ -116,7 +117,7 @@ class GKTextView:UITextView, UITextViewDelegate
                 self.replace(uirange, withText: transliteratedText)
                 return false //false prevents character from being added
             }
-            return true
+            return (!otherwiseBlockKeys)
         }
         else
         {
