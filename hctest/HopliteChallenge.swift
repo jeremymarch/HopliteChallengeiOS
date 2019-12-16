@@ -416,63 +416,9 @@ class HopliteChallenge: BaseViewController, hckeys {
         
         //kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb = HopliteChallengeKB(isAppExtension: false)
-        //textView.setKB(kb: kb!)
-        kb?.inputView?.translatesAutoresizingMaskIntoConstraints = false
-        kb?.appExt = false
-        kb?.topRowButtonDepressNotAppExt = true //allow top row button expansion above top ok kb
-        //textView!.inputView = kb?.inputView
-        
-        
         //kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
-        //kb?.appExt = false
-        //kb?.mfDelegate = self we dont' need this, see shouldChangeTextIn
-        
-        var portraitHeight:CGFloat = 222.0
-        var landscapeHeight:CGFloat = 157.0
-        if UIDevice.current.userInterfaceIdiom == .pad
-        {
-            portraitHeight = 240.0
-            landscapeHeight = 290.0
-            
-            //canonicalPortraitHeight = 264
-            //canonicalLandscapeHeight = 352
-        }
-        else
-        {
-            //for iphone 5s and narrower
-            if UIScreen.main.nativeBounds.width < 641
-            {
-                portraitHeight = 200.0
-                landscapeHeight = 186.0
-            }
-            else  if UIScreen.main.nativeBounds.height < 2688//larger iPhones
-            {
-                portraitHeight = 228.0
-                landscapeHeight = 157.0
-            }
-            else //xsMax
-            {
-                portraitHeight = 260.0
-                landscapeHeight = 157.0
-            }
-        }
-        kb?.portraitHeightOverride = portraitHeight
-        kb?.landscapeHeightOverride = landscapeHeight
-        kb?.unicodeMode = 3 //hc mode
         textView.inputView = kb!.view
-        /*let keys: [[String]] = [["MF", "῾", "᾿", "´", "˜", "¯", "ͺ", "enter"],
-                                ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
-                                ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
-                                ["ζ", "χ", "ψ", "ω", "β", "ν", "μ" , "( )", "BK" ]]
-         */
- /*
-        kb?.accentBGColor = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
-        kb?.accentBGColorDown = UIColor.init(red: 103/255.0, green: 166/255.0, blue: 234/255.0, alpha: 1.0)
-        kb?.accentTextColor = UIColor.black
-        kb?.accentTextColorDown = UIColor.black
- */
-        //kb?.setButtons(keys: keys) //has to be after set as inputView
-        
+
         continueButton.addTarget(self, action: #selector(continuePressed(button:)), for: .touchUpInside)
         
         if vs.isHCGame == false

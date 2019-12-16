@@ -227,47 +227,13 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
             searchTextField?.font = searchFont
         }
         
-        let greekKeys = [["ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
+        /*let greekKeys = [["ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
                          ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
-                         ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "BK"]]
+                         ["ζ", "χ", "ψ", "ω", "β", "ν", "μ", "BK"]]*/
         
         //kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
         kb = minimalGreekKB(isAppExtension: false)
-        kb?.view.translatesAutoresizingMaskIntoConstraints = false
-        kb?.appExt = false
-        kb?.topRowButtonDepressNotAppExt = true
-        var portraitHeight:CGFloat = 250.0
-        var landscapeHeight:CGFloat = 250.0
-        if UIDevice.current.userInterfaceIdiom == .pad
-        {
-            portraitHeight = 266.0
-            landscapeHeight = 266.0
-        }
-        else
-        {
-            //iPhone X, XS
-            if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
-            {
-                portraitHeight = 234.0
-                landscapeHeight = portraitHeight
-            }
-            else if UIScreen.main.nativeBounds.width < 641
-            {
-                //for iphone 5s and narrower
-                portraitHeight = 174.0
-                landscapeHeight = portraitHeight
-            }
-            else //larger iPhones
-            {
-                portraitHeight = 182.0
-                landscapeHeight = portraitHeight
-            }
-        }
-        
-        kb?.portraitHeightOverride = portraitHeight
-        kb?.landscapeHeightOverride = landscapeHeight
-        kb?.needsInputSwitch = false
-        //kb?.forceLowercase = true
+
         
         searchTextField?.inputView = kb?.inputView
         //kb?.setButtons(keys: greekKeys) //has to be after set as inputView
