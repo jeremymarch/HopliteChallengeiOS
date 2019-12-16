@@ -146,7 +146,10 @@ class VerbDetailViewController: UITableViewController {
         sections.append("  Principal Parts")
         sectionCounts.append(1)
         
-        let row = FormRow(label: "", form: verb.principalParts(seperator: " or"), decomposedForm: verb.principalParts(seperator: " or"))
+        let dash = "\u{002D}"
+        let dashPlusWordJoiner = dash + "\u{2060}"
+        
+        let row = FormRow(label: "", form: verb.principalParts(seperator: " or").replacingOccurrences(of: dash, with: dashPlusWordJoiner), decomposedForm: verb.principalParts(seperator: " or").replacingOccurrences(of: dash, with: dashPlusWordJoiner))
         
         forms.append(row)
 
