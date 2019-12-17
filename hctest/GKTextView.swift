@@ -44,7 +44,7 @@ class GKTextView:UITextView, UITextViewDelegate
     
     var forceLowercase = true
     var transliterate = true
-    var otherwiseBlockKeys = true
+    var otherwiseBlockKeys = false //fix me: true blocks virtual keyboard
     var keyInputForDiacritics = false
     var commandInputForDiacritics = false
     let gkkeyCommands = [UIKeyCommand(input: "1", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Rough Breathing"),
@@ -195,6 +195,7 @@ class GKTextView:UITextView, UITextViewDelegate
             return
         }
         
+        //fix me: this doesn't need to include all chars before cursor, only a few
         if let a = charactersBeforeCursor(), a.count > 0
         {
             var replaceLen = 0
@@ -246,7 +247,7 @@ class GKTextView:UITextView, UITextViewDelegate
         }
         
         replaceLen = lenToSend
-        print(replaceLen)
+        //print(replaceLen)
         // 3. fill the buffer
         let suf = context.unicodeScalars.suffix(lenToSend)
         var j = 0

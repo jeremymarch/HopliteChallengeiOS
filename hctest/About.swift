@@ -10,7 +10,7 @@ import UIKit
 
 class AboutPageViewController: UIPageViewController {
     
-    let pageNames = [ "tutorialTitlePage", "tutorialAcknowledgements", "tutorialGamePlay", "tutorialPractice", "TutorialKeyboard", "tutorialPinch" ]
+    let pageNames = [ "tutorialTitlePage", "tutorialAcknowledgements", "tutorialGamePlay", "tutorialPractice", "TutorialKeyboard", "tutorialPinch", "tutorialThirdPartySoftware" ]
     var index = 0
     //var orderedViewControllers2: [UIViewController] = []
     //https://stackoverflow.com/questions/28014852/transition-pagecurl-to-scroll-with-uipageviewcontroller
@@ -48,7 +48,8 @@ class AboutPageViewController: UIPageViewController {
                 self.newColoredViewController(html: pageNames[2]),
                 self.newColoredViewController(html: pageNames[3]),
                 self.newColoredViewController(html: pageNames[4]),
-                self.newColoredViewController(html: pageNames[5])]
+                self.newColoredViewController(html: pageNames[5]),
+                self.newColoredViewController(html: pageNames[6])]
     }()
 
     func newColoredViewController(html: String) -> UIViewController {
