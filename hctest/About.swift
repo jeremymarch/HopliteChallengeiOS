@@ -20,19 +20,11 @@ class AboutPageViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*
-         //dot appearance
-        var appearance = UIPageControl.appearance(whenContainedInInstancesOf: [UIPageViewController.self])
-        appearance.pageIndicatorTintColor = UIColor.red
-        appearance.currentPageIndicatorTintColor = UIColor.red
-        */
+        
+        //this fixes ugly transition when this view is clear until it is fully loaded
+        view.backgroundColor = UIColor.black
+        
         dataSource = self
-        /*
-        let proxy: UIPageControl = UIPageControl.appearanceWhenContainedInInstancesOfClasses(self.pageViewController.self)
-        proxy.pageIndicatorTintColor = UIColor.lightGray
-        proxy.currentPageIndicatorTintColor = UIColor.black
-        proxy.backgroundColor = UIColor.white
-        */
         
         if let firstViewController = orderedViewControllers.first {
             setViewControllers([firstViewController],
