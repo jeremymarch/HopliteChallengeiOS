@@ -10,7 +10,7 @@ import UIKit
 
 class AboutPageViewController: UIPageViewController {
     
-    let pageNames = [ "tutorialTitlePage", "tutorialAcknowledgements", "tutorialGamePlay", "tutorialPractice", "TutorialKeyboard", "tutorialPinch", "tutorialThirdPartySoftware" ]
+    let pageNames = [ "tutorialTitlePage", "tutorialAcknowledgements", "tutorialGamePlay", "tutorialPractice", "tutorialKeyboard", "tutorialPinch", "tutorialThirdPartySoftware" ]
     var index = 0
     //var orderedViewControllers2: [UIViewController] = []
     //https://stackoverflow.com/questions/28014852/transition-pagecurl-to-scroll-with-uipageviewcontroller

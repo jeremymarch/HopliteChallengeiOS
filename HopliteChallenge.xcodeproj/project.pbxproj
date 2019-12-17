@@ -15,9 +15,12 @@
 		3F15E17B1E8462C3009760A0 /* Verb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B4A1E7A290300144F7D /* Verb.swift */; };
 		3F15E17C1E8462F2009760A0 /* VerbForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */; };
 		3F15E1861E85A893009760A0 /* hamburger.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F15E1851E85A893009760A0 /* hamburger.png */; };
+		3F167BA023A77BE800962117 /* VocabDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */; };
+		3F167BA123A77BF000962117 /* VocabListDataSourceCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F19690522ACE85D0075D556 /* VocabListDataSourceCoreData.swift */; };
+		3F167BA223A77BF800962117 /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4205351FDDA57200BCA548 /* CardController.swift */; };
+		3F167BA323A77C3C00962117 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */; };
 		3F195A271E7610050025EF00 /* TypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195A261E7610050025EF00 /* TypeLabel.swift */; };
 		3F19690422ACAD020075D556 /* hqvocab.json in Resources */ = {isa = PBXBuildFile; fileRef = 3F19690322ACAD010075D556 /* hqvocab.json */; };
-		3F19690622ACE85D0075D556 /* VocabListDataSourceCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F19690522ACE85D0075D556 /* VocabListDataSourceCoreData.swift */; };
 		3F19690822AD50660075D556 /* VocabListDataSourceSqlite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F19690722AD50660075D556 /* VocabListDataSourceSqlite.swift */; };
 		3F19690A22ADB46C0075D556 /* hcdatadb1-5.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3F19690922ADB46A0075D556 /* hcdatadb1-5.sqlite */; };
 		3F1A64721FDA22BE00D38351 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3F1A64711FDA22BE00D38351 /* Podfile */; };
@@ -26,12 +29,9 @@
 		3F243164235D2A86001BFE8A /* tutorialGamePlay.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F24315E235D2A85001BFE8A /* tutorialGamePlay.html */; };
 		3F243165235D2A86001BFE8A /* tutorialPractice.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F24315F235D2A85001BFE8A /* tutorialPractice.html */; };
 		3F243166235D2A86001BFE8A /* tutorialAcknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F243160235D2A86001BFE8A /* tutorialAcknowledgements.html */; };
-		3F243167235D2A86001BFE8A /* TutorialKeyboard.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F243161235D2A86001BFE8A /* TutorialKeyboard.html */; };
 		3F243168235D2A86001BFE8A /* tutorialPinch.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F243162235D2A86001BFE8A /* tutorialPinch.html */; };
 		3F286B9F20B3314300F580E6 /* Exercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F286B9E20B3314300F580E6 /* Exercises.swift */; };
 		3F286BA120B3F3E800F580E6 /* HQEx.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3F286BA020B3F3E700F580E6 /* HQEx.xml */; };
-		3F28F7F21FD0C1D4008A69D9 /* VocabDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */; };
-		3F2B051622A647EA00AD4BA8 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */; };
 		3F2BF3C51E6DC8E200884CDC /* greencheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C41E6DC8E200884CDC /* greencheck.png */; };
 		3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C61E6DC8EC00884CDC /* redx.png */; };
 		3F304EC321A75C2D0046A6C4 /* circlegrey.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F304EC121A75C2D0046A6C4 /* circlegrey.png */; };
@@ -47,13 +47,15 @@
 		3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */; };
 		3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443D61E6C814200FFAD04 /* newathu5.ttf */; };
 		3F3B30EE20D7033700EEB1E7 /* HCGameList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */; };
-		3F4205361FDDA57200BCA548 /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4205351FDDA57200BCA548 /* CardController.swift */; };
 		3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4869CD1E7C9A020051B46A /* HCSettings.swift */; };
 		3F5CE41C239E93B000379F97 /* GKTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5CE41B239E93B000379F97 /* GKTextView.swift */; };
 		3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */; };
 		3F63C60C238C36C500BC9EBB /* minimalGreekKB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C60B238C36C500BC9EBB /* minimalGreekKB.swift */; };
 		3F63C60E238C36E600BC9EBB /* minimalGreekKeyboardKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C60D238C36E600BC9EBB /* minimalGreekKeyboardKeys.swift */; };
 		3F65593E22E3FF5E0032F3F8 /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F65593D22E3FF5E0032F3F8 /* About.swift */; };
+		3F6B7DDF23A7EF4600CF4637 /* tutorialThirdPartySoftware.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F6B7DDE23A7EF4600CF4637 /* tutorialThirdPartySoftware.html */; };
+		3F6B7DE123A85DFE00CF4637 /* tutorialStyles.css in Resources */ = {isa = PBXBuildFile; fileRef = 3F6B7DE023A85DFE00CF4637 /* tutorialStyles.css */; };
+		3F6B7DE323A89ABE00CF4637 /* tutorialKeyboard.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F6B7DE223A89ABE00CF4637 /* tutorialKeyboard.html */; };
 		3F6D20541FB7B8DA0000615B /* AccentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */; };
 		3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20551FB8E4EA0000615B /* AccentTextField.swift */; };
 		3F74B2D91FDA55580044B0FC /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74B2D81FDA55580044B0FC /* CardView.swift */; };
@@ -145,7 +147,6 @@
 		3F24315E235D2A85001BFE8A /* tutorialGamePlay.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tutorialGamePlay.html; sourceTree = "<group>"; };
 		3F24315F235D2A85001BFE8A /* tutorialPractice.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tutorialPractice.html; sourceTree = "<group>"; };
 		3F243160235D2A86001BFE8A /* tutorialAcknowledgements.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tutorialAcknowledgements.html; sourceTree = "<group>"; };
-		3F243161235D2A86001BFE8A /* TutorialKeyboard.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TutorialKeyboard.html; sourceTree = "<group>"; };
 		3F243162235D2A86001BFE8A /* tutorialPinch.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tutorialPinch.html; sourceTree = "<group>"; };
 		3F286B9E20B3314300F580E6 /* Exercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercises.swift; sourceTree = "<group>"; };
 		3F286BA020B3F3E700F580E6 /* HQEx.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HQEx.xml; sourceTree = "<group>"; };
@@ -177,6 +178,9 @@
 		3F63C60B238C36C500BC9EBB /* minimalGreekKB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = minimalGreekKB.swift; sourceTree = "<group>"; };
 		3F63C60D238C36E600BC9EBB /* minimalGreekKeyboardKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = minimalGreekKeyboardKeys.swift; path = hoplitekb2/Keyboard/minimalGreekKeyboardKeys.swift; sourceTree = SOURCE_ROOT; };
 		3F65593D22E3FF5E0032F3F8 /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
+		3F6B7DDE23A7EF4600CF4637 /* tutorialThirdPartySoftware.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tutorialThirdPartySoftware.html; sourceTree = "<group>"; };
+		3F6B7DE023A85DFE00CF4637 /* tutorialStyles.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = tutorialStyles.css; sourceTree = "<group>"; };
+		3F6B7DE223A89ABE00CF4637 /* tutorialKeyboard.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tutorialKeyboard.html; sourceTree = "<group>"; };
 		3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentsViewController.swift; sourceTree = "<group>"; };
 		3F6D20551FB8E4EA0000615B /* AccentTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentTextField.swift; sourceTree = "<group>"; };
 		3F74B2D61FDA34EC0044B0FC /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
@@ -292,9 +296,11 @@
 		3F24315C235D2A13001BFE8A /* AboutHTML */ = {
 			isa = PBXGroup;
 			children = (
+				3F6B7DE223A89ABE00CF4637 /* tutorialKeyboard.html */,
+				3F6B7DE023A85DFE00CF4637 /* tutorialStyles.css */,
+				3F6B7DDE23A7EF4600CF4637 /* tutorialThirdPartySoftware.html */,
 				3F243160235D2A86001BFE8A /* tutorialAcknowledgements.html */,
 				3F24315E235D2A85001BFE8A /* tutorialGamePlay.html */,
-				3F243161235D2A86001BFE8A /* TutorialKeyboard.html */,
 				3F243162235D2A86001BFE8A /* tutorialPinch.html */,
 				3F24315F235D2A85001BFE8A /* tutorialPractice.html */,
 				3F24315D235D2A85001BFE8A /* tutorialTitlePage.html */,
@@ -618,6 +624,7 @@
 				3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */,
 				3F243168235D2A86001BFE8A /* tutorialPinch.html in Resources */,
 				3F19690422ACAD020075D556 /* hqvocab.json in Resources */,
+				3F6B7DE323A89ABE00CF4637 /* tutorialKeyboard.html in Resources */,
 				3F19690A22ADB46C0075D556 /* hcdatadb1-5.sqlite in Resources */,
 				3F304EC321A75C2D0046A6C4 /* circlegrey.png in Resources */,
 				3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */,
@@ -625,7 +632,6 @@
 				3F243163235D2A86001BFE8A /* tutorialTitlePage.html in Resources */,
 				3F286BA120B3F3E800F580E6 /* HQEx.xml in Resources */,
 				3F304EC421A75C2D0046A6C4 /* circleorange.png in Resources */,
-				3F243167235D2A86001BFE8A /* TutorialKeyboard.html in Resources */,
 				3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */,
 				3F243164235D2A86001BFE8A /* tutorialGamePlay.html in Resources */,
 				3F15E1861E85A893009760A0 /* hamburger.png in Resources */,
@@ -635,6 +641,8 @@
 				3F78140A23877E660094173E /* vu3r.ttf in Resources */,
 				3F1A64721FDA22BE00D38351 /* Podfile in Resources */,
 				3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */,
+				3F6B7DDF23A7EF4600CF4637 /* tutorialThirdPartySoftware.html in Resources */,
+				3F6B7DE123A85DFE00CF4637 /* tutorialStyles.css in Resources */,
 				3F76EF81226CEB85001623CB /* xicon.png in Resources */,
 				3F78140723877E660094173E /* DefaultSettings.xib in Resources */,
 				3FF462E7218D1AA3005B0629 /* circlegreen.png in Resources */,
@@ -701,17 +709,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FCB495820C47A5400FFD266 /* NetworkManager.swift in Sources */,
+				3F167BA023A77BE800962117 /* VocabDetailViewController.swift in Sources */,
 				3F938EE3222DC10B00594AC8 /* RetroHomeMenuViewController.swift in Sources */,
 				3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */,
-				3F19690622ACE85D0075D556 /* VocabListDataSourceCoreData.swift in Sources */,
 				3F7813F923877E660094173E /* kludge.swift in Sources */,
 				3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */,
+				3F167BA123A77BF000962117 /* VocabListDataSourceCoreData.swift in Sources */,
 				3F7813FD23877E660094173E /* KeyboardInputTraits.swift in Sources */,
 				3FCB495A20C47F9F00FFD266 /* DataManager.swift in Sources */,
 				3F0EC6371E7784AE0084347F /* TypeTextView.swift in Sources */,
 				3F0541641E7A688800DEB439 /* GameResults.swift in Sources */,
 				3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */,
-				3F2B051622A647EA00AD4BA8 /* CardViewController.swift in Sources */,
 				3F9713AC237471BA00DF32DE /* GlobalColors.swift in Sources */,
 				3F7A63D420B7DCB5003D483C /* HCStemLabel.swift in Sources */,
 				3F78140523877E660094173E /* ForwardingView.swift in Sources */,
@@ -731,6 +739,7 @@
 				3F5CE41C239E93B000379F97 /* GKTextView.swift in Sources */,
 				3F195A271E7610050025EF00 /* TypeLabel.swift in Sources */,
 				3F7A63D220B7BD26003D483C /* HCVerbFormPicker.swift in Sources */,
+				3F167BA323A77C3C00962117 /* CardViewController.swift in Sources */,
 				3F9F2223222C9F9F00BB54F1 /* ending.c in Sources */,
 				3F7813F723877E660094173E /* KeyboardLayout.swift in Sources */,
 				3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */,
@@ -741,7 +750,6 @@
 				3F9F2222222C9F9F00BB54F1 /* libmorph.c in Sources */,
 				3F7813FB23877E660094173E /* DefaultKeyboard.swift in Sources */,
 				3FA6EE3A22D18A2400C7B9CF /* CustomizeSelection.swift in Sources */,
-				3F4205361FDDA57200BCA548 /* CardController.swift in Sources */,
 				3F9F222E222C9FB300BB54F1 /* sqlite3.c in Sources */,
 				3F9F2220222C9F9F00BB54F1 /* specialverbs.c in Sources */,
 				3F9F222F222C9FB300BB54F1 /* swiftVSeqLayer.c in Sources */,
@@ -762,10 +770,10 @@
 				3F7813FA23877E660094173E /* KeyboardKeyBackground.swift in Sources */,
 				3F7813FC23877E660094173E /* KeyboardModel.swift in Sources */,
 				3F78140223877E660094173E /* HopliteKeyboard.swift in Sources */,
+				3F167BA223A77BF800962117 /* CardController.swift in Sources */,
 				3F9F221F222C9F9F00BB54F1 /* utilities.c in Sources */,
 				3FF462E3218CC76E005B0629 /* MoveListViewController.swift in Sources */,
 				3F7813F123877E660094173E /* ImageKey.swift in Sources */,
-				3F28F7F21FD0C1D4008A69D9 /* VocabDetailViewController.swift in Sources */,
 				3F78140E23877E870094173E /* HopliteChallengeKB.swift in Sources */,
 				3F78140B23877E660094173E /* HopliteKB.swift in Sources */,
 				3F78140123877E660094173E /* DefaultSettings.swift in Sources */,
@@ -966,7 +974,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = HopliteChallenge.entitlements;
-				CURRENT_PROJECT_VERSION = 61;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
@@ -974,11 +984,12 @@
 					hctest/libgreek,
 				);
 				INFOPLIST_FILE = hctest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.4.9;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -992,7 +1003,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = HopliteChallenge.entitlements;
-				CURRENT_PROJECT_VERSION = 61;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
@@ -1000,11 +1013,12 @@
 					hctest/libgreek,
 				);
 				INFOPLIST_FILE = hctest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.4.9;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
