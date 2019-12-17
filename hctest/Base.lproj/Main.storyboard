@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3b4-Ch-zZ1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3b4-Ch-zZ1">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -670,28 +670,42 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Hoplite Challenge" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Un6-jh-IbI">
-                                <rect key="frame" x="10" y="146" width="355" height="37.5"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="32"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ieC-gW-R2r">
-                                <rect key="frame" x="285" y="52" width="80" height="40"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XjC-af-G3D">
+                                <rect key="frame" x="6" y="52" width="363" height="240"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ieC-gW-R2r">
+                                        <rect key="frame" x="277" y="8" width="80" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="AiO-w7-Vfr"/>
+                                            <constraint firstAttribute="width" constant="80" id="O4l-vO-XLI"/>
+                                        </constraints>
+                                        <state key="normal" title="Settings"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hoplite Challenge" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Un6-jh-IbI">
+                                        <rect key="frame" x="54.5" y="101.5" width="254" height="37.5"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="32"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJ5-em-zGZ">
+                                        <rect key="frame" x="6" y="8" width="80" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="LcY-Sd-4iF"/>
+                                            <constraint firstAttribute="width" constant="80" id="UhY-dj-dlj"/>
+                                        </constraints>
+                                        <state key="normal" title="About"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="AiO-w7-Vfr"/>
-                                    <constraint firstAttribute="width" constant="80" id="O4l-vO-XLI"/>
+                                    <constraint firstItem="ieC-gW-R2r" firstAttribute="top" secondItem="XjC-af-G3D" secondAttribute="top" constant="8" id="Vwi-VR-s5d"/>
+                                    <constraint firstItem="VJ5-em-zGZ" firstAttribute="leading" secondItem="XjC-af-G3D" secondAttribute="leading" constant="6" id="Z7S-gg-OeP"/>
+                                    <constraint firstItem="VJ5-em-zGZ" firstAttribute="top" secondItem="XjC-af-G3D" secondAttribute="top" constant="8" id="djO-vW-cxQ"/>
+                                    <constraint firstItem="Un6-jh-IbI" firstAttribute="centerY" secondItem="XjC-af-G3D" secondAttribute="centerY" id="m9o-qd-zUf"/>
+                                    <constraint firstAttribute="trailing" secondItem="ieC-gW-R2r" secondAttribute="trailing" constant="6" id="mke-gs-siN"/>
+                                    <constraint firstItem="Un6-jh-IbI" firstAttribute="centerX" secondItem="XjC-af-G3D" secondAttribute="centerX" id="po9-h3-yBq"/>
                                 </constraints>
-                                <state key="normal" title="Settings"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJ5-em-zGZ">
-                                <rect key="frame" x="10" y="52" width="80" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="LcY-Sd-4iF"/>
-                                    <constraint firstAttribute="width" constant="80" id="UhY-dj-dlj"/>
-                                </constraints>
-                                <state key="normal" title="About"/>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -701,28 +715,25 @@
                             <constraint firstItem="zH4-EH-6bu" firstAttribute="trailing" secondItem="SlP-ex-5Qt" secondAttribute="trailingMargin" priority="999" constant="6" id="9IJ-MC-W0e"/>
                             <constraint firstItem="zH4-EH-6bu" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="9LQ-DT-oce"/>
                             <constraint firstItem="zH4-EH-6bu" firstAttribute="top" secondItem="q7K-DG-iwz" secondAttribute="bottom" priority="999" constant="6" id="ALc-qS-Yec"/>
+                            <constraint firstItem="XjC-af-G3D" firstAttribute="top" secondItem="eJ5-n4-vLo" secondAttribute="bottom" constant="8" id="BqG-hz-DiC"/>
                             <constraint firstItem="LTg-0M-RTx" firstAttribute="top" secondItem="zH4-EH-6bu" secondAttribute="bottom" priority="999" constant="6" id="BzW-XV-ktE"/>
-                            <constraint firstItem="VJ5-em-zGZ" firstAttribute="top" secondItem="eJ5-n4-vLo" secondAttribute="bottom" constant="8" id="D4d-nD-PBp"/>
                             <constraint firstItem="ya7-pd-o1W" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="FCX-6i-kwT"/>
-                            <constraint firstAttribute="trailing" secondItem="ieC-gW-R2r" secondAttribute="trailing" constant="10" id="Lru-dZ-udT"/>
+                            <constraint firstAttribute="trailing" secondItem="XjC-af-G3D" secondAttribute="trailing" constant="6" id="IW1-lF-QlK"/>
                             <constraint firstItem="LTg-0M-RTx" firstAttribute="trailing" secondItem="SlP-ex-5Qt" secondAttribute="trailingMargin" priority="999" constant="6" id="N4x-kb-U4V"/>
                             <constraint firstItem="Z7a-9F-Kby" firstAttribute="height" secondItem="q7K-DG-iwz" secondAttribute="height" id="NbI-k5-H7w"/>
-                            <constraint firstItem="Un6-jh-IbI" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="Nrj-t3-ROl"/>
                             <constraint firstItem="zH4-EH-6bu" firstAttribute="height" secondItem="q7K-DG-iwz" secondAttribute="height" id="VBO-EK-N9w"/>
                             <constraint firstItem="Z7a-9F-Kby" firstAttribute="trailing" secondItem="SlP-ex-5Qt" secondAttribute="trailingMargin" priority="999" constant="6" id="Vru-dq-SeT"/>
                             <constraint firstItem="Z7a-9F-Kby" firstAttribute="top" secondItem="LTg-0M-RTx" secondAttribute="bottom" priority="999" constant="6" id="aVQ-zw-fnO"/>
                             <constraint firstItem="q7K-DG-iwz" firstAttribute="trailing" secondItem="SlP-ex-5Qt" secondAttribute="trailingMargin" priority="999" constant="6" id="bha-tk-169"/>
                             <constraint firstItem="yej-NO-eEN" firstAttribute="top" secondItem="ya7-pd-o1W" secondAttribute="bottom" priority="999" constant="6" id="cNk-Yc-l4T"/>
                             <constraint firstItem="LTg-0M-RTx" firstAttribute="height" secondItem="q7K-DG-iwz" secondAttribute="height" id="djN-0n-KPy"/>
+                            <constraint firstItem="q7K-DG-iwz" firstAttribute="top" secondItem="XjC-af-G3D" secondAttribute="bottom" constant="8" id="gJO-0Y-zXb"/>
                             <constraint firstItem="LTg-0M-RTx" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="gol-06-cGK"/>
                             <constraint firstItem="zH4-EH-6bu" firstAttribute="top" secondItem="q7K-DG-iwz" secondAttribute="bottom" priority="999" constant="6" id="h30-ZL-e2v"/>
+                            <constraint firstItem="XjC-af-G3D" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leading" constant="6" id="haq-Vm-OWH"/>
                             <constraint firstItem="ya7-pd-o1W" firstAttribute="top" secondItem="Z7a-9F-Kby" secondAttribute="bottom" priority="999" constant="6" id="hyR-WJ-DCB"/>
                             <constraint firstItem="LTg-0M-RTx" firstAttribute="top" secondItem="zH4-EH-6bu" secondAttribute="bottom" priority="999" constant="6" id="iad-Pw-fvG"/>
-                            <constraint firstItem="ieC-gW-R2r" firstAttribute="top" secondItem="eJ5-n4-vLo" secondAttribute="bottom" constant="8" id="llp-O5-ImR"/>
-                            <constraint firstItem="Un6-jh-IbI" firstAttribute="top" secondItem="eJ5-n4-vLo" secondAttribute="bottom" priority="999" constant="106" id="muh-Ra-Fx3"/>
-                            <constraint firstItem="VJ5-em-zGZ" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leading" constant="10" id="pxA-Vn-bs7"/>
                             <constraint firstItem="q7K-DG-iwz" firstAttribute="leading" secondItem="SlP-ex-5Qt" secondAttribute="leadingMargin" priority="999" constant="-6" id="rCb-Cg-kD4"/>
-                            <constraint firstItem="Un6-jh-IbI" firstAttribute="trailing" secondItem="SlP-ex-5Qt" secondAttribute="trailingMargin" priority="999" constant="6" id="s6z-Cj-cvv"/>
                             <constraint firstItem="q7K-DG-iwz" firstAttribute="top" secondItem="SlP-ex-5Qt" secondAttribute="centerY" multiplier="0.9" id="yq8-Zi-09e"/>
                             <constraint firstItem="Z7a-9F-Kby" firstAttribute="top" secondItem="LTg-0M-RTx" secondAttribute="bottom" priority="999" constant="6" id="zZh-0h-M1n"/>
                         </constraints>
