@@ -7,7 +7,7 @@ BODY { font-family:helvetica; font-size:12pt;
 .greek { font-family:NewAthenaUnicode, WebNewAthenaUnicode; font-size:12pt; font-weight:bold; }
 .subtitle { font-weight:bold; }
 
-li { margin-top: 3px; margin-bottom: 4px; }
+li { margin-top: 3px; margin-bottom: 6px; }
 
 
 @media (prefers-color-scheme: dark) {
