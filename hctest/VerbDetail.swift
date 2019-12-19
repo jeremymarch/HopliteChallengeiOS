@@ -96,11 +96,13 @@ class VerbDetailViewController: UITableViewController {
         //tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44
-        
-        let practiceButton = UIBarButtonItem(title: "Practice", style: UIBarButtonItem.Style.plain, target: self, action: #selector
-            (practiceVerb))
-        self.navigationItem.rightBarButtonItem = practiceButton
-        
+        //print("verb id \(hqVerbID)")
+        if hqVerbID != 121 && hqVerbID != 126 //exclude dei and xrh
+        {
+            let practiceButton = UIBarButtonItem(title: "Practice", style: UIBarButtonItem.Style.plain, target: self, action: #selector
+                (practiceVerb))
+            self.navigationItem.rightBarButtonItem = practiceButton
+        }
         let pinchRecognizer = UIPinchGestureRecognizer(target:self, action:#selector(handlePinch))
         self.view.addGestureRecognizer(pinchRecognizer)
     }
