@@ -979,6 +979,11 @@
 				CURRENT_PROJECT_VERSION = 66;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					HCDEBUG,
+				);
 				HEADER_SEARCH_PATHS = (
 					hctest/libseq,
 					hctest/libgreek,
@@ -1008,6 +1013,11 @@
 				CURRENT_PROJECT_VERSION = 66;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					NDEBUG,
+				);
 				HEADER_SEARCH_PATHS = (
 					hctest/libseq,
 					hctest/libgreek,
