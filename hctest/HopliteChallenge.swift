@@ -481,7 +481,7 @@ class HopliteChallenge: BaseViewController, hckeys {
             
             let yes = UIAlertAction(title: "Yes", style: .default, handler: { alert in
                 self.timerLabel.stopTimer()
-                self.checkAnswer()
+                self.checkAnswer(timedOut: false)
                 self.onSlideMenuButtonPressed(sender)
             })
             
@@ -496,7 +496,7 @@ class HopliteChallenge: BaseViewController, hckeys {
             if timerLabel.isRunning == true
             {
                 timerLabel.stopTimer()
-                checkAnswer()
+                checkAnswer(timedOut: false)
             }
             self.onSlideMenuButtonPressed(sender)
         }
@@ -844,10 +844,10 @@ class HopliteChallenge: BaseViewController, hckeys {
     func enterKeyPressed()
     {
         timerLabel.stopTimer()
-        checkAnswer()
+        checkAnswer(timedOut: false)
     }
     
-    func checkAnswer()
+    func checkAnswer(timedOut:Bool)
     {
         textView.isEditable = false
         textView.isSelectable = false
@@ -858,9 +858,13 @@ class HopliteChallenge: BaseViewController, hckeys {
         
         positionCheckX()
         
-        if vs.checkVerb(expectedForm: vs.requestedForm.getFormForGame(decomposed:false), enteredForm: textView.text, mfPressed: mfPressed, time: String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB)) == true
+        let res = vs.checkVerb(expectedForm: vs.requestedForm.getFormForGame(decomposed:false), enteredForm: textView.text, mfPressed: mfPressed, time: String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB))
+        if res == true
         {
             print("correct!")
+            assert(vs.requestedForm.getFormForGame(decomposed: false) == textView.text, "Error comparing answer.")
+            //binary comparison?
+            assert(Data(vs.requestedForm.getFormForGame(decomposed: false).utf8) == Data(textView.text.utf8), "Error comparing answer binary.")
             
             checkXView.image = checkImg
             checkXView.isHidden = false
@@ -877,6 +881,10 @@ class HopliteChallenge: BaseViewController, hckeys {
             print("incorrect!")
             checkXView.image = xImg
             checkXView.isHidden = false
+            
+            assert(vs.requestedForm.getFormForGame(decomposed: false) != textView.text, "Error comparing answer.")
+            //binary comparison?
+            assert(Data(vs.requestedForm.getFormForGame(decomposed: false).utf8) != Data(textView.text.utf8), "Error comparing answer binary.")
             if vs.isHCGame
             {
                 //vs.repNum = vs.maxRepsPerVerb //so we start with new verb
@@ -889,6 +897,62 @@ class HopliteChallenge: BaseViewController, hckeys {
                 }
             }
         }
+        
+        //let debugString = "Expected: '\(vs.requestedForm.getFormForGame(decomposed:false))', Given: '\(textView.text ?? "")', MF: \(mfPressed)"
+        let url = "https://philolog.us/hc.php"
+        let parameters:Dictionary<String, String> =
+            ["type":"debugRequestPlusAnswer",
+             "answerText":String(textView.text),
+             "expectedForm":String(vs.requestedForm.getFormForGame(decomposed:false)),
+             "isCorrect":String(res),
+             "answerSeconds":String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB),
+             "timedOut":String(timedOut),
+             "mfPressed":String(mfPressed),
+             "lives":String(vs.lives),
+             "score":String(vs.score),
+             "verbID":String(vs.requestedForm.verbid),
+             "person":String(vs.requestedForm.person.rawValue),
+             "number":String(vs.requestedForm.number.rawValue),
+             "tense":String(vs.requestedForm.tense.rawValue),
+             "voice":String(vs.requestedForm.voice.rawValue),
+             "mood":String(vs.requestedForm.mood.rawValue) ]
+        
+        NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:processResponse)
+    }
+    
+    func processResponse(requestParams:Dictionary<String, String>, responseData:Data)->Bool
+    {
+        print("getupdates response 444: [\(String(decoding: responseData, as: UTF8.self))] end")
+        /*
+        let decoder = JSONDecoder()
+        do {
+            let rows = try decoder.decode(HCSyncResponse.self, from: responseData)
+            //print("games: \(rows.gameRows.count)")
+            if rows.status != 1
+            {
+                return false
+            }
+            saveSyncedGames(games: rows.gameRows)
+            saveSyncedPlayers(players: rows.playerRows)
+            saveSyncedMoves(moves: rows.moveRows)
+            
+            
+            print("returned lastUpdated \(rows.lastUpdated)")
+            setLastUpdated(lastUpdated: Int32(rows.lastUpdated))
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                print("Refreshed")
+                NSFetchedResultsController<NSFetchRequestResult>.deleteCache(withName: "GameListFRCCache")
+                self._fetchedResultsController = nil //needed for some reason
+                self.tableView.reloadData()
+            }
+            
+        } catch let error {
+            print("hc sync codeable error: \(error.localizedDescription)")
+            return false
+        }
+        */
+        return true
     }
     
     func setScore(score:Int32)
@@ -1027,7 +1091,7 @@ class HopliteChallenge: BaseViewController, hckeys {
             if vs.requestedForm.getFormForGame(decomposed:false).contains(",") == false
             {
                 timerLabel.stopTimer()
-                checkAnswer()
+                checkAnswer(timedOut: false)
             }
             else
             {
@@ -1108,13 +1172,16 @@ class HopliteChallenge: BaseViewController, hckeys {
     {
         label2.isHidden = false
         label2.type(newText: vs.requestedForm.getFormForGame(decomposed: false), duration: 0.3)
+        
+        //need to wait until it is finished typing
+        //assert(vs.requestedForm.getFormForGame(decomposed: false) == textView.text, "Error comparing answer.")
     }
     
     @objc func handleTimeOut()
     {
         print("time out")
         
-        checkAnswer()
+        checkAnswer(timedOut: true)
     }
     
     @objc func handlePinch(sender: UIPinchGestureRecognizer)
