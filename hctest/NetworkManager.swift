@@ -118,7 +118,7 @@ class NetworkManager {
                     
                     if queueOnFailure
                     {
-                        self.addToRequestQueue(req:poststr)
+                        //self.addToRequestQueue(req:poststr)
                     }
                     return
                 }
@@ -130,7 +130,7 @@ class NetworkManager {
                 //process returned data, clear queue if successful, else add to queue
                 if processResult(newDict, data) == true
                 {
-                    self.clearQueue()
+                    //self.clearQueue()
                 }
                 else
                 {
@@ -143,7 +143,7 @@ class NetworkManager {
                     
                     if queueOnFailure
                     {
-                        self.addToRequestQueue(req:poststr)
+                        //self.addToRequestQueue(req:poststr)
                     }
                     //print("nope")
                 }
@@ -154,10 +154,11 @@ class NetworkManager {
         else if queueOnFailure
         {
             //print("not reachable")
-            addToRequestQueue(req:poststr)
+            //addToRequestQueue(req:poststr)
         }
     }
  
+    /* needs core data
     func clearQueue() {
         let context = DataManager.shared.backgroundContext
         
@@ -235,7 +236,7 @@ class NetworkManager {
             //print("couldn't save poststr")
         }
     }
-    
+    */
     func isNetworkReachable() -> Bool
     {
         func testReachabilityFlags(with flags: SCNetworkReachabilityFlags) -> Bool {
