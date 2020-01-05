@@ -862,10 +862,13 @@ class HopliteChallenge: BaseViewController, hckeys {
         if res == true
         {
             print("correct!")
+            /*
+             these don't work because multiple forms could be in either order
+             
             assert(vs.requestedForm.getFormForGame(decomposed: false) == textView.text, "Error comparing answer.")
             //binary comparison?
             assert(Data(vs.requestedForm.getFormForGame(decomposed: false).utf8) == Data(textView.text.utf8), "Error comparing answer binary.")
-            
+            */
             checkXView.image = checkImg
             checkXView.isHidden = false
             if vs.isHCGame
@@ -881,10 +884,11 @@ class HopliteChallenge: BaseViewController, hckeys {
             print("incorrect!")
             checkXView.image = xImg
             checkXView.isHidden = false
-            
+            /*
             assert(vs.requestedForm.getFormForGame(decomposed: false) != textView.text, "Error comparing answer.")
             //binary comparison?
             assert(Data(vs.requestedForm.getFormForGame(decomposed: false).utf8) != Data(textView.text.utf8), "Error comparing answer binary.")
+            */
             if vs.isHCGame
             {
                 //vs.repNum = vs.maxRepsPerVerb //so we start with new verb
