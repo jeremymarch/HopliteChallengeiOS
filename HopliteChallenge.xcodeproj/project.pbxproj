@@ -48,6 +48,7 @@
 		3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443D61E6C814200FFAD04 /* newathu5.ttf */; };
 		3F3B30EE20D7033700EEB1E7 /* HCGameList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */; };
 		3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4869CD1E7C9A020051B46A /* HCSettings.swift */; };
+		3F518D5A23CC5F1E007D0150 /* hcgreekSQLiteCollation.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F518D5923CC5F1E007D0150 /* hcgreekSQLiteCollation.c */; };
 		3F5CE41C239E93B000379F97 /* GKTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5CE41B239E93B000379F97 /* GKTextView.swift */; };
 		3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */; };
 		3F63C60C238C36C500BC9EBB /* minimalGreekKB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C60B238C36C500BC9EBB /* minimalGreekKB.swift */; };
@@ -170,9 +171,8 @@
 		3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCGameList.swift; sourceTree = "<group>"; };
 		3F4205351FDDA57200BCA548 /* CardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
 		3F4869CD1E7C9A020051B46A /* HCSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCSettings.swift; sourceTree = "<group>"; };
+		3F518D5923CC5F1E007D0150 /* hcgreekSQLiteCollation.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hcgreekSQLiteCollation.c; sourceTree = "<group>"; };
 		3F5CE41B239E93B000379F97 /* GKTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKTextView.swift; sourceTree = "<group>"; };
-		3F614D542397472A00D3358C /* sqliteGK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sqliteGK.h; sourceTree = "<group>"; };
-		3F614D552397472A00D3358C /* sqliteGK.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sqliteGK.c; sourceTree = "<group>"; };
 		3F614D572397482000D3358C /* sqlite3ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sqlite3ext.h; sourceTree = "<group>"; };
 		3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabTableViewController.swift; sourceTree = "<group>"; };
 		3F63C60B238C36C500BC9EBB /* minimalGreekKB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = minimalGreekKB.swift; sourceTree = "<group>"; };
@@ -486,11 +486,10 @@
 		3F9F2224222C9FB300BB54F1 /* libseq */ = {
 			isa = PBXGroup;
 			children = (
+				3F518D5923CC5F1E007D0150 /* hcgreekSQLiteCollation.c */,
 				3F9F2229222C9FB300BB54F1 /* sqlite3.h */,
 				3F9F2226222C9FB300BB54F1 /* sqlite3.c */,
 				3F614D572397482000D3358C /* sqlite3ext.h */,
-				3F614D542397472A00D3358C /* sqliteGK.h */,
-				3F614D552397472A00D3358C /* sqliteGK.c */,
 				3F9F222B222C9FB300BB54F1 /* swiftVSeqLayer.h */,
 				3F9F2228222C9FB300BB54F1 /* swiftVSeqLayer.c */,
 				3F9F2227222C9FB300BB54F1 /* VerbSequence.h */,
@@ -731,6 +730,7 @@
 				3F19690822AD50660075D556 /* VocabListDataSourceSqlite.swift in Sources */,
 				3F9F220B222C9F9F00BB54F1 /* accent.c in Sources */,
 				3F78140623877E660094173E /* CatboardBanner.swift in Sources */,
+				3F518D5A23CC5F1E007D0150 /* hcgreekSQLiteCollation.c in Sources */,
 				3F3443A31E6BB17700FFAD04 /* AppDelegate.swift in Sources */,
 				3F24315B235D2342001BFE8A /* AboutChild.swift in Sources */,
 				3F7813F523877E660094173E /* DirectionEnum.swift in Sources */,
