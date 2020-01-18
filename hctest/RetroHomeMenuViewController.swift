@@ -259,11 +259,11 @@ class RetroHomeMenuViewController: UIViewController {
             
             //we can set these values before showing
             dvc.sortAlpha = sortAlpha
-            dvc.predicate = "pos=='Verb'"
-            dvc.selectedButtonIndex = 1
+            dvc.predicate = ""//pos=='Verb'"
+            dvc.selectedButtonIndex = 0//1
             dvc.navTitle = "H&Q Verbs"
-            dvc.filterViewHeightValue = 0.0//40.0
-            dvc.segueDest = "synopsis" //leave blank for vocab. detail
+            dvc.filterViewHeightValue = 40.0
+            dvc.segueDest = ""//"ssynopsis" //leave blank for vocab. detail
             self.navigationController?.pushViewController(dvc, animated: true)
         }
     }

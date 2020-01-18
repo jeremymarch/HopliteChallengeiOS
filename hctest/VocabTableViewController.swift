@@ -53,6 +53,7 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         navigationController?.navigationBar.tintColor  = GlobalTheme.primaryText
         
         searchView.layer.borderColor = GlobalTheme.primaryText.cgColor
+        setFilterButtons()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -155,7 +156,7 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        resetColors()
+        
         
         //dataSource = VocabListDataSourceCoreData(sortAlpha:sortAlpha, predicate:predicate)
         dataSource = VocabListDataSourceSqlite(sortAlpha:sortAlpha, predicate:predicate)
@@ -178,8 +179,8 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         filterButtons.append(nounButton)
         filterButtons.append(adjectiveButton)
         filterButtons.append(otherButton)
+        resetColors()
         
-        setFilterButtons()
         
         searchToggleButton.clipsToBounds = true
         searchToggleButton.titleLabel?.textAlignment = .right
@@ -283,10 +284,10 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
             }
             else
             {
-                filterButtons[i].backgroundColor = hcLightBlue
+                filterButtons[i].backgroundColor = GlobalTheme.tertiaryBG//hcLightBlue
                 filterButtons[i].layer.borderColor = GlobalTheme.secondaryBG.cgColor
                 filterButtons[i].layer.borderWidth = 0.5
-                filterButtons[i].setTitleColor(GlobalTheme.secondaryBG, for: [])
+                filterButtons[i].setTitleColor(UIColor.white, for: [])
             }
         }
     }

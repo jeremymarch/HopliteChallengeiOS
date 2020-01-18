@@ -83,11 +83,11 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
         var orderBy = ""
         if sortAlpha
         {
-            orderBy = " ORDER BY seq ASC;"
+            orderBy = " ORDER BY lemma COLLATE hcgreek ASC;"
         }
         else
         {
-            orderBy = " ORDER BY unit ASC,seq ASC;"
+            orderBy = " ORDER BY unit ASC,lemma COLLATE hcgreek ASC;"
         }
         var localPredicate = ""
         if predicate != ""
@@ -110,6 +110,10 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
                 //print("query: \(unit) \(String(cString: lemma!))")
             }
         }
+        else
+        {
+            print("sqlite error")
+        }
         setWordsPerUnit()
         sqlite3_finalize(queryStatement)
         //sqlite3_close(db)
@@ -131,9 +135,9 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
         var queryStatement: OpaquePointer? = nil
         if sortAlpha
         {
-            if predicate != ""
-            {
-                let query = "SELECT COUNT(*) FROM hqvocab WHERE sortkey < '\(searchText)' AND \(predicate) ORDER BY sortkey ASC;"
+            //if predicate != ""
+            //{
+                let query = "SELECT COUNT(*) FROM hqvocab WHERE lemma < '\(searchText)' COLLATE hcgreek\(predicate != "" ? " AND " : "")\(predicate) ORDER BY lemma COLLATE hcgreek ASC;"
                 print(query)
                 if sqlite3_prepare_v2(db, query, -1, &queryStatement, nil) == SQLITE_OK
                 {
@@ -147,7 +151,7 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
                     print("query not ok")
                 }
                 sqlite3_finalize(queryStatement)
-            }
+            /*}
             else
             {
                 var foundOne = false
@@ -172,7 +176,7 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
                     seq = words.count
                     NSLog("Error: Word not found by id.");
                 }
-            }
+            }*/
         }
         else //scroll to unit
         {

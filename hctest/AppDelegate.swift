@@ -157,11 +157,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
         case .copyFromBundle:
             //abc
-            print("nope")
+            let v = VerbSequence()
+            let _ = v.vsInit(vDBPath: dbpath)
+            print("Load DB type: copyFromBundle")
         case .generateWithvsInit:
             //DispatchQueue.global(qos: .background).async {
             let v = VerbSequence()
-            v.vsInit(vDBPath: dbpath)
+            let _ = v.vsInit(vDBPath: dbpath)
             //}
         case .downloadFromCloud:
             datasync() //saves in core data

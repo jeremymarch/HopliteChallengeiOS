@@ -20,6 +20,8 @@ class VocabDetailViewController: UIViewController {
     @IBOutlet var contentView:UIView?
     var kb:KeyboardViewController? = nil
     
+    var db: OpaquePointer? = nil
+    
     var hqid:Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +34,68 @@ class VocabDetailViewController: UIViewController {
         
         noteLabel?.inputView = kb?.inputView
         noteLabel?.isEditable = true
+        
+        let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
+        //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
+        db = openDatabase(dbpath: dbpath)
+        print("get db")
+        if db != nil
+        {
+            print("db ok")
+            if hqid > 0
+            {
+                loadDef()
+            }
+            //query(sortAlpha:self.sortAlpha, predicate:self.predicate)
+        }
+        resetColors()
+    }
+    
+    func resetColors()
+    {
+        GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
+        //UINavigationBar.appearance().tintColor = GlobalTheme.primaryText
+        navigationController?.navigationBar.tintColor  = GlobalTheme.primaryText
+        
+        if isDarkMode()
+        {
+            lemmaLabel?.layer.borderColor = GlobalTheme.primaryText.cgColor
+            lemmaLabel?.layer.borderWidth = 1.0
+            unitLabel?.layer.borderColor = GlobalTheme.primaryText.cgColor
+            unitLabel?.layer.borderWidth = 1.0
+            posLabel?.layer.borderColor = GlobalTheme.primaryText.cgColor
+            posLabel?.layer.borderWidth = 1.0
+            defLabel?.layer.borderColor = GlobalTheme.primaryText.cgColor
+            defLabel?.layer.borderWidth = 1.0
+            ppLabel?.layer.borderColor = GlobalTheme.primaryText.cgColor
+            ppLabel?.layer.borderWidth = 1.0
+            noteLabel?.layer.borderColor = GlobalTheme.primaryText.cgColor
+            noteLabel?.layer.borderWidth = 1.0
+
+            view.backgroundColor = GlobalTheme.primaryBG
+        }
+        else
+        {
+            lemmaLabel?.layer.borderWidth = 0.0
+            unitLabel?.layer.borderWidth = 0.0
+            posLabel?.layer.borderWidth = 0.0
+            defLabel?.layer.borderWidth = 0.0
+            ppLabel?.layer.borderWidth = 0.0
+            noteLabel?.layer.borderWidth = 0.0
+            view.backgroundColor = UIColor.systemGray
+        }
+         
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
+            {
+                resetColors()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,11 +114,20 @@ class VocabDetailViewController: UIViewController {
          let buttonItem = UIBarButtonItem.init(customView: infoButton)
          navigationItem.rightBarButtonItem = buttonItem
          */
-        if hqid > 0
-        {
-            loadDef()
-        }
+    }
     
+    //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
+    func openDatabase(dbpath:String) -> OpaquePointer? {
+
+        if sqlite3_open(dbpath, &db) == SQLITE_OK {
+            print("Successfully opened connection to database at \(dbpath)")
+        } else {
+            print("Unable to open database. Verify that you created the directory described " +
+                "in the Getting Started section.")
+        }
+        //to reset
+        //sqlite3_exec(db, "UPDATE verbseq SET elapsedtime='1.23';", nil, nil, nil)
+        return db
     }
     
     func principalParts(present:String, future:String,aorist:String,perfect:String,perfectmid:String,aoristpass:String,seperator:String) -> String
@@ -78,10 +151,12 @@ class VocabDetailViewController: UIViewController {
     
     func loadDef()
     {
+        var queryStatement: OpaquePointer? = nil
         if hqid < 1
         {
             return
         }
+        /*
         let delegate = UIApplication.shared.delegate as! AppDelegate
         var vc:NSManagedObjectContext
         if #available(iOS 10.0, *) {
@@ -108,16 +183,41 @@ class VocabDetailViewController: UIViewController {
             NSLog("Error: %@", error.localizedDescription)
             return
         }
+         
+         if results != nil && results!.count > 0
+         {
+             let match = results?[0]
+             let lemma:String = match!.lemma!
+             let def:String = match!.def!
+             let unit:Int16 = match!.unit
+             let pos:String = match!.pos!
+             let note:String = match!.note!
+             let pp:String = principalParts(present:match!.present!, future:match!.future!, aorist:match!.aorist!,perfect:match!.perfect!,perfectmid:match!.perfectmid!, aoristpass:match!.aoristpass!,seperator: " or")
+        */
         
-        if results != nil && results!.count > 0
+        let query = "SELECT hqid,unit,lemma,def,pos,note,present,future,aorist,perfect,perfectmid,aoristpass FROM hqvocab WHERE hqid = \(hqid) LIMIT 1;"
+        //print(query)
+        if sqlite3_prepare_v2(db, query, -1, &queryStatement, nil) == SQLITE_OK
         {
-            let match = results?[0]
-            let lemma:String = match!.lemma!
-            let def:String = match!.def!
-            let unit:Int16 = match!.unit
-            let pos:String = match!.pos!
-            let note:String = match!.note!
-            let pp:String = principalParts(present:match!.present!, future:match!.future!, aorist:match!.aorist!,perfect:match!.perfect!,perfectmid:match!.perfectmid!, aoristpass:match!.aoristpass!,seperator: " or")
+            //print("query ok")
+            if sqlite3_step(queryStatement) == SQLITE_ROW
+            {
+                //let hqid = sqlite3_column_int(queryStatement, 0)
+                let unit = sqlite3_column_int(queryStatement, 1)
+                let lemma = String(cString: sqlite3_column_text(queryStatement, 2)!)
+                let def = String(cString: sqlite3_column_text(queryStatement, 3)!)
+                let pos = String(cString: sqlite3_column_text(queryStatement, 4)!)
+                let note = String(cString: sqlite3_column_text(queryStatement, 5)!)
+                let present = String(cString: sqlite3_column_text(queryStatement, 6)!)
+                let future = String(cString: sqlite3_column_text(queryStatement, 7)!)
+                let aorist = String(cString: sqlite3_column_text(queryStatement, 8)!)
+                let perfect = String(cString: sqlite3_column_text(queryStatement, 9)!)
+                let perfectmid = String(cString: sqlite3_column_text(queryStatement, 10)!)
+                let aoristpass = String(cString: sqlite3_column_text(queryStatement, 11)!)
+                
+                let pp:String = principalParts(present:present, future:future, aorist:aorist,perfect:perfect,perfectmid:perfectmid, aoristpass:aoristpass,seperator: " or")
+
+                //print("query: \(unit) \(String(cString: lemma!))")
 
             if let w = defLabel
             {
@@ -153,6 +253,7 @@ class VocabDetailViewController: UIViewController {
                 {
                     w.text = pp
                 }
+            }
             }
         }
         else

@@ -976,13 +976,14 @@
 				CODE_SIGN_ENTITLEMENTS = HopliteChallenge.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
 					HCDEBUG,
+					SQLITE_CORE,
 				);
 				HEADER_SEARCH_PATHS = (
 					hctest/libseq,
@@ -991,7 +992,7 @@
 				INFOPLIST_FILE = hctest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2b;
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1010,13 +1011,14 @@
 				CODE_SIGN_ENTITLEMENTS = HopliteChallenge.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
 					NDEBUG,
+					SQLITE_CORE,
 				);
 				HEADER_SEARCH_PATHS = (
 					hctest/libseq,
@@ -1025,7 +1027,7 @@
 				INFOPLIST_FILE = hctest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2b;
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
