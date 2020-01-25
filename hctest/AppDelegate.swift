@@ -133,7 +133,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         return
                     }
                 }
-                sqlite3_exec(db, "COMMIT;", nil, nil, nil);
+                sqlite3_exec(db, "COMMIT;VACUUM;", nil, nil, nil);
                 sqlite3_finalize(queryStatement)
                 sqlite3_close(db)
             }
@@ -171,10 +171,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
         case .copyFromBundle:
             //abc
-            let v = VerbSequence()
-            let _ = v.vsInit(vDBPath: dbpath)
+            //let v = VerbSequence()
+            //let _ = v.vsInit(vDBPath: dbpath)
             print("Load DB type: copyFromBundle")
-            datasync()
+            //datasync()
         case .generateWithvsInit:
             //DispatchQueue.global(qos: .background).async {
             let v = VerbSequence()

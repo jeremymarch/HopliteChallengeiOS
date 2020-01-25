@@ -72,6 +72,9 @@ class RetroHomeMenuViewController: UIViewController {
         }
         print("upgrade result: \(upgradeRes)")
         
+        let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
+        let v = VerbSequence()
+        let _ = v.vsInit(vDBPath: dbpath)
         /*
         playButton?.isHidden = true
         practiceButton?.isHidden = true
