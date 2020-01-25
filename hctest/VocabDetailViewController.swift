@@ -17,6 +17,9 @@ class VocabDetailViewController: UIViewController {
     @IBOutlet var ppLabel:UITextView?
     @IBOutlet var noteLabel:UITextView?
     @IBOutlet var scrollView:UIScrollView?
+    @IBOutlet var arrowedLabel:UITextField?
+    @IBOutlet var pageLineLabel:UITextField?
+    @IBOutlet var verbClassView:UITextField?
     @IBOutlet var contentView:UIView?
     var kb:KeyboardViewController? = nil
     
@@ -26,7 +29,7 @@ class VocabDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //https://www.natashatherobot.com/ios-autolayout-scrollview/
-        scrollView!.contentSize = contentView!.frame.size;
+        scrollView!.contentSize = contentView!.frame.size
         // Do any additional setup after loading the view.
         
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
@@ -195,7 +198,7 @@ class VocabDetailViewController: UIViewController {
              let pp:String = principalParts(present:match!.present!, future:match!.future!, aorist:match!.aorist!,perfect:match!.perfect!,perfectmid:match!.perfectmid!, aoristpass:match!.aoristpass!,seperator: " or")
         */
         
-        let query = "SELECT hqid,unit,lemma,def,pos,note,present,future,aorist,perfect,perfectmid,aoristpass FROM hqvocab WHERE hqid = \(hqid) LIMIT 1;"
+        let query = "SELECT hqid,unit,lemma,def,pos,note,present,future,aorist,perfect,perfectmid,aoristpass,arrowedDay,pageLine,verbClass FROM hqvocab WHERE hqid = \(hqid) LIMIT 1;"
         //print(query)
         if sqlite3_prepare_v2(db, query, -1, &queryStatement, nil) == SQLITE_OK
         {
@@ -214,46 +217,62 @@ class VocabDetailViewController: UIViewController {
                 let perfect = String(cString: sqlite3_column_text(queryStatement, 9)!)
                 let perfectmid = String(cString: sqlite3_column_text(queryStatement, 10)!)
                 let aoristpass = String(cString: sqlite3_column_text(queryStatement, 11)!)
-                
+                let arrowedDay = sqlite3_column_int(queryStatement, 12)
+                let pageLine = String(cString: sqlite3_column_text(queryStatement, 13))
+                let verbClass = sqlite3_column_int(queryStatement, 14)
                 let pp:String = principalParts(present:present, future:future, aorist:aorist,perfect:perfect,perfectmid:perfectmid, aoristpass:aoristpass,seperator: " or")
 
                 //print("query: \(unit) \(String(cString: lemma!))")
 
-            if let w = defLabel
-            {
-                w.text = def
-                /*
-                let maxHeight = CGFloat.infinity
-                let rect = w.text.boundingRect(with: CGSize(width:w.frame.size.width, height:maxHeight), options: .usesLineFragmentOrigin, context: nil)
-                var frame = w.frame
-                frame.size.height = rect.size.height
-                w.frame = frame
- */
-                //w.sizeToFit()
-            }
-            if let w = lemmaLabel
-            {
-                w.text = lemma
-            }
-            if let w = posLabel
-            {
-                w.text = pos
-            }
-            if let w = unitLabel
-            {
-                w.text = "\(unit)"
-            }
-            if let w = noteLabel
-            {
-                w.text = note
-            }
-            if let w = ppLabel
-            {
-                if pos == "Verb"
+                if let w = defLabel
                 {
-                    w.text = pp
+                    w.text = def
+                    /*
+                    let maxHeight = CGFloat.infinity
+                    let rect = w.text.boundingRect(with: CGSize(width:w.frame.size.width, height:maxHeight), options: .usesLineFragmentOrigin, context: nil)
+                    var frame = w.frame
+                    frame.size.height = rect.size.height
+                    w.frame = frame
+     */
+                    //w.sizeToFit()
                 }
-            }
+                if let w = lemmaLabel
+                {
+                    w.text = lemma
+                }
+                if let w = posLabel
+                {
+                    w.text = pos
+                }
+                if let w = unitLabel
+                {
+                    w.text = "\(unit)"
+                }
+                if let w = noteLabel
+                {
+                    w.text = note
+                }
+                
+                if let w = verbClassView
+                {
+                    w.text = String(verbClass)
+                }
+                if let w = pageLineLabel
+                {
+                    w.text = pageLine
+                }
+                if let w = arrowedLabel
+                {
+                    w.text = String(arrowedDay)
+                }
+                
+                if let w = ppLabel
+                {
+                    if pos == "Verb"
+                    {
+                        w.text = pp
+                    }
+                }
             }
         }
         else
@@ -264,6 +283,8 @@ class VocabDetailViewController: UIViewController {
             w.text = "Could not find Greek word \(self.hqid)."
             }
         }
+        sqlite3_finalize(queryStatement);
+        sqlite3_close(db);
     }
     /*
     // MARK: - Navigation

@@ -33,7 +33,7 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
     var unitSections:[Int] = []
     var predicate = ""
     var db: OpaquePointer? = nil
-    var wordsPerSection:[Int] = [Int](repeating: 0, count: 20)
+    var wordsPerSection:[Int] = [Int](repeating: 0, count: 22)
     var words:[Word] = []
     
     let font = UIFont(name: "HelveticaNeue", size: 20.0)
@@ -76,7 +76,7 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
     func query(sortAlpha:Bool, predicate:String)
     {
         //clear
-        wordsPerSection = [Int](repeating: 0, count: 20)
+        wordsPerSection = [Int](repeating: 0, count: 22)
         words.removeAll()
         var queryStatement: OpaquePointer? = nil
         
@@ -89,10 +89,11 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
         {
             orderBy = " ORDER BY unit ASC,lemma COLLATE hcgreek ASC;"
         }
-        var localPredicate = ""
+        var localPredicate = " WHERE pos != 'gloss' "
+        
         if predicate != ""
         {
-            localPredicate = " WHERE " + predicate
+            localPredicate += " AND " + predicate
         }
         
         let query = "SELECT hqid,unit,lemma FROM hqvocab" + localPredicate + orderBy
@@ -106,6 +107,8 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
                 let unit = sqlite3_column_int(queryStatement, 1)
                 let lemma = sqlite3_column_text(queryStatement, 2)
                 words.append( Word(hqid: hqid, unit: unit, lemma: String(cString: lemma!)) )
+                assert(unit < 23)
+                assert(unit > 0)
                 wordsPerSection[ Int(unit) - 1 ] += 1
                 //print("query: \(unit) \(String(cString: lemma!))")
             }
@@ -137,7 +140,7 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
         {
             //if predicate != ""
             //{
-                let query = "SELECT COUNT(*) FROM hqvocab WHERE lemma < '\(searchText)' COLLATE hcgreek\(predicate != "" ? " AND " : "")\(predicate) ORDER BY lemma COLLATE hcgreek ASC;"
+                let query = "SELECT COUNT(*) FROM hqvocab WHERE pos != 'gloss' AND lemma < '\(searchText)' COLLATE hcgreek\(predicate != "" ? " AND " : "")\(predicate) ORDER BY lemma COLLATE hcgreek ASC;"
                 print(query)
                 if sqlite3_prepare_v2(db, query, -1, &queryStatement, nil) == SQLITE_OK
                 {

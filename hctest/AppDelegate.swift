@@ -71,6 +71,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let note:String
             let lastupdated:Int
             let seq:Int16
+            let arrowedDay:Int
+            let verbClass:Int
+            let pageLine:String
             enum CodingKeys : String, CodingKey {
                 case id
                 case lemma = "l"
@@ -86,6 +89,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 case note = "n"
                 case lastupdated = "up"
                 case seq = "s"
+                case arrowedDay = "ad"
+                case verbClass = "vc"
+                case pageLine = "pl"
+                
             }
         }
         let meta: Meta
@@ -94,17 +101,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func processHQVocabDataSqlite(jsonData:Data)
     {
-        NSLog("yay2")
+        /*
         if let stringData = String(data: jsonData, encoding: String.Encoding.utf8) {
             print(stringData) //JSONSerialization
-            do {
-                let decoder = JSONDecoder()
-                let rows = try decoder.decode(HQResponse.self, from: jsonData)
-                
-                if let db = openDatabase(dbpath: dbpath)
-                {
-                    tempPrepareInsert(db:db)
-                }
+        }
+        */
+        do {
+            let decoder = JSONDecoder()
+            let rows = try decoder.decode(HQResponse.self, from: jsonData)
+            
+            var db:OpaquePointer?
+            db = openDatabase(dbpath: dbpath)
+            if db != nil && tempPrepareInsert(db:db!)
+            {
+                sqlite3_exec(db, "BEGIN TRANSACTION;", nil, nil, nil);
                 
                 var highestTimestamp = 0;
                 for row in rows.rows {
@@ -114,18 +124,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     {
                         highestTimestamp = row.lastupdated
                     }
-                    if tempInsertWord(hqid:row.id, unit:row.unit, lemma:row.lemma, present:row.present, future:row.future, aorist:row.aorist, perfect:row.perfect, perfectmid:row.perfectmid, aoristpass:row.aoristpass, def:row.def, pos:row.pos, note:row.note, seq:row.seq) == false
+                    if tempInsertWord(hqid:row.id, unit:row.unit, lemma:row.lemma, present:row.present, future:row.future, aorist:row.aorist, perfect:row.perfect, perfectmid:row.perfectmid, aoristpass:row.aoristpass, def:row.def, pos:row.pos, note:row.note, seq:row.seq, pageLine: row.pageLine, arrowedDay: row.arrowedDay, verbClass: row.verbClass) == false
                     {
                         print("error inserting word")
-                        break
+                        sqlite3_exec(db, "ROLLBACK;", nil, nil, nil);
+                        sqlite3_finalize(queryStatement)
+                        sqlite3_close(db)
+                        return
                     }
-                    
                 }
-                
-                print("Updated: \(rows.meta.updated)")
-            } catch let error as NSError {
-                print(error.localizedDescription)
+                sqlite3_exec(db, "COMMIT;", nil, nil, nil);
+                sqlite3_finalize(queryStatement)
+                sqlite3_close(db)
             }
+            print("Last updated timestamp: \(rows.meta.updated)")
+        } catch let error as NSError {
+            print(error.localizedDescription)
         }
     }
 
@@ -160,6 +174,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let v = VerbSequence()
             let _ = v.vsInit(vDBPath: dbpath)
             print("Load DB type: copyFromBundle")
+            datasync()
         case .generateWithvsInit:
             //DispatchQueue.global(qos: .background).async {
             let v = VerbSequence()
@@ -259,7 +274,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
             results = try context.fetch(request as! NSFetchRequest<NSFetchRequestResult>)
         } catch let error {
-            NSLog("Error: %@", error.localizedDescription)
+            print("Error: %@", error.localizedDescription)
             return nil
         }
         if results != nil && results!.count > 0
@@ -334,7 +349,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func tempPrepareInsert(db:OpaquePointer) -> Bool
     {
-        let queryStatementString:String = "REPLACE INTO hqvocab (hqid,unit,lemma,present,future,aorist,perfect,perfectmid,aoristpass,def,pos,note,seq,sortkey) VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14);"
+        let queryStatementString:String = "REPLACE INTO hqvocab (hqid,unit,lemma,present,future,aorist,perfect,perfectmid,aoristpass,def,pos,note,seq,sortkey,pageLine,arrowedDay,verbClass) VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17);"
         
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK
         {
@@ -348,7 +363,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func tempInsertWord(hqid:Int, unit:Int, lemma:String, present:String, future:String, aorist:String, perfect:String, perfectmid:String, aoristpass:String, def:String, pos:String, note:String, seq:Int16) -> Bool
+    func tempInsertWord(hqid:Int, unit:Int, lemma:String, present:String, future:String, aorist:String, perfect:String, perfectmid:String, aoristpass:String, def:String, pos:String, note:String, seq:Int16, pageLine:String, arrowedDay:Int, verbClass:Int) -> Bool
     {
         //https://stackoverflow.com/questions/28142226/sqlite-for-swift-is-unstable
         //let SQLITE_STATIC = unsafeBitCast(0, to: sqlite3_destructor_type.self)
@@ -368,10 +383,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         sqlite3_bind_text(queryStatement, 12, note, -1, SQLITE_TRANSIENT)
         sqlite3_bind_int(queryStatement, 13, Int32(seq))
         sqlite3_bind_text(queryStatement, 14, stripAccent(lemma: lemma), -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(queryStatement, 15, pageLine, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_int(queryStatement, 16, Int32(arrowedDay))
+        sqlite3_bind_int(queryStatement, 17, Int32(verbClass))
         
         if sqlite3_step(queryStatement) == SQLITE_DONE
         {
-            print("inserted word")
+            //print("inserted word")
         }
         else
         {
@@ -400,120 +418,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             d.set(timestamp, forKey: "LastUpdated")
             d.synchronize()
         }
-        NSLog("Time: \(timestamp)")
+        print("Time: \(timestamp)")
         
-        NSLog("START REQUEST")
+        print("START REQUEST")
         //http://benscheirman.com/2017/06/ultimate-guide-to-json-parsing-with-swift-4/
         //https://stackoverflow.com/questions/32631184/the-resource-could-not-be-loaded-because-the-app-transport-security-policy-requi
         
         //with password:https://gist.github.com/n8armstrong/5c5c828f1b82b0315e24
         let urlString = URL(string: "https://philolog.us/hqjson.php?lastupdated=\(timestamp)")//https://philolog.us/hqvocab.php?unit=20&AndUnder=on&sort=alpha")
-        NSLog("Start timestamp: \(timestamp)")
+        print("Start timestamp: \(timestamp)")
+        
         if let url = urlString {
             //let session = NSURLSession(configuration: .defaultSessionConfiguration(), delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
             let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if error != nil {
-                    NSLog("boo")
-                    NSLog(error!.localizedDescription)
+                    print("boo")
+                    print(error!.localizedDescription)
                 } else {
                     if let usableData = data {
-                        NSLog("yay")
-                        if let stringData = String(data: usableData, encoding: String.Encoding.utf8) {
-                            print(stringData) //JSONSerialization
-                            do {
-                                let decoder = JSONDecoder()
-                                let rows = try decoder.decode(HQResponse.self, from: usableData)
-                                
-                                NSLog("Updated: \(rows.meta.updated)")
-                                
-                                DispatchQueue.main.sync {
-                                    //https://stackoverflow.com/questions/46956921/main-thread-checker-ui-api-called-on-a-background-thread-uiapplication-deleg
-                                    let backgroundContext = NSManagedObjectContext(concurrencyType:.privateQueueConcurrencyType)
-                                    backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-                                    //let backgroundContext = self.managedObjectContext
-                                    //backgroundContext.mergePolicy = NSRollbackMergePolicy //needed or duplicates x2
-                                    if #available(iOS 10.0, *) {
-                                        backgroundContext.persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator
-                                    }
-                                    else
-                                    {
-                                        backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-                                    }
-                                    //let entity = NSEntityDescription.entity(forEntityName: "HQWords", in: backgroundContext)
-                                    /*
-                                    let countFetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
-                                    do {
-                                        let newCount = try backgroundContext.count(for: countFetch)
-                                        NSLog("count1 \(newCount)")
-                                    } catch { }
-                                    */
-                                    //var count = 0
-                                    var highestTimestamp = 0;
-                                    for row in rows.rows {
-                                        //print("Row: \(row.id), \(row.lemma), \(row.unit)")
-                                        /*
-                                        if self.hqWordExists(id:row.id)
-                                        {
-                                            NSLog("duplicate \(row.id)")
-                                            continue
-                                        }
-                                        */
-                                        if row.lastupdated > highestTimestamp
-                                        {
-                                            highestTimestamp = row.lastupdated
-                                        }
-                                        
-                                        let newWord = self.getWordObjectOrNew(hqid:row.id, context:backgroundContext)
-                                        
-                                        newWord.setValue(self.stripAccent(lemma: row.lemma), forKey: "sortkey")
-                                        newWord.setValue(row.id, forKey: "hqid")
-                                        newWord.setValue(row.unit, forKey: "unit")
-                                        newWord.setValue(row.lemma, forKey: "lemma")
-                                        newWord.setValue(row.def, forKey: "def")
-                                        newWord.setValue(row.pos, forKey: "pos")
-                                        newWord.setValue(row.present, forKey: "present")
-                                        newWord.setValue(row.future, forKey: "future")
-                                        newWord.setValue(row.aorist, forKey: "aorist")
-                                        newWord.setValue(row.perfect, forKey: "perfect")
-                                        newWord.setValue(row.perfectmid, forKey: "perfectmid")
-                                        newWord.setValue(row.aoristpass, forKey: "aoristpass")
-                                        newWord.setValue(row.note, forKey: "note")
-                                        newWord.setValue(row.lastupdated, forKey: "lastupdated")
-                                        newWord.setValue(row.seq, forKey: "seq")
-                                    }
-                                    do {
-                                        if backgroundContext.hasChanges
-                                        {
-                                            NSLog("has changes!")
-                                            try backgroundContext.save()
-                                            //NSLog("Count: \(count)")
-                                            if highestTimestamp > timestamp
-                                            {
-                                                UserDefaults.standard.set(highestTimestamp, forKey: "LastUpdated")
-                                                NSLog("New timestamp: \(highestTimestamp)")
-                                            }
-                                        }
-                                    } catch let error as NSError {
-                                        print("failed saving: \(error.localizedDescription)")
-                                    }
-                                    
-                                    let countFetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
-                                    do {
-                                        let newCount = try backgroundContext.count(for: countFetch)
-                                        NSLog("count2 \(newCount)")
-                                    } catch { }
-                                }
-                                
-                            } catch let error as NSError {
-                                print(error.localizedDescription)
-                            }
-                        }
+                        print("yay")
+                        self.processHQVocabDataSqlite(jsonData: usableData)
                     }
                 }
             }
             task.resume()
         }
-        NSLog("End REQUEST")
+        print("End REQUEST")
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
