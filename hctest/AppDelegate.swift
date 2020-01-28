@@ -133,8 +133,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         return
                     }
                 }
-                sqlite3_exec(db, "COMMIT;VACUUM;", nil, nil, nil);
+                sqlite3_exec(db, "COMMIT;", nil, nil, nil);
                 sqlite3_finalize(queryStatement)
+                
+                hasDuplicates(db:db!);
+                print("Updated hqvoc: %d", tableCount(db: db!, table: "hqvocab"))
+                
                 sqlite3_close(db)
             }
             print("Last updated timestamp: \(rows.meta.updated)")
@@ -142,7 +146,58 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(error.localizedDescription)
         }
     }
+    
+    func hasDuplicates(db:OpaquePointer) -> Bool
+    {
+        //https://stackoverflow.com/questions/21980064/find-duplicate-column-value-in-sqlite
+        var queryStatement: OpaquePointer? = nil
+        let q = "SELECT hqid, COUNT(*) a FROM hqvocab GROUP BY hqid HAVING a > 1;"
+        
+        if sqlite3_prepare_v2(db, q, -1, &queryStatement, nil) == SQLITE_OK
+        {
+            print("dup prepare ok1")
+            while sqlite3_step(queryStatement) == SQLITE_ROW
+            {
+                let hqid = sqlite3_column_int(queryStatement, 0)
+                let count = sqlite3_column_int(queryStatement, 1)
+                print("Found duplicate pk: \(hqid), \(count)")
+            }
+            print("dup prepare ok2")
+            sqlite3_finalize(queryStatement)
+            return true;
+        }
+        else
+        {
+            print("dup prepare failed")
+            return false
+        }
+    }
 
+    func tableCount(db:OpaquePointer, table:String) -> Int
+    {
+        var queryStatement: OpaquePointer? = nil
+        let q = "SELECT COUNT(*) FROM \(table);"
+        
+        if sqlite3_prepare_v2(db, q, -1, &queryStatement, nil) == SQLITE_OK
+        {
+            print("count prepare ok1")
+            var count = 0
+            while sqlite3_step(queryStatement) == SQLITE_ROW
+            {
+                count = Int(sqlite3_column_int(queryStatement, 0))
+            }
+            print("count prepare ok2")
+            sqlite3_finalize(queryStatement)
+            return Int(count);
+        }
+        else
+        {
+            print("dup prepare failed")
+            return -1
+        }
+    }
+
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -349,7 +404,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func tempPrepareInsert(db:OpaquePointer) -> Bool
     {
-        let queryStatementString:String = "REPLACE INTO hqvocab (hqid,unit,lemma,present,future,aorist,perfect,perfectmid,aoristpass,def,pos,note,seq,sortkey,pageLine,arrowedDay,verbClass) VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17);"
+        let queryStatementString:String = "INSERT OR REPLACE INTO hqvocab (hqid,unit,lemma,present,future,aorist,perfect,perfectmid,aoristpass,def,pos,note,seq,sortkey,pageLine,arrowedDay,verbClass) VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17);"
         
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK
         {

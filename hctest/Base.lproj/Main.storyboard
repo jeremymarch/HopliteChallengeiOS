@@ -31,7 +31,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="961"/>
                                         <subviews>
                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PDe-nx-pvW">
-                                                <rect key="frame" x="8" y="8" width="359" height="30"/>
+                                                <rect key="frame" x="8" y="8" width="273" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="NewAthenaUnicode" family="New Athena Unicode" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -87,6 +87,12 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SIQ-PL-Jxj">
+                                                <rect key="frame" x="285" y="6" width="82" height="34"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
@@ -111,6 +117,7 @@
                         <outlet property="arrowedLabel" destination="RYn-nn-dNu" id="npK-Js-VQI"/>
                         <outlet property="contentView" destination="3ZW-1h-l24" id="n1K-Si-fY4"/>
                         <outlet property="defLabel" destination="XTC-pC-WB0" id="biP-W2-7EB"/>
+                        <outlet property="hqidView" destination="SIQ-PL-Jxj" id="byA-P5-Uyk"/>
                         <outlet property="lemmaLabel" destination="PDe-nx-pvW" id="Rm8-Rj-Ffz"/>
                         <outlet property="noteLabel" destination="Hr4-BI-gU3" id="u07-R4-m8w"/>
                         <outlet property="pageLineLabel" destination="uaV-oH-uvk" id="DPQ-kg-4vI"/>

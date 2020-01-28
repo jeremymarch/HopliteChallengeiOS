@@ -28,12 +28,13 @@ protocol VocabDataSourceProtocol:UITableViewDataSource {
 class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
     // We keep this public and mutable, to enable our data
     // source to be updated as new data comes in.
+    var highestUnit:Int = 23
     var sortAlpha = false
     var wordsPerUnit:[Int] = [] //[Int](repeating: 0, count: 20)
     var unitSections:[Int] = []
     var predicate = ""
     var db: OpaquePointer? = nil
-    var wordsPerSection:[Int] = [Int](repeating: 0, count: 22)
+    var wordsPerSection:[Int] = []
     var words:[Word] = []
     
     let font = UIFont(name: "HelveticaNeue", size: 20.0)
@@ -45,6 +46,7 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
         super.init()
         self.sortAlpha = sortAlpha
         self.predicate = predicate
+        self.wordsPerSection = [Int](repeating: 0, count: highestUnit)
         
         let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
         //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
@@ -73,10 +75,23 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
         return db
     }
     
+    func ishqidDup(id:Int32) -> Bool
+    {
+        for w in words
+        {
+            if w.hqid == id //&& id != 1194 && id != 1864 && id != 1611 && id != 1772
+            {
+                print("Duplicate id: \(id)")
+                return true
+            }
+        }
+        return false
+    }
+    
     func query(sortAlpha:Bool, predicate:String)
     {
         //clear
-        wordsPerSection = [Int](repeating: 0, count: 22)
+        wordsPerSection = [Int](repeating: 0, count: highestUnit)
         words.removeAll()
         var queryStatement: OpaquePointer? = nil
         
@@ -106,10 +121,21 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
                 let hqid = sqlite3_column_int(queryStatement, 0)
                 let unit = sqlite3_column_int(queryStatement, 1)
                 let lemma = sqlite3_column_text(queryStatement, 2)
+                assert(ishqidDup(id:hqid) == false)
                 words.append( Word(hqid: hqid, unit: unit, lemma: String(cString: lemma!)) )
-                assert(unit < 23)
+                assert(unit <= highestUnit)
                 assert(unit > 0)
-                wordsPerSection[ Int(unit) - 1 ] += 1
+                let unitGap = 0
+                var unitIndex = 0
+                if unit <= 20
+                {
+                    unitIndex = Int(unit) - 1
+                }
+                else
+                {
+                    unitIndex = Int(unit) - unitGap - 1
+                }
+                wordsPerSection[ unitIndex ] += 1
                 //print("query: \(unit) \(String(cString: lemma!))")
             }
         }
@@ -117,6 +143,7 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
         {
             print("sqlite error")
         }
+        print("row count: \(words.count)")
         setWordsPerUnit()
         sqlite3_finalize(queryStatement)
         //sqlite3_close(db)
@@ -191,9 +218,9 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
                     return
                 }
                 var realFindUnit = findUnit
-                if realFindUnit > 20
+                if realFindUnit > highestUnit
                 {
-                    realFindUnit = 20
+                    realFindUnit = highestUnit
                 }
                 for (index, val) in unitSections.enumerated()
                 {

@@ -20,6 +20,7 @@ class VocabDetailViewController: UIViewController {
     @IBOutlet var arrowedLabel:UITextField?
     @IBOutlet var pageLineLabel:UITextField?
     @IBOutlet var verbClassView:UITextField?
+    @IBOutlet var hqidView:UITextField?
     @IBOutlet var contentView:UIView?
     var kb:KeyboardViewController? = nil
     
@@ -205,7 +206,7 @@ class VocabDetailViewController: UIViewController {
             //print("query ok")
             if sqlite3_step(queryStatement) == SQLITE_ROW
             {
-                //let hqid = sqlite3_column_int(queryStatement, 0)
+                let hqidValue = sqlite3_column_int(queryStatement, 0)
                 let unit = sqlite3_column_int(queryStatement, 1)
                 let lemma = String(cString: sqlite3_column_text(queryStatement, 2)!)
                 let def = String(cString: sqlite3_column_text(queryStatement, 3)!)
@@ -235,6 +236,10 @@ class VocabDetailViewController: UIViewController {
                     w.frame = frame
      */
                     //w.sizeToFit()
+                }
+                if let w = hqidView
+                {
+                    w.text = "\(hqidValue)"
                 }
                 if let w = lemmaLabel
                 {
