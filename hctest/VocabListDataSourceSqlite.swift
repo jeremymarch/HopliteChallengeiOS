@@ -34,7 +34,7 @@ protocol VocabDataSourceProtocol:UITableViewDataSource {
 class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
     // We keep this public and mutable, to enable our data
     // source to be updated as new data comes in.
-    var highestUnit:Int = 41
+    var highestUnit:Int = 49
     var sortAlpha = false
     var wordsPerUnit:[Int] = [] //[Int](repeating: 0, count: 20)
     var unitSections:[Int] = []

@@ -248,8 +248,7 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
             item.trailingBarButtonGroups = []
         }
         
-        //let delegate = UIApplication.shared.delegate as! AppDelegate
-        //delegate.datasync()
+        //(UIApplication.shared.delegate as! AppDelegate).datasync()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
