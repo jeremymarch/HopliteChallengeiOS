@@ -14,7 +14,13 @@ struct Word {
     var unit:Int32 = 0
     var lemma:String = ""
 }
-
+/*
+struct UnitSections
+{
+    var unit = 0
+    var count = 0
+}
+*/
 protocol VocabDataSourceProtocol:UITableViewDataSource {
     var sortAlpha:Bool { get set }
     var predicate: String { get set }
@@ -28,7 +34,7 @@ protocol VocabDataSourceProtocol:UITableViewDataSource {
 class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
     // We keep this public and mutable, to enable our data
     // source to be updated as new data comes in.
-    var highestUnit:Int = 23
+    var highestUnit:Int = 41
     var sortAlpha = false
     var wordsPerUnit:[Int] = [] //[Int](repeating: 0, count: 20)
     var unitSections:[Int] = []
@@ -124,17 +130,14 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
                 assert(ishqidDup(id:hqid) == false)
                 words.append( Word(hqid: hqid, unit: unit, lemma: String(cString: lemma!)) )
                 assert(unit <= highestUnit)
+                if unit > highestUnit
+                {
+                    continue //skip
+                }
                 assert(unit > 0)
                 let unitGap = 0
                 var unitIndex = 0
-                if unit <= 20
-                {
-                    unitIndex = Int(unit) - 1
-                }
-                else
-                {
-                    unitIndex = Int(unit) - unitGap - 1
-                }
+                unitIndex = Int(unit) - 1
                 wordsPerSection[ unitIndex ] += 1
                 //print("query: \(unit) \(String(cString: lemma!))")
             }
@@ -218,16 +221,21 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
                     return
                 }
                 var realFindUnit = findUnit
-                if realFindUnit > highestUnit
+                /*
+                if realFindUnit > units
                 {
                     realFindUnit = highestUnit
-                }
+                }*/
                 for (index, val) in unitSections.enumerated()
                 {
                     if val >= realFindUnit
                     {
                         unit = index
                         break
+                    }
+                    else if index == unitSections.count - 1 //we hit the end
+                    {
+                        unit = index
                     }
                 }
             }
@@ -314,7 +322,7 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
         
         //print("row: \(indexPath.row), \(words[indexPath.row].unit), \(words[indexPath.row].lemma)")
         let priorSectionCount = countSectionsBelow(section:indexPath.section - 1)
-        configureCell(cell, lemma: words[priorSectionCount + indexPath.row].lemma, unit: String(words[priorSectionCount + indexPath.row].unit))
+        configureCell(cell, lemma: words[priorSectionCount + indexPath.row].lemma, unit: Int(words[priorSectionCount + indexPath.row].unit))
 
         return cell
     }
@@ -327,7 +335,7 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
     
     //let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
     
-    func configureCell(_ cell: UITableViewCell, lemma:String, unit:String) {
+    func configureCell(_ cell: UITableViewCell, lemma:String, unit:Int) {
         if !sortAlpha
         {
             cell.textLabel!.text = lemma
@@ -336,8 +344,21 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
         else
         {
             let nsstring = NSString(string: lemma)  //doesn't work with swift string len
-            let unitLen = unit.count
-            let attStr = NSMutableAttributedString(string: "\(lemma) (\(unit))")
+            var prefix = ""
+            if unit < 21
+            {
+                prefix = "u\(unit)"
+            }
+            else if unit < 41
+            {
+                prefix = "i\(unit)"
+            }
+            else
+            {
+                prefix = "m\(unit)"
+            }
+            let unitLen = prefix.count
+            let attStr = NSMutableAttributedString(string: "\(lemma) (\(prefix))")
             
             attStr.addAttributes(lemmaAttributes, range: NSRange(location: 0, length: nsstring.length))
             attStr.addAttributes(unitAttributes, range: NSRange(location: (nsstring.length + unitLen + 3) - (unitLen + 2) , length: unitLen + 2))

@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-protocol VerbChooserDelegate {
+protocol VerbChooserDelegate : class {
     func setSelectedVerb(verbID: Int)
     func onDismissVerbChooser()
 }
@@ -20,7 +20,7 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
     var filterButtons:[UIButton] = []
     var selectedButtonIndex = 0
     var navTitle = "H&Q Vocabulary"
-    var delegate:VerbChooserDelegate?
+    weak var delegate:VerbChooserDelegate?
     @IBOutlet var filterButtonView:UIView!
     @IBOutlet var tableView:UITableView!
     @IBOutlet var searchTextField:UITextField!
@@ -42,7 +42,7 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
     //var kb:KeyboardViewController? = nil
     var kb:minimalGreekKB? = nil
     var segueDest:String = ""
-    var dataSource:VocabDataSourceProtocol?
+    var dataSource:VocabDataSourceProtocol? //should not be weak
     
     let highlightedRowBGColor = GlobalTheme.rowHighlightBG // UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
     
@@ -322,8 +322,21 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         
         if !dataSource!.sortAlpha
         {
+            var prefix = ""
+            if dataSource!.unitSections[section] < 21
+            {
+                prefix = "H&Q Unit"
+            }
+            else if dataSource!.unitSections[section] < 41
+            {
+                prefix = "Ion Day"
+            }
+            else
+            {
+                prefix = "Medea Day"
+            }
             let label = UILabel()
-            label.text = "  Unit \(dataSource!.unitSections[section])"
+            label.text = "  \(prefix) \(dataSource!.unitSections[section])"
             
             label.backgroundColor = GlobalTheme.secondaryBG// hcDarkBlue
             label.textColor = GlobalTheme.secondaryText
