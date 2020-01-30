@@ -227,8 +227,26 @@ class VocabDetailViewController: UIViewController {
 
                 if let w = defLabel
                 {
-                    w.text = def
-                    /*
+                    let useAttributed = true
+                    if useAttributed
+                    {
+                        let htmlText = "<span style='color:white;font-size:14pt;font-family:helvetica;'>" + def + "</span>"
+                        let encodedData = htmlText.data(using: .utf8)!
+
+                        do {
+                            let attributedString = try NSAttributedString(data: encodedData, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:NSNumber(value: String.Encoding.utf8.rawValue)], documentAttributes: nil)
+                            w.attributedText = attributedString
+                        } catch let error as NSError {
+                            print(error.localizedDescription)
+                        } catch {
+                            print("error")
+                        }
+                    }
+                    else
+                    {
+                        w.text = def
+                    }
+    /*
                     let maxHeight = CGFloat.infinity
                     let rect = w.text.boundingRect(with: CGSize(width:w.frame.size.width, height:maxHeight), options: .usesLineFragmentOrigin, context: nil)
                     var frame = w.frame
