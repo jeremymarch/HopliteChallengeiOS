@@ -13,6 +13,7 @@ struct Word {
     var hqid:Int32 = 0
     var unit:Int32 = 0
     var lemma:String = ""
+    var arrowedDay:Int32 = 0
 }
 /*
 struct UnitSections
@@ -117,7 +118,7 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
             localPredicate += " AND " + predicate
         }
         
-        let query = "SELECT hqid,unit,lemma FROM hqvocab" + localPredicate + orderBy
+        let query = "SELECT hqid,unit,lemma,arrowedDay FROM hqvocab" + localPredicate + orderBy
         //print(query)
         if sqlite3_prepare_v2(db, query, -1, &queryStatement, nil) == SQLITE_OK
         {
@@ -127,15 +128,18 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
                 let hqid = sqlite3_column_int(queryStatement, 0)
                 let unit = sqlite3_column_int(queryStatement, 1)
                 let lemma = sqlite3_column_text(queryStatement, 2)
+                let arrowedDay = sqlite3_column_int(queryStatement, 3)
+                //print("\(hqid) - \(lemma) - \(arrowedDay)")
+                
                 assert(ishqidDup(id:hqid) == false)
-                words.append( Word(hqid: hqid, unit: unit, lemma: String(cString: lemma!)) )
+                words.append( Word(hqid: hqid, unit: unit, lemma: String(cString: lemma!),arrowedDay: arrowedDay) )
                 assert(unit <= highestUnit)
                 if unit > highestUnit
                 {
                     continue //skip
                 }
                 assert(unit > 0)
-                let unitGap = 0
+                
                 var unitIndex = 0
                 unitIndex = Int(unit) - 1
                 wordsPerSection[ unitIndex ] += 1
@@ -171,7 +175,7 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
             //if predicate != ""
             //{
                 let query = "SELECT COUNT(*) FROM hqvocab WHERE pos != 'gloss' AND lemma < '\(searchText)' COLLATE hcgreek\(predicate != "" ? " AND " : "")\(predicate) ORDER BY lemma COLLATE hcgreek ASC;"
-                print(query)
+                //print(query)
                 if sqlite3_prepare_v2(db, query, -1, &queryStatement, nil) == SQLITE_OK
                 {
                     while sqlite3_step(queryStatement) == SQLITE_ROW
@@ -220,15 +224,10 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
                 {
                     return
                 }
-                var realFindUnit = findUnit
-                /*
-                if realFindUnit > units
-                {
-                    realFindUnit = highestUnit
-                }*/
+
                 for (index, val) in unitSections.enumerated()
                 {
-                    if val >= realFindUnit
+                    if val >= findUnit
                     {
                         unit = index
                         break
@@ -322,7 +321,7 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
         
         //print("row: \(indexPath.row), \(words[indexPath.row].unit), \(words[indexPath.row].lemma)")
         let priorSectionCount = countSectionsBelow(section:indexPath.section - 1)
-        configureCell(cell, lemma: words[priorSectionCount + indexPath.row].lemma, unit: Int(words[priorSectionCount + indexPath.row].unit))
+        configureCell(cell, lemma: words[priorSectionCount + indexPath.row].lemma, unit: Int(words[priorSectionCount + indexPath.row].unit), arrowedDay: Int(words[priorSectionCount + indexPath.row].arrowedDay))
 
         return cell
     }
@@ -335,15 +334,21 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
     
     //let highlightedRowBGColor = UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
     
-    func configureCell(_ cell: UITableViewCell, lemma:String, unit:Int) {
+    func configureCell(_ cell: UITableViewCell, lemma:String, unit:Int, arrowedDay:Int) {
+        var arrowed = ""
+        if arrowedDay > 30
+        {
+            arrowed = "*"
+        }
         if !sortAlpha
         {
-            cell.textLabel!.text = lemma
+            cell.textLabel!.text = lemma + arrowed
             cell.textLabel?.font = greekFont
         }
         else
         {
-            let nsstring = NSString(string: lemma)  //doesn't work with swift string len
+            let realLemma = lemma + arrowed
+            let nsstring = NSString(string: realLemma)  //doesn't work with swift string len
             var prefix = ""
             if unit < 21
             {
@@ -358,7 +363,7 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
                 prefix = "m\(unit)"
             }
             let unitLen = prefix.count
-            let attStr = NSMutableAttributedString(string: "\(lemma) (\(prefix))")
+            let attStr = NSMutableAttributedString(string: "\(realLemma) (\(prefix))")
             
             attStr.addAttributes(lemmaAttributes, range: NSRange(location: 0, length: nsstring.length))
             attStr.addAttributes(unitAttributes, range: NSRange(location: (nsstring.length + unitLen + 3) - (unitLen + 2) , length: unitLen + 2))

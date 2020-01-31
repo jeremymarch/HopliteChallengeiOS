@@ -75,7 +75,8 @@ class RetroHomeMenuViewController: UIViewController {
         let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
         let v = VerbSequence()
         let _ = v.vsInit(vDBPath: dbpath)
-        //(UIApplication.shared.delegate as! AppDelegate).datasync()
+        
+        (UIApplication.shared.delegate as! AppDelegate).datasync()
         /*
         playButton?.isHidden = true
         practiceButton?.isHidden = true

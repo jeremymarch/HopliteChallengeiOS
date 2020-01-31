@@ -75,22 +75,22 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         if sender.titleLabel?.text == "Verb"
         {
             selectedButtonIndex = 1
-            dataSource!.predicate = "pos=='Verb'"
+            dataSource!.predicate = "pos=='verb'"
         }
         else if sender.titleLabel?.text == "Noun"
         {
             selectedButtonIndex = 2
-            dataSource!.predicate = "pos=='Noun'"
+            dataSource!.predicate = "pos=='noun'"
         }
         else if sender.titleLabel?.text == "Adjective"
         {
             selectedButtonIndex = 3
-            dataSource!.predicate = "pos=='Adjective'"
+            dataSource!.predicate = "pos=='adjective'"
         }
         else if sender.titleLabel?.text == "Other"
         {
             selectedButtonIndex = 4
-            dataSource!.predicate = "pos!='Adjective' AND pos!='Noun' AND pos!='Verb'"
+            dataSource!.predicate = "pos!='adjective' AND pos!='noun' AND pos!='verb'"
         }
         else if sender.titleLabel?.text == "All"
         {
