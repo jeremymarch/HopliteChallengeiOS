@@ -23,8 +23,9 @@ class VocabDetailViewController: UIViewController {
     @IBOutlet var hqidView:UITextField?
     @IBOutlet var contentView:UIView?
     var kb:KeyboardViewController? = nil
-    
+    var defColor = "black"
     var db: OpaquePointer? = nil
+    let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
     
     var hqid:Int = 0
     override func viewDidLoad() {
@@ -39,20 +40,10 @@ class VocabDetailViewController: UIViewController {
         noteLabel?.inputView = kb?.inputView
         noteLabel?.isEditable = true
         
-        let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
-        //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
-        db = openDatabase(dbpath: dbpath)
-        print("get db")
-        if db != nil
-        {
-            print("db ok")
-            if hqid > 0
-            {
-                loadDef()
-            }
-            //query(sortAlpha:self.sortAlpha, predicate:self.predicate)
-        }
         resetColors()
+        
+        loadDef()
+        //query(sortAlpha:self.sortAlpha, predicate:self.predicate)
     }
     
     func resetColors()
@@ -75,7 +66,7 @@ class VocabDetailViewController: UIViewController {
             ppLabel?.layer.borderWidth = 1.0
             noteLabel?.layer.borderColor = GlobalTheme.primaryText.cgColor
             noteLabel?.layer.borderWidth = 1.0
-
+            defColor = "white"
             view.backgroundColor = GlobalTheme.primaryBG
         }
         else
@@ -87,6 +78,7 @@ class VocabDetailViewController: UIViewController {
             ppLabel?.layer.borderWidth = 0.0
             noteLabel?.layer.borderWidth = 0.0
             view.backgroundColor = UIColor.systemGray
+            defColor = "black"
         }
          
     }
@@ -98,6 +90,7 @@ class VocabDetailViewController: UIViewController {
             if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
             {
                 resetColors()
+                //loadDef() //crashes?
             }
         }
     }
@@ -155,11 +148,22 @@ class VocabDetailViewController: UIViewController {
     
     func loadDef()
     {
-        var queryStatement: OpaquePointer? = nil
         if hqid < 1
         {
             return
         }
+        
+        //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
+        db = openDatabase(dbpath: dbpath)
+        if db == nil
+        {
+            print("db not ok")
+            return
+        }
+        print("db ok")
+        
+        var queryStatement: OpaquePointer? = nil
+
         /*
         let delegate = UIApplication.shared.delegate as! AppDelegate
         var vc:NSManagedObjectContext
@@ -230,7 +234,7 @@ class VocabDetailViewController: UIViewController {
                     let useAttributed = true
                     if useAttributed
                     {
-                        let htmlText = "<span style='color:white;font-size:14pt;font-family:helvetica;'>" + def + "</span>"
+                        let htmlText = "<span style='color:\(defColor);font-size:14pt;font-family:helvetica;'>" + def + "</span>"
                         let encodedData = htmlText.data(using: .utf8)!
 
                         do {

@@ -154,8 +154,25 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         }
     }
     
+    @objc func refresh(_ refreshControl: UIRefreshControl) {
+        // Do your job, when done:
+        (UIApplication.shared.delegate as! AppDelegate).datasync()
+        refreshControl.endRefreshing() //move to end of processResponse function?
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //pull down to refresh
+        //https://stackoverflow.com/questions/10291537/pull-to-refresh-uitableview-without-uitableviewcontroller
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+        
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.backgroundView = refreshControl
+        }
         
         
         //dataSource = VocabListDataSourceCoreData(sortAlpha:sortAlpha, predicate:predicate)

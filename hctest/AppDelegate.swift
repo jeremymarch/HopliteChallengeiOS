@@ -116,7 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             {
                 sqlite3_exec(db, "BEGIN TRANSACTION;", nil, nil, nil);
                 
-                var highestTimestamp = 0;
+                var highestTimestamp = 0
                 for row in rows.rows {
                     //print("Row: \(row.id), \(row.lemma), \(row.unit)")
 
@@ -124,7 +124,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     {
                         highestTimestamp = row.lastupdated
                     }
-                    if tempInsertWord(hqid:row.id, unit:row.unit, lemma:row.lemma, present:row.present, future:row.future, aorist:row.aorist, perfect:row.perfect, perfectmid:row.perfectmid, aoristpass:row.aoristpass, def:row.def, pos:row.pos, note:row.note, seq:row.seq, pageLine: row.pageLine, arrowedDay: row.arrowedDay, verbClass: row.verbClass) == false
+                    //the trim is because we add a space before
+                    //sending from the server to be sure
+                    //pageLine is treated as a string rather than int
+                    if tempInsertWord(hqid:row.id, unit:row.unit, lemma:row.lemma, present:row.present, future:row.future, aorist:row.aorist, perfect:row.perfect, perfectmid:row.perfectmid, aoristpass:row.aoristpass, def:row.def, pos:row.pos, note:row.note, seq:row.seq, pageLine: row.pageLine.trimmingCharacters(in: .whitespacesAndNewlines), arrowedDay: row.arrowedDay, verbClass: row.verbClass) == false
                     {
                         print("error inserting word")
                         sqlite3_exec(db, "ROLLBACK;", nil, nil, nil);
