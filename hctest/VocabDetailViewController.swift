@@ -10,28 +10,181 @@ import UIKit
 import CoreData
 
 class VocabDetailViewController: UIViewController {
-    @IBOutlet var lemmaLabel:UITextField?
-    @IBOutlet var unitLabel:UITextField?
-    @IBOutlet var posLabel:UITextField?
-    @IBOutlet var defLabel:UITextView?
-    @IBOutlet var ppLabel:UITextView?
-    @IBOutlet var noteLabel:UITextView?
-    @IBOutlet var scrollView:UIScrollView?
-    @IBOutlet var arrowedLabel:UITextField?
-    @IBOutlet var pageLineLabel:UITextField?
-    @IBOutlet var verbClassView:UITextField?
-    @IBOutlet var hqidView:UITextField?
-    @IBOutlet var contentView:UIView?
+    weak var lemmaLabel:UITextField?
+    weak var hqidLabel:UITextField?
+    weak var unitLabel:UITextField?
+    weak var posLabel:UITextField?
+    weak var defLabel:UITextView?
+    weak var ppLabel:UITextView?
+    weak var noteLabel:UITextView?
+    //@IBOutlet var scrollView:UIScrollView?
+    weak var arrowedLabel:UITextField?
+    weak var pageLineLabel:UITextField?
+    weak var verbClassLabel:UITextField?
+
+    weak var contentView:UIView?
+    weak var scrollView:UIScrollView?
+    //@IBOutlet var contentView:UIView?
     var kb:KeyboardViewController? = nil
     var defColor = "black"
     var db: OpaquePointer? = nil
     let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
     
+    override func loadView() {
+        super.loadView()
+
+        let scrollView = UIScrollView(frame: .zero)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(scrollView)
+        
+        let contentView = UIView(frame: .zero)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(contentView)
+        
+        //view.translatesAutoresizingMaskIntoConstraints = true
+        let lemmaLabel = UITextField(frame: .zero)
+        lemmaLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(lemmaLabel)
+        
+        let hqidLabel = UITextField(frame: .zero)
+        hqidLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(hqidLabel)
+        
+        let unitLabel = UITextField(frame: .zero)
+        unitLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(unitLabel)
+        
+        let posLabel = UITextField(frame: .zero)
+        posLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(posLabel)
+        
+        let defLabel = UITextView(frame: .zero)
+        defLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(defLabel)
+        
+        let ppLabel = UITextView(frame: .zero)
+        ppLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(ppLabel)
+        
+        let noteLabel = UITextView(frame: .zero)
+        noteLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(noteLabel)
+        
+        let arrowedLabel = UITextField(frame: .zero)
+        arrowedLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(arrowedLabel)
+        
+        let pageLineLabel = UITextField(frame: .zero)
+        pageLineLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(pageLineLabel)
+        
+        let verbClassLabel = UITextField(frame: .zero)
+        verbClassLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(verbClassLabel)
+
+        if #available(iOS 11.0, *) {
+            let vv = view.safeAreaLayoutGuide
+            NSLayoutConstraint.activate([
+                scrollView.leadingAnchor.constraint(equalTo: vv.leadingAnchor),
+                scrollView.trailingAnchor.constraint(equalTo: vv.trailingAnchor),
+                scrollView.topAnchor.constraint(equalTo: vv.topAnchor),
+                scrollView.bottomAnchor.constraint(equalTo: vv.bottomAnchor)
+            ])
+        }
+        else
+        {
+            let vv = view!
+            NSLayoutConstraint.activate([
+                scrollView.leadingAnchor.constraint(equalTo: vv.leadingAnchor),
+                scrollView.trailingAnchor.constraint(equalTo: vv.trailingAnchor),
+                scrollView.topAnchor.constraint(equalTo: vv.topAnchor),
+                scrollView.bottomAnchor.constraint(equalTo: vv.bottomAnchor)
+            ])
+        }
+        let vMargin:CGFloat = 8.0
+        NSLayoutConstraint.activate([
+
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            
+            lemmaLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            lemmaLabel.trailingAnchor.constraint(equalTo: hqidLabel.leadingAnchor),
+            lemmaLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            lemmaLabel.bottomAnchor.constraint(equalTo: unitLabel.topAnchor, constant: vMargin * -1),
+            //lemmaLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8),
+            contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            contentView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.2),
+            
+            hqidLabel.leadingAnchor.constraint(equalTo: lemmaLabel.trailingAnchor),
+            hqidLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            hqidLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            hqidLabel.bottomAnchor.constraint(equalTo: unitLabel.topAnchor, constant: vMargin * -1),
+            
+            unitLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            unitLabel.trailingAnchor.constraint(equalTo: posLabel.leadingAnchor),
+            unitLabel.topAnchor.constraint(equalTo: lemmaLabel.bottomAnchor, constant: vMargin),
+            unitLabel.bottomAnchor.constraint(equalTo: defLabel.topAnchor, constant: vMargin * -1),
+            
+            posLabel.leadingAnchor.constraint(equalTo: unitLabel.trailingAnchor),
+            posLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            posLabel.topAnchor.constraint(equalTo: lemmaLabel.bottomAnchor, constant: vMargin),
+            posLabel.bottomAnchor.constraint(equalTo: defLabel.topAnchor, constant: vMargin * -1),
+            
+            defLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            defLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            defLabel.topAnchor.constraint(equalTo: posLabel.bottomAnchor, constant: vMargin),
+            defLabel.bottomAnchor.constraint(equalTo: ppLabel.topAnchor, constant: vMargin * -1),
+            defLabel.heightAnchor.constraint(equalToConstant: 80.0),
+            
+            ppLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            ppLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            ppLabel.topAnchor.constraint(equalTo: defLabel.bottomAnchor, constant: vMargin),
+            ppLabel.bottomAnchor.constraint(equalTo: noteLabel.topAnchor, constant: vMargin * -1),
+            ppLabel.heightAnchor.constraint(equalToConstant: 80.0),
+            
+            noteLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            noteLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            noteLabel.topAnchor.constraint(equalTo: ppLabel.bottomAnchor, constant: vMargin),
+            noteLabel.bottomAnchor.constraint(equalTo: verbClassLabel.topAnchor, constant: vMargin * -1),
+            noteLabel.heightAnchor.constraint(equalToConstant: 80.0),
+            
+            verbClassLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            verbClassLabel.trailingAnchor.constraint(equalTo: arrowedLabel.leadingAnchor),
+            verbClassLabel.topAnchor.constraint(equalTo: noteLabel.bottomAnchor, constant: vMargin),
+            verbClassLabel.bottomAnchor.constraint(equalTo: pageLineLabel.topAnchor),
+            
+            arrowedLabel.leadingAnchor.constraint(equalTo: verbClassLabel.trailingAnchor),
+            arrowedLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            arrowedLabel.topAnchor.constraint(equalTo: noteLabel.bottomAnchor),
+            arrowedLabel.bottomAnchor.constraint(equalTo: pageLineLabel.topAnchor),
+            
+            pageLineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            pageLineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            pageLineLabel.topAnchor.constraint(equalTo: verbClassLabel.bottomAnchor),
+            pageLineLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+        
+        self.lemmaLabel = lemmaLabel
+        self.hqidLabel = hqidLabel
+        self.unitLabel = unitLabel
+        self.posLabel = posLabel
+        self.defLabel = defLabel
+        self.ppLabel = ppLabel
+        self.noteLabel = noteLabel
+        self.verbClassLabel = verbClassLabel
+        self.arrowedLabel = arrowedLabel
+        self.pageLineLabel = pageLineLabel
+        self.scrollView = scrollView
+        self.contentView = contentView
+    }
+    
     var hqid:Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         //https://www.natashatherobot.com/ios-autolayout-scrollview/
-        scrollView!.contentSize = contentView!.frame.size
+        //scrollView!.contentSize = contentView!.frame.size
         // Do any additional setup after loading the view.
         
         kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
@@ -163,45 +316,6 @@ class VocabDetailViewController: UIViewController {
         print("db ok")
         
         var queryStatement: OpaquePointer? = nil
-
-        /*
-        let delegate = UIApplication.shared.delegate as! AppDelegate
-        var vc:NSManagedObjectContext
-        if #available(iOS 10.0, *) {
-            vc = delegate.persistentContainer.viewContext
-        } else {
-            vc = delegate.managedObjectContext
-        }
-        let request: NSFetchRequest<HQWords> = HQWords.fetchRequest()
-        if #available(iOS 10.0, *) {
-            request.entity = HQWords.entity()
-        } else {
-            request.entity = NSEntityDescription.entity(forEntityName: "HQWords", in: delegate.managedObjectContext)
-        }
-        
-        let pred = NSPredicate(format: "(hqid = %d)", self.hqid)
-        request.predicate = pred
-        var results: [HQWords]? = nil
-        do {
-            results =
-                try vc.fetch(request as!
-                    NSFetchRequest<NSFetchRequestResult>) as? [HQWords]
-            
-        } catch let error {
-            NSLog("Error: %@", error.localizedDescription)
-            return
-        }
-         
-         if results != nil && results!.count > 0
-         {
-             let match = results?[0]
-             let lemma:String = match!.lemma!
-             let def:String = match!.def!
-             let unit:Int16 = match!.unit
-             let pos:String = match!.pos!
-             let note:String = match!.note!
-             let pp:String = principalParts(present:match!.present!, future:match!.future!, aorist:match!.aorist!,perfect:match!.perfect!,perfectmid:match!.perfectmid!, aoristpass:match!.aoristpass!,seperator: " or")
-        */
         
         let query = "SELECT hqid,unit,lemma,def,pos,note,present,future,aorist,perfect,perfectmid,aoristpass,arrowedDay,pageLine,verbClass FROM hqvocab WHERE hqid = \(hqid) LIMIT 1;"
         //print(query)
@@ -259,7 +373,7 @@ class VocabDetailViewController: UIViewController {
      */
                     //w.sizeToFit()
                 }
-                if let w = hqidView
+                if let w = hqidLabel
                 {
                     w.text = "\(hqidValue)"
                 }
@@ -280,7 +394,7 @@ class VocabDetailViewController: UIViewController {
                     w.text = note
                 }
                 
-                if let w = verbClassView
+                if let w = verbClassLabel
                 {
                     w.text = String(verbClass)
                 }
