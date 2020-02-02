@@ -10,6 +10,8 @@ import UIKit
 import CoreData
 
 class VocabDetailViewController: UIViewController {
+    weak var lemmaL:UILabel?
+    weak var hqidL:UILabel?
     weak var lemmaLabel:UITextField?
     weak var hqidLabel:UITextField?
     weak var unitLabel:UITextField?
@@ -41,14 +43,22 @@ class VocabDetailViewController: UIViewController {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(contentView)
         
-        //view.translatesAutoresizingMaskIntoConstraints = true
-        let lemmaLabel = UITextField(frame: .zero)
-        lemmaLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(lemmaLabel)
+        let hqidL = UILabel(frame: .zero)
+        hqidL.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(hqidL)
         
         let hqidLabel = UITextField(frame: .zero)
         hqidLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(hqidLabel)
+        
+        let lemmaL = UILabel(frame: .zero)
+        lemmaL.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(lemmaL)
+        
+        //view.translatesAutoresizingMaskIntoConstraints = true
+        let lemmaLabel = UITextField(frame: .zero)
+        lemmaLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(lemmaLabel)
         
         let unitLabel = UITextField(frame: .zero)
         unitLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -108,19 +118,29 @@ class VocabDetailViewController: UIViewController {
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            
-            lemmaLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            lemmaLabel.trailingAnchor.constraint(equalTo: hqidLabel.leadingAnchor),
-            lemmaLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            lemmaLabel.bottomAnchor.constraint(equalTo: unitLabel.topAnchor, constant: vMargin * -1),
-            //lemmaLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8),
             contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
             contentView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.2),
             
-            hqidLabel.leadingAnchor.constraint(equalTo: lemmaLabel.trailingAnchor),
+            hqidL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            hqidL.trailingAnchor.constraint(equalTo: hqidLabel.leadingAnchor),
+            hqidL.topAnchor.constraint(equalTo: contentView.topAnchor),
+            hqidL.bottomAnchor.constraint(equalTo: lemmaL.topAnchor, constant: vMargin * -1),
+            
+            hqidLabel.leadingAnchor.constraint(equalTo: hqidL.trailingAnchor),
             hqidLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             hqidLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            hqidLabel.bottomAnchor.constraint(equalTo: unitLabel.topAnchor, constant: vMargin * -1),
+            hqidLabel.bottomAnchor.constraint(equalTo: lemmaL.topAnchor, constant: vMargin * -1),
+            
+            lemmaL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            lemmaL.trailingAnchor.constraint(equalTo: lemmaLabel.leadingAnchor),
+            lemmaL.topAnchor.constraint(equalTo: hqidL.bottomAnchor),
+            lemmaL.bottomAnchor.constraint(equalTo: unitLabel.topAnchor, constant: vMargin * -1),
+            
+            lemmaLabel.leadingAnchor.constraint(equalTo: lemmaL.trailingAnchor),
+            lemmaLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            lemmaLabel.topAnchor.constraint(equalTo: hqidL.bottomAnchor),
+            lemmaLabel.bottomAnchor.constraint(equalTo: unitLabel.topAnchor, constant: vMargin * -1),
+            //lemmaLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8),
             
             unitLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             unitLabel.trailingAnchor.constraint(equalTo: posLabel.leadingAnchor),
@@ -166,8 +186,10 @@ class VocabDetailViewController: UIViewController {
             pageLineLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         
-        self.lemmaLabel = lemmaLabel
+        self.hqidL = hqidL
         self.hqidLabel = hqidLabel
+        self.lemmaL = lemmaL
+        self.lemmaLabel = lemmaLabel
         self.unitLabel = unitLabel
         self.posLabel = posLabel
         self.defLabel = defLabel
@@ -183,15 +205,19 @@ class VocabDetailViewController: UIViewController {
     var hqid:Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
+        lemmaL!.text = "Lemma: "
+        lemmaL?.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        hqidL!.text = "ID: "
+        hqidL?.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
         //https://www.natashatherobot.com/ios-autolayout-scrollview/
         //scrollView!.contentSize = contentView!.frame.size
         // Do any additional setup after loading the view.
         
-        kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
-        kb?.appExt = false
-        
-        noteLabel?.inputView = kb?.inputView
-        noteLabel?.isEditable = true
+        //kb = KeyboardViewController() //kb needs to be member variable, can't be local to just this function
+        //kb?.appExt = false
+        //noteLabel?.inputView = kb?.inputView
+        //noteLabel?.isEditable = true
         
         resetColors()
         
