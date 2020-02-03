@@ -20,8 +20,8 @@ class VocabDetailViewController: UIViewController {
     weak var arrowedL:UILabel?
     weak var pageLineL:UILabel?
     weak var verbClassL:UILabel?
-    weak var lemmaLabel:UITextField?
-    weak var hqidLabel:UITextField?
+    weak var lemmaLabel:UITextView?
+    weak var hqidLabel:UILabel?
     weak var unitLabel:UITextField?
     weak var posLabel:UITextField?
     weak var defLabel:UITextView?
@@ -39,6 +39,10 @@ class VocabDetailViewController: UIViewController {
     var defColor = "black"
     var db: OpaquePointer? = nil
     let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
+    let fontsize = 18
+    let greekFont = UIFont(name: "NewAthenaUnicode", size: 18.0)
+    //let stemFont = UIFont(name: "HelveticaNeue-Light", size: fontSize)
+    let romanFont = UIFont(name: "Helvetica", size: 18.0)
     
     override func loadView() {
         super.loadView()
@@ -55,7 +59,7 @@ class VocabDetailViewController: UIViewController {
         hqidL.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(hqidL)
         
-        let hqidLabel = UITextField(frame: .zero)
+        let hqidLabel = UILabel(frame: .zero)
         hqidLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(hqidLabel)
         
@@ -64,7 +68,7 @@ class VocabDetailViewController: UIViewController {
         contentView.addSubview(lemmaL)
         
         //view.translatesAutoresizingMaskIntoConstraints = true
-        let lemmaLabel = UITextField(frame: .zero)
+        let lemmaLabel = UITextView(frame: .zero)
         lemmaLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(lemmaLabel)
         
@@ -151,6 +155,16 @@ class VocabDetailViewController: UIViewController {
                 scrollView.bottomAnchor.constraint(equalTo: vv.bottomAnchor)
             ])
         }
+        let cvh = contentView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5)
+        let defh = defLabel.heightAnchor.constraint(equalToConstant: 120.0)
+        let pph = ppLabel.heightAnchor.constraint(equalToConstant: 120.0)
+        let noteh = noteLabel.heightAnchor.constraint(equalToConstant: 120.0)
+        let lemmah = lemmaLabel.heightAnchor.constraint(equalToConstant: 120.0)
+        cvh.priority = UILayoutPriority(rawValue: 98.0)
+        defh.priority = UILayoutPriority(rawValue: 99.0)
+        pph.priority = UILayoutPriority(rawValue: 99.0)
+        noteh.priority = UILayoutPriority(rawValue: 99.0)
+        lemmah.priority = UILayoutPriority(rawValue: 99.0)
         let vMargin:CGFloat = 8.0
         NSLayoutConstraint.activate([
 
@@ -159,7 +173,7 @@ class VocabDetailViewController: UIViewController {
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            contentView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.2),
+            cvh,
             
             hqidL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             hqidL.trailingAnchor.constraint(equalTo: hqidLabel.leadingAnchor),
@@ -172,46 +186,46 @@ class VocabDetailViewController: UIViewController {
             hqidLabel.bottomAnchor.constraint(equalTo: lemmaL.topAnchor, constant: vMargin * -1),
             
             lemmaL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            lemmaL.trailingAnchor.constraint(equalTo: lemmaLabel.leadingAnchor),
+            lemmaL.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             lemmaL.topAnchor.constraint(equalTo: hqidL.bottomAnchor, constant: vMargin),
-            lemmaL.bottomAnchor.constraint(equalTo: unitLabel.topAnchor, constant: vMargin * -1),
+            lemmaL.bottomAnchor.constraint(equalTo: lemmaLabel.topAnchor, constant: vMargin * -1),
             
-            lemmaLabel.leadingAnchor.constraint(equalTo: lemmaL.trailingAnchor),
+            lemmaLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             lemmaLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            lemmaLabel.topAnchor.constraint(equalTo: hqidL.bottomAnchor, constant: vMargin),
-            lemmaLabel.bottomAnchor.constraint(equalTo: unitLabel.topAnchor, constant: vMargin * -1),
-            //lemmaLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8),
+            lemmaLabel.topAnchor.constraint(equalTo: lemmaL.bottomAnchor, constant: vMargin),
+            lemmaLabel.bottomAnchor.constraint(equalTo: unitL.topAnchor, constant: vMargin * -1),
+            lemmah,
 
             unitL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            unitL.trailingAnchor.constraint(equalTo: unitLabel.leadingAnchor),
+            unitL.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             unitL.topAnchor.constraint(equalTo: lemmaLabel.bottomAnchor, constant: vMargin),
-            unitL.bottomAnchor.constraint(equalTo: posLabel.topAnchor, constant: vMargin * -1),
+            unitL.bottomAnchor.constraint(equalTo: unitLabel.topAnchor, constant: vMargin * -1),
             
-            unitLabel.leadingAnchor.constraint(equalTo: unitL.trailingAnchor),
+            unitLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             unitLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            unitLabel.topAnchor.constraint(equalTo: lemmaLabel.bottomAnchor, constant: vMargin),
-            unitLabel.bottomAnchor.constraint(equalTo:posLabel.topAnchor, constant: vMargin * -1),
+            unitLabel.topAnchor.constraint(equalTo: unitL.bottomAnchor, constant: vMargin),
+            unitLabel.bottomAnchor.constraint(equalTo:posL.topAnchor, constant: vMargin * -1),
 
             posL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            posL.trailingAnchor.constraint(equalTo: posLabel.leadingAnchor),
+            posL.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             posL.topAnchor.constraint(equalTo: unitLabel.bottomAnchor, constant: vMargin),
-            posL.bottomAnchor.constraint(equalTo: defL.topAnchor, constant: vMargin * -1),
+            posL.bottomAnchor.constraint(equalTo: posLabel.topAnchor, constant: vMargin * -1),
             
-            posLabel.leadingAnchor.constraint(equalTo: posL.trailingAnchor),
+            posLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             posLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            posLabel.topAnchor.constraint(equalTo: unitLabel.bottomAnchor, constant: vMargin),
+            posLabel.topAnchor.constraint(equalTo: posL.bottomAnchor, constant: vMargin),
             posLabel.bottomAnchor.constraint(equalTo: defL.topAnchor, constant: vMargin * -1),
             
             defL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             defL.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            defL.topAnchor.constraint(equalTo: posL.bottomAnchor, constant: vMargin),
+            defL.topAnchor.constraint(equalTo: posLabel.bottomAnchor, constant: vMargin),
             defL.bottomAnchor.constraint(equalTo: defLabel.topAnchor, constant: vMargin * -1),
             
             defLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             defLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             defLabel.topAnchor.constraint(equalTo: defL.bottomAnchor, constant: vMargin),
             defLabel.bottomAnchor.constraint(equalTo: ppL.topAnchor, constant: vMargin * -1),
-            defLabel.heightAnchor.constraint(equalToConstant: 80.0),
+            defh,
             
             ppL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             ppL.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -222,7 +236,7 @@ class VocabDetailViewController: UIViewController {
             ppLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             ppLabel.topAnchor.constraint(equalTo: ppL.bottomAnchor, constant: vMargin),
             ppLabel.bottomAnchor.constraint(equalTo: noteL.topAnchor, constant: vMargin * -1),
-            ppLabel.heightAnchor.constraint(equalToConstant: 80.0),
+            pph,
             
             noteL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             noteL.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -233,7 +247,7 @@ class VocabDetailViewController: UIViewController {
             noteLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             noteLabel.topAnchor.constraint(equalTo: noteL.bottomAnchor, constant: vMargin),
             noteLabel.bottomAnchor.constraint(equalTo: verbClassL.topAnchor, constant: vMargin * -1),
-            noteLabel.heightAnchor.constraint(equalToConstant: 80.0),
+            noteh,
 
             verbClassL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             verbClassL.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -315,6 +329,13 @@ class VocabDetailViewController: UIViewController {
         arrowedLabel?.setContentHuggingPriority(.defaultHigh, for: .vertical)
         pageLineL!.text = "Page/Line:"
         pageLineL?.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        
+        lemmaLabel?.font = greekFont
+        defLabel?.font = romanFont
+        ppLabel?.font = greekFont
+        noteLabel?.font = romanFont
+        
+        
         //pageLineLabel?.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         //https://www.natashatherobot.com/ios-autolayout-scrollview/
@@ -352,6 +373,12 @@ class VocabDetailViewController: UIViewController {
             ppLabel?.layer.borderWidth = 1.0
             noteLabel?.layer.borderColor = GlobalTheme.primaryText.cgColor
             noteLabel?.layer.borderWidth = 1.0
+            verbClassLabel?.layer.borderColor = GlobalTheme.primaryText.cgColor
+            verbClassLabel?.layer.borderWidth = 1.0
+            pageLineLabel?.layer.borderColor = GlobalTheme.primaryText.cgColor
+            pageLineLabel?.layer.borderWidth = 1.0
+            arrowedLabel?.layer.borderColor = GlobalTheme.primaryText.cgColor
+            arrowedLabel?.layer.borderWidth = 1.0
             defColor = "white"
             view.backgroundColor = GlobalTheme.primaryBG
         }
@@ -363,6 +390,9 @@ class VocabDetailViewController: UIViewController {
             defLabel?.layer.borderWidth = 0.0
             ppLabel?.layer.borderWidth = 0.0
             noteLabel?.layer.borderWidth = 0.0
+            verbClassLabel?.layer.borderWidth = 0.0
+            pageLineLabel?.layer.borderWidth = 0.0
+            arrowedLabel?.layer.borderWidth = 0.0
             view.backgroundColor = UIColor.systemGray
             defColor = "black"
         }
@@ -481,7 +511,7 @@ class VocabDetailViewController: UIViewController {
                     let useAttributed = true
                     if useAttributed
                     {
-                        let htmlText = "<span style='color:\(defColor);font-size:14pt;font-family:helvetica;'>" + def + "</span>"
+                        let htmlText = "<span style='color:\(defColor);font-size:\(fontsize)px;font-family:helvetica;'>" + def + "</span>"
                         let encodedData = htmlText.data(using: .utf8)!
 
                         do {
@@ -542,7 +572,7 @@ class VocabDetailViewController: UIViewController {
                 
                 if let w = ppLabel
                 {
-                    if pos == "Verb"
+                    if pos == "verb"
                     {
                         w.text = pp
                     }
