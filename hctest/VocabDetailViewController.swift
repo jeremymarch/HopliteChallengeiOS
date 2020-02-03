@@ -12,6 +12,14 @@ import CoreData
 class VocabDetailViewController: UIViewController {
     weak var lemmaL:UILabel?
     weak var hqidL:UILabel?
+    weak var unitL:UILabel?
+    weak var posL:UILabel?
+    weak var defL:UILabel?
+    weak var ppL:UILabel?
+    weak var noteL:UILabel?
+    weak var arrowedL:UILabel?
+    weak var pageLineL:UILabel?
+    weak var verbClassL:UILabel?
     weak var lemmaLabel:UITextField?
     weak var hqidLabel:UITextField?
     weak var unitLabel:UITextField?
@@ -60,33 +68,65 @@ class VocabDetailViewController: UIViewController {
         lemmaLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(lemmaLabel)
         
+        let unitL = UILabel(frame: .zero)
+        unitL.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(unitL)
+        
         let unitLabel = UITextField(frame: .zero)
         unitLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(unitLabel)
+        
+        let posL = UILabel(frame: .zero)
+        posL.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(posL)
         
         let posLabel = UITextField(frame: .zero)
         posLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(posLabel)
         
+        let defL = UILabel(frame: .zero)
+        defL.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(defL)
+        
         let defLabel = UITextView(frame: .zero)
         defLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(defLabel)
+        
+        let ppL = UILabel(frame: .zero)
+        ppL.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(ppL)
         
         let ppLabel = UITextView(frame: .zero)
         ppLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(ppLabel)
         
+        let noteL = UILabel(frame: .zero)
+        noteL.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(noteL)
+        
         let noteLabel = UITextView(frame: .zero)
         noteLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(noteLabel)
+        
+        let arrowedL = UILabel(frame: .zero)
+        arrowedL.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(arrowedL)
         
         let arrowedLabel = UITextField(frame: .zero)
         arrowedLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(arrowedLabel)
         
+        let pageLineL = UILabel(frame: .zero)
+        pageLineL.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(pageLineL)
+        
         let pageLineLabel = UITextField(frame: .zero)
         pageLineLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(pageLineLabel)
+        
+        let verbClassL = UILabel(frame: .zero)
+        verbClassL.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(verbClassL)
         
         let verbClassLabel = UITextField(frame: .zero)
         verbClassLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -133,56 +173,96 @@ class VocabDetailViewController: UIViewController {
             
             lemmaL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             lemmaL.trailingAnchor.constraint(equalTo: lemmaLabel.leadingAnchor),
-            lemmaL.topAnchor.constraint(equalTo: hqidL.bottomAnchor),
+            lemmaL.topAnchor.constraint(equalTo: hqidL.bottomAnchor, constant: vMargin),
             lemmaL.bottomAnchor.constraint(equalTo: unitLabel.topAnchor, constant: vMargin * -1),
             
             lemmaLabel.leadingAnchor.constraint(equalTo: lemmaL.trailingAnchor),
             lemmaLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            lemmaLabel.topAnchor.constraint(equalTo: hqidL.bottomAnchor),
+            lemmaLabel.topAnchor.constraint(equalTo: hqidL.bottomAnchor, constant: vMargin),
             lemmaLabel.bottomAnchor.constraint(equalTo: unitLabel.topAnchor, constant: vMargin * -1),
             //lemmaLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8),
+
+            unitL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            unitL.trailingAnchor.constraint(equalTo: unitLabel.leadingAnchor),
+            unitL.topAnchor.constraint(equalTo: lemmaLabel.bottomAnchor, constant: vMargin),
+            unitL.bottomAnchor.constraint(equalTo: posLabel.topAnchor, constant: vMargin * -1),
             
-            unitLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            unitLabel.trailingAnchor.constraint(equalTo: posLabel.leadingAnchor),
+            unitLabel.leadingAnchor.constraint(equalTo: unitL.trailingAnchor),
+            unitLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             unitLabel.topAnchor.constraint(equalTo: lemmaLabel.bottomAnchor, constant: vMargin),
-            unitLabel.bottomAnchor.constraint(equalTo: defLabel.topAnchor, constant: vMargin * -1),
+            unitLabel.bottomAnchor.constraint(equalTo:posLabel.topAnchor, constant: vMargin * -1),
+
+            posL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            posL.trailingAnchor.constraint(equalTo: posLabel.leadingAnchor),
+            posL.topAnchor.constraint(equalTo: unitLabel.bottomAnchor, constant: vMargin),
+            posL.bottomAnchor.constraint(equalTo: defL.topAnchor, constant: vMargin * -1),
             
-            posLabel.leadingAnchor.constraint(equalTo: unitLabel.trailingAnchor),
+            posLabel.leadingAnchor.constraint(equalTo: posL.trailingAnchor),
             posLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            posLabel.topAnchor.constraint(equalTo: lemmaLabel.bottomAnchor, constant: vMargin),
-            posLabel.bottomAnchor.constraint(equalTo: defLabel.topAnchor, constant: vMargin * -1),
+            posLabel.topAnchor.constraint(equalTo: unitLabel.bottomAnchor, constant: vMargin),
+            posLabel.bottomAnchor.constraint(equalTo: defL.topAnchor, constant: vMargin * -1),
+            
+            defL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            defL.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            defL.topAnchor.constraint(equalTo: posL.bottomAnchor, constant: vMargin),
+            defL.bottomAnchor.constraint(equalTo: defLabel.topAnchor, constant: vMargin * -1),
             
             defLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             defLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            defLabel.topAnchor.constraint(equalTo: posLabel.bottomAnchor, constant: vMargin),
-            defLabel.bottomAnchor.constraint(equalTo: ppLabel.topAnchor, constant: vMargin * -1),
+            defLabel.topAnchor.constraint(equalTo: defL.bottomAnchor, constant: vMargin),
+            defLabel.bottomAnchor.constraint(equalTo: ppL.topAnchor, constant: vMargin * -1),
             defLabel.heightAnchor.constraint(equalToConstant: 80.0),
             
+            ppL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            ppL.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            ppL.topAnchor.constraint(equalTo: defLabel.bottomAnchor, constant: vMargin),
+            ppL.bottomAnchor.constraint(equalTo: ppLabel.topAnchor, constant: vMargin * -1),
+
             ppLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             ppLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            ppLabel.topAnchor.constraint(equalTo: defLabel.bottomAnchor, constant: vMargin),
-            ppLabel.bottomAnchor.constraint(equalTo: noteLabel.topAnchor, constant: vMargin * -1),
+            ppLabel.topAnchor.constraint(equalTo: ppL.bottomAnchor, constant: vMargin),
+            ppLabel.bottomAnchor.constraint(equalTo: noteL.topAnchor, constant: vMargin * -1),
             ppLabel.heightAnchor.constraint(equalToConstant: 80.0),
+            
+            noteL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            noteL.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            noteL.topAnchor.constraint(equalTo: ppLabel.bottomAnchor, constant: vMargin),
+            noteL.bottomAnchor.constraint(equalTo: noteLabel.topAnchor, constant: vMargin * -1),
             
             noteLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             noteLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            noteLabel.topAnchor.constraint(equalTo: ppLabel.bottomAnchor, constant: vMargin),
-            noteLabel.bottomAnchor.constraint(equalTo: verbClassLabel.topAnchor, constant: vMargin * -1),
+            noteLabel.topAnchor.constraint(equalTo: noteL.bottomAnchor, constant: vMargin),
+            noteLabel.bottomAnchor.constraint(equalTo: verbClassL.topAnchor, constant: vMargin * -1),
             noteLabel.heightAnchor.constraint(equalToConstant: 80.0),
+
+            verbClassL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            verbClassL.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            verbClassL.topAnchor.constraint(equalTo: noteLabel.bottomAnchor, constant: vMargin),
+            verbClassL.bottomAnchor.constraint(equalTo: verbClassLabel.topAnchor, constant: vMargin * -1),
             
             verbClassLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            verbClassLabel.trailingAnchor.constraint(equalTo: arrowedLabel.leadingAnchor),
-            verbClassLabel.topAnchor.constraint(equalTo: noteLabel.bottomAnchor, constant: vMargin),
-            verbClassLabel.bottomAnchor.constraint(equalTo: pageLineLabel.topAnchor),
+            verbClassLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            verbClassLabel.topAnchor.constraint(equalTo: verbClassL.bottomAnchor, constant: vMargin),
+            verbClassLabel.bottomAnchor.constraint(equalTo: arrowedL.topAnchor, constant: vMargin * -1),
             
-            arrowedLabel.leadingAnchor.constraint(equalTo: verbClassLabel.trailingAnchor),
+            arrowedL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            arrowedL.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            arrowedL.topAnchor.constraint(equalTo: verbClassLabel.bottomAnchor, constant: vMargin),
+            arrowedL.bottomAnchor.constraint(equalTo: arrowedLabel.topAnchor, constant: vMargin * -1),
+            
+            arrowedLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             arrowedLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            arrowedLabel.topAnchor.constraint(equalTo: noteLabel.bottomAnchor),
-            arrowedLabel.bottomAnchor.constraint(equalTo: pageLineLabel.topAnchor),
+            arrowedLabel.topAnchor.constraint(equalTo: arrowedL.bottomAnchor, constant: vMargin),
+            arrowedLabel.bottomAnchor.constraint(equalTo: pageLineL.topAnchor, constant: vMargin * -1),
+            
+            pageLineL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            pageLineL.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            pageLineL.topAnchor.constraint(equalTo: arrowedLabel.bottomAnchor, constant: vMargin),
+            pageLineL.bottomAnchor.constraint(equalTo: pageLineLabel.topAnchor, constant: vMargin * -1),
             
             pageLineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             pageLineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            pageLineLabel.topAnchor.constraint(equalTo: verbClassLabel.bottomAnchor),
+            pageLineLabel.topAnchor.constraint(equalTo: pageLineL.bottomAnchor, constant: vMargin),
             pageLineLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         
@@ -190,13 +270,21 @@ class VocabDetailViewController: UIViewController {
         self.hqidLabel = hqidLabel
         self.lemmaL = lemmaL
         self.lemmaLabel = lemmaLabel
+        self.unitL = unitL
         self.unitLabel = unitLabel
+        self.posL = posL
         self.posLabel = posLabel
+        self.defL = defL
         self.defLabel = defLabel
+        self.ppL = ppL
         self.ppLabel = ppLabel
+        self.noteL = noteL
         self.noteLabel = noteLabel
+        self.verbClassL = verbClassL
         self.verbClassLabel = verbClassLabel
+        self.arrowedL = arrowedL
         self.arrowedLabel = arrowedLabel
+        self.pageLineL = pageLineL
         self.pageLineLabel = pageLineLabel
         self.scrollView = scrollView
         self.contentView = contentView
@@ -209,6 +297,25 @@ class VocabDetailViewController: UIViewController {
         lemmaL?.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         hqidL!.text = "ID: "
         hqidL?.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        unitL!.text = "Unit: "
+        unitL?.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        posL!.text = "POS: "
+        posL?.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        defL!.text = "Def:"
+        defL?.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        ppL!.text = "Principal Parts:"
+        ppL?.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        noteL!.text = "Notes:"
+        noteL?.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        verbClassL!.text = "Verb Class:"
+        verbClassL?.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        verbClassLabel?.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        arrowedL!.text = "Arrowed Day:"
+        arrowedL?.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        arrowedLabel?.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        pageLineL!.text = "Page/Line:"
+        pageLineL?.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        //pageLineLabel?.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         //https://www.natashatherobot.com/ios-autolayout-scrollview/
         //scrollView!.contentSize = contentView!.frame.size
