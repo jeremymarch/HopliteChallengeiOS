@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class VocabDetailViewController: UIViewController {
+class VocabDetailViewController: UIViewController, UITextFieldDelegate {
     weak var lemmaL:UILabel?
     weak var hqidL:UILabel?
     weak var unitL:UILabel?
@@ -175,20 +175,20 @@ class VocabDetailViewController: UIViewController {
             contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
             cvh,
             
-            hqidL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            lemmaL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            lemmaL.trailingAnchor.constraint(equalTo: hqidL.leadingAnchor),
+            lemmaL.topAnchor.constraint(equalTo: contentView.topAnchor),
+            lemmaL.bottomAnchor.constraint(equalTo: lemmaLabel.topAnchor, constant: vMargin * -1),
+            
+            hqidL.leadingAnchor.constraint(equalTo: lemmaL.trailingAnchor),
             hqidL.trailingAnchor.constraint(equalTo: hqidLabel.leadingAnchor),
             hqidL.topAnchor.constraint(equalTo: contentView.topAnchor),
-            hqidL.bottomAnchor.constraint(equalTo: lemmaL.topAnchor, constant: vMargin * -1),
+            hqidL.bottomAnchor.constraint(equalTo: lemmaLabel.topAnchor, constant: vMargin * -1),
             
             hqidLabel.leadingAnchor.constraint(equalTo: hqidL.trailingAnchor),
             hqidLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             hqidLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            hqidLabel.bottomAnchor.constraint(equalTo: lemmaL.topAnchor, constant: vMargin * -1),
-            
-            lemmaL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            lemmaL.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            lemmaL.topAnchor.constraint(equalTo: hqidL.bottomAnchor, constant: vMargin),
-            lemmaL.bottomAnchor.constraint(equalTo: lemmaLabel.topAnchor, constant: vMargin * -1),
+            hqidLabel.bottomAnchor.constraint(equalTo: lemmaLabel.topAnchor, constant: vMargin * -1),
             
             lemmaLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             lemmaLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -304,11 +304,43 @@ class VocabDetailViewController: UIViewController {
         self.contentView = contentView
     }
     
+    func animateTextField(textField: UITextField, up: Bool)
+    {
+        let movementDistance:CGFloat = -280
+        let movementDuration: Double = 0.3
+
+        var movement:CGFloat = 0
+        if up
+        {
+            movement = movementDistance
+        }
+        else
+        {
+            movement = -movementDistance
+        }
+        UIView.beginAnimations("animateTextField", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(movementDuration)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
+    }
+
+
+    func textFieldDidBeginEditing(_ textField: UITextField)
+    {
+        self.animateTextField(textField: textField, up:true)
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField)
+    {
+        self.animateTextField(textField: textField, up:false)
+    }
+    
     var hqid:Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         lemmaL!.text = "Lemma: "
-        lemmaL?.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        lemmaL?.setContentHuggingPriority(.defaultLow, for: .horizontal)
         hqidL!.text = "ID: "
         hqidL?.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         unitL!.text = "Unit: "
@@ -334,6 +366,9 @@ class VocabDetailViewController: UIViewController {
         defLabel?.font = romanFont
         ppLabel?.font = greekFont
         noteLabel?.font = romanFont
+        
+        verbClassLabel?.delegate = self
+        pageLineLabel?.delegate = self
         
         
         //pageLineLabel?.setContentHuggingPriority(.defaultHigh, for: .vertical)
