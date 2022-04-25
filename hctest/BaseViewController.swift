@@ -68,7 +68,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
                 {
                     //we can set these values before showing
                     dest.sortAlpha = false
-                    dest.predicate = "pos=='Verb'"
+                    dest.predicate = "LOWER(pos)=='verb'"
                     dest.selectedButtonIndex = 1
                     dest.filterViewHeightValue = 0.0
                     dest.navTitle = "Verbs"
@@ -79,7 +79,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
                 /*
                  //we can set these values before showing
                 dest.sortAlpha = false
-                dest.predicate = "pos=='Verb'"
+                dest.predicate = "LOWER(pos)=='verb'"
                 dest.selectedButtonIndex = 1
                 dest.filterViewHeightValue = 0.0
                 dest.navTitle = "Verbs"

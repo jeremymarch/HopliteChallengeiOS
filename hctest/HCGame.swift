@@ -1307,7 +1307,7 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
         let verbChooser = segue.destination as! VocabTableViewController
         //vd.verbIndex = verbIndex
         verbChooser.sortAlpha = false
-        verbChooser.predicate = "pos=='Verb' AND unit < 3"
+        verbChooser.predicate = "LOWER(pos)=='verb' AND unit < 3"
         verbChooser.selectedButtonIndex = 1
         verbChooser.filterViewHeightValue = 0.0
         verbChooser.navTitle = "Choose a verb"

@@ -105,11 +105,15 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
                 let hqid = sqlite3_column_int(queryStatement, 0)
                 let unit = sqlite3_column_int(queryStatement, 1)
                 let lemma = sqlite3_column_text(queryStatement, 2)
-                words.append( Word(hqid: hqid, unit: unit, lemma: String(cString: lemma!)) )
-                wordsPerSection[ Int(unit) - 1 ] += 1
+                if unit > 0 && unit < 21 {
+                    words.append( Word(hqid: hqid, unit: unit, lemma: String(cString: lemma!)) )
+                
+                    wordsPerSection[ Int(unit) - 1 ] += 1
+                }
                 //print("query: \(unit) \(String(cString: lemma!))")
             }
         }
+
         setWordsPerUnit()
         sqlite3_finalize(queryStatement)
         //sqlite3_close(db)

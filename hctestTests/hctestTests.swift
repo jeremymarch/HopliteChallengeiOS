@@ -59,12 +59,12 @@ class hctestTests: XCTestCase {
     {
         //let vf = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: Int(verb.verbId))
         
-        //var isOida:Bool = false
+        var isOida:Bool = false
         if verb.present == "οἶδα" || verb.present == "σύνοιδα"
         {
             isOida = true
         }
-        /*
+        
         for tense in 0..<NUM_TENSES
         {
             vf.tense = UInt8(tense)
@@ -133,7 +133,7 @@ class hctestTests: XCTestCase {
                     }
                 }
             }
-        }*/
+        }
     }
  
 }

@@ -74,22 +74,22 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         if sender.titleLabel?.text == "Verb"
         {
             selectedButtonIndex = 1
-            dataSource!.predicate = "pos=='Verb'"
+            dataSource!.predicate = "LOWER(pos)=='verb'"
         }
         else if sender.titleLabel?.text == "Noun"
         {
             selectedButtonIndex = 2
-            dataSource!.predicate = "pos=='Noun'"
+            dataSource!.predicate = "LOWER(pos)=='noun'"
         }
         else if sender.titleLabel?.text == "Adjective"
         {
             selectedButtonIndex = 3
-            dataSource!.predicate = "pos=='Adjective'"
+            dataSource!.predicate = "LOWER(pos)=='adjective'"
         }
         else if sender.titleLabel?.text == "Other"
         {
             selectedButtonIndex = 4
-            dataSource!.predicate = "pos!='Adjective' AND pos!='Noun' AND pos!='Verb'"
+            dataSource!.predicate = "LOWER(pos)!='adjective' AND LOWER(pos)!='noun' AND LOWER(pos)!='verb'"
         }
         else if sender.titleLabel?.text == "All"
         {
@@ -99,9 +99,11 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         
         dataSource!.filter()
         self.tableView.reloadData()
-        let indexPath = IndexPath(row: 0, section: 0)
-        self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
         
+        if (self.tableView.numberOfSections > 0 && self.tableView.numberOfRows(inSection: 0) > 0) {
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
+        }
         setFilterButtons()
         
         scrollToWord()
@@ -121,9 +123,10 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         dataSource!.resort()
         self.tableView.reloadData()
         
-        let indexPath = IndexPath(row: 0, section: 0)
-        self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
-        
+        if (self.tableView.numberOfSections > 0 && self.tableView.numberOfRows(inSection: 0) > 0) {
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.tableView.scrollToRow(at:indexPath, at: .top, animated: false)
+        }
         searchTextField.resignFirstResponder()
         setSortToggleButton()
         searchTextField.becomeFirstResponder()
@@ -290,7 +293,6 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
             }
         }
     }
-
     
     @objc func textDidChange(_ notification: Notification) {
         //guard let textView = notification.object as? UITextField else { return }
@@ -433,13 +435,12 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
     
     func scrollToWord()
     {
-        let rowCount = tableView.numberOfRows(inSection: 0)
-        
-        //There are zero rows
-        if rowCount < 1
+        if self.tableView.numberOfSections < 1 || self.tableView.numberOfRows(inSection: 0) < 1
         {
             return
         }
+        
+        let rowCount = self.tableView.numberOfRows(inSection: 0)
         
         let searchText = searchTextField?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
         var seq = 0 //zero-indexed
