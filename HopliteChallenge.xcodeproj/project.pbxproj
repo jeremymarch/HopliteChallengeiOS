@@ -89,6 +89,7 @@
 		3F78141223886FD70094173E /* hckeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F78141123886FD70094173E /* hckeyboard.swift */; };
 		3F7A63D220B7BD26003D483C /* HCVerbFormPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */; };
 		3F7A63D420B7DCB5003D483C /* HCStemLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */; };
+		3F805CD12818EBDB00B6AAC9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F805CD02818EBDA00B6AAC9 /* Settings.bundle */; };
 		3F938EE3222DC10B00594AC8 /* RetroHomeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F938EE2222DC10B00594AC8 /* RetroHomeMenuViewController.swift */; };
 		3F9713AC237471BA00DF32DE /* GlobalColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9713AB237471BA00DF32DE /* GlobalColors.swift */; };
 		3F9F220B222C9F9F00BB54F1 /* accent.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F21EA222C9F9F00BB54F1 /* accent.c */; };
@@ -224,6 +225,7 @@
 		3F7A63CF20B79D9A003D483C /* HCGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCGame.swift; sourceTree = "<group>"; };
 		3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCVerbFormPicker.swift; sourceTree = "<group>"; };
 		3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCStemLabel.swift; sourceTree = "<group>"; };
+		3F805CD02818EBDA00B6AAC9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		3F938EE2222DC10B00594AC8 /* RetroHomeMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroHomeMenuViewController.swift; sourceTree = "<group>"; };
 		3F9713AB237471BA00DF32DE /* GlobalColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalColors.swift; sourceTree = "<group>"; };
 		3F9F21E7222C9F9F00BB54F1 /* GreekUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreekUnicode.h; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				3F15E1721E8450A0009760A0 /* hctestTests.swift */,
+				3F805CD02818EBDA00B6AAC9 /* Settings.bundle */,
 				3F15E1741E8450A0009760A0 /* Info.plist */,
 			);
 			name = HopliteChallengeTests;
@@ -641,6 +644,7 @@
 				3F1A64721FDA22BE00D38351 /* Podfile in Resources */,
 				3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */,
 				3F6B7DDF23A7EF4600CF4637 /* tutorialThirdPartySoftware.html in Resources */,
+				3F805CD12818EBDB00B6AAC9 /* Settings.bundle in Resources */,
 				3F6B7DE123A85DFE00CF4637 /* tutorialStyles.css in Resources */,
 				3F76EF81226CEB85001623CB /* xicon.png in Resources */,
 				3F78140723877E660094173E /* DefaultSettings.xib in Resources */,
@@ -976,7 +980,7 @@
 				CODE_SIGN_ENTITLEMENTS = HopliteChallenge.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 69;
+				CURRENT_PROJECT_VERSION = 70;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1010,7 +1014,7 @@
 				CODE_SIGN_ENTITLEMENTS = HopliteChallenge.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 69;
+				CURRENT_PROJECT_VERSION = 70;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (

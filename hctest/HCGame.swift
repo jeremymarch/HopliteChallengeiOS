@@ -27,7 +27,7 @@ enum gameTypes {
     case hcgame
 }
 
-class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDelegate  {
+class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDelegate {
     let idTranslation:[Int] = [43, 45, 36, 37]
     var gameState:gameStates = .start
     //var kb:KeyboardViewController? = nil
@@ -1130,8 +1130,9 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             let url = "https://philolog.us/hc.php"
             let parameters:Dictionary<String, String> = ["type":"moveAnswer","playerID": String(moveUserID),"moveID":String(globalMoveID),"gameID":String(globalGameID),"answerText":String(textView.text),"isCorrect":String(res!),"answerSeconds":String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB),"timedOut":String(timedOut),"lives":String(hcGameMylives),"score":String(hcGameMyScore),"isPlayer1":String(isPlayer1)]
             
-            NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:processResponse)
-            
+            if UserDefaults.standard.bool(forKey: SEND_DEBUG_KEY) {
+                NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:processResponse)
+            }
             saveMoves(gameID:globalGameID, moveID:globalMoveID, isCorrect:res!, answerText:textView.text, answerSeconds:String.init(format: "%.02f sec", timerLabel.elapsedTimeForDB), timedOut:timedOut, lives:hcGameMylives, score:hcGameMyScore, isPlayer1:isPlayer1)
             
             //prompt user request changes
@@ -1555,8 +1556,10 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
             
             let parameters:Dictionary<String, String> = ["type":"newgame","askPlayerID": String(moveUserID), "answerPlayerID": String(moveOpponentID), "verbID":String(selectedVerbIndex), "person":String(stemLabel.pickerSelected[0]), "number":String(stemLabel.pickerSelected[1]), "tense":String(stemLabel.pickerSelected[2]), "voice":String(stemLabel.pickerSelected[3]), "mood":String(stemLabel.pickerSelected[4]),"topUnit":String(10),"timeLimit":String(30), "gameState":String(1)]
             
-            NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:proc)
-            print("send new game")
+            if UserDefaults.standard.bool(forKey: SEND_DEBUG_KEY) {
+                NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:proc)
+                print("send new game")
+            }
             //get result save global gameid/first move data to db
             //send push notification from server to opponent
             return
@@ -1627,8 +1630,9 @@ class HCGameViewController: UIViewController, UITextViewDelegate, VerbChooserDel
 
             let parameters:Dictionary<String, String> = ["type":"requestMove","askPlayerID": String(moveUserID),"answerPlayerID": String(moveOpponentID), "verbID":String(moveVerbID), "person":String(stemLabel.pickerSelected[0]), "number":String(stemLabel.pickerSelected[1]), "tense":String(stemLabel.pickerSelected[2]), "voice":String(stemLabel.pickerSelected[3]), "mood":String(stemLabel.pickerSelected[4]), "gameState":String(gameState!),"gameID":String(globalGameID),"moveID":String(globalMoveID+1)]
             
-            NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:procRequestMoveResponse)
-            
+            if UserDefaults.standard.bool(forKey: SEND_DEBUG_KEY) {
+                NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:procRequestMoveResponse)
+            }
             return
         }
         

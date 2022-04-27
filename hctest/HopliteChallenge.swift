@@ -8,6 +8,8 @@
 
 import UIKit
 
+let SEND_DEBUG_KEY = "send_debug"
+
 class HopliteChallenge: BaseViewController, hckeys {
     //var kb:KeyboardViewController? = nil
     var kb:HopliteChallengeKB? = nil
@@ -903,7 +905,7 @@ class HopliteChallenge: BaseViewController, hckeys {
         }
         
         //let debugString = "Expected: '\(vs.requestedForm.getFormForGame(decomposed:false))', Given: '\(textView.text ?? "")', MF: \(mfPressed)"
-        let url = "https://philolog.us/hc.php"
+        let url = "https://philolog.us/hcdebug"
         let parameters:Dictionary<String, String> =
             ["type":"debugRequestPlusAnswer",
              "answerText":String(textView.text),
@@ -920,8 +922,9 @@ class HopliteChallenge: BaseViewController, hckeys {
              "tense":String(vs.requestedForm.tense.rawValue),
              "voice":String(vs.requestedForm.voice.rawValue),
              "mood":String(vs.requestedForm.mood.rawValue) ]
-        
+        if UserDefaults.standard.bool(forKey: SEND_DEBUG_KEY) {
         NetworkManager.shared.sendReq(urlstr: url, requestData: parameters, queueOnFailure:false, processResult:processResponse)
+        }
     }
     
     func processResponse(requestParams:Dictionary<String, String>, responseData:Data)->Bool

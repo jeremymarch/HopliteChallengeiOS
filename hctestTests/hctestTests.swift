@@ -57,7 +57,8 @@ class hctestTests: XCTestCase {
     
     func printVerb(verb:Verb2)
     {
-        //let vf = VerbForm(person: 0, number: 0, tense: 0, voice: 0, mood: 0, verb: Int(verb.verbId))
+        /*
+        let vf = VerbForm(0, 0, 0, 0, 0, verb: Int(verb.verbId))
         
         var isOida:Bool = false
         if verb.present == "οἶδα" || verb.present == "σύνοιδα"
@@ -67,7 +68,7 @@ class hctestTests: XCTestCase {
         
         for tense in 0..<NUM_TENSES
         {
-            vf.tense = UInt8(tense)
+            VerbForm.Tense(rawValue: vf.tense = UInt8(tense)) ?? <#default value#>
             for voice in 0..<NUM_VOICES
             {
                 for mood in 0..<NUM_MOODS
@@ -133,7 +134,7 @@ class hctestTests: XCTestCase {
                     }
                 }
             }
-        }
+        }*/
     }
  
 }
