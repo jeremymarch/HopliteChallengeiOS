@@ -41,7 +41,7 @@ class hctestTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
+    /*
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
@@ -53,7 +53,7 @@ class hctestTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
+    */
     
     func testVerbs()
     {
@@ -65,113 +65,119 @@ class hctestTests: XCTestCase {
         if rows.count != 34810 {
             return
         }
-        
-        let verb = Verb2.init(verbid: 1)
-        let vf = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: Int(verb.verbId))
         var line = 1
-        var isOida:Bool = false
-        if verb.present == "οἶδα" || verb.present == "σύνοιδα"
-        {
-            isOida = true
-        }
+        for verb_num in 0...527 {
         
-        for tense in VerbForm.Tense.allCases
-        {
-            if tense == .unset { continue }
-            vf.tense = tense
+            let verb = Verb2.init(verbid: verb_num)
+            let vf = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: verb_num)
             
-            for voice in VerbForm.Voice.allCases
+            var isOida:Bool = false
+            if verb.present == "οἶδα" || verb.present == "σύνοιδα"
             {
-                if voice == .unset { continue }
-                vf.voice = voice
-                for mood in VerbForm.Mood.allCases
+                isOida = true
+            }
+            
+            for tense in VerbForm.Tense.allCases
+            {
+                if tense == .unset { continue }
+                vf.tense = tense
+                
+                for voice in VerbForm.Voice.allCases
                 {
-                    if mood == .unset { continue }
-                    vf.mood = mood
-                    if (mood == .infinitive || mood == .participle)
+                    if voice == .unset { continue }
+                    vf.voice = voice
+                    for mood in VerbForm.Mood.allCases
                     {
-                        continue
-                    }
-                    else if !isOida && mood != .indicative && (tense == .perfect || tense == .pluperfect || tense == .imperfect || (tense == .future && mood != .optative))
-                    {
-                        continue
-                    }
-                    else if isOida && mood != .indicative && (tense == .pluperfect || tense == .imperfect || (tense == .future && mood != .optative))
-                    /*else if isOida && ((mood != .indicative && (tense == .pluperfect || tense == .imperfect)) && (tense == .future && (mood == .subjunctive || mood == .imperative)))*/
-                        
-                    {
-                        continue
-                    }
-
-                    var s:String?
-                    if voice == .active || tense == .aorist || tense == .future
-                    {
-                        s = "  " + tense.description + " " + vf.getVoiceDescription() + " " + mood.description
-                    }
-                    else if voice == .middle
-                    {
-                        //FYI: middle deponents do NOT have a passive voice.  H&Q page 316
-                        s = "  " + tense.description + " " + vf.getVoiceDescription() + " " + mood.description
-                    }
-
-                    var voi = ""
-                    if vf.voice == .middle && vf.mood == .imperative {
-                        voi = "Middle"
-                    }
-                    else if vf.voice == .passive && vf.mood == .imperative {
-                        voi = "Passive"
-                    }
-                    else if vf.getVoiceDescription() == "Middle/Passive" && vf.voice == .middle {
-                        voi = "Middle (\(vf.getVoiceDescription()))"
-                    }
-                    else if vf.getVoiceDescription() == "Middle/Passive" && vf.voice == .passive {
-                        voi = "Passive (\(vf.getVoiceDescription()))"
-                    }
-                    else {
-                        voi = vf.getVoiceDescription()
-                    }
-                    let sec = "\(tense.description) \(voi) \(mood.description)"
-                    XCTAssertEqual(String(rows[line]), sec)
-                    if String(rows[line]) != sec {
-                        return
-                    }
-                    line += 1
-                    for number in VerbForm.Number.allCases
-                    {
-                        if number == .unset { continue }
-                        vf.number = number
-                        
-                        for person in VerbForm.Person.allCases
+                        if mood == .unset { continue }
+                        vf.mood = mood
+                        if (mood == .infinitive || mood == .participle)
                         {
-                            if person == .unset { continue }
-                            vf.person = person
+                            continue
+                        }
+                        else if !isOida && mood != .indicative && (tense == .perfect || tense == .pluperfect || tense == .imperfect || (tense == .future && mood != .optative))
+                        {
+                            continue
+                        }
+                        else if isOida && mood != .indicative && (tense == .pluperfect || tense == .imperfect || (tense == .future && mood != .optative))
+                        /*else if isOida && ((mood != .indicative && (tense == .pluperfect || tense == .imperfect)) && (tense == .future && (mood == .subjunctive || mood == .imperative)))*/
                             
-                            var form = vf.getForm(decomposed: false).replacingOccurrences(of: ",\n", with: ", ")
-                            var form_d = vf.getForm(decomposed: true).replacingOccurrences(of: ",\n", with: ", ")
+                        {
+                            continue
+                        }
+
+                        var s:String?
+                        if voice == .active || tense == .aorist || tense == .future
+                        {
+                            s = "  " + tense.description + " " + vf.getVoiceDescription() + " " + mood.description
+                        }
+                        else if voice == .middle
+                        {
+                            //FYI: middle deponents do NOT have a passive voice.  H&Q page 316
+                            s = "  " + tense.description + " " + vf.getVoiceDescription() + " " + mood.description
+                        }
+
+                        var voi = ""
+                        if vf.voice == .middle && vf.mood == .imperative {
+                            voi = "Middle"
+                        }
+                        else if vf.voice == .passive && vf.mood == .imperative {
+                            voi = "Passive"
+                        }
+                        else if vf.getVoiceDescription() == "Middle/Passive" && vf.voice == .middle {
+                            voi = "Middle (\(vf.getVoiceDescription()))"
+                        }
+                        else if vf.getVoiceDescription() == "Middle/Passive" && vf.voice == .passive {
+                            voi = "Passive (\(vf.getVoiceDescription()))"
+                        }
+                        else {
+                            voi = vf.getVoiceDescription()
+                        }
+                        let sec = "\(tense.description) \(voi) \(mood.description)"
+                        XCTAssertEqual(String(rows[line]), sec)
+                        if String(rows[line]) != sec {
+                            return
+                        }
+                        line += 1
+                        for number in VerbForm.Number.allCases
+                        {
+                            if number == .unset { continue }
+                            vf.number = number
                             
-                            if vf.mood == .imperative && vf.person == .first {
-                                form = "NF"
-                                form_d = "NDF"
-                            }
-                            
-                            if (form != "")
+                            for person in VerbForm.Person.allCases
                             {
-                                let label = String.init(format: "%d%@", (person.rawValue + 1), (number == .singular) ? "s" : "p")
+                                if person == .unset { continue }
+                                vf.person = person
                                 
-                                let x = "\(label): \(form) ; \(form_d)"
-                                print(x)
+                                var form = vf.getForm(decomposed: false).replacingOccurrences(of: ",\n", with: ", ")
+                                var form_d = vf.getForm(decomposed: true).replacingOccurrences(of: ",\n", with: ", ")
                                 
-                                XCTAssertEqual(String(rows[line]), x)
-                                if String(rows[line]) != x {
-                                    return
+                                if vf.mood == .imperative && vf.person == .first {
+                                    form = "NF"
+                                    form_d = "NDF"
                                 }
-                                line += 1
+                                
+                                if (form != "")
+                                {
+                                    let label = String.init(format: "%d%@", (person.rawValue + 1), (number == .singular) ? "s" : "p")
+                                    
+                                    let x = "\(label): \(form) ; \(form_d)"
+                                    print(x)
+                                    
+                                    XCTAssertEqual(String(rows[line]), x)
+                                    if String(rows[line]) != x {
+                                        return
+                                    }
+                                    line += 1
+                                }
                             }
                         }
                     }
                 }
+                
             }
+            line += 1
         }
+        
     }
     
 }
