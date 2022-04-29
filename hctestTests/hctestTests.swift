@@ -66,7 +66,7 @@ class hctestTests: XCTestCase {
             return
         }
         var line = 1
-        for verb_num in 0...527 {
+        for verb_num in 0...126 {
         
             let verb = Verb2.init(verbid: verb_num)
             let vf = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: verb_num)
@@ -133,7 +133,9 @@ class hctestTests: XCTestCase {
                             voi = vf.getVoiceDescription()
                         }
                         let sec = "\(tense.description) \(voi) \(mood.description)"
-                        XCTAssertEqual(String(rows[line]), sec)
+                        print("\(line) - \(sec)")
+                        XCTAssertEqual(String(rows[line]), sec, "line: \(line). verb: \(vf.verbid) \(vf.person) \(vf.number) \(vf.tense) \(vf.voice) \(vf.mood)")
+                        
                         if String(rows[line]) != sec {
                             return
                         }
@@ -156,19 +158,25 @@ class hctestTests: XCTestCase {
                                     form_d = "NDF"
                                 }
                                 
-                                if (form != "")
+                                if (form == "")
                                 {
+                                    form = "NF"
+                                }
+                                if (form_d == "")
+                                {
+                                    form_d = "NDF"
+                                }
                                     let label = String.init(format: "%d%@", (person.rawValue + 1), (number == .singular) ? "s" : "p")
                                     
                                     let x = "\(label): \(form) ; \(form_d)"
-                                    print(x)
+                                    print("\t\(line) - \(x)")
                                     
                                     XCTAssertEqual(String(rows[line]), x)
                                     if String(rows[line]) != x {
                                         return
                                     }
                                     line += 1
-                                }
+                                //}
                             }
                         }
                     }
