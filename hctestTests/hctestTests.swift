@@ -57,6 +57,8 @@ class hctestTests: XCTestCase {
     
     func testVerbs()
     {
+        let print_lines = false
+        
         let bundle = Bundle(for: type(of: self))
         let path = bundle.path(forResource: "new", ofType: "txt")!
         let contents = try! String(contentsOfFile: path)
@@ -133,7 +135,9 @@ class hctestTests: XCTestCase {
                             voi = vf.getVoiceDescription()
                         }
                         let sec = "\(tense.description) \(voi) \(mood.description)"
-                        print("\(line) - \(sec)")
+                        if print_lines {
+                            print("\(line) - \(sec)")
+                        }
                         XCTAssertEqual(String(rows[line]), sec, "line: \(line). verb: \(vf.verbid) \(vf.person) \(vf.number) \(vf.tense) \(vf.voice) \(vf.mood)")
                         
                         if String(rows[line]) != sec {
@@ -166,23 +170,24 @@ class hctestTests: XCTestCase {
                                 {
                                     form_d = "NDF"
                                 }
-                                    let label = String.init(format: "%d%@", (person.rawValue + 1), (number == .singular) ? "s" : "p")
-                                    
-                                    let x = "\(label): \(form) ; \(form_d)"
+                                let label = String.init(format: "%d%@", (person.rawValue + 1), (number == .singular) ? "s" : "p")
+                                
+                                let x = "\(label): \(form) ; \(form_d)"
+                                if print_lines {
                                     print("\t\(line) - \(x)")
-                                    
-                                    XCTAssertEqual(String(rows[line]), x)
-                                    if String(rows[line]) != x {
-                                        return
-                                    }
-                                    line += 1
-                                //}
+                                }
+                                XCTAssertEqual(String(rows[line]), x, "line: \(line). verb: \(vf.verbid) \(vf.person) \(vf.number) \(vf.tense) \(vf.voice) \(vf.mood)")
+                                if String(rows[line]) != x {
+                                    return
+                                }
+                                line += 1
                             }
                         }
                     }
                 }
                 
             }
+            //next verb
             line += 1
         }
         
