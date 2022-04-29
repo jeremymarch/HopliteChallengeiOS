@@ -27,8 +27,8 @@ class hctestTests: XCTestCase {
     let moodsabbrev = ["ind.", "subj.", "opt.", "imper."]
     
     var verbIndex:Int = -1
-    var forms = [FormRow]()
-    var sections = [String]()
+    //var forms = [FormRow]()
+    //var sections = [String]()
     var sectionCounts = [Int]()
     var isExpanded:Bool = false
     
@@ -55,86 +55,123 @@ class hctestTests: XCTestCase {
     }
     
     
-    func printVerb(verb:Verb2)
+    func testVerbs()
     {
-        /*
-        let vf = VerbForm(0, 0, 0, 0, 0, verb: Int(verb.verbId))
+        let bundle = Bundle(for: type(of: self))
+        let path = bundle.path(forResource: "new", ofType: "txt")!
+        let contents = try! String(contentsOfFile: path)
+        let rows = contents.split(separator:"\n")
+        XCTAssertEqual(rows.count, 34810)
+        if rows.count != 34810 {
+            return
+        }
         
+        let verb = Verb2.init(verbid: 1)
+        let vf = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: Int(verb.verbId))
+        var line = 1
         var isOida:Bool = false
         if verb.present == "οἶδα" || verb.present == "σύνοιδα"
         {
             isOida = true
         }
         
-        for tense in 0..<NUM_TENSES
+        for tense in VerbForm.Tense.allCases
         {
-            VerbForm.Tense(rawValue: vf.tense = UInt8(tense)) ?? <#default value#>
-            for voice in 0..<NUM_VOICES
+            if tense == .unset { continue }
+            vf.tense = tense
+            
+            for voice in VerbForm.Voice.allCases
             {
-                for mood in 0..<NUM_MOODS
+                if voice == .unset { continue }
+                vf.voice = voice
+                for mood in VerbForm.Mood.allCases
                 {
-                    let m:Int = Int(mood)
-                    if !isOida && m != INDICATIVE && (tense == PERFECT || tense == PLUPERFECT || tense == IMPERFECT || (tense == FUTURE && m != OPTATIVE))
+                    if mood == .unset { continue }
+                    vf.mood = mood
+                    if (mood == .infinitive || mood == .participle)
                     {
                         continue
                     }
-                    else if isOida && m != INDICATIVE && (tense == PLUPERFECT || tense == IMPERFECT || tense == FUTURE)
+                    else if !isOida && mood != .indicative && (tense == .perfect || tense == .pluperfect || tense == .imperfect || (tense == .future && mood != .optative))
                     {
                         continue
                     }
+                    else if isOida && mood != .indicative && (tense == .pluperfect || tense == .imperfect || (tense == .future && mood != .optative))
+                    /*else if isOida && ((mood != .indicative && (tense == .pluperfect || tense == .imperfect)) && (tense == .future && (mood == .subjunctive || mood == .imperative)))*/
+                        
+                    {
+                        continue
+                    }
+
                     var s:String?
-                    if voice == ACTIVE || tense == AORIST || tense == FUTURE
+                    if voice == .active || tense == .aorist || tense == .future
                     {
-                        s = "  " + tenses[tense] + " " + voices[voice] + " " + moods[m]
+                        s = "  " + tense.description + " " + vf.getVoiceDescription() + " " + mood.description
                     }
-                    else if voice == MIDDLE
+                    else if voice == .middle
                     {
-                        //yes it's correct, middle deponents do not have a passive voice.  H&Q page 316
-                        if  verb.isDeponent() == MIDDLE_DEPONENT || verb.isDeponent() == PASSIVE_DEPONENT || verb.isDeponent() == DEPONENT_GIGNOMAI || verb.present == "κεῖμαι"
-                        {
-                            s = "  " + tenses[tense] + " " + "Middle" + " " + moods[m]
-                        }
-                        else
-                        {
-                            s = "  " + tenses[tense] + " " + "Middle/Passive" + " " + moods[m]
-                        }
+                        //FYI: middle deponents do NOT have a passive voice.  H&Q page 316
+                        s = "  " + tense.description + " " + vf.getVoiceDescription() + " " + mood.description
                     }
-                    else
-                    {
-                        continue; //skip passive if middle+passive are the same
+
+                    var voi = ""
+                    if vf.voice == .middle && vf.mood == .imperative {
+                        voi = "Middle"
                     }
-                    var sectionCount = 0
-                    for number in 0..<NUM_NUMBERS
+                    else if vf.voice == .passive && vf.mood == .imperative {
+                        voi = "Passive"
+                    }
+                    else if vf.getVoiceDescription() == "Middle/Passive" && vf.voice == .middle {
+                        voi = "Middle (\(vf.getVoiceDescription()))"
+                    }
+                    else if vf.getVoiceDescription() == "Middle/Passive" && vf.voice == .passive {
+                        voi = "Passive (\(vf.getVoiceDescription()))"
+                    }
+                    else {
+                        voi = vf.getVoiceDescription()
+                    }
+                    let sec = "\(tense.description) \(voi) \(mood.description)"
+                    XCTAssertEqual(String(rows[line]), sec)
+                    if String(rows[line]) != sec {
+                        return
+                    }
+                    line += 1
+                    for number in VerbForm.Number.allCases
                     {
-                        for person in 0..<NUM_PERSONS
+                        if number == .unset { continue }
+                        vf.number = number
+                        
+                        for person in VerbForm.Person.allCases
                         {
-                            vf.person = UInt8(person)
-                            vf.number = UInt8(number)
-                            vf.tense = UInt8(tense)
-                            vf.voice = UInt8(voice)
-                            vf.mood = UInt8(mood)
+                            if person == .unset { continue }
+                            vf.person = person
                             
-                            var form = vf.getForm(decomposed: false)
+                            var form = vf.getForm(decomposed: false).replacingOccurrences(of: ",\n", with: ", ")
+                            var form_d = vf.getForm(decomposed: true).replacingOccurrences(of: ",\n", with: ", ")
+                            
+                            if vf.mood == .imperative && vf.person == .first {
+                                form = "NF"
+                                form_d = "NDF"
+                            }
                             
                             if (form != "")
                             {
-                                let label = String.init(format: "%d%@:", (person+1), (number == 0) ? "s" : "p")
-                                form = form.replacingOccurrences(of: ", ", with: "\n")
+                                let label = String.init(format: "%d%@", (person.rawValue + 1), (number == .singular) ? "s" : "p")
                                 
-                                let row = FormRow(label: label, form: form, decomposedForm: vf.getForm(decomposed: true).replacingOccurrences(of: ", ", with: "\n"))
-                                forms.append(row)
-                                sectionCount += 1
+                                let x = "\(label): \(form) ; \(form_d)"
+                                print(x)
+                                
+                                XCTAssertEqual(String(rows[line]), x)
+                                if String(rows[line]) != x {
+                                    return
+                                }
+                                line += 1
                             }
                         }
                     }
-                    if sectionCount > 0
-                    {
-                        sections.append(s!)
-                        sectionCounts.append(sectionCount)
-                    }
                 }
             }
-        }*/
+        }
     }
- 
+    
 }
