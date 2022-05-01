@@ -57,27 +57,37 @@ class hctestTests: XCTestCase {
     
     func testVerbs()
     {
-        let print_lines = false
+        var print_lines = false
         
         let bundle = Bundle(for: type(of: self))
         let path = bundle.path(forResource: "new", ofType: "txt")!
         let contents = try! String(contentsOfFile: path)
         let rows = contents.split(separator:"\n")
-        XCTAssertEqual(rows.count, 34810)
-        if rows.count != 34810 {
+        XCTAssertEqual(rows.count, 34852)
+        if rows.count != 34852 {
             return
         }
         var line = 1
         for verb_num in 0...126 {
         
-            let verb = Verb2.init(verbid: verb_num)
+            //let verb = Verb2.init(verbid: verb_num)
             let vf = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: verb_num)
             
             var isOida:Bool = false
-            if verb.present == "οἶδα" || verb.present == "σύνοιδα"
-            {
+            
+            if verb_num == 118 || verb_num == 119 {
+                print_lines = true
                 isOida = true
             }
+            else {
+                print_lines = false
+                isOida = false
+            }
+            
+            /*if verb.present == "οἶδα" || verb.present == "σύνοιδα"
+            {
+                isOida = true
+            }*/
             
             for tense in VerbForm.Tense.allCases
             {
@@ -92,31 +102,23 @@ class hctestTests: XCTestCase {
                     {
                         if mood == .unset { continue }
                         vf.mood = mood
-                        if (mood == .infinitive || mood == .participle)
+                        if mood == .infinitive || mood == .participle
                         {
                             continue
                         }
-                        else if !isOida && mood != .indicative && (tense == .perfect || tense == .pluperfect || tense == .imperfect || (tense == .future && mood != .optative))
+                        else if mood != .indicative && (tense == .perfect || tense == .pluperfect || tense == .imperfect || (tense == .future && mood != .optative))
+                        {
+                            if isOida && tense == .perfect && voice == .active {
+                                
+                            }
+                            else {
+                                continue
+                            }
+                        }
+                        /*else if isOida && mood != .indicative && (tense == .pluperfect || tense == .imperfect || (tense == .future && mood != .optative))
                         {
                             continue
-                        }
-                        else if isOida && mood != .indicative && (tense == .pluperfect || tense == .imperfect || (tense == .future && mood != .optative))
-                        /*else if isOida && ((mood != .indicative && (tense == .pluperfect || tense == .imperfect)) && (tense == .future && (mood == .subjunctive || mood == .imperative)))*/
-                            
-                        {
-                            continue
-                        }
-
-                        var s:String?
-                        if voice == .active || tense == .aorist || tense == .future
-                        {
-                            s = "  " + tense.description + " " + vf.getVoiceDescription() + " " + mood.description
-                        }
-                        else if voice == .middle
-                        {
-                            //FYI: middle deponents do NOT have a passive voice.  H&Q page 316
-                            s = "  " + tense.description + " " + vf.getVoiceDescription() + " " + mood.description
-                        }
+                        }*/
 
                         var voi = ""
                         if vf.voice == .middle && vf.mood == .imperative {
@@ -134,11 +136,12 @@ class hctestTests: XCTestCase {
                         else {
                             voi = vf.getVoiceDescription()
                         }
+                        
                         let sec = "\(tense.description) \(voi) \(mood.description)"
                         if print_lines {
                             print("\(line) - \(sec)")
                         }
-                        XCTAssertEqual(String(rows[line]), sec, "line: \(line). verb: \(vf.verbid) \(vf.person) \(vf.number) \(vf.tense) \(vf.voice) \(vf.mood)")
+                        XCTAssertEqual(String(rows[line]), sec, "line: \(line). verb: \(vf.verbid) \(vf.person) \(vf.number) \(vf.tense) \(vf.voice) \(vf.mood) \(isOida)")
                         
                         if String(rows[line]) != sec {
                             return
