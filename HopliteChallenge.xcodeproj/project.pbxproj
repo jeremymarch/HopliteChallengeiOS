@@ -31,7 +31,6 @@
 		3F243166235D2A86001BFE8A /* tutorialAcknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F243160235D2A86001BFE8A /* tutorialAcknowledgements.html */; };
 		3F243168235D2A86001BFE8A /* tutorialPinch.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F243162235D2A86001BFE8A /* tutorialPinch.html */; };
 		3F286B9F20B3314300F580E6 /* Exercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F286B9E20B3314300F580E6 /* Exercises.swift */; };
-		3F286BA120B3F3E800F580E6 /* HQEx.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3F286BA020B3F3E700F580E6 /* HQEx.xml */; };
 		3F2BF3C51E6DC8E200884CDC /* greencheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C41E6DC8E200884CDC /* greencheck.png */; };
 		3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C61E6DC8EC00884CDC /* redx.png */; };
 		3F304EC321A75C2D0046A6C4 /* circlegrey.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F304EC121A75C2D0046A6C4 /* circlegrey.png */; };
@@ -636,7 +635,6 @@
 				3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */,
 				3F243166235D2A86001BFE8A /* tutorialAcknowledgements.html in Resources */,
 				3F243163235D2A86001BFE8A /* tutorialTitlePage.html in Resources */,
-				3F286BA120B3F3E800F580E6 /* HQEx.xml in Resources */,
 				3F304EC421A75C2D0046A6C4 /* circleorange.png in Resources */,
 				3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */,
 				3F243164235D2A86001BFE8A /* tutorialGamePlay.html in Resources */,
@@ -984,7 +982,7 @@
 				CODE_SIGN_ENTITLEMENTS = HopliteChallenge.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 70;
+				CURRENT_PROJECT_VERSION = 71;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -997,9 +995,10 @@
 					hctest/libgreek,
 				);
 				INFOPLIST_FILE = hctest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.5.2;
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1018,7 +1017,7 @@
 				CODE_SIGN_ENTITLEMENTS = HopliteChallenge.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 70;
+				CURRENT_PROJECT_VERSION = 71;
 				DEVELOPMENT_TEAM = EFHC4XFZ38;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1031,9 +1030,10 @@
 					hctest/libgreek,
 				);
 				INFOPLIST_FILE = hctest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.5.2;
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

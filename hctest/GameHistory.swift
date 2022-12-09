@@ -14,9 +14,8 @@ struct Game {
     var score = 0
 }
 class GameHistoryViewController: UITableViewController {
-        var isHCGame = false
         var games = [Game]()
-        var gameOrPracticeDescription = "Games"
+        var gameOrPracticeDescription = "History"
         let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
     
     func resetColors()
@@ -40,15 +39,8 @@ class GameHistoryViewController: UITableViewController {
     
         override func viewDidLoad() {
             super.viewDidLoad()
-            if isHCGame
-            {
-                gameOrPracticeDescription = "Games"
-            }
-            else
-            {
-                gameOrPracticeDescription = "Practice"
-            }
-            title = gameOrPracticeDescription
+
+            title = "History"
             
             //https://www.raywenderlich.com/123579/sqlite-tutorial-swift
             let db = openDatabase(dbpath: dbpath)
@@ -58,13 +50,7 @@ class GameHistoryViewController: UITableViewController {
         func query(db:OpaquePointer) {
             var queryStatement: OpaquePointer? = nil
             
-            var equalNotEqual = "!="
-            if !isHCGame
-            {
-                equalNotEqual = "="
-            }
-            
-            let queryStatementString:String = "SELECT gameid,timest,score FROM games WHERE score \(equalNotEqual) -1 ORDER BY gameid DESC;"
+            let queryStatementString:String = "SELECT gameid,timest,score FROM games ORDER BY gameid DESC;"
             
             if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK
             {
@@ -147,13 +133,19 @@ class GameHistoryViewController: UITableViewController {
             let dateTitle : UILabel = cell.contentView.viewWithTag(101) as! UILabel
             dateTitle.text = games[index].date
             let scoreTitle : UILabel = cell.contentView.viewWithTag(102) as! UILabel
-            if isHCGame
+            if games[index].score > -1
             {
                 scoreTitle.text = String(games[index].score)
+                cell.backgroundColor = GlobalTheme.secondaryBG
+                dateTitle.textColor = GlobalTheme.secondaryText
+                scoreTitle.textColor = GlobalTheme.secondaryText
             }
             else
             {
                 scoreTitle.text = ""
+                cell.backgroundColor = GlobalTheme.tertiaryBG
+                dateTitle.textColor = GlobalTheme.tertiaryText
+                scoreTitle.textColor = GlobalTheme.tertiaryText
             }
             
             /*
@@ -190,7 +182,7 @@ class GameHistoryViewController: UITableViewController {
         override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             return 44
         }
-    
+    /*
          override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
          
          let label = UILabel()
@@ -204,7 +196,7 @@ class GameHistoryViewController: UITableViewController {
          override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
          return 34
          }
- 
+ */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let indexPath = tableView.indexPathForSelectedRow
         //let id = indexPath.

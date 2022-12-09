@@ -54,10 +54,29 @@ class hctestTests: XCTestCase {
         }
     }
     */
+
+    func testDiacritics()
+    {
+        let precomposed = "\u{1FB1}"        //alpha with precomposed macron
+        let combining = "\u{03B1}\u{0304}"  //alpha with combining macron
+
+        //1. not same when compared literally
+        let res = precomposed.compare(combining, options: NSString.CompareOptions.literal, range: nil, locale: nil)
+        XCTAssertNotEqual(res, ComparisonResult.orderedSame)
+        
+        
+        //2. same when compared insensitively
+        let res2 = precomposed.compare(combining, options: NSString.CompareOptions.diacriticInsensitive, range: nil, locale: nil)
+        XCTAssertEqual(res2, ComparisonResult.orderedSame)
+        
+        
+        //3. this compares insensitively
+        XCTAssertEqual(precomposed, combining)
+    }
     
     func testVerbs()
     {
-        var print_lines = false
+        var print_lines = true
         
         let bundle = Bundle(for: type(of: self))
         let path = bundle.path(forResource: "new", ofType: "txt")!
@@ -179,7 +198,15 @@ class hctestTests: XCTestCase {
                                 if print_lines {
                                     print("\t\(line) - \(x)")
                                 }
+                                
+                                let is_equal_insensitive = x.compare(String(rows[line]), options: NSString.CompareOptions.diacriticInsensitive, range: nil, locale: nil)
+                                XCTAssertEqual(is_equal_insensitive, ComparisonResult.orderedSame)
+                                
+                                let is_equal_literal = x.compare(String(rows[line]), options: NSString.CompareOptions.literal, range: nil, locale: nil)
+                                XCTAssertEqual(is_equal_literal, ComparisonResult.orderedSame)
+                                
                                 XCTAssertEqual(String(rows[line]), x, "line: \(line). verb: \(vf.verbid) \(vf.person) \(vf.number) \(vf.tense) \(vf.voice) \(vf.mood)")
+                                
                                 if String(rows[line]) != x {
                                     return
                                 }

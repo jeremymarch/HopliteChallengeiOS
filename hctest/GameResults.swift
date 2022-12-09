@@ -37,11 +37,11 @@ class GameResultsViewController: UITableViewController {
         super.viewDidLoad()
         if isHCGame
         {
-            title = "Game History"
+            title = "Game Moves"
         }
         else
         {
-            title = "Practice History"
+            title = "Practice Moves"
         }
         
         let dbpath = (UIApplication.shared.delegate as! AppDelegate).dbpath
@@ -57,7 +57,7 @@ class GameResultsViewController: UITableViewController {
     func query(db:OpaquePointer, gameid:Int) {
         var queryStatement: OpaquePointer? = nil
 
-        let queryStatementString:String = "SELECT person,number,tense,voice,mood,verbid,answerGiven,elapsedtime,correct FROM verbseq WHERE gameid=? ORDER BY ID DESC LIMIT 100;"
+        let queryStatementString:String = "SELECT person,number,tense,voice,mood,verbid,answerGiven,elapsedtime,correct FROM verbseq WHERE gameid=? ORDER BY ID DESC LIMIT 1000;"
         
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK
         {

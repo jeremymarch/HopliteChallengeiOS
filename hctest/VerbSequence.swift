@@ -171,13 +171,12 @@ class VerbSequence {
     
     func vsInit(vDBPath:String) -> Int
     {
-        let dbpath = vDBPath
-        print("db: \(dbpath)")
+        //let dbpath = vDBPath
+        print("db: \(vDBPath)")
         
-        
-        let cPath = UnsafeMutablePointer<Int8>(mutating: dbpath)
+        //let cPath = UnsafeMutablePointer<Int8>(mutating: dbpath)
         print("swift db init")
-        let ret = swvsInit(cPath)
+        let ret = swvsInit(vDBPath.cString(using: .utf8))
         if ret != 0
         {
             print("Couldn't initialize sqlite db")

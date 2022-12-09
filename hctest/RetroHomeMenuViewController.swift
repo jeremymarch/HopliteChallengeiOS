@@ -228,7 +228,7 @@ class RetroHomeMenuViewController: UIViewController {
     {
         if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "GameHistory") as? GameHistoryViewController
         {
-            dvc.isHCGame = true
+            //dvc.isHCGame = true
             self.navigationController?.pushViewController(dvc, animated: true)
         }
     }
@@ -237,7 +237,7 @@ class RetroHomeMenuViewController: UIViewController {
     {
         if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "HopliteChallenge2") as? HopliteChallenge
         {
-            dvc.vs.isHCGame = false
+            //dvc.vs.isHCGame = false
             self.navigationController?.pushViewController(dvc, animated: true)
         }
     }
@@ -246,7 +246,7 @@ class RetroHomeMenuViewController: UIViewController {
     {
         if let dvc = self.storyboard?.instantiateViewController(withIdentifier: "GameHistory") as? GameHistoryViewController
         {
-            dvc.isHCGame = false
+            //dvc.isHCGame = false
             self.navigationController?.pushViewController(dvc, animated: true)
         }
     }
