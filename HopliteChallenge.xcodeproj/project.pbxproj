@@ -7,19 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3F0541641E7A688800DEB439 /* GameResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0541631E7A688800DEB439 /* GameResults.swift */; };
-		3F09BB4D228CFABF00026D0D /* VerbSequenceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F09BB4C228CFABF00026D0D /* VerbSequenceTest.swift */; };
-		3F0A8BBC225C6351003C42CA /* HCGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A63CF20B79D9A003D483C /* HCGame.swift */; };
-		3F0EC6371E7784AE0084347F /* TypeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0EC6361E7784AE0084347F /* TypeTextView.swift */; };
+		3F13F5482944DB4400AC3529 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCB495920C47F9F00FFD266 /* DataManager.swift */; };
+		3F13F5492944DBA700AC3529 /* RetroHomeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F938EE2222DC10B00594AC8 /* RetroHomeMenuViewController.swift */; };
+		3F13F54A2944DC1A00AC3529 /* VocabListDataSourceSqlite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F19690722AD50660075D556 /* VocabListDataSourceSqlite.swift */; };
+		3F13F54B2944DC2A00AC3529 /* VocabDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */; };
+		3F13F54C2944DC3800AC3529 /* VocabTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */; };
+		3F13F54D2944DCD300AC3529 /* HCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4869CD1E7C9A020051B46A /* HCSettings.swift */; };
+		3F13F54E2944DCDF00AC3529 /* VerbDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B481E79EF6900144F7D /* VerbDetail.swift */; };
+		3F13F54F2944DCEC00AC3529 /* GameResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0541631E7A688800DEB439 /* GameResults.swift */; };
+		3F13F5502944DCFE00AC3529 /* GameHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B441E79EC4700144F7D /* GameHistory.swift */; };
+		3F13F5512944DD1500AC3529 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B421E78EF3600144F7D /* BaseViewController.swift */; };
+		3F13F5522944DD2900AC3529 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B401E78EF0700144F7D /* MenuViewController.swift */; };
+		3F13F5532944DD3300AC3529 /* HCTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAA8D301E6D212900254E97 /* HCTimer.swift */; };
+		3F13F5542944DD7000AC3529 /* VerbSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */; };
+		3F13F5552944DD7E00AC3529 /* GKTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5CE41B239E93B000379F97 /* GKTextView.swift */; };
+		3F13F5562944DD8F00AC3529 /* TypeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0EC6361E7784AE0084347F /* TypeTextView.swift */; };
+		3F13F5572944DD9C00AC3529 /* TypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195A261E7610050025EF00 /* TypeLabel.swift */; };
 		3F15E1731E8450A0009760A0 /* hctestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15E1721E8450A0009760A0 /* hctestTests.swift */; };
 		3F15E17B1E8462C3009760A0 /* Verb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B4A1E7A290300144F7D /* Verb.swift */; };
 		3F15E17C1E8462F2009760A0 /* VerbForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */; };
 		3F15E1861E85A893009760A0 /* hamburger.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F15E1851E85A893009760A0 /* hamburger.png */; };
-		3F167BA023A77BE800962117 /* VocabDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */; };
-		3F167BA123A77BF000962117 /* VocabListDataSourceCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F19690522ACE85D0075D556 /* VocabListDataSourceCoreData.swift */; };
-		3F195A271E7610050025EF00 /* TypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195A261E7610050025EF00 /* TypeLabel.swift */; };
 		3F19690422ACAD020075D556 /* hqvocab.json in Resources */ = {isa = PBXBuildFile; fileRef = 3F19690322ACAD010075D556 /* hqvocab.json */; };
-		3F19690822AD50660075D556 /* VocabListDataSourceSqlite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F19690722AD50660075D556 /* VocabListDataSourceSqlite.swift */; };
 		3F19690A22ADB46C0075D556 /* hcdatadb1-5.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3F19690922ADB46A0075D556 /* hcdatadb1-5.sqlite */; };
 		3F24315B235D2342001BFE8A /* AboutChild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24315A235D2342001BFE8A /* AboutChild.swift */; };
 		3F243163235D2A86001BFE8A /* tutorialTitlePage.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F24315D235D2A85001BFE8A /* tutorialTitlePage.html */; };
@@ -27,7 +35,6 @@
 		3F243165235D2A86001BFE8A /* tutorialPractice.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F24315F235D2A85001BFE8A /* tutorialPractice.html */; };
 		3F243166235D2A86001BFE8A /* tutorialAcknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F243160235D2A86001BFE8A /* tutorialAcknowledgements.html */; };
 		3F243168235D2A86001BFE8A /* tutorialPinch.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F243162235D2A86001BFE8A /* tutorialPinch.html */; };
-		3F286B9F20B3314300F580E6 /* Exercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F286B9E20B3314300F580E6 /* Exercises.swift */; };
 		3F2BF3C51E6DC8E200884CDC /* greencheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C41E6DC8E200884CDC /* greencheck.png */; };
 		3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BF3C61E6DC8EC00884CDC /* redx.png */; };
 		3F304EC321A75C2D0046A6C4 /* circlegrey.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F304EC121A75C2D0046A6C4 /* circlegrey.png */; };
@@ -40,21 +47,14 @@
 		3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443AC1E6BB17700FFAD04 /* Assets.xcassets */; };
 		3F3443B01E6BB17700FFAD04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443AE1E6BB17700FFAD04 /* LaunchScreen.storyboard */; };
 		3F3443CE1E6BB33400FFAD04 /* VerbForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */; };
-		3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */; };
 		3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443D61E6C814200FFAD04 /* newathu5.ttf */; };
-		3F3B30EE20D7033700EEB1E7 /* HCGameList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */; };
-		3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4869CD1E7C9A020051B46A /* HCSettings.swift */; };
 		3F518D5A23CC5F1E007D0150 /* hcgreekSQLiteCollation.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F518D5923CC5F1E007D0150 /* hcgreekSQLiteCollation.c */; };
-		3F5CE41C239E93B000379F97 /* GKTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5CE41B239E93B000379F97 /* GKTextView.swift */; };
-		3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */; };
 		3F63C60C238C36C500BC9EBB /* minimalGreekKB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C60B238C36C500BC9EBB /* minimalGreekKB.swift */; };
 		3F63C60E238C36E600BC9EBB /* minimalGreekKeyboardKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C60D238C36E600BC9EBB /* minimalGreekKeyboardKeys.swift */; };
 		3F65593E22E3FF5E0032F3F8 /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F65593D22E3FF5E0032F3F8 /* About.swift */; };
 		3F6B7DDF23A7EF4600CF4637 /* tutorialThirdPartySoftware.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F6B7DDE23A7EF4600CF4637 /* tutorialThirdPartySoftware.html */; };
 		3F6B7DE123A85DFE00CF4637 /* tutorialStyles.css in Resources */ = {isa = PBXBuildFile; fileRef = 3F6B7DE023A85DFE00CF4637 /* tutorialStyles.css */; };
 		3F6B7DE323A89ABE00CF4637 /* tutorialKeyboard.html in Resources */ = {isa = PBXBuildFile; fileRef = 3F6B7DE223A89ABE00CF4637 /* tutorialKeyboard.html */; };
-		3F6D20541FB7B8DA0000615B /* AccentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */; };
-		3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D20551FB8E4EA0000615B /* AccentTextField.swift */; };
 		3F76EF81226CEB85001623CB /* xicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F76EF80226CEB84001623CB /* xicon.png */; };
 		3F7813F123877E660094173E /* ImageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7813CE23877E650094173E /* ImageKey.swift */; };
 		3F7813F323877E660094173E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F7813D023877E650094173E /* Media.xcassets */; };
@@ -82,11 +82,8 @@
 		3F78140C23877E660094173E /* IFAOGrec.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F7813F023877E660094173E /* IFAOGrec.ttf */; };
 		3F78140E23877E870094173E /* HopliteChallengeKB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F78140D23877E870094173E /* HopliteChallengeKB.swift */; };
 		3F78141223886FD70094173E /* hckeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F78141123886FD70094173E /* hckeyboard.swift */; };
-		3F7A63D220B7BD26003D483C /* HCVerbFormPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */; };
-		3F7A63D420B7DCB5003D483C /* HCStemLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */; };
 		3F805CD12818EBDB00B6AAC9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F805CD02818EBDA00B6AAC9 /* Settings.bundle */; };
 		3F8F1ECE281AEDFE006342EC /* new.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3F8F1ECD281AEDFE006342EC /* new.txt */; };
-		3F938EE3222DC10B00594AC8 /* RetroHomeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F938EE2222DC10B00594AC8 /* RetroHomeMenuViewController.swift */; };
 		3F9713AC237471BA00DF32DE /* GlobalColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9713AB237471BA00DF32DE /* GlobalColors.swift */; };
 		3F9F220B222C9F9F00BB54F1 /* accent.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F21EA222C9F9F00BB54F1 /* accent.c */; };
 		3F9F220C222C9F9F00BB54F1 /* augment.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F21EB222C9F9F00BB54F1 /* augment.c */; };
@@ -98,18 +95,10 @@
 		3F9F222E222C9FB300BB54F1 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2226222C9FB300BB54F1 /* sqlite3.c */; };
 		3F9F222F222C9FB300BB54F1 /* swiftVSeqLayer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2228222C9FB300BB54F1 /* swiftVSeqLayer.c */; };
 		3F9F2230222C9FB300BB54F1 /* VerbSequence.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F222A222C9FB300BB54F1 /* VerbSequence.c */; };
-		3FA6EE3A22D18A2400C7B9CF /* CustomizeSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA6EE3922D18A2400C7B9CF /* CustomizeSelection.swift */; };
 		3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FAA8D2E1E6D046300254E97 /* Life4X.png */; };
-		3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAA8D301E6D212900254E97 /* HCTimer.swift */; };
 		3FCB495820C47A5400FFD266 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCB495720C47A5400FFD266 /* NetworkManager.swift */; };
-		3FCB495A20C47F9F00FFD266 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCB495920C47F9F00FFD266 /* DataManager.swift */; };
-		3FF462E3218CC76E005B0629 /* MoveListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF462E2218CC76E005B0629 /* MoveListViewController.swift */; };
 		3FF462E6218D1AA3005B0629 /* circlered.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FF462E4218D1AA2005B0629 /* circlered.png */; };
 		3FF462E7218D1AA3005B0629 /* circlegreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FF462E5218D1AA2005B0629 /* circlegreen.png */; };
-		3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B401E78EF0700144F7D /* MenuViewController.swift */; };
-		3FF71B431E78EF3600144F7D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B421E78EF3600144F7D /* BaseViewController.swift */; };
-		3FF71B451E79EC4700144F7D /* GameHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B441E79EC4700144F7D /* GameHistory.swift */; };
-		3FF71B491E79EF6900144F7D /* VerbDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B481E79EF6900144F7D /* VerbDetail.swift */; };
 		3FF71B4B1E7A290300144F7D /* Verb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF71B4A1E7A290300144F7D /* Verb.swift */; };
 /* End PBXBuildFile section */
 
@@ -239,7 +228,6 @@
 		3F9F2229222C9FB300BB54F1 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
 		3F9F222A222C9FB300BB54F1 /* VerbSequence.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = VerbSequence.c; sourceTree = "<group>"; };
 		3F9F222B222C9FB300BB54F1 /* swiftVSeqLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = swiftVSeqLayer.h; sourceTree = "<group>"; };
-		3FA6EE3922D18A2400C7B9CF /* CustomizeSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeSelection.swift; sourceTree = "<group>"; };
 		3FAA8D2E1E6D046300254E97 /* Life4X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Life4X.png; sourceTree = "<group>"; };
 		3FAA8D301E6D212900254E97 /* HCTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCTimer.swift; sourceTree = "<group>"; };
 		3FCB495720C47A5400FFD266 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -273,6 +261,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F13F546294469A800AC3529 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				3F304EC521A75C380046A6C4 /* circleblue.png */,
+				3F304EC121A75C2D0046A6C4 /* circlegrey.png */,
+				3F304EC221A75C2D0046A6C4 /* circleorange.png */,
+				3F76EF80226CEB84001623CB /* xicon.png */,
+				3FF462E5218D1AA2005B0629 /* circlegreen.png */,
+				3FF462E4218D1AA2005B0629 /* circlered.png */,
+				3F2BF3C61E6DC8EC00884CDC /* redx.png */,
+				3F2BF3C41E6DC8E200884CDC /* greencheck.png */,
+				3FAA8D2E1E6D046300254E97 /* Life4X.png */,
+				3F15E1851E85A893009760A0 /* hamburger.png */,
+				3F3443D61E6C814200FFAD04 /* newathu5.ttf */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		3F15E1711E8450A0009760A0 /* HopliteChallengeTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,21 +330,17 @@
 				3F24315C235D2A13001BFE8A /* AboutHTML */,
 				3F19690922ADB46A0075D556 /* hcdatadb1-5.sqlite */,
 				3F19690322ACAD010075D556 /* hqvocab.json */,
-				3F76EF80226CEB84001623CB /* xicon.png */,
 				3F9F2224222C9FB300BB54F1 /* libseq */,
 				3F9F21E6222C9F9F00BB54F1 /* libgreek */,
-				3F304EC521A75C380046A6C4 /* circleblue.png */,
-				3F304EC121A75C2D0046A6C4 /* circlegrey.png */,
-				3F304EC221A75C2D0046A6C4 /* circleorange.png */,
+				3F13F546294469A800AC3529 /* images */,
 				3FDA3E4720C62703003BAC74 /* HopliteChallenge.entitlements */,
-				3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */,
 				3F286BA020B3F3E700F580E6 /* HQEx.xml */,
+				3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */,
 				3F3443A41E6BB17700FFAD04 /* HopliteChallenge.swift */,
 				3F195A261E7610050025EF00 /* TypeLabel.swift */,
 				3F0EC6361E7784AE0084347F /* TypeTextView.swift */,
 				3F5CE41B239E93B000379F97 /* GKTextView.swift */,
 				3F3443D41E6C7FA100FFAD04 /* VerbSequence.swift */,
-				3F09BB4C228CFABF00026D0D /* VerbSequenceTest.swift */,
 				3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */,
 				3FF71B4A1E7A290300144F7D /* Verb.swift */,
 				3FAA8D301E6D212900254E97 /* HCTimer.swift */,
@@ -348,37 +350,30 @@
 				3F0541631E7A688800DEB439 /* GameResults.swift */,
 				3FF71B481E79EF6900144F7D /* VerbDetail.swift */,
 				3F4869CD1E7C9A020051B46A /* HCSettings.swift */,
+				3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */,
+				3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */,
+				3F19690722AD50660075D556 /* VocabListDataSourceSqlite.swift */,
+				3FCB495720C47A5400FFD266 /* NetworkManager.swift */,
+				3FCB495920C47F9F00FFD266 /* DataManager.swift */,
+				3F938EE2222DC10B00594AC8 /* RetroHomeMenuViewController.swift */,
+				3F65593D22E3FF5E0032F3F8 /* About.swift */,
+				3F24315A235D2342001BFE8A /* AboutChild.swift */,
+				3F9713AB237471BA00DF32DE /* GlobalColors.swift */,
 				3F3443AC1E6BB17700FFAD04 /* Assets.xcassets */,
 				3F3443A61E6BB17700FFAD04 /* Main.storyboard */,
 				3F3443AE1E6BB17700FFAD04 /* LaunchScreen.storyboard */,
 				3F3443A91E6BB17700FFAD04 /* hctest.xcdatamodeld */,
 				3F3443B11E6BB17700FFAD04 /* Info.plist */,
-				3FF462E5218D1AA2005B0629 /* circlegreen.png */,
-				3FF462E4218D1AA2005B0629 /* circlered.png */,
-				3F2BF3C61E6DC8EC00884CDC /* redx.png */,
-				3F2BF3C41E6DC8E200884CDC /* greencheck.png */,
-				3FAA8D2E1E6D046300254E97 /* Life4X.png */,
-				3F15E1851E85A893009760A0 /* hamburger.png */,
-				3F3443D61E6C814200FFAD04 /* newathu5.ttf */,
+				3F09BB4C228CFABF00026D0D /* VerbSequenceTest.swift */,
+				3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */,
+				3FF462E2218CC76E005B0629 /* MoveListViewController.swift */,
+				3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */,
+				3F286B9E20B3314300F580E6 /* Exercises.swift */,
+				3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */,
+				3F7A63CF20B79D9A003D483C /* HCGame.swift */,
+				3F19690522ACE85D0075D556 /* VocabListDataSourceCoreData.swift */,
 				3F6D20531FB7B8DA0000615B /* AccentsViewController.swift */,
 				3F6D20551FB8E4EA0000615B /* AccentTextField.swift */,
-				3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */,
-				3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */,
-				3F286B9E20B3314300F580E6 /* Exercises.swift */,
-				3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */,
-				3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */,
-				3FCB495720C47A5400FFD266 /* NetworkManager.swift */,
-				3FCB495920C47F9F00FFD266 /* DataManager.swift */,
-				3F7A63CF20B79D9A003D483C /* HCGame.swift */,
-				3F3B30ED20D7033700EEB1E7 /* HCGameList.swift */,
-				3FF462E2218CC76E005B0629 /* MoveListViewController.swift */,
-				3F938EE2222DC10B00594AC8 /* RetroHomeMenuViewController.swift */,
-				3F19690522ACE85D0075D556 /* VocabListDataSourceCoreData.swift */,
-				3F19690722AD50660075D556 /* VocabListDataSourceSqlite.swift */,
-				3FA6EE3922D18A2400C7B9CF /* CustomizeSelection.swift */,
-				3F65593D22E3FF5E0032F3F8 /* About.swift */,
-				3F24315A235D2342001BFE8A /* AboutChild.swift */,
-				3F9713AB237471BA00DF32DE /* GlobalColors.swift */,
 			);
 			name = HopliteChallenge;
 			path = hctest;
@@ -634,27 +629,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FCB495820C47A5400FFD266 /* NetworkManager.swift in Sources */,
-				3F167BA023A77BE800962117 /* VocabDetailViewController.swift in Sources */,
-				3F938EE3222DC10B00594AC8 /* RetroHomeMenuViewController.swift in Sources */,
-				3F6D20561FB8E4EA0000615B /* AccentTextField.swift in Sources */,
 				3F7813F923877E660094173E /* kludge.swift in Sources */,
-				3F4869CE1E7C9A020051B46A /* HCSettings.swift in Sources */,
-				3F167BA123A77BF000962117 /* VocabListDataSourceCoreData.swift in Sources */,
+				3F13F54F2944DCEC00AC3529 /* GameResults.swift in Sources */,
 				3F7813FD23877E660094173E /* KeyboardInputTraits.swift in Sources */,
-				3FCB495A20C47F9F00FFD266 /* DataManager.swift in Sources */,
-				3F0EC6371E7784AE0084347F /* TypeTextView.swift in Sources */,
-				3F0541641E7A688800DEB439 /* GameResults.swift in Sources */,
-				3F63B7B61FCA6A4600A83063 /* VocabTableViewController.swift in Sources */,
+				3F13F5542944DD7000AC3529 /* VerbSequence.swift in Sources */,
+				3F13F54A2944DC1A00AC3529 /* VocabListDataSourceSqlite.swift in Sources */,
 				3F9713AC237471BA00DF32DE /* GlobalColors.swift in Sources */,
-				3F7A63D420B7DCB5003D483C /* HCStemLabel.swift in Sources */,
 				3F78140523877E660094173E /* ForwardingView.swift in Sources */,
-				3FF71B431E78EF3600144F7D /* BaseViewController.swift in Sources */,
 				3F63C60C238C36C500BC9EBB /* minimalGreekKB.swift in Sources */,
-				3F3443D51E6C7FA100FFAD04 /* VerbSequence.swift in Sources */,
 				3F3443A51E6BB17700FFAD04 /* HopliteChallenge.swift in Sources */,
-				3F0A8BBC225C6351003C42CA /* HCGame.swift in Sources */,
-				3F19690822AD50660075D556 /* VocabListDataSourceSqlite.swift in Sources */,
 				3F9F220B222C9F9F00BB54F1 /* accent.c in Sources */,
+				3F13F5522944DD2900AC3529 /* MenuViewController.swift in Sources */,
 				3F78140623877E660094173E /* CatboardBanner.swift in Sources */,
 				3F518D5A23CC5F1E007D0150 /* hcgreekSQLiteCollation.c in Sources */,
 				3F3443A31E6BB17700FFAD04 /* AppDelegate.swift in Sources */,
@@ -662,48 +647,47 @@
 				3F7813F523877E660094173E /* DirectionEnum.swift in Sources */,
 				3F78141223886FD70094173E /* hckeyboard.swift in Sources */,
 				3F78140423877E660094173E /* Utilities.swift in Sources */,
-				3F5CE41C239E93B000379F97 /* GKTextView.swift in Sources */,
-				3F195A271E7610050025EF00 /* TypeLabel.swift in Sources */,
-				3F7A63D220B7BD26003D483C /* HCVerbFormPicker.swift in Sources */,
 				3F9F2223222C9F9F00BB54F1 /* ending.c in Sources */,
 				3F7813F723877E660094173E /* KeyboardLayout.swift in Sources */,
-				3FAA8D311E6D212900254E97 /* HCTimer.swift in Sources */,
-				3F09BB4D228CFABF00026D0D /* VerbSequenceTest.swift in Sources */,
+				3F13F5502944DCFE00AC3529 /* GameHistory.swift in Sources */,
+				3F13F54D2944DCD300AC3529 /* HCSettings.swift in Sources */,
 				3F9F220C222C9F9F00BB54F1 /* augment.c in Sources */,
+				3F13F5492944DBA700AC3529 /* RetroHomeMenuViewController.swift in Sources */,
 				3FF71B4B1E7A290300144F7D /* Verb.swift in Sources */,
 				3F9F2221222C9F9F00BB54F1 /* GreekForms.c in Sources */,
 				3F9F2222222C9F9F00BB54F1 /* libmorph.c in Sources */,
 				3F7813FB23877E660094173E /* DefaultKeyboard.swift in Sources */,
-				3FA6EE3A22D18A2400C7B9CF /* CustomizeSelection.swift in Sources */,
 				3F9F222E222C9FB300BB54F1 /* sqlite3.c in Sources */,
 				3F9F2220222C9F9F00BB54F1 /* specialverbs.c in Sources */,
 				3F9F222F222C9FB300BB54F1 /* swiftVSeqLayer.c in Sources */,
 				3F65593E22E3FF5E0032F3F8 /* About.swift in Sources */,
+				3F13F54B2944DC2A00AC3529 /* VocabDetailViewController.swift in Sources */,
 				3F3443AB1E6BB17700FFAD04 /* hctest.xcdatamodeld in Sources */,
+				3F13F5512944DD1500AC3529 /* BaseViewController.swift in Sources */,
+				3F13F54C2944DC3800AC3529 /* VocabTableViewController.swift in Sources */,
 				3F9F2230222C9FB300BB54F1 /* VerbSequence.c in Sources */,
+				3F13F5562944DD8F00AC3529 /* TypeTextView.swift in Sources */,
 				3F3443CE1E6BB33400FFAD04 /* VerbForm.swift in Sources */,
-				3FF71B491E79EF6900144F7D /* VerbDetail.swift in Sources */,
 				3F7813F623877E660094173E /* ExtraView.swift in Sources */,
+				3F13F5532944DD3300AC3529 /* HCTimer.swift in Sources */,
 				3F63C60E238C36E600BC9EBB /* minimalGreekKeyboardKeys.swift in Sources */,
 				3F7813F823877E660094173E /* Catboard.swift in Sources */,
+				3F13F54E2944DCDF00AC3529 /* VerbDetail.swift in Sources */,
 				3F78140923877E660094173E /* KeyboardKey.swift in Sources */,
-				3FF71B411E78EF0700144F7D /* MenuViewController.swift in Sources */,
 				3F7813F423877E660094173E /* KeyboardViewController.swift in Sources */,
 				3F78140823877E660094173E /* KeyboardConnector.swift in Sources */,
-				3F286B9F20B3314300F580E6 /* Exercises.swift in Sources */,
 				3F7813FA23877E660094173E /* KeyboardKeyBackground.swift in Sources */,
+				3F13F5482944DB4400AC3529 /* DataManager.swift in Sources */,
 				3F7813FC23877E660094173E /* KeyboardModel.swift in Sources */,
 				3F78140223877E660094173E /* HopliteKeyboard.swift in Sources */,
 				3F9F221F222C9F9F00BB54F1 /* utilities.c in Sources */,
-				3FF462E3218CC76E005B0629 /* MoveListViewController.swift in Sources */,
 				3F7813F123877E660094173E /* ImageKey.swift in Sources */,
 				3F78140E23877E870094173E /* HopliteChallengeKB.swift in Sources */,
 				3F78140B23877E660094173E /* HopliteKB.swift in Sources */,
+				3F13F5572944DD9C00AC3529 /* TypeLabel.swift in Sources */,
+				3F13F5552944DD7E00AC3529 /* GKTextView.swift in Sources */,
 				3F78140123877E660094173E /* DefaultSettings.swift in Sources */,
-				3FF71B451E79EC4700144F7D /* GameHistory.swift in Sources */,
 				3F78140323877E660094173E /* Shapes.swift in Sources */,
-				3F6D20541FB7B8DA0000615B /* AccentsViewController.swift in Sources */,
-				3F3B30EE20D7033700EEB1E7 /* HCGameList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
