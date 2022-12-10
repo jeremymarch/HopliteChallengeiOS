@@ -41,6 +41,7 @@ class NetworkManager {
     
     func sendReq(urlstr:String, requestData:Dictionary<String, String>, queueOnFailure:Bool, processResult: @escaping (Dictionary<String, String>, Data)->Bool )
     {
+        /*
         //let parameters:Dictionary<String, String> = ["wordid": String(wordid), "lang": String(theLang), "device":UIDevice.current.identifierForVendor!.uuidString, "agent":"iOS \(UIDevice.current.systemVersion)",  "screen":"\(UIScreen.main.nativeBounds.height) x \(UIScreen.main.nativeBounds.width)"]
         
         var newDict = requestData //make a mutable copy
@@ -156,6 +157,7 @@ class NetworkManager {
             //print("not reachable")
             //addToRequestQueue(req:poststr)
         }
+        */
     }
  
     /* needs core data
