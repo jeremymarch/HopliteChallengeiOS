@@ -14,11 +14,9 @@ class AboutChildViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        if #available(iOS 13.0, *) {
-            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
-            {
-                resetColors()
-            }
+        if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
+        {
+            resetColors()
         }
     }
     
@@ -73,13 +71,7 @@ class AboutChildViewController: UIViewController {
     
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
         guard let url = request.url, navigationType == .linkClicked else { return true }
-        if #available(iOS 10.0, *) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-            // Fallback on earlier versions
-            UIApplication.shared.openURL(url)
-        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
         return false
     }
-    
 }

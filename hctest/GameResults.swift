@@ -193,8 +193,8 @@ class GameResultsViewController: UITableViewController {
     
     func attributedDescription(orig:String, new:String) -> NSMutableAttributedString
     {
-        var a = orig.components(separatedBy: " ")
-        var b = new.components(separatedBy: " ")
+        let a = orig.components(separatedBy: " ")
+        let b = new.components(separatedBy: " ")
         
         //print("orig: \(orig), new: \(new)")
         

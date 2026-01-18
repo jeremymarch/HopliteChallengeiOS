@@ -103,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 if let db = openDatabase(dbpath: dbpath)
                 {
-                    tempPrepareInsert(db:db)
+                    let _ = tempPrepareInsert(db:db)
                 }
                 
                 var highestTimestamp = 0;
@@ -152,6 +152,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.synchronize()
         }
         
+        /*
         let initMethodx:HCInitMethod = .copyFromBundle
         switch initMethodx
         {
@@ -161,7 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case .generateWithvsInit:
             //DispatchQueue.global(qos: .background).async {
             let v = VerbSequence()
-            v.vsInit(vDBPath: dbpath)
+            let _ = v.vsInit(vDBPath: dbpath)
             //}
         case .downloadFromCloud:
             datasync() //saves in core data
@@ -176,20 +177,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     print(error.localizedDescription)
                 }
             }
-        default:
-            print("not initialized")
+        //default:
+        //    print("not initialized")
         }
+        */
 
-        if #available(iOS 10.0, *) {
-            DataManager.shared.backgroundContext = self.persistentContainer.newBackgroundContext()
-            DataManager.shared.mainContext = self.persistentContainer.viewContext
-        }
-        else
-        {
-            DataManager.shared.backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-            DataManager.shared.backgroundContext?.persistentStoreCoordinator = managedObjectContext.persistentStoreCoordinator
-            DataManager.shared.mainContext = managedObjectContext
-        }
+        DataManager.shared.backgroundContext = self.persistentContainer.newBackgroundContext()
+        DataManager.shared.mainContext = self.persistentContainer.viewContext
+
         
         return true
     }
@@ -197,13 +192,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func deleteAll()
     {
         let backgroundContext = NSManagedObjectContext(concurrencyType:.privateQueueConcurrencyType)
-        if #available(iOS 10.0, *) {
-            backgroundContext.persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator
-        }
-        else
-        {
-            backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-        }
+        backgroundContext.persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator
         
         let fetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
 
@@ -245,11 +234,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         let request: NSFetchRequest<HQWords> = HQWords.fetchRequest()
-        if #available(iOS 10.0, *) {
-            request.entity = HQWords.entity()
-        } else {
-            request.entity = NSEntityDescription.entity(forEntityName: "HQWords", in: context)
-        }
+        request.entity = HQWords.entity()
+
         
         let pred = NSPredicate(format: "(hqid = %d)", hqid)
         request.predicate = pred
@@ -271,38 +257,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func hqWordExists(id: Int) -> Bool {
-        if #available(iOS 10.0, *) {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HQWords")
-            fetchRequest.predicate = NSPredicate(format: "hqid = %d", id)
-            fetchRequest.includesSubentities = false
-            
-            var entitiesCount = 0
-            
-            do {
-                entitiesCount = try managedObjectContext.count(for: fetchRequest)
-            }
-            catch {
-                print("error executing fetch request: \(error)")
-            }
-            
-            return entitiesCount > 0
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HQWords")
+        fetchRequest.predicate = NSPredicate(format: "hqid = %d", id)
+        fetchRequest.includesSubentities = false
+        
+        var entitiesCount = 0
+        
+        do {
+            entitiesCount = try managedObjectContext.count(for: fetchRequest)
         }
-        else
-        {
-            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "HQWords")
-            fetchRequest.predicate = NSPredicate(format: "hqid = %d", id)
-            
-            var results: [NSManagedObject] = []
-            
-            do {
-                results = try managedObjectContext.fetch(fetchRequest)
-            }
-            catch {
-                print("error executing fetch request: \(error)")
-            }
-            
-            return results.count > 0
+        catch {
+            print("error executing fetch request: \(error)")
         }
+        
+        return entitiesCount > 0
     }
     
     func stripAccent(lemma:String) -> String
@@ -430,13 +398,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
                                     //let backgroundContext = self.managedObjectContext
                                     //backgroundContext.mergePolicy = NSRollbackMergePolicy //needed or duplicates x2
-                                    if #available(iOS 10.0, *) {
-                                        backgroundContext.persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator
-                                    }
-                                    else
-                                    {
-                                        backgroundContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-                                    }
+
+                                    backgroundContext.persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator
+
                                     //let entity = NSEntityDescription.entity(forEntityName: "HQWords", in: backgroundContext)
                                     /*
                                     let countFetch: NSFetchRequest<HQWords> = NSFetchRequest(entityName: "HQWords")
@@ -542,9 +506,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //https://stackoverflow.com/questions/22582020/crash-when-using-nsreadonlypersistentstoreoption
     @available(iOS 10.0, *)
     lazy var persistentContainer: NSPersistentContainer = {
-        let appName = "hctest"
         
+        let appName = "hctest"
         let container = NSPersistentContainer(name: appName)
+        /*
         let usePreloadedStore = false
         if (usePreloadedStore)
         {
@@ -575,9 +540,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //persistentStoreDescriptions.setOption(true as NSObject, forKey: NSReadOnlyPersistentStoreOption)
             //container.persistentStoreCoordinator.
         }
+        */
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error {
-                
                 fatalError("Unresolved error \(error),")
             }
         })
@@ -632,21 +597,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     lazy var managedObjectContext: NSManagedObjectContext = {
         // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
-        if #available(iOS 10.0, *) {
-            let coordinator = self.persistentContainer.persistentStoreCoordinator
-            var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-            managedObjectContext.persistentStoreCoordinator = coordinator
-            return managedObjectContext
-        }
-        else
-        {
-            let coordinator = self.persistentStoreCoordinator
-            var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-            managedObjectContext.persistentStoreCoordinator = coordinator
-            return managedObjectContext
-        }
+        let coordinator = self.persistentContainer.persistentStoreCoordinator
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = coordinator
+        return managedObjectContext
     }()
-    
     
     /*
      lazy var persistentContainer: NSPersistentContainer = {

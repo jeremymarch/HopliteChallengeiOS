@@ -62,7 +62,6 @@ class HopliteChallenge: BaseViewController, hckeys {
     
     //https://stablekernel.com/creating-a-delightful-user-experience-with-ios-keyboard-shortcuts/
     override var keyCommands: [UIKeyCommand]? {
-        
         return [
             //UIKeyCommand(title: "Rough Breathing", image: nil, action: #selector(extDiacriticKeyPressed), input: "1", modifierFlags: [], propertyList: [], alternates: [], discoverabilityTitle: "Rough Breathing", attributes: [], state: .on),
             
@@ -128,12 +127,9 @@ class HopliteChallenge: BaseViewController, hckeys {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
-        if #available(iOS 13.0, *) {
-            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
-            {
-                resetColors()
-            }
+        if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
+        {
+            resetColors()
         }
     }
     
@@ -150,12 +146,10 @@ class HopliteChallenge: BaseViewController, hckeys {
         reloadSettings()
  
         //these 3 lines prevent undo/redo/paste from displaying above keyboard on ipad
-        if #available(iOS 9.0, *)
-        {
-            let item : UITextInputAssistantItem = textView.inputAssistantItem
-            item.leadingBarButtonGroups = []
-            item.trailingBarButtonGroups = []
-        }
+        let item : UITextInputAssistantItem = textView.inputAssistantItem
+        item.leadingBarButtonGroups = []
+        item.trailingBarButtonGroups = []
+        
         
         var timerLabelWidth:CGFloat = 110.0
         if UIDevice.current.userInterfaceIdiom == .pad
@@ -223,7 +217,7 @@ class HopliteChallenge: BaseViewController, hckeys {
         
         view.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
-        headerView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 6.0).isActive = true
+        headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 6.0).isActive = true
         headerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0).isActive = true
         headerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0.0).isActive = true
         headerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.0, constant: headerHeight).isActive = true
@@ -387,12 +381,9 @@ class HopliteChallenge: BaseViewController, hckeys {
         
         view.addSubview(continueButton)
         continueButton.translatesAutoresizingMaskIntoConstraints = false
-        if #available(iOS 11.0, *) {
-            continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -6.0).isActive = true
-        } else {
-            // Fallback on earlier versions
-            continueButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -6.0).isActive = true
-        }
+
+        continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -6.0).isActive = true
+
         continueButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 6.0).isActive = true
         continueButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -6.0).isActive = true
         continueButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.0, constant:60.0).isActive = true

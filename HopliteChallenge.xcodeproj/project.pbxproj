@@ -92,7 +92,7 @@
 		3F9F2221222C9F9F00BB54F1 /* GreekForms.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2205222C9F9F00BB54F1 /* GreekForms.c */; };
 		3F9F2222222C9F9F00BB54F1 /* libmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2207222C9F9F00BB54F1 /* libmorph.c */; };
 		3F9F2223222C9F9F00BB54F1 /* ending.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2209222C9F9F00BB54F1 /* ending.c */; };
-		3F9F222E222C9FB300BB54F1 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2226222C9FB300BB54F1 /* sqlite3.c */; };
+		3F9F222E222C9FB300BB54F1 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2226222C9FB300BB54F1 /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		3F9F222F222C9FB300BB54F1 /* swiftVSeqLayer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F2228222C9FB300BB54F1 /* swiftVSeqLayer.c */; };
 		3F9F2230222C9FB300BB54F1 /* VerbSequence.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F222A222C9FB300BB54F1 /* VerbSequence.c */; };
 		3FAA8D2F1E6D046300254E97 /* Life4X.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FAA8D2E1E6D046300254E97 /* Life4X.png */; };
@@ -132,7 +132,6 @@
 		3F243160235D2A86001BFE8A /* tutorialAcknowledgements.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tutorialAcknowledgements.html; sourceTree = "<group>"; };
 		3F243162235D2A86001BFE8A /* tutorialPinch.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tutorialPinch.html; sourceTree = "<group>"; };
 		3F286B9E20B3314300F580E6 /* Exercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercises.swift; sourceTree = "<group>"; };
-		3F286BA020B3F3E700F580E6 /* HQEx.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HQEx.xml; sourceTree = "<group>"; };
 		3F28F7F11FD0C1D4008A69D9 /* VocabDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabDetailViewController.swift; sourceTree = "<group>"; };
 		3F2BF3C41E6DC8E200884CDC /* greencheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greencheck.png; sourceTree = "<group>"; };
 		3F2BF3C61E6DC8EC00884CDC /* redx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redx.png; sourceTree = "<group>"; };
@@ -334,7 +333,6 @@
 				3F9F21E6222C9F9F00BB54F1 /* libgreek */,
 				3F13F546294469A800AC3529 /* images */,
 				3FDA3E4720C62703003BAC74 /* HopliteChallenge.entitlements */,
-				3F286BA020B3F3E700F580E6 /* HQEx.xml */,
 				3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */,
 				3F3443A41E6BB17700FFAD04 /* HopliteChallenge.swift */,
 				3F195A261E7610050025EF00 /* TypeLabel.swift */,

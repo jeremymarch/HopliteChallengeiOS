@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 //"class" allows us to use "weak" below
-protocol hckeys: class {
+protocol hckeys: AnyObject {
     func enterKeyPressed()
     func mfKeyPressed()
 }

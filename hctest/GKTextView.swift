@@ -58,6 +58,7 @@ class GKTextView:UITextView, UITextViewDelegate
     /*UIKeyCommand(input: "9", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Diaeresis"),*/
     UIKeyCommand(input: "0", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Parentheses")]
     /*
+     
     var diacritics:[diacriticKey] = [.circumflexKey, .acuteKey] {
         didSet {
             keyCommands?.removeAll()
