@@ -47,16 +47,46 @@ class GKTextView:UITextView, UITextViewDelegate
     var otherwiseBlockKeys = false //fix me: true blocks virtual keyboard
     var keyInputForDiacritics = false
     var commandInputForDiacritics = false
-    let gkkeyCommands = [UIKeyCommand(input: "1", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Rough Breathing"),
-    UIKeyCommand(input: "2", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Smooth Breathing"),
-    UIKeyCommand(input: "3", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Acute"),
-    /*UIKeyCommand(input: "4", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Grave"),*/
-    UIKeyCommand(input: "5", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Circumflex"),
-    UIKeyCommand(input: "6", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Macron"),
-    /*UIKeyCommand(input: "7", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Breve"),*/
-    UIKeyCommand(input: "8", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Iota Subscript"),
-    /*UIKeyCommand(input: "9", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Diaeresis"),*/
-    UIKeyCommand(input: "0", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Parentheses")]
+    let gkkeyCommands: [UIKeyCommand] = [
+        {
+            let cmd = UIKeyCommand(title: "Rough Breathing", action: #selector(extDiacriticKeyPressed), input: "1", modifierFlags: [])
+            cmd.discoverabilityTitle = "Rough Breathing"
+            return cmd
+        }(),
+        {
+            let cmd = UIKeyCommand(title: "Smooth Breathing", action: #selector(extDiacriticKeyPressed), input: "2", modifierFlags: [])
+            cmd.discoverabilityTitle = "Smooth Breathing"
+            return cmd
+        }(),
+        {
+            let cmd = UIKeyCommand(title: "Acute", action: #selector(extDiacriticKeyPressed), input: "3", modifierFlags: [])
+            cmd.discoverabilityTitle = "Acute"
+            return cmd
+        }(),
+        /*UIKeyCommand(input: "4", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Grave"),*/
+        {
+            let cmd = UIKeyCommand(title: "Circumflex", action: #selector(extDiacriticKeyPressed), input: "5", modifierFlags: [])
+            cmd.discoverabilityTitle = "Circumflex"
+            return cmd
+        }(),
+        {
+            let cmd = UIKeyCommand(title: "Macron", action: #selector(extDiacriticKeyPressed), input: "6", modifierFlags: [])
+            cmd.discoverabilityTitle = "Macron"
+            return cmd
+        }(),
+        /*UIKeyCommand(input: "7", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Breve"),*/
+        {
+            let cmd = UIKeyCommand(title: "Iota Subscript", action: #selector(extDiacriticKeyPressed), input: "8", modifierFlags: [])
+            cmd.discoverabilityTitle = "Iota Subscript"
+            return cmd
+        }(),
+        /*UIKeyCommand(input: "9", modifierFlags: [], action: #selector(extDiacriticKeyPressed), discoverabilityTitle: "Diaeresis"),*/
+        {
+            let cmd = UIKeyCommand(title: "Parentheses", action: #selector(extDiacriticKeyPressed), input: "0", modifierFlags: [])
+            cmd.discoverabilityTitle = "Parentheses"
+            return cmd
+        }()
+    ]
     /*
      
     var diacritics:[diacriticKey] = [.circumflexKey, .acuteKey] {
