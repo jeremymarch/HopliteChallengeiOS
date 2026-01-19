@@ -37,7 +37,7 @@ jobs:
           xcodebuild test \
             -project HopliteChallenge.xcodeproj \
             -scheme HopliteChallenge \
-            -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.2' \
+            -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.2' \
             -enableCodeCoverage YES
 
       - name: Upload test results
