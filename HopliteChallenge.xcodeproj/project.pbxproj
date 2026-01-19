@@ -527,14 +527,14 @@
 				TargetAttributes = {
 					3F15E16F1E8450A0009760A0 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = EFHC4XFZ38;
+						DevelopmentTeam = D7HBL67RRN;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 3F34439E1E6BB17700FFAD04;
 					};
 					3F34439E1E6BB17700FFAD04 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = EFHC4XFZ38;
+						DevelopmentTeam = D7HBL67RRN;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -723,7 +723,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = EFHC4XFZ38;
+				DEVELOPMENT_TEAM = D7HBL67RRN;
 				INFOPLIST_FILE = hctestTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -739,7 +739,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = EFHC4XFZ38;
+				DEVELOPMENT_TEAM = D7HBL67RRN;
 				INFOPLIST_FILE = hctestTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -882,8 +882,8 @@
 				CODE_SIGN_ENTITLEMENTS = HopliteChallenge.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
-				DEVELOPMENT_TEAM = EFHC4XFZ38;
+				CURRENT_PROJECT_VERSION = 73;
+				DEVELOPMENT_TEAM = D7HBL67RRN;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -898,7 +898,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -916,8 +916,8 @@
 				CODE_SIGN_ENTITLEMENTS = HopliteChallenge.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
-				DEVELOPMENT_TEAM = EFHC4XFZ38;
+				CURRENT_PROJECT_VERSION = 73;
+				DEVELOPMENT_TEAM = D7HBL67RRN;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -932,7 +932,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
