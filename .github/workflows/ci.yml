@@ -15,11 +15,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: "true"
 
       - name: Set up Xcode version
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest
+
+      - name: List available simulators (debug)
+        run: xcrun simctl list devices
 
       - name: Install dependencies (CocoaPods)
         run: |
@@ -32,7 +37,7 @@ jobs:
           xcodebuild test \
             -project HopliteChallenge.xcodeproj \
             -scheme HopliteChallenge \
-            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.2' \
             -enableCodeCoverage YES
 
       - name: Upload test results
