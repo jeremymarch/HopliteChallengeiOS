@@ -59,6 +59,8 @@ class RetroHomeMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        playButton?.accessibilityIdentifier = "PlayButton"
+        
         resetColors()
         
         let upgradeRes = copyFileFromBundle(bundledDBName: (UIApplication.shared.delegate as! AppDelegate).dbfile, extForFile: (UIApplication.shared.delegate as! AppDelegate).dbext)

@@ -63,10 +63,9 @@ class HopliteChallenge: BaseViewController, hckeys {
     //https://stablekernel.com/creating-a-delightful-user-experience-with-ios-keyboard-shortcuts/
     override var keyCommands: [UIKeyCommand]? {
         return [
-            //UIKeyCommand(title: "Rough Breathing", image: nil, action: #selector(extDiacriticKeyPressed), input: "1", modifierFlags: [], propertyList: [], alternates: [], discoverabilityTitle: "Rough Breathing", attributes: [], state: .on),
-            
-            UIKeyCommand(input: " ", modifierFlags: [], action: #selector(continuePressed(button:)), discoverabilityTitle: "Continue"),
-            UIKeyCommand(input: "\t", modifierFlags: [], action: #selector(mfKeyPressed), discoverabilityTitle: "Multiple Forms")]
+            UIKeyCommand(title: "Continue", image: nil, action: #selector(continuePressed(button:)), input: " ", modifierFlags: [], propertyList: nil, alternates: [], discoverabilityTitle: "Continue", attributes: [], state: .off),
+            UIKeyCommand(title: "Multiple Forms", image: nil, action: #selector(mfKeyPressed), input: "\t", modifierFlags: [], propertyList: nil, alternates: [], discoverabilityTitle: "Multiple Forms", attributes: [], state: .off)
+        ]
     }
 
     /*
@@ -135,6 +134,7 @@ class HopliteChallenge: BaseViewController, hckeys {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = "HopliteChallengeView"
         if vs.vsInit(vDBPath: (UIApplication.shared.delegate as! AppDelegate).dbpath) != 0
         {
             //label1.settext

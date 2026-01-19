@@ -51,6 +51,17 @@
                referenceType = "1">
             </LocationScenarioReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3F8995D32F1E9A56005F63E1"
+               BuildableName = "HopliteChallengeUITests.xctest"
+               BlueprintName = "HopliteChallengeUITests"
+               ReferencedContainer = "container:HopliteChallenge.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

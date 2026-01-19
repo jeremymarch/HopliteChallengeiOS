@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -110,6 +110,13 @@
 			remoteGlobalIDString = 3F34439E1E6BB17700FFAD04;
 			remoteInfo = hctest;
 		};
+		3F8995DA2F1E9A56005F63E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F3443971E6BB17700FFAD04 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3F34439E1E6BB17700FFAD04;
+			remoteInfo = HopliteChallenge;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -203,6 +210,7 @@
 		3F7A63D120B7BD26003D483C /* HCVerbFormPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCVerbFormPicker.swift; sourceTree = "<group>"; };
 		3F7A63D320B7DCB5003D483C /* HCStemLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCStemLabel.swift; sourceTree = "<group>"; };
 		3F805CD02818EBDA00B6AAC9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		3F8995D42F1E9A56005F63E1 /* HopliteChallengeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HopliteChallengeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F8F1ECD281AEDFE006342EC /* new.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = new.txt; path = zzztests/new.txt; sourceTree = "<group>"; };
 		3F938EE2222DC10B00594AC8 /* RetroHomeMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroHomeMenuViewController.swift; sourceTree = "<group>"; };
 		3F9713AB237471BA00DF32DE /* GlobalColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalColors.swift; sourceTree = "<group>"; };
@@ -242,6 +250,10 @@
 		3FF71B4A1E7A290300144F7D /* Verb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		3F8995D52F1E9A56005F63E1 /* HopliteChallengeUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = HopliteChallengeUITests; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		3F15E16D1E8450A0009760A0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -251,6 +263,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3F34439C1E6BB17700FFAD04 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F8995D12F1E9A56005F63E1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -310,6 +329,7 @@
 				3F7813CD23877DF90094173E /* HopliteKB */,
 				3F3443A11E6BB17700FFAD04 /* HopliteChallenge */,
 				3F15E1711E8450A0009760A0 /* HopliteChallengeTests */,
+				3F8995D52F1E9A56005F63E1 /* HopliteChallengeUITests */,
 				3F3443A01E6BB17700FFAD04 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -319,6 +339,7 @@
 			children = (
 				3F34439F1E6BB17700FFAD04 /* HopliteChallenge.app */,
 				3F15E1701E8450A0009760A0 /* HopliteChallengeTests.xctest */,
+				3F8995D42F1E9A56005F63E1 /* HopliteChallengeUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -515,13 +536,36 @@
 			productReference = 3F34439F1E6BB17700FFAD04 /* HopliteChallenge.app */;
 			productType = "com.apple.product-type.application";
 		};
+		3F8995D32F1E9A56005F63E1 /* HopliteChallengeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F8995DC2F1E9A56005F63E1 /* Build configuration list for PBXNativeTarget "HopliteChallengeUITests" */;
+			buildPhases = (
+				3F8995D02F1E9A56005F63E1 /* Sources */,
+				3F8995D12F1E9A56005F63E1 /* Frameworks */,
+				3F8995D22F1E9A56005F63E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3F8995DB2F1E9A56005F63E1 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				3F8995D52F1E9A56005F63E1 /* HopliteChallengeUITests */,
+			);
+			name = HopliteChallengeUITests;
+			packageProductDependencies = (
+			);
+			productName = HopliteChallengeUITests;
+			productReference = 3F8995D42F1E9A56005F63E1 /* HopliteChallengeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		3F3443971E6BB17700FFAD04 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 1410;
 				ORGANIZATIONNAME = "Jeremy March";
 				TargetAttributes = {
@@ -543,6 +587,10 @@
 							};
 						};
 					};
+					3F8995D32F1E9A56005F63E1 = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = 3F34439E1E6BB17700FFAD04;
+					};
 				};
 			};
 			buildConfigurationList = 3F34439A1E6BB17700FFAD04 /* Build configuration list for PBXProject "HopliteChallenge" */;
@@ -560,6 +608,7 @@
 			targets = (
 				3F34439E1E6BB17700FFAD04 /* HopliteChallenge */,
 				3F15E16F1E8450A0009760A0 /* HopliteChallengeTests */,
+				3F8995D32F1E9A56005F63E1 /* HopliteChallengeUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -606,6 +655,13 @@
 				3F78140723877E660094173E /* DefaultSettings.xib in Resources */,
 				3FF462E7218D1AA3005B0629 /* circlegreen.png in Resources */,
 				3F2BF3C71E6DC8EC00884CDC /* redx.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F8995D22F1E9A56005F63E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -689,6 +745,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3F8995D02F1E9A56005F63E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -696,6 +759,11 @@
 			isa = PBXTargetDependency;
 			target = 3F34439E1E6BB17700FFAD04 /* HopliteChallenge */;
 			targetProxy = 3F15E1751E8450A0009760A0 /* PBXContainerItemProxy */;
+		};
+		3F8995DB2F1E9A56005F63E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3F34439E1E6BB17700FFAD04 /* HopliteChallenge */;
+			targetProxy = 3F8995DA2F1E9A56005F63E1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -726,7 +794,11 @@
 				DEVELOPMENT_TEAM = D7HBL67RRN;
 				INFOPLIST_FILE = hctestTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hctestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
@@ -742,7 +814,11 @@
 				DEVELOPMENT_TEAM = D7HBL67RRN;
 				INFOPLIST_FILE = hctestTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hctestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
@@ -864,8 +940,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_INCLUDE_PATHS = "";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 				"SWIFT_VERSION[arch=*]" = 5.0;
@@ -897,7 +974,10 @@
 				INFOPLIST_FILE = hctest/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -931,13 +1011,78 @@
 				INFOPLIST_FILE = hctest/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.hoplite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "hctest/hctest-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		3F8995DD2F1E9A56005F63E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D7HBL67RRN;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.HopliteChallengeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = HopliteChallenge;
+			};
+			name = Debug;
+		};
+		3F8995DE2F1E9A56005F63E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D7HBL67RRN;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.philolog.HopliteChallengeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = HopliteChallenge;
 			};
 			name = Release;
 		};
@@ -967,6 +1112,15 @@
 			buildConfigurations = (
 				3F3443B51E6BB17700FFAD04 /* Debug */,
 				3F3443B61E6BB17700FFAD04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3F8995DC2F1E9A56005F63E1 /* Build configuration list for PBXNativeTarget "HopliteChallengeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F8995DD2F1E9A56005F63E1 /* Debug */,
+				3F8995DE2F1E9A56005F63E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
