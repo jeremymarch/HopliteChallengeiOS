@@ -12,6 +12,7 @@ on:
 jobs:
   build-and-test:
     runs-on: macos-latest
+    timeout-minutes: 40
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,23 +27,22 @@ jobs:
       - name: List available simulators (debug)
         run: xcrun simctl list devices
 
-      - name: Install dependencies (CocoaPods)
-        run: |
-          if [ -f Podfile ]; then
-            pod install
-          fi
+      # - name: Install dependencies (CocoaPods)
+      #   run: |
+      #     if [ -f Podfile ]; then
+      #       pod install
+      #     fi
 
       - name: Build and test (unit tests and UI tests)
         run: |
           xcodebuild test \
             -project HopliteChallenge.xcodeproj \
-            -scheme HopliteChallenge \
-            -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.2' \
-            -enableCodeCoverage YES
+            -scheme hctest \
+            -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.2'
 
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: TestResults
-          path: ~/Library/Logs/DiagnosticReports
+      # - name: Upload test results
+      #   if: always()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: TestResults
+      #     path: ~/Library/Logs/DiagnosticReports
