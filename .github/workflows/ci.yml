@@ -37,7 +37,7 @@ jobs:
         run: |
           xcodebuild test \
             -project HopliteChallenge.xcodeproj \
-            -scheme hctest \
+            -scheme HopliteChallenge \
             -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.2'
 
       # - name: Upload test results
