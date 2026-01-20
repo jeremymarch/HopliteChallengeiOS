@@ -54,6 +54,26 @@ class GameResultsViewController: UITableViewController {
         //print("len" + String(res.count) + " , " + String(res[0].verbid))
     }
     
+    func resetColors()
+    {
+        GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
+        //UINavigationBar.appearance().tintColor = GlobalTheme.primaryText
+        view.backgroundColor = GlobalTheme.primaryBG
+        navigationController?.navigationBar.tintColor  = GlobalTheme.primaryText
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
+            {
+                resetColors()
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
     func query(db:OpaquePointer, gameid:Int) {
         var queryStatement: OpaquePointer? = nil
 

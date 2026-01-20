@@ -22,6 +22,7 @@ class GameHistoryViewController: UITableViewController {
     {
         GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
         //UINavigationBar.appearance().tintColor = GlobalTheme.primaryText
+        view.backgroundColor = GlobalTheme.primaryBG
         navigationController?.navigationBar.tintColor  = GlobalTheme.primaryText
     }
     

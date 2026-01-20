@@ -42,7 +42,7 @@
 		3F304EC621A75C380046A6C4 /* circleblue.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F304EC521A75C380046A6C4 /* circleblue.png */; };
 		3F3443A31E6BB17700FFAD04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443A21E6BB17700FFAD04 /* AppDelegate.swift */; };
 		3F3443A51E6BB17700FFAD04 /* HopliteChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443A41E6BB17700FFAD04 /* HopliteChallenge.swift */; };
-		3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443A61E6BB17700FFAD04 /* Main.storyboard */; };
+		3F3443A81E6BB17700FFAD04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443A61E6BB17700FFAD04 /* Main.storyboard */; settings = {ASSET_TAGS = (11, ); }; };
 		3F3443AB1E6BB17700FFAD04 /* hctest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443A91E6BB17700FFAD04 /* hctest.xcdatamodeld */; };
 		3F3443AD1E6BB17700FFAD04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443AC1E6BB17700FFAD04 /* Assets.xcassets */; };
 		3F3443B01E6BB17700FFAD04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443AE1E6BB17700FFAD04 /* LaunchScreen.storyboard */; };
@@ -565,6 +565,9 @@
 		3F3443971E6BB17700FFAD04 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					11,
+				);
 				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 1410;
 				ORGANIZATIONNAME = "Jeremy March";

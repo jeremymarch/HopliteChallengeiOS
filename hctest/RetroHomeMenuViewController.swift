@@ -33,6 +33,7 @@ class RetroHomeMenuViewController: UIViewController {
     {
         GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
         view.backgroundColor = GlobalTheme.primaryBG
+        view.viewWithTag(11)?.backgroundColor = UIColor.clear
         hopliteLabel?.textColor = GlobalTheme.primaryText
         
         settingsButton?.layer.borderColor = GlobalTheme.primaryText.cgColor

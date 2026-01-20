@@ -71,10 +71,12 @@ class DefaultTheme {
 
 class DarkTheme:DefaultTheme {
     override class var primaryBG: UIColor {
-        return UIColor.black
+        return UIColor.init(red: 18/255.0, green: 18/255.0, blue: 18/255.0, alpha: 1.0)
+        //return UIColor.black
     }
     override class var primaryText: UIColor {
-        return UIColor.white
+        return UIColor.init(red: 224/255.0, green: 224/255.0, blue: 224/255.0, alpha: 1.0)
+        //return UIColor.white
     }
     override class var secondaryBG: UIColor {
         return UIColor.darkGray

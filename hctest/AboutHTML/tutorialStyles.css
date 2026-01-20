@@ -11,7 +11,7 @@ li { margin-top: 3px; margin-bottom: 6px; }
 
 
 @media (prefers-color-scheme: dark) {
-  BODY { background-color: black; color: white; }
+  BODY { background-color: #121212; color: #E0E0E0; }
   A { color: #347cd8; }
 }
 @media (prefers-color-scheme: light) {

@@ -51,8 +51,11 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
         //UINavigationBar.appearance().tintColor = GlobalTheme.primaryText
         navigationController?.navigationBar.tintColor  = GlobalTheme.primaryText
-        
+        view.backgroundColor = GlobalTheme.primaryBG
+        tableView.backgroundColor = GlobalTheme.primaryBG
         searchView.layer.borderColor = GlobalTheme.primaryText.cgColor
+        searchView.backgroundColor = GlobalTheme.primaryBG
+        searchView.tintColor = GlobalTheme.primaryText
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

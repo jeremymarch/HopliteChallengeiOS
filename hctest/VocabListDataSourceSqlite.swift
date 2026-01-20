@@ -313,6 +313,8 @@ class VocabListDataSourceSqlite: NSObject, VocabDataSourceProtocol {
             attStr.addAttributes(unitAttributes, range: NSRange(location: (nsstring.length + unitLen + 3) - (unitLen + 2) , length: unitLen + 2))
             cell.textLabel!.attributedText = attStr
         }
+        cell.backgroundColor = GlobalTheme.primaryBG
+        cell.tintColor = GlobalTheme.primaryText
         
         //let greekFont = UIFont(name: "NewAthenaUnicode", size: 24.0)
         //cell.textLabel?.font = greekFont

@@ -42,6 +42,8 @@ class VerbDetailViewController: UITableViewController {
         GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
         //UINavigationBar.appearance().tintColor = GlobalTheme.primaryText
         navigationController?.navigationBar.tintColor  = GlobalTheme.primaryText
+        view.backgroundColor = GlobalTheme.primaryBG
+        tableView.backgroundColor = GlobalTheme.primaryBG
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

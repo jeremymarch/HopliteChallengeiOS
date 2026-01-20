@@ -47,13 +47,35 @@ class HCSettingsViewController: UITableViewController {
         self.navigationController?.isNavigationBarHidden = false
     }
     
+    func resetColors()
+    {
+        GlobalTheme = (isDarkMode()) ? DarkTheme.self : DefaultTheme.self
+        //UINavigationBar.appearance().tintColor = GlobalTheme.primaryText
+        navigationController?.navigationBar.tintColor  = GlobalTheme.primaryText
+        view.backgroundColor = GlobalTheme.primaryBG
+        tableView.backgroundColor = GlobalTheme.primaryBG
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true
+            {
+                resetColors()
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell")!
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         cell.layoutMargins = UIEdgeInsets.zero
         cell.preservesSuperviewLayoutMargins = false
-        cell.backgroundColor = UIColor.clear
+        cell.backgroundColor = GlobalTheme.primaryBG
+        cell.tintColor = GlobalTheme.primaryText
         cell.accessoryType = UITableViewCell.AccessoryType.none
         
         let switchView = UISwitch()
