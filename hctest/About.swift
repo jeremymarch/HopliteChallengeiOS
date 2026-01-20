@@ -20,9 +20,20 @@ class AboutPageViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = GlobalTheme.primaryBG
+
+            // To make it transparent (no gradient, no color):
+            // appearance.configureWithTransparentBackground()
+
+            // Apply the appearance to the standard, compact, and scroll edge states
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().compactAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
         
         //this fixes ugly transition when this view is clear until it is fully loaded
-        view.backgroundColor = UIColor.black
+        view.backgroundColor = GlobalTheme.primaryBG
         
         dataSource = self
         
