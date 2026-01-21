@@ -26,8 +26,8 @@ class HopliteChallenge: BaseViewController, hckeys {
     let quitButtonToMenu = false
     let scoreLabel = UILabel()
     let mfLabel = UILabel()
-    let checkImg = UIImage(named:"greencheck.png")
-    let xImg = UIImage(named:"redx.png")
+    let checkImg = UIImage(systemName: "checkmark.circle.fill")//(named:"greencheck.png")
+    let xImg = UIImage(systemName: "x.circle.fill")//UIImage(named:"redx.png")
     let checkXView = UIImageView()
     var fromVerbDetail = false
     var startOnIncorrect = true
@@ -100,7 +100,6 @@ class HopliteChallenge: BaseViewController, hckeys {
         
         quitButton.backgroundColor = GlobalTheme.primaryBG
         quitButton.layer.borderColor = GlobalTheme.primaryText.cgColor
-                quitButton.setTitleColor(GlobalTheme.primaryText, for: [])
         
         gameOverLabel.backgroundColor = GlobalTheme.primaryBG
         gameOverLabel.textColor = UIColor.red
@@ -247,7 +246,7 @@ class HopliteChallenge: BaseViewController, hckeys {
         quitButton.layer.borderWidth = 2.0
         
         quitButton.layer.cornerRadius = 4.0
-        quitButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
+        //quitButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
  
         //var image:UIImage?
         if quitButtonToMenu
@@ -261,9 +260,12 @@ class HopliteChallenge: BaseViewController, hckeys {
             quitButton.addTarget(self, action: #selector(goBackToVerbDetail), for: UIControl.Event.touchUpInside)
         }
         //quitButton.setImage(image!, for: .normal)
-        quitButton.setTitle("X", for: [])
-        quitButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 20.0)
-
+        //quitButton.setTitle("X", for: [])
+        //quitButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: 20.0)
+        let quitImage = UIImage(systemName: "xmark")
+        quitButton.setImage(quitImage, for: .normal)
+        quitButton.tintColor = GlobalTheme.primaryText
+        
         headerView.addSubview(scoreLabel)
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 0.0).isActive = true
@@ -300,7 +302,7 @@ class HopliteChallenge: BaseViewController, hckeys {
         mfLabel.layer.cornerRadius = 4.0
         mfLabel.isHidden = true
         
-        let life1i = UIImage(named:"Life4X.png")
+        let life1i = UIImage(systemName: "circle.fill")// named:"Life4X.png")
         headerView.addSubview(life1)
         life1.translatesAutoresizingMaskIntoConstraints = false
         life1.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0.0).isActive = true
@@ -308,6 +310,7 @@ class HopliteChallenge: BaseViewController, hckeys {
         life1.heightAnchor.constraint(equalToConstant: lifeSize).isActive = true
         life1.widthAnchor.constraint(equalToConstant: lifeSize).isActive = true
         life1.image = life1i
+        life1.tintColor = UIColor.init(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         
         headerView.addSubview(life2)
         life2.translatesAutoresizingMaskIntoConstraints = false
@@ -316,6 +319,7 @@ class HopliteChallenge: BaseViewController, hckeys {
         life2.heightAnchor.constraint(equalToConstant: lifeSize).isActive = true
         life2.widthAnchor.constraint(equalToConstant: lifeSize).isActive = true
         life2.image = life1i
+        life2.tintColor = UIColor.init(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         
         headerView.addSubview(life3)
         life3.translatesAutoresizingMaskIntoConstraints = false
@@ -324,6 +328,7 @@ class HopliteChallenge: BaseViewController, hckeys {
         life3.heightAnchor.constraint(equalToConstant: lifeSize).isActive = true
         life3.widthAnchor.constraint(equalToConstant: lifeSize).isActive = true
         life3.image = life1i
+        life3.tintColor = UIColor.init(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         
         view.addSubview(label1)
         label1.translatesAutoresizingMaskIntoConstraints = false
@@ -398,6 +403,7 @@ class HopliteChallenge: BaseViewController, hckeys {
         view.addSubview(checkXView)
         checkXView.translatesAutoresizingMaskIntoConstraints = false
         checkXView.image = checkImg
+        checkXView.tintColor = GlobalTheme.greenCheck
         checkXView.heightAnchor.constraint(equalToConstant: 25.0).isActive = true
         checkXView.widthAnchor.constraint(equalToConstant: 25.0).isActive = true
         
@@ -863,6 +869,7 @@ class HopliteChallenge: BaseViewController, hckeys {
             assert(Data(vs.requestedForm.getFormForGame(decomposed: false).utf8) == Data(textView.text.utf8), "Error comparing answer binary.")
             */
             checkXView.image = checkImg
+            checkXView.tintColor = GlobalTheme.greenCheck
             checkXView.isHidden = false
             if vs.isHCGame
             {
@@ -876,6 +883,7 @@ class HopliteChallenge: BaseViewController, hckeys {
             showAnswer()
             print("incorrect!")
             checkXView.image = xImg
+            checkXView.tintColor = GlobalTheme.redX
             checkXView.isHidden = false
             /*
             assert(vs.requestedForm.getFormForGame(decomposed: false) != textView.text, "Error comparing answer.")

@@ -56,6 +56,8 @@ class VocabTableViewController: UIViewController, UITableViewDelegate, UITextFie
         searchView.layer.borderColor = GlobalTheme.primaryText.cgColor
         searchView.backgroundColor = GlobalTheme.primaryBG
         searchView.tintColor = GlobalTheme.primaryText
+        searchToggleButton.setTitleColor(GlobalTheme.primaryText, for: .normal)
+        searchTextField.textColor = GlobalTheme.primaryText
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

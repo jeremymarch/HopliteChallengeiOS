@@ -48,6 +48,12 @@ class DefaultTheme {
     class var rowHighlightBG: UIColor {
         return UIColor.init(red: 66/255.0, green: 127/255.0, blue: 237/255.0, alpha: 1.0)
     }
+    class var greenCheck: UIColor {
+        return UIColor(red: 0.0, green: 168/255.0, blue: 107/255.0, alpha: 1.0)
+    }
+    class var redX: UIColor {
+        return UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+    }
     class var menuButtonBG: UIColor {
         return tertiaryBG
     }
@@ -98,6 +104,12 @@ class DarkTheme:DefaultTheme {
     }
     override class var rowHighlightBG: UIColor {
         return UIColor.darkGray
+    }
+    override class var greenCheck: UIColor {
+        return UIColor(red: 0.0, green: 168/255.0, blue: 107/255.0, alpha: 1.0)
+    }
+    override class var redX: UIColor {
+        return UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
     }
     override class var menuButtonBG: UIColor {
         return secondaryBG

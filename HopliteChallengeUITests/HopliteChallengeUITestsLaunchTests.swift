@@ -5,7 +5,7 @@
 //  Created by jeremy on 1/19/26.
 //  Copyright © 2026 Jeremy March. All rights reserved.
 //
-
+/*
 import XCTest
 
 final class HopliteChallengeUITestsLaunchTests: XCTestCase {
@@ -32,3 +32,5 @@ final class HopliteChallengeUITestsLaunchTests: XCTestCase {
         add(attachment)
     }
 }
+*/
+

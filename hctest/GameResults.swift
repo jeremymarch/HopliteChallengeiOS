@@ -26,8 +26,8 @@ class GameResultsViewController: UITableViewController {
     var isHCGame = false //set from previous view controller
     
     var res = [Result]()
-    let checkImage = UIImage(named:"greencheck.png")
-    let xImage = UIImage(named:"redx.png")
+    let checkImage = UIImage(systemName: "checkmark.circle.fill")// named:"greencheck.png")
+    let xImage = UIImage(systemName: "x.circle.fill")// named:"redx.png")
     let vf = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: 0)
     let prevVF = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: 0)
     let f = UIFont(name: "HelveticaNeue", size: 16.0)!
@@ -206,6 +206,7 @@ class GameResultsViewController: UITableViewController {
             timeTitle.text = res[index].elapsedTime
             timeTitle.isHidden = false
             isCorrect.image = (res[index].isCorrect == 0) ? xImage : checkImage
+            isCorrect.tintColor = (res[index].isCorrect == 0) ? GlobalTheme.redX : GlobalTheme.greenCheck
             isCorrect.isHidden = false
         }
         return cell
