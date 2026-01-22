@@ -51,6 +51,8 @@ class GameResultsViewController: UITableViewController {
         {
             query(db: db, gameid: gameid)
         }
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
         //print("len" + String(res.count) + " , " + String(res[0].verbid))
     }
     
@@ -247,9 +249,9 @@ class GameResultsViewController: UITableViewController {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
-    }
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 80
+//    }
    /*
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
