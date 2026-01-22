@@ -21,6 +21,5 @@ class PlayButtonFlowUITest: XCTestCase {
         let hopliteChallengeView = app.otherElements["HopliteChallengeView"]
         XCTAssertTrue(hopliteChallengeView.waitForExistence(timeout: 5), "HopliteChallengeView did not appear")
     }
-
 }
 
