@@ -49,6 +49,7 @@
 		3F3443CE1E6BB33400FFAD04 /* VerbForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3443CD1E6BB33400FFAD04 /* VerbForm.swift */; };
 		3F3443D71E6C814200FFAD04 /* newathu5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F3443D61E6C814200FFAD04 /* newathu5.ttf */; };
 		3F518D5A23CC5F1E007D0150 /* hcgreekSQLiteCollation.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F518D5923CC5F1E007D0150 /* hcgreekSQLiteCollation.c */; };
+		3F62DA6E2F255F3E0044260F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F62DA6D2F255F390044260F /* SceneDelegate.swift */; };
 		3F63C60C238C36C500BC9EBB /* minimalGreekKB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C60B238C36C500BC9EBB /* minimalGreekKB.swift */; };
 		3F63C60E238C36E600BC9EBB /* minimalGreekKeyboardKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63C60D238C36E600BC9EBB /* minimalGreekKeyboardKeys.swift */; };
 		3F65593E22E3FF5E0032F3F8 /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F65593D22E3FF5E0032F3F8 /* About.swift */; };
@@ -161,6 +162,7 @@
 		3F518D5923CC5F1E007D0150 /* hcgreekSQLiteCollation.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hcgreekSQLiteCollation.c; sourceTree = "<group>"; };
 		3F5CE41B239E93B000379F97 /* GKTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKTextView.swift; sourceTree = "<group>"; };
 		3F614D572397482000D3358C /* sqlite3ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sqlite3ext.h; sourceTree = "<group>"; };
+		3F62DA6D2F255F390044260F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		3F63B7B51FCA6A4600A83063 /* VocabTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabTableViewController.swift; sourceTree = "<group>"; };
 		3F63C60B238C36C500BC9EBB /* minimalGreekKB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = minimalGreekKB.swift; sourceTree = "<group>"; };
 		3F63C60D238C36E600BC9EBB /* minimalGreekKeyboardKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = minimalGreekKeyboardKeys.swift; path = hoplitekb2/Keyboard/minimalGreekKeyboardKeys.swift; sourceTree = SOURCE_ROOT; };
@@ -347,6 +349,7 @@
 		3F3443A11E6BB17700FFAD04 /* HopliteChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				3F62DA6D2F255F390044260F /* SceneDelegate.swift */,
 				3F24315C235D2A13001BFE8A /* AboutHTML */,
 				3F19690922ADB46A0075D556 /* hcdatadb1-5.sqlite */,
 				3F19690322ACAD010075D556 /* hqvocab.json */,
@@ -704,6 +707,7 @@
 				3F7813F523877E660094173E /* DirectionEnum.swift in Sources */,
 				3F78141223886FD70094173E /* hckeyboard.swift in Sources */,
 				3F78140423877E660094173E /* Utilities.swift in Sources */,
+				3F62DA6E2F255F3E0044260F /* SceneDelegate.swift in Sources */,
 				3F9F2223222C9F9F00BB54F1 /* ending.c in Sources */,
 				3F7813F723877E660094173E /* KeyboardLayout.swift in Sources */,
 				3F13F5502944DCFE00AC3529 /* GameHistory.swift in Sources */,
