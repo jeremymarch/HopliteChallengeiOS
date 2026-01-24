@@ -30,8 +30,11 @@ class GameResultsViewController: UITableViewController {
     let xImage = UIImage(systemName: "x.circle.fill")// named:"redx.png")
     let vf = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: 0)
     let prevVF = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: 0)
-    let f = UIFont(name: "HelveticaNeue", size: 16.0)!
-    lazy var startTextAttributes = [NSAttributedString.Key.font: f]
+    //let f = UIFont(name: "HelveticaNeue", size: 16.0)!
+    let greekFont = UIFont(name: "NewAthenaUnicode", size: 18.0)
+    //lazy var startTextAttributes = [NSAttributedString.Key.font: f]
+    lazy var italicTextAttributes = [NSAttributedString.Key.font: UIFont.italicSystemFont(ofSize: 16.0), NSAttributedString.Key.foregroundColor: UIColor.gray]
+    lazy var normalTextAttributes = [NSAttributedString.Key.font: greekFont, NSAttributedString.Key.foregroundColor: GlobalTheme.primaryText]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,7 +106,6 @@ class GameResultsViewController: UITableViewController {
                 
                 //print("Query Result:")
                 //print("\(person),\(number),\(tense),\(voice),\(mood):\(verbid) | \(incorrectString), \(isCorrect), \(timeString)")
-                
             }
         }
         else
@@ -191,22 +193,34 @@ class GameResultsViewController: UITableViewController {
             stemTitle.text = vf.getDescription()
         }
         
-        correctTitle.text = vf.getForm(decomposed: false).replacingOccurrences(of: "\n", with: " ", options: .literal, range: nil)
+        let attributedCorrect = NSAttributedString(string: "(" + vf.getForm(decomposed: false).replacingOccurrences(of: "\n", with: " ", options: .literal, range: nil) + ")", attributes: normalTextAttributes as [NSAttributedString.Key : Any])
+        correctTitle.attributedText = attributedCorrect
         
+        //if starting form of the sequence
         if res[index].incorrectAns == "START"
         {
             isCorrect.isHidden = true
             timeTitle.isHidden = true
             
-            let attributedQuote = NSAttributedString(string: res[index].incorrectAns, attributes: startTextAttributes)
+            let attributedQuote = NSAttributedString(string: "initial form", attributes: italicTextAttributes)
             incorrectTitle.attributedText = attributedQuote
         }
         else
         {
-            incorrectTitle.text = res[index].incorrectAns.replacingOccurrences(of: "\n", with: " ", options: .literal, range: nil)
+            //if given answer is blank
+            if res[index].incorrectAns.trimmingCharacters(in: .whitespaces).isEmpty {
+                let attributedUnasnwered = NSAttributedString(string: "unanswered", attributes: italicTextAttributes)
+                incorrectTitle.attributedText = attributedUnasnwered
+            }
+            else {
+                let incorrectAnswered = NSAttributedString(string: res[index].incorrectAns.replacingOccurrences(of: "\n", with: " ", options: .literal, range: nil), attributes: normalTextAttributes as [NSAttributedString.Key : Any])
+                incorrectTitle.attributedText = incorrectAnswered
+            }
             
             timeTitle.text = res[index].elapsedTime
+            timeTitle.textColor = GlobalTheme.primaryText
             timeTitle.isHidden = false
+            
             isCorrect.image = (res[index].isCorrect == 0) ? xImage : checkImage
             isCorrect.tintColor = (res[index].isCorrect == 0) ? GlobalTheme.redX : GlobalTheme.greenCheck
             isCorrect.isHidden = false
@@ -231,6 +245,7 @@ class GameResultsViewController: UITableViewController {
             }
             start += b[i].count + 1
         }
+        att.addAttribute(NSAttributedString.Key.foregroundColor, value: GlobalTheme.primaryText, range: NSRange(location: 0, length: att.length))
         return att
     }
     
