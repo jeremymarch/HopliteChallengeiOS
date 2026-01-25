@@ -24,8 +24,8 @@ jobs:
         with:
           xcode-version: latest
 
-      # - name: List available simulators (debug)
-      #   run: xcrun simctl list devices
+      - name: List available simulators (debug)
+        run: xcrun simctl list devices
 
       # - name: Install dependencies (CocoaPods)
       #   run: |
