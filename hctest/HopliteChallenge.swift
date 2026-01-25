@@ -36,6 +36,8 @@ class HopliteChallenge: BaseViewController, hckeys {
     let life2 = UIImageView()
     let life3 = UIImageView()
     
+    var headerViewLeftConstraint:NSLayoutConstraint?
+    
     var label1Top:NSLayoutConstraint?
     var stemLabelTop:NSLayoutConstraint?
     var textViewTop:NSLayoutConstraint?
@@ -131,6 +133,17 @@ class HopliteChallenge: BaseViewController, hckeys {
         }
     }
     
+    override func viewWillLayoutSubviews() {
+            super.viewWillLayoutSubviews()
+            if #available(iOS 26, *) {
+                // On iOS 26, the safe area layout guide doesn't automatically adjust
+                // for the control setting island's dimensions.
+                let safeAreaRegion = UIView.LayoutRegion.safeArea(cornerAdaptation: .horizontal)
+                let calculatedInsets = view.directionalEdgeInsets(for: safeAreaRegion)
+                headerViewLeftConstraint?.constant = calculatedInsets.leading
+            }
+          }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.accessibilityIdentifier = "HopliteChallengeView"
@@ -217,7 +230,11 @@ class HopliteChallenge: BaseViewController, hckeys {
         view.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
         headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 6.0).isActive = true
-        headerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0).isActive = true
+        
+        //save this constraint in a variable so it can be adjusted to avoid 3 dot window controls in iPadOS 26
+        headerViewLeftConstraint = headerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0)
+        headerViewLeftConstraint?.isActive = true
+        
         headerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0.0).isActive = true
         headerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.0, constant: headerHeight).isActive = true
         
