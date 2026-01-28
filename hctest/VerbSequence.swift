@@ -111,16 +111,23 @@ class VerbSequence {
     {
         var expectedLen:Int32 = 0
         let expectedForm1 = stringToUtf16(s: expectedForm, len: &expectedLen)
-        let expectedBuffer = UnsafeMutablePointer<UInt16>(mutating: expectedForm1)
-        
+
         var enteredLen:Int32 = 0
         let enteredForm1 = stringToUtf16(s: enteredForm, len: &enteredLen)
-        let enteredBuffer = UnsafeMutablePointer<UInt16>(mutating: enteredForm1)
-        
-        //pass c string: http://stackoverflow.com/questions/31378120/convert-swift-string-into-cchar-pointer
-        let a = compareFormsCheckMF(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed)
 
-        return a
+        var isCorrect: Bool = false
+        // be sure swift arrays remain alive while calling the C function
+        expectedForm1.withUnsafeBufferPointer { expectedBuf in
+            enteredForm1.withUnsafeBufferPointer { enteredBuf in
+                guard let expectedBase = expectedBuf.baseAddress, let enteredBase = enteredBuf.baseAddress else {
+                    return
+                }
+                // compareFormsCheckMF expects pointers to UTF-16 data; call it while buffers are in scope
+                isCorrect = compareFormsCheckMF(UnsafeMutablePointer(mutating: expectedBase), expectedLen, UnsafeMutablePointer(mutating: enteredBase), enteredLen, mfPressed)
+            }
+        }
+
+        return isCorrect
     }
     
     func checkVerb(expectedForm:String, enteredForm:String, mfPressed:Bool, time:String) -> Bool
@@ -129,19 +136,23 @@ class VerbSequence {
         var vLives:Int32 = 0
         var expectedLen:Int32 = 0
         let expectedForm1 = stringToUtf16(s: expectedForm, len: &expectedLen)
-        let expectedBuffer = UnsafeMutablePointer<UInt16>(mutating: expectedForm1)
         
         var enteredLen:Int32 = 0
         let enteredForm1 = stringToUtf16(s: enteredForm, len: &enteredLen)
-        let enteredBuffer = UnsafeMutablePointer<UInt16>(mutating: enteredForm1)
         
-        //print(expectedForm1)
-        //print(enteredForm1)
         let newTime = time.replacingOccurrences(of: " sec", with: "")
         
-        //pass c string:
-        //http://stackoverflow.com/questions/31378120/convert-swift-string-into-cchar-pointer
-        let isCorrect = swvsCompareFormsRecordResult(expectedBuffer, expectedLen, enteredBuffer, enteredLen, mfPressed, newTime, &vScore, &vLives)
+        var isCorrect: Bool = false
+        // be sure swift arrays remain alive while calling the C function
+        expectedForm1.withUnsafeBufferPointer { expectedBuf in
+            enteredForm1.withUnsafeBufferPointer { enteredBuf in
+                guard let expectedBase = expectedBuf.baseAddress, let enteredBase = enteredBuf.baseAddress else {
+                    return
+                }
+                isCorrect = swvsCompareFormsRecordResult(UnsafeMutablePointer(mutating: expectedBase), expectedLen, UnsafeMutablePointer(mutating: enteredBase), enteredLen, mfPressed, newTime, &vScore, &vLives)
+            }
+        }
+
         self.score = vScore
         self.lives = Int(vLives)
         
@@ -184,7 +195,7 @@ class VerbSequence {
         return Int(ret)
     }
     
-    func vsClose()
+    func vsCloseWrapper()
     {
         vsClose();
     }
@@ -215,4 +226,3 @@ class VerbSequence {
     }
  */
 }
-
